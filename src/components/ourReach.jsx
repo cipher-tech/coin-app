@@ -14,14 +14,16 @@ const Container = styled.div`
     .cont{
         display: grid;
         grid-column: 1/-1;
-        place-items: center
+        place-items: center;
+        grid-template-columns: repeat(3, 1fr);
     }
     .reach-title{
         grid-column: 1/-1;
         display: grid;
-        width: 70%;
-        /* flex-basis: 100%; */
+        width: 100%;
+        flex-basis: 100%;
         justify-items: center;
+        text-align: center;
         font-size: ${props => props.theme.font.xLarge};
         padding: 3rem 2rem;
         flex-wrap: wrap;
@@ -29,22 +31,25 @@ const Container = styled.div`
     }
     .reach-text{
         display: flex;
-        width: 60%;
+        width: 70%;
+        padding: 1rem 2rem;
         text-align: center;
         font-size: ${props => props.theme.font.large};
         flex-wrap: wrap;
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium}) {
+            width: 100%
+        }
     }
 
     .reach-image{
-        padding: 3rem;
+        /* padding: 3rem; */
         display: flex;
-        flex-basis: 100%;
-        height: 40rem;
+        height: auto;
         place-content: center;
 
         img{
             height: 100%;
-
+            width: 100%;
         }
         
     }
@@ -62,13 +67,19 @@ const Container = styled.div`
         border-radius: 2rem;
         border: 1px solid rgb(255 255 255 / .4);
         font-size: ${props => props.theme.font.large};
-
+        margin-bottom: 2rem;
+       
         &--text{
             font-size: ${props => props.theme.font.large};
             color: ${props => props.theme.colorWhite};
             background: transparent;
             border: none;
-            
+            margin: 0 1rem;
+            &:focus{
+                outline: none;
+                border: none;
+                border-bottom:1px solid ${props => props.theme.colorWhite};
+            }
             &::placeholder{
                 color: ${props => props.theme.colorWhite};
             }
@@ -78,31 +89,55 @@ const Container = styled.div`
 const OurReach = () => {
     return (
         <Container>
-            <div className="cont">
-                <h3 className="reach-title">
+            {/* <div className="cont"> */}
+                <h3 className="reach-title"
+                    data-aos="zoom-in"
+                    data-aos-offset="400"
+                    data-aos-delay="300"
+                    data-aos-duration="600"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="true">
                     Anywhere in the World
                     We've got you corved
-            </h3>
-                <p className="reach-text">
+                </h3>
+                <p className="reach-text"
+                    data-aos="zoom-in"
+                    data-aos-offset="400"
+                    data-aos-delay="400"
+                    data-aos-duration="600"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="true">
                     Our services are available to you anywhere, anytime.
                     Each AJ global ventures  system is built for you and tailored to suit your need.
                     That’s how we plan to change the world.
                     By joining AJ global ventures, you help to make this dream come true and change the world with us
             </p>
 
-                <div className="reach-image">
+                <div className="reach-image"
+                    data-aos="zoom-in"
+                    data-aos-offset="500"
+                    data-aos-delay="500"
+                    data-aos-duration="600"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="true">
                     <img src={image} alt="world pics" />
                 </div>
-                <div className="reach-form">
+                <div className="reach-form"
+                    data-aos="zoom-in"
+                    data-aos-offset="300"
+                    data-aos-delay="500"
+                    data-aos-duration="800"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="true">
                     <p className="reach-form--text">
                         Subscribe to our newsletter
                 </p>
                     <p className="reach-form--input">
                         <input type="text" className="reach-form--input--text" placeholder="Email-Address" />
-                        <span className="reach-form--input--icon">=></span>
+                        <span className="reach-form--input--icon">></span>
                     </p>
                 </div>
-            </div>
+            {/* </div> */}
         </Container>
     )
 }

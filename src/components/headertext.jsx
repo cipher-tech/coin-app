@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
-    grid-column: 1 /-1;
+    /* grid-column: 1 /-1; */
     flex-direction: column;
     justify-content: center;
     color: ${props => props.theme.colorPrimary};
@@ -13,13 +13,16 @@ const Container = styled.div`
             position: relative;
             display: flex;
             flex-wrap: wrap;
-            grid-column: 1/-1;
+            /* grid-column: 1/-1; */
             flex-basis: 100%;
             place-content: center;
             font-weight: 500;
             font-size: 3rem;  
             padding: 2rem;
 
+            span{
+                color: ${props => props.theme.colorSecondary}
+            }
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
                 padding: .5rem;
                 text-align: center;
@@ -29,7 +32,7 @@ const Container = styled.div`
                 content: " ";
                 position: absolute;
                 bottom: 1rem;
-                width: 30%;
+                width: 20%;
                 height: .3rem;
                 background: ${props => props.theme.colorPrimary};
                 @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
@@ -40,7 +43,7 @@ const Container = styled.div`
                 content: " ";
                 position: absolute;
                 bottom: 0px;
-                width: 20%;
+                width: 10%;
                 height: .3rem;
                 background: ${props => props.theme.colorPrimary};
                 @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
@@ -64,10 +67,25 @@ const Container = styled.div`
 export default function Headertext(props) {
     return (
         <Container>
-            <h3>
-               {props.title}
+            <h3
+                data-aos="fade-right"
+                data-aos-offset="300"
+                data-aos-delay="300"
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
+               {props.title}  
+               <span>
+                    &nbsp; {props.coloredText}
+               </span>
             </h3>
-            <p>
+            <p
+                data-aos="fade-right"
+                data-aos-offset="300"
+                data-aos-delay="400"
+                data-aos-duration="800"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
                 {props.text}
             </p>
         </Container>

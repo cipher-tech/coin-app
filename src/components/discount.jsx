@@ -82,8 +82,21 @@ const Container = styled.div`
 const Discounts = () => {
     return (
         <Container>
-            <div className="discount">
-                <h3 className="discount-title">
+            <div className="discount"
+             data-aos="fade-right"
+                data-aos-offset="400"
+                data-aos-delay="500"
+                data-aos-duration="800"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
+                
+                <h3 className="discount-title"
+                 data-aos="fade-right"
+                data-aos-offset="300"
+                data-aos-delay="500"
+                data-aos-duration="700"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
                     Heard of Discounted Cards?
                 </h3>
                 <p className="discount-text">
@@ -93,10 +106,16 @@ const Discounts = () => {
                     Get Started
                 </button>
             </div>
-            <div className="discount--image">
-                <img className="" src={amazonCard} alt="dots pic" />
+            <div className="discount--image"
+             data-aos="zoom-in"
+                data-aos-offset="400"
+                data-aos-delay="600"
+                data-aos-duration="600"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
+                <img className="" src={amazonCard} alt="amazon pic" />
             </div>
-            <img className="dotSvg" src={dots} alt="dots pic" />
+            <img className="dotSvg" src={dots} alt="dots pic"/>
         </Container>
     )
 }

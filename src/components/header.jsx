@@ -1,19 +1,31 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import logo from "../images/brandLogo.jpg"
-import playstore from "../images/playstore.svg"
-import applestore from "../images/istore.svg"
-import bitcoinSvg from "../images/bitcoinSvg.svg"
+// import playstore from "../images/playstore.svg"
+// import applestore from "../images/istore.svg"
+// import bitcoinSvg from "../images/bitcoinSvg.svg"
 import waveSvg from "../images/waveSvg.svg"
+import { Carusel } from '.'
+// import wavePng from "../images/wavePng.png"
+// import wavePng from "../images/waveFigure.png
+const waveAnimation = keyframes`
+    from{ 
+        background-position: 0
+    }
 
+    to{
+        background-position: 0PX;
+    }
+`
 const Container = styled.div`
     display: grid;
     grid-column: 1/-1;
     grid-template-rows: min-content 70% 1fr;
     grid-template-columns: repeat(2, minmax(40rem, 1fr));
-    height: 90vh;
+    /* height: auto; */
     background: ${props => props.theme.colorPrimary};
     /* width: ; */
+    height: 90vh;
     position: relative;
     @media only screen and (min-width: ${props => props.theme.breakPoints.bpxxLarge}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
@@ -102,6 +114,9 @@ const Container = styled.div`
 
     }
 
+    .info{
+        grid-column: 1/-1;
+    }
     .headerInfo{
         display: grid;
         align-content: flex-end;
@@ -158,7 +173,7 @@ const Container = styled.div`
     }
 
     .headerSvg{
-        padding: .1rem;
+        /* padding: .1rem; */
         overflow: hidden;
         height: 100%;
         width: 100%;
@@ -173,20 +188,40 @@ const Container = styled.div`
         }
     }
     .waveSvg{
+        position: relative;
         grid-column: 1/-1;
-        height: 23rem;
+        height: 20rem;
         width: 100%;
         background-image: url(${waveSvg});
         background-size: cover;
         background-position: center;
-        /* background-position-y: 10px; */
         background-repeat: repeat-x;
         position: absolute; 
         bottom: 0px;
-        z-index: 5px;
+        z-index: -50px;
+        overflow: hidden;
 
+        transition: all 3s linear 0s; 
+        animation:  ${waveAnimation} 10s linear infinite;
+        /* &::after{
+            content: '';
+            position:absolute;
+            left: 0;
+            bottom:0;
+            height: 23rem;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat-x;
+            position: absolute; 
+            bottom: 0px;
+            z-index: -2px;
+            transform: translateY(5px);
+            transition: all 3s linear 0s; 
+            animation: 19s linear infinite;
+        } */
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
-            height: 33rem;
+            height: 25rem;
         }
         /* img{
             height: 100%;
@@ -199,18 +234,29 @@ const Container = styled.div`
 const Header = () => {
     return (
         <Container>
-            <div className="navbar">
+
+            <div className="navbar"
+             data-aos="fade-right"
+                data-aos-offset="00"
+                data-aos-delay="300"
+                data-aos-duration="600"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
                 <div className="navbar-logo">
                     <img src={logo} alt="" className="navbar-logo--img" />
                 </div>
                 <ul className="navbar-list">
-                    <li className="navbar-list-item">home</li>
-                    <li className="navbar-list-item">home</li>
-                    <li className="navbar-list-item">home</li>
-                    <li className="navbar-list-item">home</li>
-                    <li className="navbar-list-item">home</li>
+                    <li className="navbar-list-item">Home</li>
+                    <li className="navbar-list-item">About</li>
+                    <li className="navbar-list-item">Contact</li>
+                    <li className="navbar-list-item">Services</li>
                 </ul>
+
             </div>
+            <div className="info">
+                <Carusel />
+            </div>
+            {/*
             <div className="headerInfo">
                 <h3 className="headerInfo-text">
                     AJ global ventures
@@ -233,8 +279,19 @@ const Header = () => {
             </div>
 
             <div className="waveSvg">
-                {/* <img src={waveSvg} alt="waveSvg"/> */}
-            </div>
+             
+            </div> */}
+
+
+            <div
+                className="waveSvg"
+                data-aos="fade-up"
+                data-aos-offset="100"
+                data-aos-delay="100"
+                data-aos-duration="600"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true"
+                />
         </Container>
     )
 }

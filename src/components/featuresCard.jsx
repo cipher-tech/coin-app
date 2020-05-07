@@ -71,19 +71,27 @@ const Container = styled.div`
 const FeaturesCard = props => {
     return (
         <Container invert={props.invert}>
-            <div className="features--content">
-                <div>
+            <div className="features--content"
+                data-aos="fade-up"
+                data-aos-offset="400"
+                data-aos-delay="500"
+                data-aos-duration="700"
+                data-aos-easing="ease-in-out"
+                data-aos-once="true">
+                <div
+                >
                     <h4 className='features--content-title'>
-                        Trade Anything
+                        {props.title}
                     </h4>
                     <p className="features--content-text">
-                        The things that matter to you
-                        matter to us, you’re secure with us.
+                        {props.text}
                     </p>
                 </div>
 
                 <div className="features--content-image">
-                    <img src={props.image} alt="bitcoin img" />
+                    {props.calc? <div>
+                            {props.image}
+                        </div> : <img src={props.image} alt="bitcoin img" />}
                 </div>
             </div>
         </Container>

@@ -8,6 +8,9 @@ import Review from "./review";
 import Footer from "./footer";
 import Headertext from "./headertext";
 import FeaturesCard from "./featuresCard";
+import StepsCard from "./stepsCard";
+import SwiperCarusel from "./swiperCarusel";
+import { Galary } from "./galary";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -19,3 +22,6 @@ export const Reviews =  Review
 export const Foot =  Footer
 export const Heading = Headertext
 export const FeatureCard = FeaturesCard
+export const StepsItem = StepsCard
+export const Carusel = SwiperCarusel
+export const PhotoGallery = Galary

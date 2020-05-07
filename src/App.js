@@ -2,6 +2,8 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Container } from './components/styledComponents';
 import Main from './pages/main';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -24,7 +26,7 @@ const theme = {
 		small: "1.4rem",
 		xsmall: "1.0rem",
 		xxsmall: ".5rem",
-
+ 
 		mainFont: "Montserrat",
 		extra: "Segoe UI",
 		offSet: "Mongolian Baiti"
@@ -41,6 +43,8 @@ const theme = {
 		bpxSmall: "400px"
 	}
 }
+
+AOS.init()
 
 function App() {
 	return (
