@@ -8,7 +8,7 @@ import bitcoinSvg from "../images/bitcoinSvg.svg"
 // import EthereumSvg from "../images/ethereum.svg"
 import EthereumDesire from "../images/ethereumDesire.svg"
 import React, { Component} from 'react'
-import Particles from "react-particles-js";
+
 
 export default class swiperCarusel extends Component {
 
@@ -192,64 +192,7 @@ export default class swiperCarusel extends Component {
         }
         return (
             <Container>
-            <Particles
-             params={{
-	    "particles": {
-	        "number": {
-	            "value": 160,
-	            "density": {
-	                "enable": false
-	            }
-	        },
-	        "size": {
-	            "value": 3,
-	            "random": true,
-	            "anim": {
-	                "speed": 4,
-	                "size_min": 0.3
-	            }
-	        },
-	        "line_linked": {
-	            "enable": false
-	        },
-	        "move": {
-	            "random": true,
-	            "speed": 1,
-	            "direction": "top",
-	            "out_mode": "out"
-	        }
-	    },
-	    "interactivity": {
-	        "events": {
-	            "onhover": {
-	                "enable": true,
-	                "mode": "bubble"
-	            },
-	            "onclick": {
-	                "enable": true,
-	                "mode": "repulse"
-	            }
-	        },
-	        "modes": {
-	            "bubble": {
-	                "distance": 250,
-	                "duration": 2,
-	                "size": 0,
-	                "opacity": 0
-	            },
-	            "repulse": {
-	                "distance": 400,
-	                "duration": 4
-	            }
-	        }
-	    }
-	}}  style={{
-                position: "absolute",
-                height: "300%",
-                width: "100%",
-                top: "0px",
-                left: "0",
-            }}/>
+           
                 <Swiper shouldSwiperUpdate={true}  {...params} >
                
                     <div key='322' className="carursel">

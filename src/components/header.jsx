@@ -8,6 +8,7 @@ import waveSvg from "../images/waveSvg.svg"
 import { Carusel } from '.'
 // import wavePng from "../images/wavePng.png"
 // import wavePng from "../images/waveFigure.png
+import Particles from "react-particles-js";
 const waveAnimation = keyframes`
     from{ 
         background-position: 0
@@ -54,6 +55,7 @@ const Container = styled.div`
         grid-column: 1/-1;
         display: grid;
         height: 6rem;
+        background: transparent;
         grid-template-columns: 1fr 1fr;
 
         &-logo {
@@ -236,7 +238,7 @@ const Header = () => {
         <Container>
 
             <div className="navbar"
-             data-aos="fade-right"
+                data-aos="fade-right"
                 data-aos-offset="00"
                 data-aos-delay="300"
                 data-aos-duration="600"
@@ -291,7 +293,66 @@ const Header = () => {
                 data-aos-duration="600"
                 data-aos-easing="ease-in-out"
                 data-aos-once="true"
-                />
+            />
+
+            <Particles
+                params={{
+                    "particles": {
+                        "number": {
+                            "value": 160,
+                            "density": {
+                                "enable": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "speed": 4,
+                                "size_min": 0.3
+                            }
+                        },
+                        "line_linked": {
+                            "enable": false
+                        },
+                        "move": {
+                            "random": true,
+                            "speed": 1,
+                            "direction": "top",
+                            "out_mode": "out"
+                        }
+                    },
+                    "interactivity": {
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "bubble"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "repulse"
+                            }
+                        },
+                        "modes": {
+                            "bubble": {
+                                "distance": 250,
+                                "duration": 2,
+                                "size": 0,
+                                "opacity": 0
+                            },
+                            "repulse": {
+                                "distance": 400,
+                                "duration": 4
+                            }
+                        }
+                    }
+                }} style={{
+                    position: "absolute",
+                    height: "300%",
+                    width: "100%",
+                    top: "0px",
+                    left: "0",
+                }} />
         </Container>
     )
 }

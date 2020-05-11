@@ -5,7 +5,7 @@ import image2 from "../images/bitcoinSvg-2.svg"
 import image3 from "../images/bitcoinSvg-3.svg"
 import { Heading, FeatureCard } from '.'
 import { useEffect } from 'react'
-import CoinCalculator from './coinCalculator'
+// import CoinCalculator from './coinCalculator'
 
 const Container = styled.div`
     display: grid;
@@ -42,7 +42,7 @@ const Features = () => {
     return (
         <Container>
           <div>
-        <script src="https://www.cryptonator.com/ui/js/widget/calc_widget.js"></script>
+        {/* <script src="https://www.cryptonator.com/ui/js/widget/calc_widget.js"></script> */}
            
         </div>
             <div className="features--heading">
@@ -50,9 +50,9 @@ const Features = () => {
                     Buy and Sell Giftcards, Perfect Money & Bitcoin.`}/>
             </div>
 
-            <FeatureCard title="Currency Calculator" 
+            {/* <FeatureCard title="Currency Calculator" 
             text={`The things that matter to you
-                matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/>
+                matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/> */}
             <FeatureCard title="Trade Anything" 
             text={`The things that matter to you
                 matter to us, you’re secure with us.`} image={image1}/>

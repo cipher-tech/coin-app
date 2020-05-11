@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1378" height="454" viewBox="0 0 1378 454">
+  <defs>
+    <filter id="Statistics.BG" x="0" y="0" width="1378" height="454" filterUnits="userSpaceOnUse">
+      <feOffset dx="15" dy="15" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feFlood flood-opacity="0.039"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#54d8ff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a7a7ff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="Selectbox.BG" x="1163.5" y="47.5" width="139" height="41" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur-2"/>
+      <feFlood flood-opacity="0.051"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Statistics" transform="translate(-240 -133)">
+    <g transform="matrix(1, 0, 0, 1, 240, 133)" filter="url(#Statistics.BG)">
+      <path id="Statistics.BG-2" data-name="Statistics.BG" d="M0,0H1288V364H0Z" transform="translate(30 30)" fill="#eee"/>
+    </g>
+    <path id="Chart_Grid" data-name="Chart Grid" d="M0,264V0H1.108V263H248.25V203H1.438v-1H248.25V142H1.438v-1H248.25V81H1.438V80H248.25V20H1.438V19H248.25V0h1.108V19H483.2V0h1.108V19H720.367V0h1.108V19H954.21V0h1.108V19h251.245v1H955.318V80h251.245v1H955.318v60h251.245v1H955.318v60h251.245v1H955.318v60h251.574V0H1208V264Zm954.21-1V203H721.475v60Zm-233.843,0V203H484.309v60ZM483.2,263V203H249.358v60ZM954.21,202V142H721.475v60Zm-233.843,0V142H484.309v60ZM483.2,202V142H249.358v60ZM954.21,141V81H721.475v60Zm-233.843,0V81H484.309v60ZM483.2,141V81H249.358v60ZM954.21,80V20H721.475V80ZM720.367,80V20H484.309V80ZM483.2,80V20H249.358V80Z" transform="translate(330 218)" fill="#eaf0f4"/>
+    <g id="Total_Views_Graph" data-name="Total Views Graph" transform="translate(325 295.06)">
+      <path id="Filled.Graph" d="M330,490.153V354.422S465.955,489.367,577.635,494.445c124.608-1.144,125.629-70.055,235.127-107.78,91.669-29.621,161.617,51.18,238.294,53.151s129.6-55.378,234.206-59.362c135.536,6,244.293,82.62,252.733,86.74V523.21l-1208,.1Z" transform="translate(-324.995 -350)" opacity="0.7" fill="url(#linear-gradient)"/>
+      <path id="Line.Graph" d="M312.953,279.164S453.151,416.6,562.721,417.881s147.039-80.975,235.016-108.707,164.3,52.9,237.749,53.91,143.777-60.576,234.028-58.9,193.435,48.262,250.48,85.012" transform="translate(-306.994 -274)" fill="none" stroke="#54d8ff" stroke-width="2"/>
+      <g id="Jun.Ellipse" transform="translate(1207.816 111)" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="May.Ellipse" transform="translate(954.94 25)" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Apr.Ellipse" transform="translate(720.919 84)" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Mar.Ellipse" transform="translate(484.679 30)" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Feb.Ellipse" transform="translate(248.441 139)" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Jan.Ellipse" fill="#fff" stroke="#55d8fe" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+    </g>
+    <g id="Products_Sold_Graph" data-name="Products Sold Graph" transform="translate(325 246.942)">
+      <path id="Filled.Graph-2" data-name="Filled.Graph" d="M330,490.153V401.268s139.295,58.3,250.591,61.963c120.347-3.549,141.186-28.5,234.927-61.963,80.106-27.892,159.993-35.547,236.67-33.576s143.136,32.1,233.71,35.189c159.782-12.44,241.3-75.335,252.1-101.6V523.21l-1208,.1Z" transform="translate(-324.998 -296)" opacity="0.7" fill="url(#linear-gradient-2)"/>
+      <path id="Line.Graph-2" data-name="Line.Graph" d="M313,346.5s138.408,59.691,247.843,60.976,151.469-30.8,235.289-60.9,163.5-35.23,236.866-34.218,144.679,32.548,234.818,34.221S1503.782,292.07,1520,245.24" transform="translate(-306.998 -241)" fill="none" stroke="#a3a0fb" stroke-width="2"/>
+      <g id="Jun.Ellipse-2" data-name="Jun.Ellipse" transform="translate(1207.274)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="May.Ellipse-2" data-name="May.Ellipse" transform="translate(954.512 101)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Apr.Ellipse-2" data-name="Apr.Ellipse" transform="translate(720.596 67)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Mar.Ellipse-2" data-name="Mar.Ellipse" transform="translate(484.462 101)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Feb.Ellipse-2" data-name="Feb.Ellipse" transform="translate(249.437 162)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+      <g id="Jan.Ellipse-2" data-name="Jan.Ellipse" transform="translate(0 100)" fill="#fff" stroke="#a4a1fb" stroke-width="2">
+        <circle cx="4.995" cy="4.995" r="4.995" stroke="none"/>
+        <circle cx="4.995" cy="4.995" r="3.995" fill="none"/>
+      </g>
+    </g>
+    <g id="Months" transform="translate(330 454)">
+      <text id="Jan" transform="translate(0 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Jan</tspan></text>
+      <text id="Feb" transform="translate(240 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Feb</tspan></text>
+      <text id="Mar" transform="translate(474 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Mar</tspan></text>
+      <text id="Apr" transform="translate(713 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Apr</tspan></text>
+      <text id="May" transform="translate(947 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">May</tspan></text>
+      <text id="Jun" transform="translate(1191 12)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Jun</tspan></text>
+    </g>
+    <g id="Y-Axis-Info" transform="translate(290 223.667)">
+      <text id="_5k" data-name="$5k" transform="translate(0 256.333)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">$5k</tspan></text>
+      <text id="_10k" data-name="$10k" transform="translate(0 195.333)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">$10k</tspan></text>
+      <text id="_15k" data-name="$15k" transform="translate(0 135.333)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">$15k</tspan></text>
+      <text id="_20k" data-name="$20k" transform="translate(0 73.333)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">$20k</tspan></text>
+      <text id="_25k" data-name="$25k" transform="translate(0 12.333)" fill="#43425d" font-size="11" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">$25k</tspan></text>
+    </g>
+    <g id="Selectbox.Filter" transform="translate(1408 183)">
+      <g transform="matrix(1, 0, 0, 1, -1168, -50)" filter="url(#Selectbox.BG)">
+        <g id="Selectbox.BG-2" data-name="Selectbox.BG" transform="translate(1168 50)" fill="#fff" stroke="#d7dae2" stroke-width="1">
+          <rect width="130" height="32" rx="4" stroke="none"/>
+          <rect x="0.5" y="0.5" width="129" height="31" rx="3.5" fill="none"/>
+        </g>
+      </g>
+      <text id="Last_6_months" data-name="Last 6 months" transform="translate(12 21)" fill="#4d4f5c" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Last 6 months</tspan></text>
+      <g id="small-down" transform="translate(107 13)">
+        <path id="Path_26" data-name="Path 26" d="M8.1,11.6,2.6,6.041,4.026,4.6,8.1,8.718,12.174,4.6,13.6,6.041Z" transform="translate(-2.6 -4.6)" fill="#a4afb7"/>
+      </g>
+    </g>
+    <g id="Total_views_label" data-name="Total views label" transform="translate(428 489)">
+      <text id="Total_views" data-name="Total views" transform="translate(28 14)" fill="#4d4f5c" font-size="13" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Total views</tspan></text>
+      <rect id="Label" width="18" height="8" rx="4" transform="translate(0 5)" fill="#54d8ff"/>
+    </g>
+    <g id="Products_sold_label" data-name="Products sold label" transform="translate(290 489)">
+      <text id="Products_sold" data-name="Products sold" transform="translate(28 14)" fill="#4d4f5c" font-size="13" font-family="SegoeUI, Segoe UI" opacity="0.5"><tspan x="0" y="0">Products sold</tspan></text>
+      <rect id="Label-2" data-name="Label" width="18" height="8" rx="4" transform="translate(0 5)" fill="#a3a1fb"/>
+    </g>
+    <text id="Statistics-2" data-name="Statistics" transform="translate(290 201)" fill="#4d4f5c" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Statistics</tspan></text>
+  </g>
+</svg>

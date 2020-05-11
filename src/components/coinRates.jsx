@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import chat from "../images/coinRate.svg"
+// import chat from "../images/coinRate.svg"
 
 const Container = styled.div`
     display: grid;
@@ -67,6 +67,8 @@ const CoinRates = () => {
                     style={{ width: "100%", height: "100%", margin: "0 !important", padding: "0 !important" }}
                     allowtransparency="true" scrolling="no" allowfullscreen="" frameborder="0"
                     title="coinrate"></iframe>
+            </div>
+            <div>
             </div>
 
             {/* <iframe id="tradingview_dd6f1" 
