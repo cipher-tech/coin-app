@@ -7,6 +7,11 @@ import 'aos/dist/aos.css'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom"
 import routes from './navigation/routes';
 import Dashboard from './pages/admin/dashboard';
+import DashboardLayout from './pages/admin/dashboardLayout';
+import Rates from "./pages/admin/rates/rates"
+import AdminSellBitcoin from './pages/admin/sellBitcion/sellBitcion';
+import AdminSellGiftCard from './pages/admin/sellGiftCard/sellGiftCard';
+import AdminTransaction from './pages/admin/transaction/transaction';
 const theme = {
 	colorPrimary: "#304D71",
 	colorSecondary: "#FB921E",
@@ -56,7 +61,16 @@ function App() {
 					<GlobalStyle />
 					<Container>
 						<Route exact path={routes.public.home} component={Main} />
-						<Route exact path={routes.admin.index} component={Dashboard}>
+						<Route path="/admin/:path?" exact>
+							<DashboardLayout>
+								<Switch>
+									<Route exact path={routes.admin.index} component={Dashboard} />
+									<Route exact path={routes.admin.rates} component={Rates} />
+									<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
+									<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
+									<Route exact path={routes.admin.transcation} component={AdminTransaction} />
+								</Switch>
+							</DashboardLayout>
 						</Route>
 					</Container>
 				</ThemeProvider>

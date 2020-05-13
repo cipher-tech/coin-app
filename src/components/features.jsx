@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import image1 from "../images/bitcoinsvg-1.svg"
 import image2 from "../images/bitcoinSvg-2.svg"
 import image3 from "../images/bitcoinSvg-3.svg"
-import { Heading, FeatureCard } from '.'
+import { Heading, FeatureCard, SellBitcoinCard } from '.'
 import { useEffect } from 'react'
 // import CoinCalculator from './coinCalculator'
 
@@ -49,8 +49,9 @@ const Features = () => {
             <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading cards, experience worldclass transaction processes.
                     Buy and Sell Giftcards, Perfect Money & Bitcoin.`}/>
             </div>
-
-            {/* <FeatureCard title="Currency Calculator" 
+                <SellBitcoinCard />
+{/* 
+            <FeatureCard title="Currency Calculator" 
             text={`The things that matter to you
                 matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/> */}
             <FeatureCard title="Trade Anything" 
