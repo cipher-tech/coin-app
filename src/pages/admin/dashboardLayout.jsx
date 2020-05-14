@@ -3,6 +3,15 @@ import styled from 'styled-components'
 import { useSpring, animated } from "react-spring"
 // import homeSvg from "../../images/homeSvg.svg"
 import {ReactComponent as Icon} from "../../images/homeSvg.svg"
+import {ReactComponent as Home} from "../../images/svgIcons/home.svg"
+import {ReactComponent as Bill} from "../../images/svgIcons/bill.svg"
+import {ReactComponent as Bills} from "../../images/svgIcons/bills.svg"
+import {ReactComponent as Box} from "../../images/svgIcons/box.svg"
+import {ReactComponent as ChartBars} from "../../images/svgIcons/chartBars.svg"
+import {ReactComponent as Coins} from "../../images/svgIcons/coins.svg"
+import {ReactComponent as DollarSymbol} from "../../images/svgIcons/dollarSymbol.svg"
+import {ReactComponent as Invoice} from "../../images/svgIcons/invoice.svg"
+import {ReactComponent as Settings} from "../../images/svgIcons/settings.svg"
 import avatar1 from "../../images/avatar1.jpg"
 import { Link } from 'react-router-dom'
 import routes from '../../navigation/routes'
@@ -73,8 +82,11 @@ background: ${props => props.theme.colorPrimary};
             &--icon{
                 display: grid;
                 align-items: center;
-                /* height: 2rem; */
+                height: 1.9rem;
+                width: 1.9rem;
                 padding: 0rem .1rem;
+                transition: all .3s ease-in-out .1s;
+                justify-self: ${props => props.sidenavIsOpen ? "center": "flex-start"};
                 &-svg{
                     /* height: 3rem; */
                     /* transform: scale(1.1); */
@@ -259,7 +271,7 @@ background: ${props => props.theme.colorPrimary};
 
 
 function DashboardLayout(props) {
-    const [sideNavIsOpen, setSideNavIsOpen] = useState(true)
+    const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const sideNavWidth = "28rem"
     const spring = useSpring({
         width: sideNavIsOpen ? sideNavWidth : "5rem"
@@ -281,7 +293,7 @@ function DashboardLayout(props) {
                     </li>
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Home className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Home 
@@ -290,7 +302,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <ChartBars className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Dashboard
@@ -300,7 +312,7 @@ function DashboardLayout(props) {
                     <Link to={routes.admin.transcation} className="sideNav__container-item">
 
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Coins className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Transction
@@ -309,7 +321,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.sellBitcoin} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Bill className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Sell Bitcoin
@@ -318,7 +330,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.sellGiftcard} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Bills className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Sell Gift Cart
@@ -327,7 +339,7 @@ function DashboardLayout(props) {
 
                     <Link to="/admin/rates" className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <DollarSymbol className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span  className="sideNav__container-item--text">
                             Rate
@@ -336,7 +348,7 @@ function DashboardLayout(props) {
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Box className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Message
@@ -345,7 +357,7 @@ function DashboardLayout(props) {
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Invoice className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Tickets
@@ -354,7 +366,7 @@ function DashboardLayout(props) {
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Icon className="sideNav__container-item--icon-svg"/>
+                            <Settings className="sideNav__container-item--icon-svg"/>
                         </span>
                         <span className="sideNav__container-item--text">
                             Account Settings

@@ -15,6 +15,7 @@ import AdminTransaction from './pages/admin/transaction/transaction';
 const theme = {
 	colorPrimary: "#304D71",
 	colorSecondary: "#FB921E",
+	colorSecondaryDark: "#e47800",
 	colorWhite: "#FFFFFF",
 	colorDark: "#707070",
 	colorLight: "#EEEEEE",

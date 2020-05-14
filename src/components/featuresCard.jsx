@@ -19,13 +19,20 @@ const Container = styled.div`
     &-title{
         display: grid;
         grid-template-rows: max-content;
-        font-size: ${props => props.theme.font.xlarge};
-        width: 70%;
+        font-size: ${props => props.theme.font.large};
+        width: 90%;
         padding: 3rem 1rem;
         /* height: 5rem; */
         justify-content: center ;
-        align-content: center;
+        align-content: flex-start;
 
+        &-span{
+            color: ${props => props.theme.colorSecondary};
+
+            &-and{
+            color: ${props => props.theme.colorPrimary}
+            }
+        }
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
             width: 100%;
             padding: 1.5rem 1rem;
@@ -35,7 +42,7 @@ const Container = styled.div`
         grid-column: 1;
         display: grid;
         /* width: 40%; */
-        text-align: center;
+        text-align: left;
         justify-items: center;
         align-items: flex-start;
         width: 90%;
@@ -49,7 +56,7 @@ const Container = styled.div`
     }
 
     &-image{
-        grid-row: ${props => props.invert ? 1/-1 : ""};
+        grid-row: ${props => props.invert ? 1 / -1 : ""};
         /* grid-column: 2/-1; */
         /* display: grid; */
         justify-items: flex-end;
@@ -82,6 +89,14 @@ const FeaturesCard = props => {
                 >
                     <h4 className='features--content-title'>
                         {props.title}
+                        <span className="features--content-title-span">
+                            {props.bitcoin}
+                            <span className="features--content-title-span-and">
+                                {props.and}
+                            </span>
+                            {props.giftCard}
+                        </span>
+                        {props.end}
                     </h4>
                     <p className="features--content-text">
                         {props.text}
@@ -89,9 +104,9 @@ const FeaturesCard = props => {
                 </div>
 
                 <div className="features--content-image">
-                    {props.calc? <div>
-                            {props.image}
-                        </div> : <img src={props.image} alt="bitcoin img" />}
+                    {props.calc ? <div>
+                        {props.image}
+                    </div> : <img src={props.image} alt="bitcoin img" />}
                 </div>
             </div>
         </Container>

@@ -46,23 +46,23 @@ const Features = () => {
            
         </div>
             <div className="features--heading">
-            <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading cards, experience worldclass transaction processes.
-                    Buy and Sell Giftcards, Perfect Money & Bitcoin.`}/>
+            <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading `} end=" experience worldclass transaction processes.
+                    Buy and Sell Giftcards, Perfect Money & Bitcoin."
+             bitcoin=" Bitcoin" and=" and " giftCard="Gift Cards "/>
             </div>
                 <SellBitcoinCard />
 {/* 
             <FeatureCard title="Currency Calculator" 
             text={`The things that matter to you
                 matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/> */}
-            <FeatureCard title="Trade Anything" 
+            <FeatureCard title="Trade Your" 
             text={`The things that matter to you
-                matter to us, you’re secure with us.`} image={image1}/>
-            <FeatureCard title="Trade Anything" 
+                matter to us, you’re secure with us.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" image={image1}/>
+            <FeatureCard title="Fast Confirmation of Your" end="Transcations" 
             text={`The things that matter to you
-                matter to us, you’re secure with us.`} invert={1/-1} image={image2}/>
-            <FeatureCard title="Trade Anything" 
-            text={`The things that matter to you
-                matter to us, you’re secure with us.`} image={image3}/>
+                matter to us, you’re secure with us.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" invert={1/-1} image={image2}/>
+            <FeatureCard title="Fast Payments for your " 
+            text={`We Offer the fastest payments avaliable anywhere anytime!.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" image={image3}/>
         
       
         </Container>

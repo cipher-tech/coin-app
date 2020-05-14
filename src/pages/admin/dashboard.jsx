@@ -1,7 +1,7 @@
 import React from 'react'
 import barChart from "../../images/barChart.svg"
 import StatisticsSvg from "../../images/StatisticsSvg.svg"
-import ReferrerSvg from "../../images/Referrer.png"
+import ReferrerSvg from "../../images/rate.png"
 import quickDetails from "../../images/quickDetails.png"
 import styled from 'styled-components'
 

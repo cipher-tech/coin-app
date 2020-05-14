@@ -103,7 +103,7 @@ const Discounts = () => {
                     Get 20% discount off every card when you buy from us.
                 </p>
                 <button className="discount-btn">
-                    Get Started
+                    Sign Up
                 </button>
             </div>
             <div className="discount--image"

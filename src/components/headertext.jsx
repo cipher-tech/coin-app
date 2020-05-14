@@ -61,6 +61,13 @@ const Container = styled.div`
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
                 flex-basis: 100%;
             }
+            .span{
+            color: ${props => props.theme.colorSecondary};
+            
+            .and{
+            color: ${props => props.theme.colorPrimary}
+            }
+        }
         }
 `
 
@@ -74,10 +81,10 @@ export default function Headertext(props) {
                 data-aos-duration="500"
                 data-aos-easing="ease-in-out"
                 data-aos-once="true">
-               {props.title}  
-               <span>
+                {props.title}
+                <span>
                     &nbsp; {props.coloredText}
-               </span>
+                </span>
             </h3>
             <p
                 data-aos="fade-right"
@@ -87,6 +94,14 @@ export default function Headertext(props) {
                 data-aos-easing="ease-in-out"
                 data-aos-once="true">
                 {props.text}
+                <span className="span">
+                    &nbsp; {props.bitcoin}
+                    <span className="and">
+                        {props.and}
+                    </span>
+                    {props.giftCard} &nbsp; 
+                </span>
+                {props.end}
             </p>
         </Container>
     )

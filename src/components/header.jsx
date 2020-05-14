@@ -249,9 +249,11 @@ const Header = () => {
                 </div>
                 <ul className="navbar-list">
                     <li className="navbar-list-item">Home</li>
-                    <li className="navbar-list-item">About</li>
-                    <li className="navbar-list-item">Contact</li>
+                    <li className="navbar-list-item">Register</li>
+                    <li className="navbar-list-item">Login</li>
                     <li className="navbar-list-item">Services</li>
+                    <li className="navbar-list-item">FAQs</li>
+                    <li className="navbar-list-item">Testmonials</li>
                 </ul>
 
             </div>

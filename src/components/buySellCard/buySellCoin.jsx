@@ -207,7 +207,7 @@ const SellCoin = props => {
                         The Best Every Time.
                     </h2>
                     <p className="features--content-image-text">
-                       We give you good value for your cards every time you choose Patricia.
+                       We give you good value for your Gift cards and Bitcoin every time you choose AJ.
                     </p>
                     <img src={icon} alt="bitcoin img" />
                 </div>

@@ -205,7 +205,7 @@ export default class swiperCarusel extends Component {
                             </h3>
 
                             <button className="carursel-info-btn">
-                                Get Started
+                               Sign Up
                         </button>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
@@ -227,7 +227,7 @@ export default class swiperCarusel extends Component {
                             </h3>
 
                             <button className="carursel-info-btn">
-                                Get Started
+                               Sign Up
                             </button>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
@@ -249,7 +249,7 @@ export default class swiperCarusel extends Component {
                             </h3>
 
                             <button className="carursel-info-btn">
-                                Get Started
+                               Sign Up
                         </button>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
