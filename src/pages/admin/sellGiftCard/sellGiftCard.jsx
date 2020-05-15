@@ -14,10 +14,12 @@ const Container = styled.div`
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
     .rate{
-        grid: 1/-1;
-        padding: 3rem;
-        /* height: 78vh; */
-        margin: 2rem;
+        grid-column: 1/-1;
+        width: clamp(100%, 100vw, 65vw);
+        padding: .1rem;
+        height: 100%;
+        margin: 12rem .3rem 1rem  ;
+        max-width: 70rem;
         img{
             height: 100%;
             /* width: 100%;         */

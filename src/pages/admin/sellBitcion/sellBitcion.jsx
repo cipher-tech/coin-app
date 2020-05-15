@@ -14,10 +14,12 @@ const Container = styled.div`
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
     .rate{
-        grid: 1/-1;
-        padding: 3rem;
-        /* height: 78vh; */
-        margin: 2rem;
+        grid-column: 1/-1;
+        width: clamp(100%, 100vw, 65vw);
+        padding: .1rem;
+        height: 100%;
+        margin: 12rem .3rem 1rem  ;
+        max-width: 70rem;
         img{
             height: 100%;
             /* width: 100%;         */
@@ -25,7 +27,7 @@ const Container = styled.div`
         
         .form{
             display: grid;
-            /* width: clamp(40vw, 20vw, 45vw); */
+            width: max(max-content);
             /* border: 1px solid red; */
             justify-items: center;
             color: ${props => props.theme.colorPrimary};
@@ -134,7 +136,7 @@ function AdminSellGiftCard() {
                     </div>
                     <div className="form__input">
                         <input type="text" placeholder="Enter Value" className="form__input-item" />
-                        <input type="text" placeholder="Enter Value" className="form__input-item" />
+                        <input type="text" placeholder="Enter Bitcoin Value" className="form__input-item" />
                         <input type="text" placeholder="Enter Value" className="form__input-item" />
                         <input type="text" placeholder="Enter Value" className="form__input-item" />
                         <input type="text" placeholder="Enter Value" className="form__input-item" />

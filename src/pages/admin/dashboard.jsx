@@ -158,3 +158,15 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
+//HostProvider- namecheap
+//username: GSSGROUP
+//password: kC%Kq9_Hb&rWB7(
+
+//Domain username- wilpat456@gmail.com
+//password - q!M5A89mRJXz
+// provider- Web4Africa
+
+// server credentials- https://server126.web-hosting.com:2083
+//Username - gssgvrqp
+//pawwd - PenJBe8nT9Fd

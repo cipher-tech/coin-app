@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSpring, animated } from "react-spring"
 // import homeSvg from "../../images/homeSvg.svg"
-import {ReactComponent as Icon} from "../../images/homeSvg.svg"
-import {ReactComponent as Home} from "../../images/svgIcons/home.svg"
-import {ReactComponent as Bill} from "../../images/svgIcons/bill.svg"
-import {ReactComponent as Bills} from "../../images/svgIcons/bills.svg"
-import {ReactComponent as Box} from "../../images/svgIcons/box.svg"
-import {ReactComponent as ChartBars} from "../../images/svgIcons/chartBars.svg"
-import {ReactComponent as Coins} from "../../images/svgIcons/coins.svg"
-import {ReactComponent as DollarSymbol} from "../../images/svgIcons/dollarSymbol.svg"
-import {ReactComponent as Invoice} from "../../images/svgIcons/invoice.svg"
-import {ReactComponent as Settings} from "../../images/svgIcons/settings.svg"
+// import {ReactComponent as Icon} from "../../images/homeSvg.svg"
+import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
+import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
+import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
+import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
+import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
+import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
+import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymbol.svg"
+import { ReactComponent as Invoice } from "../../images/svgIcons/invoice.svg"
+import { ReactComponent as Settings } from "../../images/svgIcons/settings.svg"
 import avatar1 from "../../images/avatar1.jpg"
 import { Link } from 'react-router-dom'
 import routes from '../../navigation/routes'
@@ -32,7 +32,7 @@ background: ${props => props.theme.colorPrimary};
     justify-items: flex-start;
     align-items: flex-start;
     position: relative;
-    z-index: ${props => props.sidenavIsOpen ? 200: null};
+    z-index: ${props => props.sidenavIsOpen ? 200 : null};
     /* z-index: 1200; */
     background: ${props => props.theme.colorPrimary};
     &__container{
@@ -44,7 +44,7 @@ background: ${props => props.theme.colorPrimary};
         &-item-photo{
             text-align: center;
             list-style-type: none;
-            opacity: ${props => props.sidenavIsOpen ? "1": "0"};
+            opacity: ${props => props.sidenavIsOpen ? "1" : "0"};
             img{
                 height: 8rem;
                 width: 8rem;
@@ -86,7 +86,7 @@ background: ${props => props.theme.colorPrimary};
                 width: 1.9rem;
                 padding: 0rem .1rem;
                 transition: all .3s ease-in-out .1s;
-                justify-self: ${props => props.sidenavIsOpen ? "center": "flex-start"};
+                justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
                 &-svg{
                     /* height: 3rem; */
                     /* transform: scale(1.1); */
@@ -274,7 +274,7 @@ function DashboardLayout(props) {
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const sideNavWidth = "28rem"
     const spring = useSpring({
-        width: sideNavIsOpen ? sideNavWidth : "5rem"
+        width: sideNavIsOpen ? sideNavWidth : "6rem"
     })
     const toggleSideNav = () => {
         setSideNavIsOpen(!sideNavIsOpen)
@@ -284,7 +284,7 @@ function DashboardLayout(props) {
     }
     return (
         <Container navWidth={sideNavWidth} sidenavIsOpen={sideNavIsOpen}>
-            <animated.div  style={{ width: spring.width }} className="sideNav">
+            <animated.div style={{ width: spring.width }} className="sideNav">
 
                 <ul className="sideNav__container">
                     <li className="sideNav__container-item-photo">
@@ -293,26 +293,26 @@ function DashboardLayout(props) {
                     </li>
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Home className="sideNav__container-item--icon-svg"/>
+                            <Home className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Home 
+                            Home
                         </span>
                     </li>
 
                     <Link to={routes.admin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <ChartBars className="sideNav__container-item--icon-svg"/>
+                            <ChartBars className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Dashboard
                         </span>
                     </Link>
-                    
+
                     <Link to={routes.admin.transcation} className="sideNav__container-item">
 
                         <span className="sideNav__container-item--icon">
-                            <Coins className="sideNav__container-item--icon-svg"/>
+                            <Coins className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Transction
@@ -321,7 +321,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.sellBitcoin} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Bill className="sideNav__container-item--icon-svg"/>
+                            <Bill className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Sell Bitcoin
@@ -330,7 +330,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.sellGiftcard} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Bills className="sideNav__container-item--icon-svg"/>
+                            <Bills className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Sell Gift Cart
@@ -339,16 +339,16 @@ function DashboardLayout(props) {
 
                     <Link to="/admin/rates" className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <DollarSymbol className="sideNav__container-item--icon-svg"/>
+                            <DollarSymbol className="sideNav__container-item--icon-svg" />
                         </span>
-                        <span  className="sideNav__container-item--text">
+                        <span className="sideNav__container-item--text">
                             Rate
                         </span>
                     </Link>
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg"/>
+                            <Box className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Message
@@ -357,7 +357,7 @@ function DashboardLayout(props) {
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Invoice className="sideNav__container-item--icon-svg"/>
+                            <Invoice className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Tickets
@@ -366,7 +366,7 @@ function DashboardLayout(props) {
 
                     <li className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Settings className="sideNav__container-item--icon-svg"/>
+                            <Settings className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Account Settings
@@ -381,11 +381,7 @@ function DashboardLayout(props) {
                 </div>
                 {/* {spring.width.interpolate(x => console.log(Math.floor(x * 100 / sideNavWidth)))} */}
             </animated.div>
-
-                {/* <DashboardLayout/> */}
-                {/* <div className="content"> */}
-                    {props.children}
-                {/* </div> */}
+            {props.children}
         </Container>
     )
 }
