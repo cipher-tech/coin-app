@@ -1,10 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Container } from './components/styledComponents';
-import Main from './pages/main';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { BrowserRouter as Router, Switch, Route, } from "react-router-dom"
+
+import Main from './pages/main';
 import routes from './navigation/routes';
 import Dashboard from './pages/admin/dashboard';
 import DashboardLayout from './pages/admin/dashboardLayout';
@@ -12,8 +13,12 @@ import Rates from "./pages/admin/rates/rates"
 import AdminSellBitcoin from './pages/admin/sellBitcion/sellBitcion';
 import AdminSellGiftCard from './pages/admin/sellGiftCard/sellGiftCard';
 import AdminTransaction from './pages/admin/transaction/transaction';
+import Login from './pages/auth/login/login';
+import SignUp from './pages/auth/signup/signup';
+
 const theme = {
 	colorPrimary: "#304D71",
+	colorPrimaryLight: "#304D71",
 	colorSecondary: "#FB921E",
 	colorSecondaryDark: "#e47800",
 	colorWhite: "#FFFFFF",
@@ -36,6 +41,7 @@ const theme = {
 		xxsmall: ".5rem",
 
 		mainFont: "Montserrat",
+		mainFont1: "ProximaNovaSoftW03-Regular",
 		extra: "Segoe UI",
 		offSet: "Mongolian Baiti"
 	},
@@ -62,6 +68,8 @@ function App() {
 					<GlobalStyle />
 					<Container>
 						<Route exact path={routes.public.home} component={Main} />
+						<Route exact path={routes.public.login} component={Login} />
+						<Route exact path={routes.public.signUp} component={SignUp} />
 						<Route path="/admin/:path?" exact>
 							<DashboardLayout>
 								<Switch>

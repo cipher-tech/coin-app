@@ -2,6 +2,8 @@ const admin = "/admin"
 const  routes = {
     public: {
         home: "/",
+        login: "/login",
+        signUp: "/sign-up",
     },
 
     admin: {

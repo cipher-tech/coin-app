@@ -98,9 +98,9 @@ const Steps = () => {
                 data-aos-duration="700"
                 data-aos-easing="ease-in-out"
                 data-aos-once="true">
-                    <StepsItem number="1"/>
-                    <StepsItem number="2" invert/>
-                    <StepsItem number="3"/>
+                    <StepsItem step="Sign up" number="1"/>
+                    <StepsItem step="Start Trading" number="2" invert/>
+                    <StepsItem step="Get Credited Quickly" number="3"/>
                     {/* <div className="steps-container-item" number="2">
                         <h4>
                             Sign Up... or not

@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
         ${'' /* display: grid; */}
         max-width: 200rem;
         place-content: center;
-        font-family: montserrat, sans-serif;
+        font-family: ${props => props.theme.font.mainFont1}, montserrat, sans-serif;
         background: ${props => props.theme.colorLight};
         color: ${props => props.theme.colorWhite};
         font-size: ${props => props.theme.font.medium};
