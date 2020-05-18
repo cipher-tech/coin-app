@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Heading, StepsItem } from '.'
-import image from "../images/coinSteps.svg"
+import image from "../images/svgIcons/review.svg"
 
 const Container = styled.div`
     display: grid;

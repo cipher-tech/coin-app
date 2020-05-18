@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import playstore from "../images/playstore.svg"
 import applestore from "../images/istore.svg"
 import bitcoinSvg from "../images/bitcoinSvg.svg"
-// import EthereumSvg from "../images/ethereum.svg"
+import cimage from "../images/cimage.png"
 import EthereumDesire from "../images/ethereumDesire.svg"
 import React, { Component} from 'react'
 
@@ -98,7 +98,7 @@ export default class swiperCarusel extends Component {
         display: grid;
         grid-column: 1;
         align-items: center;
-       
+       padding: 1rem 2rem;
         /* grid-template-columns: repeat(2, minmax(40rem, 1fr)); */
 
         &-text{
@@ -143,6 +143,9 @@ export default class swiperCarusel extends Component {
         }
         .headerSvg{
         /* padding: .1rem; */
+        display: flex;
+        justify-content: center;
+        width: 100%;
         overflow: hidden;
         height: 100%;
         width: 80%;
@@ -151,9 +154,14 @@ export default class swiperCarusel extends Component {
             grid-row: 1;
         }
         img{
-            height: 100%;
+            height: 90%;
             width: 100%;
             /* transform: scale(.8); */
+        }
+        .imagePhoto{
+            height: 36rem;
+            width: 36rem;
+            border-radius: 50%;
         }
     }
     }
@@ -217,6 +225,7 @@ export default class swiperCarusel extends Component {
                             <img src={bitcoinSvg} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>
+
                     <div key='3' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
@@ -243,9 +252,9 @@ export default class swiperCarusel extends Component {
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
                                 AJ global ventures 
-                                makes it easy to sell your
-                            <span className="carursel-info-text--yellow"> Luno </span>
-                            and <span className="carursel-info-text--yellow"> gift cards </span>
+                            <span className="carursel-info-text--yellow"> Patners </span>
+                                 with the 
+                             <span className="carursel-info-text--yellow"> best </span>
                             </h3>
 
                             <button className="carursel-info-btn">
@@ -258,7 +267,7 @@ export default class swiperCarusel extends Component {
                         </div>
 
                         <div className="headerSvg">
-                        <img src={bitcoinSvg} alt="bitcoinSvg" data-swiper-parallax="-600" />
+                        <img className="imagePhoto" src={cimage} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>
                     

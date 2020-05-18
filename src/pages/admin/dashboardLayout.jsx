@@ -282,6 +282,9 @@ function DashboardLayout(props) {
         // this.state.sideNavIsOpen ? this.setState({sideNavWidth: "3rem", sideNavIsOpen: !this.state.sideNavIsOpen}) : 
         // this.setState({sideNavWidth: "20rem", sideNavIsOpen: !this.state.sideNavIsOpen})
     }
+    const closeSideNav =() => {
+        setSideNavIsOpen(false)
+    }
     return (
         <Container navWidth={sideNavWidth} sidenavIsOpen={sideNavIsOpen}>
             <animated.div style={{ width: spring.width }} className="sideNav">
@@ -291,7 +294,7 @@ function DashboardLayout(props) {
                         <img src={avatar1} alt="avatar preson" />
                         <p className="sideNav__container-item-photo--text">Nick@gmail.com</p>
                     </li>
-                    <li className="sideNav__container-item">
+                    <li onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Home className="sideNav__container-item--icon-svg" />
                         </span>
@@ -300,16 +303,16 @@ function DashboardLayout(props) {
                         </span>
                     </li>
 
-                    <Link to={routes.admin.index} className="sideNav__container-item">
+                    <a onClick={closeSideNav} href={routes.admin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <ChartBars className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Dashboard
                         </span>
-                    </Link>
+                    </a>
 
-                    <Link to={routes.admin.transcation} className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to={routes.admin.transcation} className="sideNav__container-item">
 
                         <span className="sideNav__container-item--icon">
                             <Coins className="sideNav__container-item--icon-svg" />
@@ -319,7 +322,7 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link to={routes.admin.sellBitcoin} className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to={routes.admin.sellBitcoin} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Bill className="sideNav__container-item--icon-svg" />
                         </span>
@@ -328,7 +331,7 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link to={routes.admin.sellGiftcard} className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to={routes.admin.sellGiftcard} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Bills className="sideNav__container-item--icon-svg" />
                         </span>
@@ -337,7 +340,7 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link to="/admin/rates" className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to="/admin/rates" className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <DollarSymbol className="sideNav__container-item--icon-svg" />
                         </span>
@@ -346,7 +349,7 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <li className="sideNav__container-item">
+                    <li onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Box className="sideNav__container-item--icon-svg" />
                         </span>
@@ -355,7 +358,7 @@ function DashboardLayout(props) {
                         </span>
                     </li>
 
-                    <li className="sideNav__container-item">
+                    <li onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Invoice className="sideNav__container-item--icon-svg" />
                         </span>
@@ -364,7 +367,7 @@ function DashboardLayout(props) {
                         </span>
                     </li>
 
-                    <li className="sideNav__container-item">
+                    <li onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Settings className="sideNav__container-item--icon-svg" />
                         </span>

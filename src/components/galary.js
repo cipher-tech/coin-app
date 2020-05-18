@@ -5,9 +5,11 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     grid-column: 1/-1;
+    margin-bottom: 3rem;
     
     .galleryImg{
-        background: red;
+        background: transparent;
+        height: 9rem;
         transition: all 1s ease-in-out .1s;
         perspective: 1000px;
         &:hover, :focus{

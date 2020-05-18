@@ -57,6 +57,7 @@ const Container = styled.div`
         height: 6rem;
         background: transparent;
         grid-template-columns: 1fr 1fr;
+        z-index: 1000;
 
         &-logo {
             justify-items: flex-start;
