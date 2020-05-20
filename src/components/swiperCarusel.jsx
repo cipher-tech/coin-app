@@ -8,6 +8,7 @@ import bitcoinSvg from "../images/bitcoinSvg.svg"
 import cimage from "../images/cimage.png"
 import EthereumDesire from "../images/ethereumDesire.svg"
 import React, { Component} from 'react'
+import { Link } from "react-router-dom";
 
 
 export default class swiperCarusel extends Component {
@@ -62,12 +63,12 @@ export default class swiperCarusel extends Component {
         justify-items:center;
         align-items: center;
         margin-top: 0rem;
-        height: 50vh;
+        /* height: 50vh; */
     
         /* align-content: flex-end; */
         margin-bottom: 7rem;
         /* padding-left: 3rem; */
-        overflow: hidden;
+        /* overflow: hidden; */
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpxLarge}) {
             margin-bottom: 1rem;
         }
@@ -127,6 +128,9 @@ export default class swiperCarusel extends Component {
             border: none;
             outline: none;
             margin: 3rem;
+            text-align: center;
+            display: grid;
+            place-content: center;
             z-index: 30;
             box-shadow: .2rem .4rem 10px rgba(0,0,0, .3); 
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
@@ -150,8 +154,19 @@ export default class swiperCarusel extends Component {
         height: 100%;
         width: 80%;
         z-index: 5px;
+        position: relative;
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
             grid-row: 1;
+        }
+
+        &-overlay{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #304d71b3;
+            border-radius: 50%;
         }
         img{
             height: 90%;
@@ -212,9 +227,9 @@ export default class swiperCarusel extends Component {
                             and <span className="carursel-info-text--yellow"> gift cards </span>
                             </h3>
 
-                            <button className="carursel-info-btn">
+                            <Link to="/sign-up" className="carursel-info-btn">
                                Sign Up
-                        </button>
+                        </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
@@ -235,9 +250,9 @@ export default class swiperCarusel extends Component {
                             and <span className="carursel-info-text--yellow"> gift cards </span>
                             </h3>
 
-                            <button className="carursel-info-btn">
+                            <Link to="/sign-up" className="carursel-info-btn">
                                Sign Up
-                            </button>
+                            </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
@@ -257,9 +272,9 @@ export default class swiperCarusel extends Component {
                              <span className="carursel-info-text--yellow"> best </span>
                             </h3>
 
-                            <button className="carursel-info-btn">
+                            <Link to="/sign-up" className="carursel-info-btn">
                                Sign Up
-                        </button>
+                            </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
@@ -267,6 +282,7 @@ export default class swiperCarusel extends Component {
                         </div>
 
                         <div className="headerSvg">
+                        <div className="headerSvg-overlay"/>
                         <img className="imagePhoto" src={cimage} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>

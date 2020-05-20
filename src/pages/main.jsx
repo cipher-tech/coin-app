@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Head, Rates, Feature, Discount, Step, Reach, Reviews, Foot, PhotoGallery, /* Carusel */ } from '../components'
+import { Head, Rates, Feature, Discount, Step, Reach, Reviews, /* Foot */ PhotoGallery, /* Carusel */ } from '../components'
 // import { Galary } from '../components/photoGalary/galary'
 // import SwiperCarusel from '../components/swiperCarusel'
 // import Nav from '../components/nav'
@@ -19,7 +19,7 @@ export class Main extends Component {
                 <Reach/>
                 <PhotoGallery />
                 <Reviews/>
-                <Foot/>
+                {/* <Foot/> */}
                 
             </>
         )

@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Container } from './components/styledComponents';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { BrowserRouter as Router, Switch, Route, } from "react-router-dom"
+import { HashRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
 
 import Main from './pages/main';
 import routes from './navigation/routes';
@@ -15,6 +15,9 @@ import AdminSellGiftCard from './pages/admin/sellGiftCard/sellGiftCard';
 import AdminTransaction from './pages/admin/transaction/transaction';
 import Login from './pages/auth/login/login';
 import SignUp from './pages/auth/signup/signup';
+import { ContactUs } from './pages/contact/contactUs';
+import Faq from './pages/faq/faq';
+import { Foot } from './components';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -67,9 +70,16 @@ function App() {
 				<ThemeProvider theme={theme}>
 					<GlobalStyle />
 					<Container>
-						<Route exact path={routes.public.home} component={Main} />
-						<Route exact path={routes.public.login} component={Login} />
-						<Route exact path={routes.public.signUp} component={SignUp} />
+
+						<Route path={["/", "/contact", "/faq"]} exact>
+							
+								<Route exact path={routes.public.home} component={Main} />
+								<Route exact path={routes.public.contact} component={ContactUs} />
+								<Route exact path={routes.public.faq} component={Faq} />
+							<Foot/>
+						</Route>
+						<Route exact path={routes.public.login} component={withRouter(Login)} />
+						<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
 						<Route path="/admin/:path?" exact>
 							<DashboardLayout>
 								<Switch>

@@ -9,6 +9,8 @@ import { Carusel } from '.'
 // import wavePng from "../images/wavePng.png"
 // import wavePng from "../images/waveFigure.png
 import Particles from "react-particles-js";
+import { Link } from 'react-router-dom'
+import routes from '../navigation/routes'
 const waveAnimation = keyframes`
     from{ 
         background-position: 0
@@ -85,7 +87,7 @@ const Container = styled.div`
                 display: none; 
             }
 
-            &-item{
+            &-item , a{
                 display: flex;
                 position: relative;
                 justify-content: center;
@@ -94,6 +96,8 @@ const Container = styled.div`
                 list-style-type: none;
                 height: 100%;
                 width: 100%;
+                color: ${props => props.theme.colorWhite};
+                text-decoration: none;
                 @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
                     font-size: ${props => props.theme.font.large}
                 }
@@ -251,10 +255,10 @@ const Header = () => {
                 <ul className="navbar-list">
                     <li className="navbar-list-item">Home</li>
                     <li className="navbar-list-item">Register</li>
-                    <li className="navbar-list-item">Login</li>
+                    <Link to="/login" className="navbar-list-item">Login</Link>
                     <li className="navbar-list-item">Services</li>
-                    <li className="navbar-list-item">FAQs</li>
-                    <li className="navbar-list-item">Testmonials</li>
+                    <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
+                    <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
                 </ul>
 
             </div>

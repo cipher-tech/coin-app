@@ -10,6 +10,9 @@ import envelope from "../../../images/svgIcons/envelope.svg"
 import { StyledInput } from '../../../components/styledComponents'
 import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
+import { Link} from 'react-router-dom'
+import Axios from 'axios'
+import routes from '../../../navigation/routes'
 
 
 const Container = styled.div`
@@ -191,13 +194,23 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            
+            type: "client"
         }
         this.rules = {
             email: { required: true, minlength: 4, email: true },
             password: { required: true, minlength: 6, },
             // order: { required: true }
         }
+    }
+    submit = (data) => {
+        console.log('data :>> ', data);
+        Axios.post("http://localhost:8000/api/check", data) //routes.api.login
+            .then(res => {
+                if (res.data.status === "success") {
+                    this.props.history.push(routes.admin.index)
+                }
+            })
+        // console.log('state :>> ', this.state);
     }
     updateFormValue = (name, value) => {
         this.setState({ [name]: value });
@@ -222,23 +235,26 @@ export default class Login extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
-                        
-                        <FormValidator classname=" login__side-right-container " data={ this.state } rules={ this.rules }>
+
+                        <FormValidator buttonClass="login__side-right-summit"
+                            classname=" login__side-right-container "
+                            data={this.state} rules={this.rules}
+                            submit={this.submit}>
                             <div className="login__side-right-form">
                                 <StyledInput name="email" handleChange={this.updateFormValue} value={this.state.email}
-                                    placeHolder="Email" icon={envelope} />
-                                    <ValidationMessage field="email"/>
+                                    placeHolder="Email" type="email" icon={envelope} />
+                                <ValidationMessage field="email" />
 
                                 <StyledInput name="password" handleChange={this.updateFormValue}
                                     value={this.state.password}
-                                    placeHolder="Password" icon={lock} />
-                                    <ValidationMessage field="password"/>
+                                    placeHolder="Password" type="password" icon={lock} />
+                                <ValidationMessage field="password" />
                             </div>
-                        <p className="login__side-right-isSugnedIn">
-                            Don't have an account?
-                            <span className="login__side-right-isSugnedIn-action">Sign Up</span>
-                        </p>
-                        <button className="login__side-right-summit">Login</button>
+                            <p className="login__side-right-isSugnedIn">
+                                Don't have an account?
+                            <Link to="sign-up" className="login__side-right-isSugnedIn-action">Sign Up</Link>
+                            </p>
+                            {/* <button className="login__side-right-summit">Login</button> */}
                         </FormValidator>
 
                     </div>

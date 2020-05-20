@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { ReactComponent as WelcomeSvg } from "../../../images/svgIcons/welcomeSvg.svg"
-import CircleSvg from "../../../images/svgIcons/circleSvg.svg"
-import Home from "../../../images/svgIcons/home.svg"
-import lock from "../../../images/svgIcons/lock.svg"
+// import CircleSvg from "../../../images/svgIcons/circleSvg.svg"
+// import Home from "../../../images/svgIcons/home.svg"
+// import lock from "../../../images/svgIcons/lock.svg"
 import envelope from "../../../images/svgIcons/envelope.svg"
-import phoneHandset from "../../../images/svgIcons/phone-handset.svg"
+// import phoneHandset from "../../../images/svgIcons/phone-handset.svg"
 
 import { StyledInput } from '../../../components/styledComponents'
+import { Link } from 'react-router-dom'
+import { FormValidator } from '../../../formValidator'
+import { ValidationMessage } from '../../../validationMessage'
+import Axios from 'axios'
+import routes from '../../../navigation/routes'
 
 
 const Container = styled.div`
@@ -24,6 +29,7 @@ const Container = styled.div`
         /* height: 60vh; */
         display: grid;
         grid-template-columns: 40% 1fr;
+        margin: 5rem 0 ;
         width: 100%;
         box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
         -0.2rem -0.4rem 10px rgba(255,255,255, .3);
@@ -42,7 +48,7 @@ const Container = styled.div`
             padding: 2rem;
             position: relative;
             font-family: ProximaNovaSoftW03-Regular;
-            /* background-image: url(${CircleSvg});
+            /* background-image: url($);
             background-repeat: no-repeat;
             background-position: 104px right; */
             .circle{
@@ -67,11 +73,10 @@ const Container = styled.div`
                 display: flex;
                 align-self: center;
                 justify-content: center;
+                text-align: center;
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 600;
                 padding-top: 5rem;
-                text-align: center;
-
             }
             &-text{
                 display: flex;
@@ -134,7 +139,14 @@ const Container = styled.div`
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 500;
             }
+            &-container{
+                justify-self: flex-start;
+                width: 100%;
+                display: grid;
+                justify-items: center;
+            }
             &-form{
+                /* justify-self: flex-start; */
                 width: 75%;
             }
             &-isSugnedIn{
@@ -178,6 +190,42 @@ const Container = styled.div`
 `
 
 export default class SignUp extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            email: "",
+            password: "",   
+            phone: "",   
+            first_name: "", 
+            last_name: "", 
+            account_number: "",
+            bank: "",
+            is_super: true  
+        }
+        this.rules = {
+            email: { required: true, minlength: 4, email: true },
+            password: { required: true, minlength: 6, },
+            phone: { required: true, minlength: 6, },
+            last_name: { required: true, minlength: 6, },
+            first_name: { required: true, minlength: 6, },
+            account_number: { required: true, minlength: 6, },
+            bank: { required: true, minlength: 6, },
+        }
+    }
+    submit = (data) => {
+        console.log('data :>> ', data);
+        Axios.post(routes.api.signUp, data)
+            .then(res => {
+                if (res.data.status === "success") {
+                    this.props.history.push(routes.admin.index)
+                }
+            })
+        // console.log('state :>> ', this.state);
+    }
+    updateFormValue = (name, value) => {
+        this.setState({ [name]: value });
+    }
     render() {
         return (
             <Container>
@@ -198,17 +246,51 @@ export default class SignUp extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
+                        <FormValidator buttonClass="login__side-right-summit" 
+                        classname=" login__side-right-container " 
+                        data={ this.state } rules={ this.rules }
+                        submit={this.submit}>
+
                         <div className="login__side-right-form">
-                            <StyledInput placeHolder="username" icon={Home} />
-                            <StyledInput placeHolder="email" icon={envelope} />
-                            <StyledInput placeHolder="Phone Number" icon={phoneHandset} />
-                            <StyledInput placeHolder="Passwords" icon={lock} />
+                            <StyledInput name="email" type="text" handleChange={this.updateFormValue} value={this.state.email}
+                                placeHolder="Email" icon={envelope} />
+                                <ValidationMessage field="email"/>
+
+                            <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.firftname}
+                                placeHolder="Firstname" type="text" icon={envelope} />
+                                <ValidationMessage field="first_name"/>
+
+                            <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.lastname}
+                                placeHolder="Lastname" type="text" icon={envelope} />
+                                <ValidationMessage field="last_name"/>
+
+                            <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phoneNumber}
+                                placeHolder="phoneNumber" type="text" icon={envelope} />
+                                <ValidationMessage field="phone"/>
+
+                            <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
+                                placeHolder="Bank" type="text" icon={envelope} />
+                                <ValidationMessage field="bank"/>
+
+                            <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
+                                placeHolder="Account_number" type="number" icon={envelope} />
+                                <ValidationMessage field="account_number"/>
+
+                            <StyledInput name="password" handleChange={this.updateFormValue} value={this.state.password}
+                                placeHolder="password" type="password" icon={envelope} />
+                                <ValidationMessage field="password"/>
+                            {/* <StyledInput placeHolder="username" type="text" icon={Home} />
+                            {/* <StyledInput placeHolder="email" type="text" icon={envelope} /> 
+                            <StyledInput placeHolder="Phone Number" type="text" icon={phoneHandset} />
+                            <StyledInput placeHolder="Passwords" type="text" icon={lock} /> */}
                         </div>
                         <p className="login__side-right-isSugnedIn">
                             Already Signed up?
-                            <span className="login__side-right-isSugnedIn-action"> LogIn</span>
+                            <Link to="/login" className="login__side-right-isSugnedIn-action"> LogIn</Link>
                         </p>
-                        <button className="login__side-right-summit">Login</button>
+                        {/* <button className="login__side-right-summit">Login</button> */}
+                        </FormValidator>
+
                     </div>
                 </div>
             </Container>

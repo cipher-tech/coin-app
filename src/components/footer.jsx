@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import image from "../images/footerImg.jpg"
 import logo from "../images/brandLogo.jpg"
+import { Link } from 'react-router-dom'
 const Container = styled.div`
     display: grid;
     /* height: 50vh; */
@@ -64,6 +65,8 @@ const Container = styled.div`
         }
         &-item{
             padding: 1rem 1rem;
+            color: ${props => props.theme.colorWhite}
+
         }
     }
     
@@ -71,9 +74,10 @@ const Container = styled.div`
         grid-row: 1;
     }
 `
-const Footer = () => {
+const Footer = (props) => {
     return (
         <Container>
+            {props.children}
             <p className="footer-options">
                 <select className="footer-options-select" name="language" id="lang">
                     <option value="english">Nigeria[English] </option>
@@ -92,22 +96,19 @@ const Footer = () => {
                 <li className="footer-list-item"> Products </li>
                 <li className="footer-list-item"> Giftcards </li>
                 <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> Perfect Money </li>
+                <li className="footer-list-item"> Digital Access </li>
             </ul>
             <ul className="footer-list">
-                <li className="footer-list-item"> Products </li>
-                <li className="footer-list-item"> Giftcards </li>
-                <li className="footer-list-item"> Giftcards </li>
-                <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> Perfect Money </li>
+                <li className="footer-list-item"> Legal </li>
+                <li className="footer-list-item"> Privacy Policy </li>
+                <li className="footer-list-item"> Anti-money </li>
             </ul>
             <ul className="footer-list">
-                <li className="footer-list-item"> Products </li>
-                <li className="footer-list-item"> Giftcards </li>
-                <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> Perfect Money </li>
+                <li className="footer-list-item"> Company</li>
+                {/* <li className="footer-list-item"> BTC </li> */}
+                <Link to="/contact" className="footer-list-item"> Contact</Link>
+                <Link to="/faq" className="footer-list-item"> FAQ</Link>
+                <Link to="/admin" className="footer-list-item"> Admin </Link>
             </ul>
 
             {/* <p className="footer-credit">
