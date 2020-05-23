@@ -57,12 +57,12 @@ const Features = () => {
                 matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/> */}
             <FeatureCard title="Trade Your" 
             text={`The things that matter to you
-                matter to us, you’re secure with us.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" image={image1}/>
+                matter to us, you’re secure with us.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " image={image1}/>
             <FeatureCard title="Fast Confirmation of Your" end="Transcations" 
             text={`The things that matter to you
-                matter to us, you’re secure with us.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" invert={1/-1} image={image2}/>
+                matter to us, you’re secure with us.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " invert={1/-1} image={image2}/>
             <FeatureCard title="Fast Payments for your " 
-            text={`We Offer the fastest payments avaliable anywhere anytime!.`} bitcoin="Bitcoin" and=" and " giftCard="Gift Cards" image={image3}/>
+            text={`We Offer the fastest payments avaliable anywhere anytime!.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " image={image3}/>
         
       
         </Container>

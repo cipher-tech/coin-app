@@ -52,7 +52,7 @@ const Container = styled.div`
             }
         }
         p{
-            display: flex;
+            /* display: flex; */
             place-content: center;
             padding: 2rem 1rem;
             flex-basis: 60%;
@@ -96,11 +96,11 @@ export default function Headertext(props) {
                 {props.text}
                 <span className="span">
                     &nbsp; {props.bitcoin}
-                    <span className="and">
-                        {props.and}
-                    </span>
-                    {props.giftCard} &nbsp; 
                 </span>
+                <span className="and">
+                    {props.and}
+                </span>
+                <span className="span">{props.giftCard} &nbsp; </span>
                 {props.end}
             </p>
         </Container>

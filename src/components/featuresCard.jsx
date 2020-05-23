@@ -17,7 +17,7 @@ const Container = styled.div`
         /* grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); */
     }
     &-title{
-        display: flex;
+        /* display: flex; */
         grid-template-rows: 1fr;
         font-size: ${props => props.theme.font.large};
         width: 100%;
@@ -29,8 +29,8 @@ const Container = styled.div`
 
         &-span{
             color: ${props => props.theme.colorSecondary};
-            display: flex;
-            flex-wrap: nowrap;
+            /* display: flex;
+            flex-wrap: nowrap; */
             &-and{
             color: ${props => props.theme.colorPrimary}
             }
@@ -90,18 +90,18 @@ const FeaturesCard = props => {
                 <div
                 >
                     <h4 className='features--content-title'>
-                        {props.title} {props.bitcoin} {props.and}  {props.giftCard}  {props.end}
-                        {/* <span className="features--content-title-span">
-                            
+                        {props.title}      
+                        <span className="features--content-title-span">
+                            {props.bitcoin}
                         </span>
 
                         <span className="features--content-title-span-and">
-                            
+                            {props.and}
                         </span>
                         <span className="features--content-title-span">
-                           
-                        </span> */}
-                       
+                           {props.giftCard}
+                        </span>
+                        {props.end}
                     </h4>
                     <p className="features--content-text">
                         {props.text}

@@ -10,7 +10,7 @@ import envelope from "../../../images/svgIcons/envelope.svg"
 import { StyledInput } from '../../../components/styledComponents'
 import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
 
@@ -137,6 +137,14 @@ const Container = styled.div`
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 500;
             }
+            &-message{
+                justify-self: center;
+                text-align: left;
+                width: 70%;
+                color: ${props => props.theme.colorError};
+                font-size: ${props => props.theme.font.small};
+                font-weight: 500;
+            }
             &-container{
                 justify-self: flex-start;
                 width: 100%;
@@ -194,7 +202,9 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            type: "client"
+            type: "client",
+            message: "",
+            messageDetails: "Email or password incorrect"
         }
         this.rules = {
             email: { required: true, minlength: 4, email: true },
@@ -204,10 +214,20 @@ export default class Login extends Component {
     }
     submit = (data) => {
         console.log('data :>> ', data);
-        Axios.post("http://localhost:8000/api/check", data) //routes.api.login
+        Axios.post(routes.api.login, data) //routes.api.login
             .then(res => {
                 if (res.data.status === "success") {
                     this.props.history.push(routes.admin.index)
+                }
+                if (res.data.status === false) {
+                    // console.log(res.data);
+                    this.props.history.push(routes.admin.index)
+                    this.setState({ message: res.data.data })
+                }
+                if (res.data.status) {
+                    // console.log(res.data);
+                    this.props.history.push(routes.admin.index)
+                    this.setState({ message: false })
                 }
             })
         // console.log('state :>> ', this.state);
@@ -235,7 +255,11 @@ export default class Login extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
-
+                        <p className="login__side-right-message"> 
+                            {this.state.message? `${this.state.message}` : null } 
+                            <br/>
+                            {this.state.message? `${this.state.messageDetails}` : null } 
+                        </p>
                         <FormValidator buttonClass="login__side-right-summit"
                             classname=" login__side-right-container "
                             data={this.state} rules={this.rules}

@@ -1,6 +1,8 @@
 const admin = "/admin"
 // const host = "http://127.0.0.1:8080"
+const prod = false
 const server = "https://ajglobal.rinnaz.com/api/"
+const localhost = "http://localhost:8000/api/"
 const routes = {
     public: {
         home: "/",
@@ -10,8 +12,9 @@ const routes = {
         signUp: "/sign-up",
     },
     api: {
-        login:  server      +     'login',
-        signUp: server      +    'client',
+        login:  (prod ? server  : localhost)    +     'login',
+        // signUp: prod ? server  : localhost      +    'client',
+        signUp: prod ? server  : localhost      +    'register',
     },
 
     admin: {

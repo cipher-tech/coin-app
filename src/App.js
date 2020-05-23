@@ -3,8 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Container } from './components/styledComponents';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { HashRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
-
+import {  BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+//HashRouter
 import Main from './pages/main';
 import routes from './navigation/routes';
 import Dashboard from './pages/admin/dashboard';
@@ -28,6 +28,7 @@ const theme = {
 	colorDark: "#707070",
 	colorLight: "#EEEEEE",
 	colorSuccess: "#3CC480",
+	colorError: "#ff1a45",
 	colorYellow: "#F4FA9C",
 	// colorPurple: "#E049EA",
 	// colorInfo: "#F4FA9C",

@@ -303,14 +303,14 @@ function DashboardLayout(props) {
                         </span>
                     </li>
 
-                    <Link onClick={closeSideNav} href={routes.admin.index} className="sideNav__container-item">
+                    <a onClick={closeSideNav} href={routes.admin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <ChartBars className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Dashboard
                         </span>
-                    </Link>
+                    </a>
 
                     <Link onClick={closeSideNav} to={routes.admin.transcation} className="sideNav__container-item">
 

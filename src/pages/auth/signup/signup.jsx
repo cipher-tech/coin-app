@@ -139,6 +139,14 @@ const Container = styled.div`
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 500;
             }
+            &-message{
+                justify-self: center;
+                text-align: left;
+                width: 70%;
+                color: ${props => props.theme.colorError};
+                font-size: ${props => props.theme.font.small};
+                font-weight: 500;
+            }
             &-container{
                 justify-self: flex-start;
                 width: 100%;
@@ -201,7 +209,9 @@ export default class SignUp extends Component {
             last_name: "", 
             account_number: "",
             bank: "",
-            is_super: true  
+            is_super: true,
+            message: "",
+            // messageDetails: "Email or password incorrect",
         }
         this.rules = {
             email: { required: true, minlength: 4, email: true },
@@ -214,12 +224,26 @@ export default class SignUp extends Component {
         }
     }
     submit = (data) => {
-        console.log('data :>> ', data);
-        Axios.post(routes.api.signUp, data)
+        Axios.post(routes.api.signUp, data) //routes.api.signUp
             .then(res => {
+                console.log(res.data);
                 if (res.data.status === "success") {
                     this.props.history.push(routes.admin.index)
                 }
+                if (res.data.status === false) {
+                    // console.log(res.data);
+                    this.props.history.push(routes.admin.index)
+                    this.setState({ message: res.data.data })
+                }
+                if (res.data.status) {
+                    // console.log(res.data);
+                    this.props.history.push(routes.admin.index)
+                    this.setState({ message: false })
+                }
+            })
+            .catch(error => {
+                this.setState({ message: "An error occured. Check your details and try again." })
+
             })
         // console.log('state :>> ', this.state);
     }
@@ -246,6 +270,11 @@ export default class SignUp extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
+                        <p className="login__side-right-message"> 
+                            {this.state.message? `${this.state.message}` : null } 
+                            <br/>
+                            {/* {this.state.message? `${this.state.messageDetails}` : null }  */}
+                        </p>
                         <FormValidator buttonClass="login__side-right-summit" 
                         classname=" login__side-right-container " 
                         data={ this.state } rules={ this.rules }
