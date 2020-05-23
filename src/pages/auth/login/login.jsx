@@ -13,6 +13,8 @@ import { ValidationMessage } from '../../../validationMessage'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
+import { fetchUserInfoActionCreator } from '../../../reduxStore'
+import { connect } from 'react-redux'
 
 
 const Container = styled.div`
@@ -195,7 +197,7 @@ const Container = styled.div`
     }
 `
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props)
 
@@ -212,24 +214,29 @@ export default class Login extends Component {
             // order: { required: true }
         }
     }
-    submit = (data) => {
-        console.log('data :>> ', data);
+    submit = async (data) => {
+        // console.log('data :>> ', data);
         Axios.post(routes.api.login, data) //routes.api.login
-            .then(res => {
-                if (res.data.status === "success") {
-                    this.props.history.push(routes.admin.index)
-                }
+            .then (res =>  {
                 if (res.data.status === false) {
                     // console.log(res.data);
-                    this.props.history.push(routes.admin.index)
+                    // this.props.history.push(routes.admin.index)
                     this.setState({ message: res.data.data })
                 }
                 if (res.data.status) {
-                    // console.log(res.data);
-                    this.props.history.push(routes.admin.index)
+                    this.props.fetchUserInfo(res.data.data.user)
                     this.setState({ message: false })
+                    const logInInfo = {
+                        isLoggedIn: true,
+                        user: res.data.data
+                    }
+                    localStorage.userInfo =  JSON.stringify(logInInfo) 
+                    this.props.history.push(routes.admin.index)
+
                 }
             })
+            .then(res => console.log(this.props.users))
+            .catch(err => console.log(err))
         // console.log('state :>> ', this.state);
     }
     updateFormValue = (name, value) => {
@@ -287,3 +294,14 @@ export default class Login extends Component {
         )
     }
 }
+
+
+const mapStateToProps = ({users}) => ({
+    users: users
+})
+
+const mapDispatchToProps = {
+    fetchUserInfo: fetchUserInfoActionCreator
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

@@ -13,6 +13,7 @@ import SwiperCarusel from "./swiperCarusel";
 import { Galary } from "./galary";
 import SellCoin from "./buySellCard/buySellCoin";
 import Accodion from "./accodion/accodion";
+import adminCard from "./adminDashboardCard/adminDashboardCard"
 
 export const Head = Header
 export const Rates = CoinRates
@@ -29,3 +30,4 @@ export const Carusel = SwiperCarusel
 export const PhotoGallery = Galary
 export const SellBitcoinCard = SellCoin;
 export const DropAccodion = Accodion
+export const AdminCard = adminCard

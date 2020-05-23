@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
-import App from './table'
+import Table from './table'
 
 const Container = styled.div`
-    grid-column: 2/-1;
+    grid-column: ${props => props.gridPos || "2/-1"};
     display: grid;
     min-height: 100%;
     min-width: 100%;
@@ -19,6 +19,9 @@ const Container = styled.div`
         padding: 3rem;
         place-items: center;
         /* height: 78vh; */
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
+           padding: 3rem 0;
+        }
 
         img{
             /* height: 100%; */
@@ -26,13 +29,36 @@ const Container = styled.div`
 
     }
 `
-function AdminRates() {
+function AdminRates({gridPos}) {
+    const  columns = {
+        Header: 'Rates',
+        columns: [
+          {
+            Header: 'Asset',
+            accessor: 'Asset',
+          },
+          {
+            Header: 'Type',
+            accessor: 'Type',
+          },
+          {
+            Header: 'Range',
+            accessor: 'Range',
+          },
+          {
+            Header: 'Buying',
+            accessor: 'Buying',
+          },
+          {
+            Header: 'Selling',
+            accessor: 'Selling',
+          },
+        ]
+      }
     return (
-        <Container>
+        <Container gridPos={gridPos}>
             <div className="rate">
-                {/* <img src={rateImage} alt="rate"/> */}
-                <br/>
-                <App/>
+                <Table tableColumns={columns}/>
             </div>
         </Container>
     )

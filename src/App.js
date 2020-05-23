@@ -1,10 +1,12 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, Container } from './components/styledComponents';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import {  BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
 //HashRouter
+
+import reduxStore from "./reduxStore"
+import { GlobalStyle, Container } from './components/styledComponents';
 import Main from './pages/main';
 import routes from './navigation/routes';
 import Dashboard from './pages/admin/dashboard';
@@ -18,6 +20,9 @@ import SignUp from './pages/auth/signup/signup';
 import { ContactUs } from './pages/contact/contactUs';
 import Faq from './pages/faq/faq';
 import { Foot } from './components';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import MasterDashboardLayout from './pages/masterAdmin/masterDashboardLayout';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -30,9 +35,7 @@ const theme = {
 	colorSuccess: "#3CC480",
 	colorError: "#ff1a45",
 	colorYellow: "#F4FA9C",
-	// colorPurple: "#E049EA",
-	// colorInfo: "#F4FA9C",
-	// colorBg: "#322F55",
+
 	font: {
 		xxlarge: "5rem",
 		xLarge: "4rem",
@@ -66,37 +69,48 @@ AOS.init()
 
 function App() {
 	return (
-		<Router>
-			<Switch>
-				<ThemeProvider theme={theme}>
-					<GlobalStyle />
-					<Container>
+		<Provider store={createStore(reduxStore)}>
+			<Router>
+				<Switch>
+					<ThemeProvider theme={theme}>
+						<GlobalStyle />
+						<Container>
+							<Route path={["/", "/contact", "/faq"]} exact>
 
-						<Route path={["/", "/contact", "/faq"]} exact>
-							
 								<Route exact path={routes.public.home} component={Main} />
 								<Route exact path={routes.public.contact} component={ContactUs} />
 								<Route exact path={routes.public.faq} component={Faq} />
-							<Foot/>
-						</Route>
-						<Route exact path={routes.public.login} component={withRouter(Login)} />
-						<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
-						<Route path="/admin/:path?" exact>
-							<DashboardLayout>
-								<Switch>
-									<Route exact path={routes.admin.index} component={Dashboard} />
-									<Route exact path={routes.admin.rates} component={Rates} />
-									<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
-									<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
-									<Route exact path={routes.admin.transcation} component={AdminTransaction} />
-								</Switch>
-							</DashboardLayout>
-						</Route>
-					</Container>
-				</ThemeProvider>
-			</Switch>
-		</Router>
-
+								<Foot />
+							</Route>
+							<Route exact path={routes.public.login} component={withRouter(Login)} />
+							<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
+							<Route path="/admin/:path?" exact>
+								<DashboardLayout>
+									<Switch>
+										<Route exact path={routes.admin.index} component={Dashboard} />
+										<Route exact path={routes.admin.rates} component={Rates} />
+										<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
+										<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
+										<Route exact path={routes.admin.transcation} component={AdminTransaction} />
+									</Switch>
+								</DashboardLayout>
+							</Route>
+							<Route path={"/master-admin/:path?"} exact>
+								<MasterDashboardLayout>
+									<Switch>
+										<Route exact path={routes.masterAdmin.index} component={Dashboard} />
+										<Route exact path={routes.masterAdmin.rates} component={Rates} />
+										<Route exact path={routes.masterAdmin.sellBitcoin} component={AdminSellBitcoin} />
+										<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
+										<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
+									</Switch>
+								</MasterDashboardLayout>
+							</Route>
+						</Container>
+					</ThemeProvider>
+				</Switch>
+			</Router>
+		</Provider>
 	);
 }
 

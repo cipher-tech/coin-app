@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import CoinWidget from './widget/wigjet'
+// import CoinWidget from './widget/wigjet'
 // import bitcoin from "../images/us-bitcoin.svg"
 // import amazon from "../images/us-amazon.svg"
 // import CoinCalculator from './coinCalculator'

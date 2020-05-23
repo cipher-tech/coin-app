@@ -9,6 +9,9 @@ const Styles = styled.div`
   width: 100%;
   display: grid;
   justify-items: center;
+  @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
+    overflow: scroll;
+  }
   table {
     width: 100%;
     grid-column: 1/-1;
@@ -84,33 +87,10 @@ function Table({ columns, data }) {
   )
 }
 
-function App() {
+function App({tableColumns}) {
   const columns = React.useMemo(
     () => [
-      {
-        Header: 'Asset',
-        accessor: 'Asset',
-      },
-      {
-        Header: 'Type',
-        accessor: 'Type',
-      },
-      {
-        Header: 'Range',
-        accessor: 'Range',
-      },
-      {
-        Header: 'Buying',
-        accessor: 'Buying',
-      },
-      // {
-      //   Header: 'Status',
-      //   accessor: 'status',
-      // },
-      {
-        Header: 'Selling',
-        accessor: 'Selling',
-      },
+      tableColumns
       // {
       //   Header: 'Name',
       //   columns: [
@@ -146,7 +126,7 @@ function App() {
       //   ],
       // },
     ],
-    []
+    [tableColumns]
   )
 
   const data = React.useMemo(() => makeData(12), [])

@@ -183,92 +183,9 @@ background: ${props => props.theme.colorPrimary};
     display: grid;
     z-index: 30;
     border-radius: 2rem 0 0 2rem;
-    /* &__title{   
-        font-weight: 500;
-        color: ${props => props.theme.colorPrimary};
-        font-family: ProximaNovaSoftW03-Regular;
-    }
-    &__overView{
-        grid-column: 1/-1;
-        display: grid;
-        justify-items: center;
-        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-
-        &-items{
-            margin-top: 2rem;
-            width: max-content;
-            height: min-content;
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: repeat(2, 1fr);
-            box-shadow: .3rem .4rem 7px rgba(0,0,0, .4);
-            border-radius: 1.5rem;
-            
-            &-stats{
-                display: grid;
-                justify-items: center;
-                align-items: center;
-                padding: 1rem 2rem;
-                color: ${props => props.theme.colorPrimary};
-
-                &--title{
-                    font-weight: 300;
-                    padding: .3rem 0rem 0 1.8rem;
-                    font-size: ${props => props.theme.font.small};
-                    
-                }
-                &--digit{
-                    font-weight: 700;
-                    padding: .8rem 0;
-                    font-size: ${props => props.theme.font.xlarge};
-                    text-align: left;
-                }
-                &--rate{
-                    font-weight: 500;
-                    margin-left: -2.5rem;
-                    font-size: ${props => props.theme.font.xsmall};
-                    text-align: left;
-                    align-self: flex-start;
-                    color: ${props => props.theme.colorSuccess};
-                }
-            }
-
-            &-icon{
-                width: 100%;
-                display: block;
-                object-fit: cover;
-                img{
-                    width: 90%;
-                    height: 100%;
-                }
-            }
-        }
-    }
-    &__chart{
-        grid-column: 1/-1;
-        text-align: center;
-        display: block;
-        object-fit: cover;
-        img{
-            width: 90%;
-            height: 100%;
-        }
-    }
-    &__details{
-        grid-column: 2/-1;
-        grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-        gap: 3rem;
-        text-align: center;
-        display: grid;
-        object-fit: cover;
-        img{
-            width: 100%;
-           
-        }
-    } */
+    
 }
 `
-
 
 function DashboardLayout(props) {
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
