@@ -228,7 +228,7 @@ class Login extends Component {
                     this.setState({ message: false })
                     const logInInfo = {
                         isLoggedIn: true,
-                        user: res.data.data
+                        user: res.data.data.user
                     }
                     localStorage.userInfo =  JSON.stringify(logInInfo) 
                     this.props.history.push(routes.admin.index)

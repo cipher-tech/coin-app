@@ -123,10 +123,11 @@ function App({tableColumns}) {
       //   ],
       // },
     ],
-    []
+    [ tableColumns]
   )
 
   const data = React.useMemo(() => makeData(12), [])
+  console.log(data);
 
   return (
     <Styles>

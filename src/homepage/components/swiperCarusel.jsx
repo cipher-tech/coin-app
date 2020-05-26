@@ -7,7 +7,7 @@ import applestore from "../images/istore.svg"
 import bitcoinSvg from "../images/bitcoinSvg.svg"
 import cimage from "../images/cimage.png"
 import EthereumDesire from "../images/ethereumDesire.svg"
-import React, { Component } from 'react'
+import React, { Component} from 'react'
 import { Link } from "react-router-dom";
 
 
@@ -15,15 +15,15 @@ export default class swiperCarusel extends Component {
 
     constructor(props) {
         super(props)
-
+    
         this.swipper = null
-        this.image = <img src={bitcoinSvg} alt="bitcoinSvg" />
+        this.image =  <img src={bitcoinSvg} alt="bitcoinSvg" />
         this.state = {
             swiper: 1,
             index: 2
         }
     }
-
+    
     //  setImage = () => {
     //     // console.log("333");
     //     if(this.swipper !== null && this.swipper.activeIndex === 3){
@@ -35,14 +35,14 @@ export default class swiperCarusel extends Component {
     //     return  <img src={EthereumDesire} alt="bitcoinSvg" />
     // }
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.swipper);
+        console.log( this.swipper);
     }
-
+    
     // componentDidMount() {
     //     console.log( this.swipe);
     //     // console.log(Swiper);
     // }
-
+    
     render() {
         const Container = styled.div`
     width: 100%; 
@@ -105,7 +105,6 @@ export default class swiperCarusel extends Component {
         &-text{
             font-family: montserrat;
             padding: 1rem 3rem;
-            text-transform: capitalize;
             font-size: ${props => props.theme.font.xxlarge};
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
                 font-size: ${props => props.theme.font.xLarge};
@@ -175,9 +174,9 @@ export default class swiperCarusel extends Component {
             /* transform: scale(.8); */
         }
         .imagePhoto{
-            /* height: 36rem;
-            width: 36rem; */
-            /* border-radius: 50%; */
+            height: 36rem;
+            width: 36rem;
+            border-radius: 50%;
         }
     }
     }
@@ -190,19 +189,19 @@ export default class swiperCarusel extends Component {
             slidesPerView: 1,
             runCallbackOnInit: true,
             init: true,
-
+            
             getSwiper: swiper => {
                 this.swipe = swiper
-
+               
                 this.swipper = swiper
             },
             on: {
                 slideChangeTransitionEnd: () => {
-                    if (this.swipper !== null) {
+                    if(this.swipper !== null){
                         // console.log(this.swipper)
                     }
-                },
-
+                    }, 
+             
             },
             loop: !false,
             autoplay: {
@@ -216,23 +215,20 @@ export default class swiperCarusel extends Component {
         }
         return (
             <Container>
-
+           
                 <Swiper shouldSwiperUpdate={true}  {...params} >
-
+               
                     <div key='322' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
-                                Welcome To CJ GRAND EXCHANGE
-                                  
-                                {/* We buy and sell cryptocurrencies (Bitcoin, Giftcards and more...). Our payment is fast and secured. */}
-
-                            <span className="carursel-info-text--yellow"> TRADE </span>
-                                FROM YOUR 
-                           <span className="carursel-info-text--yellow"> COMFORT ZONE </span>
+                                AJ global ventures
+                                makes it easy to sell your
+                            <span className="carursel-info-text--yellow"> bitcoins </span>
+                            and <span className="carursel-info-text--yellow"> gift cards </span>
                             </h3>
 
                             <Link to="/sign-up" className="carursel-info-btn">
-                                Sign Up
+                               Sign Up
                         </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
@@ -248,14 +244,14 @@ export default class swiperCarusel extends Component {
                     <div key='3' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
-                               CJ GRAND EXCHANGE
+                                AJ global ventures
                                 makes it easy to sell your
-                            <span className="carursel-info-text--yellow"> Bitcoin </span>
+                            <span className="carursel-info-text--yellow"> Ethereum </span>
                             and <span className="carursel-info-text--yellow"> gift cards </span>
                             </h3>
 
                             <Link to="/sign-up" className="carursel-info-btn">
-                                Sign Up
+                               Sign Up
                             </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
@@ -270,14 +266,14 @@ export default class swiperCarusel extends Component {
                     <div key='7' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
-                            EXCHANGE CURRENCIES TODAY at
-                            <span className="carursel-info-text--yellow"> Affordable rates! </span>
-                                 {/* with the
-                             <span className="carursel-info-text--yellow"> best </span> */}
+                                AJ global ventures 
+                            <span className="carursel-info-text--yellow"> Patners </span>
+                                 with the 
+                             <span className="carursel-info-text--yellow"> best </span>
                             </h3>
 
                             <Link to="/sign-up" className="carursel-info-btn">
-                                Sign Up
+                               Sign Up
                             </Link>
                             <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
@@ -286,13 +282,13 @@ export default class swiperCarusel extends Component {
                         </div>
 
                         <div className="headerSvg">
-                            {/* <div className="headerSvg-overlay" /> */}
-                            <img className="imagePhoto" src={EthereumDesire} alt="bitcoinSvg" data-swiper-parallax="-600" />
+                        <div className="headerSvg-overlay"/>
+                        <img className="imagePhoto" src={cimage} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>
-
+                    
                 </Swiper>
-
+                
             </Container>
         )
     }

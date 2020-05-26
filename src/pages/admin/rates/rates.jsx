@@ -29,7 +29,7 @@ const Container = styled.div`
 
     }
 `
-function AdminRates({gridPos}) {
+function MasterAdminRates({gridPos}) {
     const  columns = {
         Header: 'Rates',
         columns: [
@@ -63,5 +63,5 @@ function AdminRates({gridPos}) {
         </Container>
     )
 }
-
-export default AdminRates
+ 
+export default MasterAdminRates

@@ -23,6 +23,10 @@ import { Foot } from './components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import MasterDashboardLayout from './pages/masterAdmin/masterDashboardLayout';
+import MasterAdminRates from "./pages/masterAdmin/rates/rates";
+import AdminUsers from './pages/masterAdmin/users/users';
+import UserVerify from './pages/admin/verify/verify';
+import VerifyUsers from './pages/masterAdmin/verify/verifyUsers';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -92,6 +96,7 @@ function App() {
 										<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
 										<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
 										<Route exact path={routes.admin.transcation} component={AdminTransaction} />
+										<Route exact path={routes.admin.verify} component={UserVerify} />
 									</Switch>
 								</DashboardLayout>
 							</Route>
@@ -99,10 +104,12 @@ function App() {
 								<MasterDashboardLayout>
 									<Switch>
 										<Route exact path={routes.masterAdmin.index} component={Dashboard} />
-										<Route exact path={routes.masterAdmin.rates} component={Rates} />
+										<Route exact path={routes.masterAdmin.users} component={AdminUsers} />
+										<Route exact path={routes.masterAdmin.rates} component={MasterAdminRates} />
 										<Route exact path={routes.masterAdmin.sellBitcoin} component={AdminSellBitcoin} />
 										<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
 										<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
+										<Route exact path={routes.masterAdmin.verify} component={VerifyUsers} />
 									</Switch>
 								</MasterDashboardLayout>
 							</Route>

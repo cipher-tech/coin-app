@@ -2,10 +2,10 @@ const admin = "/admin"
 const masterAdmin = "/master-admin"
 // const host = "http://127.0.0.1:8080"
 const prod = false
-const server = "https://ajglobal.rinnaz.com/api/"
+const server = "https://website.com/api/"
 const localhost = "http://localhost:8000/api/"
 const routes = {
-    master: "/master-admin",
+    master: masterAdmin,
     public: {
         home: "/",
         contact: "/contact",
@@ -15,25 +15,28 @@ const routes = {
     },
     api: {
         login:  (prod ? server  : localhost)    +     'login',
-        // signUp: prod ? server  : localhost      +    'client',
         signUp: prod ? server  : localhost      +    'register',
     },
 
     admin: {
         index: "/admin",
-        dashboard: admin + "/dashboard",
-        rates: admin + "/rates",
-        sellBitcoin: admin + "/sell-bitcoin",
-        sellGiftcard: admin + "/sell-giftcard",
-        transcation: admin + "/transcation",
+        dashboard:      admin    +   "/dashboard",
+        rates:          admin        +   "/rates",
+        sellBitcoin:    admin  +   "/sell-bitcoin",
+        sellGiftcard:   admin +   "/sell-giftcard",
+        transcation:    admin  +   "/transcation",
+        verify:         admin  +   "/verify",
+
     },
     masterAdmin: {
         index:          masterAdmin,
-        dashboard:      masterAdmin             + "/dashboard",
-        rates:          masterAdmin             + "/rates",
-        sellBitcoin:    masterAdmin             + "/sell-bitcoin",
-        sellGiftcard:   masterAdmin             + "/sell-giftcard",
-        transcation:    masterAdmin             + "/transcation",
+        dashboard:      masterAdmin     + "/dashboard",
+        rates:          masterAdmin     + "/rates",
+        sellBitcoin:    masterAdmin     +   "/sell-bitcoin",
+        sellGiftcard:   masterAdmin     +   "/sell-giftcard",
+        transcation:    masterAdmin     +   "/transcation",
+        users:          masterAdmin     +   "/users",
+        verify:         masterAdmin     +   "/verify",
     }
 }
 export default routes

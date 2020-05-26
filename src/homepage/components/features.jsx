@@ -29,46 +29,42 @@ const Features = () => {
         // setState(script)
         //For head
         // document.head.appendChild(script);
-
+    
         // // For body
         // document.body.appendChild(script);
-
+    
         // // For component
         // this.div.appendChild(script);
         return () => {
-
+        
         }
     }, [script])
     return (
         <Container>
-            <div>
-                {/* <script src="https://www.cryptonator.com/ui/js/widget/calc_widget.js"></script> */}
-
-            </div>
+          <div>
+        {/* <script src="https://www.cryptonator.com/ui/js/widget/calc_widget.js"></script> */}
+           
+        </div>
             <div className="features--heading">
-                <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading `} end={` experience worldclass transaction processes.
-                    At CJ GRAND EXCHANGE, we are constantly working to make buying and selling of our products very easy, fast and reliable while exceeding our customer's expectations. 
-`}
-                    bitcoin=" Bitcoin" and=" and " giftCard="Gift Cards " />
+            <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading `} end=" experience worldclass transaction processes.
+                    Buy and Sell Giftcards, Perfect Money & Bitcoin."
+             bitcoin=" Bitcoin" and=" and " giftCard="Gift Cards "/>
             </div>
-            {/* <SellBitcoinCard /> */}
-            {/* 
+                <SellBitcoinCard />
+{/* 
             <FeatureCard title="Currency Calculator" 
             text={`The things that matter to you
                 matter to us, you’re secure with us.`} invert={1/-1}  calc image={ <CoinCalculator/>}/> */}
-            <FeatureCard title="USER FRIENDLY:"
-                text={`Our system is very convenient. Properly developed to suit your daily needs. `} image={image1} />
-            <FeatureCard title="Fast Service: "
-                text={`Buy and Sell as quick as possible. Get paid as soon as the transaction is completed. `} invert={1 / -1} image={image2} />
-            <FeatureCard title="Premium market rates: "
-                text={`Bitcoin rates do fluctuate, but at CJ GRAND EXCHANGE, the exchange rate is set at the time of exchange.`} image={image3} />
-            
-            <FeatureCard title="Safe and Secure Transactions: "
-                text={`Same day funding and withdrawals into your bank accounts. Transactions are secured via Secure Sockets Layer (SSL) 128-bit encryption.`} invert={1 / -1} image={image2} />
-            {/* <FeatureCard title="Fast Payments for your " 
+            <FeatureCard title="Trade Your" 
+            text={`The things that matter to you
+                matter to us, you’re secure with us.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " image={image1}/>
+            <FeatureCard title="Fast Confirmation of Your" end="Transcations" 
+            text={`The things that matter to you
+                matter to us, you’re secure with us.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " invert={1/-1} image={image2}/>
+            <FeatureCard title="Fast Payments for your " 
             text={`We Offer the fastest payments avaliable anywhere anytime!.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " image={image3}/>
-         */}
-
+        
+      
         </Container>
     )
 }

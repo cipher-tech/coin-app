@@ -306,7 +306,7 @@ const Header = () => {
                 params={{
                     "particles": {
                         "number": {
-                            "value": 360,
+                            "value": 160,
                             "density": {
                                 "enable": false
                             }
