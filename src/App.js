@@ -74,7 +74,7 @@ AOS.init()
 function App() {
 	return (
 		<Provider store={createStore(reduxStore)}>
-			<Router>
+			<Router basename={process.env.PUBLIC_URL}>
 				<Switch>
 					<ThemeProvider theme={theme}>
 						<GlobalStyle />
