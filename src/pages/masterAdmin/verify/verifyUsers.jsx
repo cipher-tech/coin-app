@@ -83,7 +83,20 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 	}, [fetchAllUsers] )
 	const columns = [
 		{
-			Header: 'Name',
+			// Make an expander cell
+			Header: () => null, // No header
+			id: 'expander', // It needs an ID
+			Cell: ({ row }) => (
+			  // Use Cell to render an expander for each row.
+			  // We can use the getToggleRowExpandedProps prop-getter
+			  // to build the expander.
+			  <span {...row.getToggleRowExpandedProps()}>
+				{row.isExpanded ? '👇' : '👉'}
+			  </span>
+			),
+		  },
+		{
+			Header: 'Unverified Users',
 			columns: [
 				{
 					Header: 'ID',
@@ -105,7 +118,7 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 	return (
 		<Container>
 			<div className="rate">
-				<h1 className="rate__title">Rates</h1>
+				<h1 className="rate__title">Verify Users</h1>
 				{fetchedUsers ? <Table data={allUsers.allUsers} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useTable, usePagination } from 'react-table'
+import { useTable, usePagination, useExpanded } from 'react-table'
 
 // import makeData from './makedata2'
 
@@ -47,7 +47,7 @@ const Styles = styled.div`
   }
 `
 
-function Table({ columns, data }) {
+function Table({ columns, data, renderRowSubComponent }) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -56,7 +56,8 @@ function Table({ columns, data }) {
     prepareRow,
     page, // Instead of using 'rows', we'll use page,
     // which has only the rows for the active page
-
+    rows,
+    visibleColumns,
     // The rest of these things are super handy, too ;)
     canPreviousPage,
     canNextPage,
@@ -66,14 +67,15 @@ function Table({ columns, data }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize , expanded},
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
     },
-    usePagination
+    useExpanded,
+    usePagination,
   )
 
   // Render the UI for your table
@@ -100,27 +102,46 @@ function Table({ columns, data }) {
           <tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row)
-              console.log(row.original)
+              console.log(row.cells)
 
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                <React.Fragment key={i}>
+                <tr key={i} {...row.getRowProps()}>
+                  {row.cells.map((cell, index) => {
                     return (
                       <td
+                      key={index}
                         {...cell.getCellProps({
                           className: cell.column.collapse ? 'collapse' : '',
                         })}
                       >
                         {cell.render('Cell')}
+                        {/* {console.log(cell)} */}
                       </td>
                     )
                   })}
                   <td>
                     <button>
-                      Edit
+                      Verify
                     </button>
                   </td>
                 </tr>
+                
+                {row.isExpanded ? (
+                  <tr>
+                    <td colSpan={visibleColumns.length}>
+                      {/*
+                          Inside it, call our renderRowSubComponent function. In reality,
+                          you could pass whatever you want as props to
+                          a component like this, including the entire
+                          table instance. But for this example, we'll just
+                          pass the row
+                        */}
+                      {renderRowSubComponent({ row })}
+                    </td>
+                  </tr>
+                ) : null}
+                </React.Fragment>
               )
             })}
           </tbody>
@@ -184,218 +205,38 @@ function PaginatedTable({data, tableColumns}) {
     [tableColumns]
   )
 
-  const tableData = React.useMemo(() => data, [])
+  // const tableData = React.useMemo(() => data, [])
 
+  // Create a function that will render our row sub components
+  const renderRowSubComponent = React.useCallback(
+    ({ row }) => (
+      <div
+        style={{
+          fontSize: '10px',
+          height: "20rem",
+          width: "100%",
+          display: "grid",
+         "gridTemplateColumns": "1fr 1fr 1fr",
+         overflow: "hidden"
+
+        }}
+      >
+        {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
+        {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
+          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
+          ))}
+      </div>
+    ),
+    []
+  )
   console.log(data)
-  return <Table columns={columns} data={data} />
+  return <Table columns={columns} data={data}
+    // We added this as a prop for our table component
+    // Remember, this is not part of the React Table API,
+    // it's merely a rendering option we created for
+    // ourselves
+    renderRowSubComponent={renderRowSubComponent}
+      />
 }
 
 export default PaginatedTable
-
-
-/* 
-data-driven-classes-and-styles
-
-import React from 'react'
-import styled from 'styled-components'
-import { useTable } from 'react-table'
-
-import makeData from './makeData'
-
-const Styles = styled.div`
-  padding: 1rem;
-
-  .user {
-    background-color: blue;
-    color: white;
-  }
-
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`
-
-// Create a default prop getter
-const defaultPropGetter = () => ({})
-
-// Expose some prop getters for headers, rows and cells, or more if you want!
-function Table({
-  columns,
-  data,
-  getHeaderProps = defaultPropGetter,
-  getColumnProps = defaultPropGetter,
-  getRowProps = defaultPropGetter,
-  getCellProps = defaultPropGetter,
-}) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-  })
-
-  return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                // Return an array of prop objects and react-table will merge them appropriately
-                {...column.getHeaderProps([
-                  {
-                    className: column.className,
-                    style: column.style,
-                  },
-                  getColumnProps(column),
-                  getHeaderProps(column),
-                ])}
-              >
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row)
-          return (
-            // Merge user row props in
-            <tr {...row.getRowProps(getRowProps(row))}>
-              {row.cells.map(cell => {
-                return (
-                  <td
-                    // Return an array of prop objects and react-table will merge them appropriately
-                    {...cell.getCellProps([
-                      {
-                        className: cell.column.className,
-                        style: cell.column.style,
-                      },
-                      getColumnProps(cell.column),
-                      getCellProps(cell),
-                    ])}
-                  >
-                    {cell.render('Cell')}
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
-  )
-}
-
-function App() {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Name',
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName',
-            className: 'user',
-            style: {
-              fontWeight: 'bolder',
-            },
-          },
-        ],
-      },
-      {
-        Header: 'Scores',
-        columns: [
-          {
-            Header: 'Day 1',
-            accessor: 'score0',
-          },
-          {
-            Header: 'Day 2',
-            accessor: 'score1',
-          },
-          {
-            Header: 'Day 3',
-            accessor: 'score2',
-          },
-          {
-            Header: 'Day 4',
-            accessor: 'score3',
-          },
-          {
-            Header: 'Day 5',
-            accessor: 'score4',
-          },
-          {
-            Header: 'Day 6',
-            accessor: 'score5',
-          },
-          {
-            Header: 'Day 7',
-            accessor: 'score6',
-          },
-        ],
-      },
-    ],
-    []
-  )
-
-  const data = React.useMemo(() => makeData(20), [])
-
-  return (
-    <Styles>
-      <Table
-        columns={columns}
-        data={data}
-        getHeaderProps={column => ({
-          onClick: () => alert('Header!'),
-        })}
-        getColumnProps={column => ({
-          onClick: () => alert('Column!'),
-        })}
-        getRowProps={row => ({
-          style: {
-            background: row.index % 2 === 0 ? 'rgba(0,0,0,.1)' : 'white',
-          },
-        })}
-        getCellProps={cellInfo => ({
-          style: {
-            backgroundColor: `hsl(${120 * ((120 - cellInfo.value) / 120) * -1 +
-              120}, 100%, 67%)`,
-          },
-        })}
-      />
-    </Styles>
-  )
-}
-
-export default App
-
-
-*/

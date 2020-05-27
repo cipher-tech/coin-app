@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import playstore from "../images/playstore.svg"
 import applestore from "../images/istore.svg"
 import bitcoinSvg from "../images/bitcoinSvg.svg"
-import cimage from "../images/cimage.png"
+// import cimage from "../images/cimage.png"
 import EthereumDesire from "../images/ethereumDesire.svg"
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";

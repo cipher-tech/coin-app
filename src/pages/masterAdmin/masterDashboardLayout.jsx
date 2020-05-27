@@ -264,7 +264,7 @@ function MasterDashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link onClick={closeSideNav} to="/master-admin/rates" className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to={routes.masterAdmin.rates} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <DollarSymbol className="sideNav__container-item--icon-svg" />
                         </span>
@@ -272,33 +272,15 @@ function MasterDashboardLayout(props) {
                             Rate
                         </span>
                     </Link>
-
-                    {/* <li onClick={closeSideNav} className="sideNav__container-item">
+                    <Link onClick={closeSideNav} to={routes.masterAdmin.verify} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg" />
+                            <DollarSymbol className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Message
+                            Verify
                         </span>
-                    </li>
+                    </Link>
 
-                    <li onClick={closeSideNav} className="sideNav__container-item">
-                        <span className="sideNav__container-item--icon">
-                            <Invoice className="sideNav__container-item--icon-svg" />
-                        </span>
-                        <span className="sideNav__container-item--text">
-                            Tickets
-                        </span>
-                    </li>
-
-                    <li onClick={closeSideNav} className="sideNav__container-item">
-                        <span className="sideNav__container-item--icon">
-                            <Settings className="sideNav__container-item--icon-svg" />
-                        </span>
-                        <span className="sideNav__container-item--text">
-                            Account Settings
-                        </span>
-                    </li> */}
                 </ul>
                 <div className="toggleIcon">
                     <input className="toggle" checked={sideNavIsOpen} onChange={() => null} type="checkbox" name="check" id="toggleSideNav" />

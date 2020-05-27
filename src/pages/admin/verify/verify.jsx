@@ -132,33 +132,41 @@ function UserVerify() {
 
     let handleChange = (e) => {
         let files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
+        if (!files.length)
             return;
-        createImage(files[0]);
+        createImage(files[0], e.target.name);
     }
-    let createImage = (file) => {
+    let createImage = (file, name) => {
         let reader = new FileReader();
         reader.onload = (e) => {
-          setImage(e.target.result)
+            if (name === "selfi") {
+                setImage(e.target.result)
+            }else if(name === "idCard"){
+                setImage1(e.target.result)
+            }else{
+                setImage2(e.target.result)
+            }
         };
         reader.readAsDataURL(file);
     }
-    let handleSubmit = () =>{
+    let handleSubmit = () => {
         console.log(image);
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const formData = new FormData()
         formData.append("image", image)
         let data = {
             id: JSON.parse(localStorage.getItem("userInfo")).user.id,
-            image: image
+            selfi: image,
+            address: image2,
+            idCard: image1
         }
         console.log(data);
-        Axios.post(`http://localhost:8000/api/users/verify?token=${auth_token}`,data)
-        .then( res => {
-            console.log(res);
-        })
+        Axios.post(`http://localhost:8000/api/users/verify?token=${auth_token}`, data)
+            .then(res => {
+                console.log(res);
+            })
     }
-    
+
     return (
         <Container>
             <div className="rate">
@@ -172,23 +180,23 @@ function UserVerify() {
                     </div>
                     <div className="form__input">
                         {/* {image} */}
-                        <input type="file" 
-                            alt="verify logo" 
-                            // value={image}
-                            onChange={ e =>handleChange(e)} className="form__input-item" />
-                        <input type="text" 
-                            alt="verify logo" 
-                            value={image1}
-                            onChange={(event) => setImage1(event.target.value)}
-                            name="image1" placeholder="Enter Value" className="form__input-item" />
-                        <input type="text" 
-                            alt="verify logo" 
-                            value={image2}
-                            onChange={(event) => setImage2(event.target.value)}
-                            name="image2" placeholder="Enter Value" className="form__input-item" />
+                        <input type="file"
+                            alt="verify logo"
+                            name="selfi"
+                            onChange={e => handleChange(e)} className="form__input-item" />
+
+                        <input type="file"
+                            alt="verify logo"
+                            onChange={e => handleChange(e)}
+                            name="idCard" placeholder="Enter Value" className="form__input-item" />
+
+                        <input type="file"
+                            alt="verify logo"
+                            onChange={e => handleChange(e)}
+                            name="address" placeholder="Enter Value" className="form__input-item" />
                     </div>
-                    
-                    <img src={image} alt="preview"/>
+
+                    <img src={image} alt="preview" />
                     <button onClick={handleSubmit} className="form__actionButton">
                         Continue
                     </button>
@@ -199,7 +207,7 @@ function UserVerify() {
 }
 
 const mapStateToProps = ({ users }) => ({
-	user: users
+    user: users
 })
 
 export default connect(mapStateToProps)(UserVerify)

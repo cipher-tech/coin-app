@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import image1 from "../images/bitcoinsvg-1.svg"
 import image2 from "../images/bitcoinSvg-2.svg"
 import image3 from "../images/bitcoinSvg-3.svg"
-import { Heading, FeatureCard, SellBitcoinCard } from '.'
+import { Heading, FeatureCard, /* SellBitcoinCard */ } from '.'
 import { useEffect } from 'react'
 // import CoinCalculator from './coinCalculator'
 
