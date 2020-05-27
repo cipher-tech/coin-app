@@ -130,18 +130,32 @@ function UserVerify() {
     const [image1, setImage1] = useState('');
     const [image2, setImage2] = useState('');
 
+    let handleChange = (e) => {
+        let files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+            return;
+        createImage(files[0]);
+    }
+    let createImage = (file) => {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          setImage(e.target.result)
+        };
+        reader.readAsDataURL(file);
+    }
     let handleSubmit = () =>{
+        console.log(image);
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const formData = new FormData()
         formData.append("image", image)
         let data = {
             id: JSON.parse(localStorage.getItem("userInfo")).user.id,
-            image
+            image: image
         }
         console.log(data);
         Axios.post(`http://localhost:8000/api/users/verify?token=${auth_token}`,data)
         .then( res => {
-
+            console.log(res);
         })
     }
     
@@ -157,11 +171,11 @@ function UserVerify() {
                         <img src={giftCard} alt="Gift card" className="form__title-image-icon" />
                     </div>
                     <div className="form__input">
-                        <input type="text" 
+                        {/* {image} */}
+                        <input type="file" 
                             alt="verify logo" 
-                            value={image}
-                            onChange={(event) => setImage(event.target.value)}
-                            name="image" placeholder="Enter Value" className="form__input-item" />
+                            // value={image}
+                            onChange={ e =>handleChange(e)} className="form__input-item" />
                         <input type="text" 
                             alt="verify logo" 
                             value={image1}

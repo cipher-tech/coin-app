@@ -41,8 +41,7 @@ const StepsCard = (props) => {
                 {props.step ? props.step : "Sign Up... or not"}
             </h4>
             <p className="steps-container-item--text">
-                You can sell bitcoin & giftcards to us without signing up. However,
-                you need to sign up to buy bitcoin, and for faster transactions.
+           {props.text}
             </p>
         </Container>
     )
