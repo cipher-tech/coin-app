@@ -47,7 +47,7 @@ const Styles = styled.div`
   }
 `
 
-function Table({ columns, data, renderRowSubComponent }) {
+function Table({ columns, data, renderRowSubComponent, handleVerifyClick }) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -102,7 +102,6 @@ function Table({ columns, data, renderRowSubComponent }) {
           <tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row)
-              console.log(row.cells)
 
               return (
                 <React.Fragment key={i}>
@@ -116,15 +115,10 @@ function Table({ columns, data, renderRowSubComponent }) {
                         })}
                       >
                         {cell.render('Cell')}
-                        {/* {console.log(cell)} */}
+                        {/* {console.log(cell.row.original.id)} */}
                       </td>
                     )
                   })}
-                  <td>
-                    <button>
-                      Verify
-                    </button>
-                  </td>
                 </tr>
                 
                 {row.isExpanded ? (
@@ -141,6 +135,7 @@ function Table({ columns, data, renderRowSubComponent }) {
                     </td>
                   </tr>
                 ) : null}
+
                 </React.Fragment>
               )
             })}
@@ -199,7 +194,7 @@ function Table({ columns, data, renderRowSubComponent }) {
   )
 }
 
-function PaginatedTable({data, tableColumns}) {
+function PaginatedTable({data, tableColumns,handleVerifyClick, expandedComponent}) {
   const columns = React.useMemo(
     () => tableColumns,
     [tableColumns]
@@ -210,32 +205,20 @@ function PaginatedTable({data, tableColumns}) {
   // Create a function that will render our row sub components
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
-      <div
-        style={{
-          fontSize: '10px',
-          height: "20rem",
-          width: "100%",
-          display: "grid",
-         "gridTemplateColumns": "1fr 1fr 1fr",
-         overflow: "hidden"
-
-        }}
-      >
-        {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
-        {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
-          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
-          ))}
-      </div>
+      <>
+        {expandedComponent(row)}
+      </>
     ),
-    []
+    [expandedComponent]
   )
-  console.log(data)
+  // console.log(data)
   return <Table columns={columns} data={data}
     // We added this as a prop for our table component
     // Remember, this is not part of the React Table API,
     // it's merely a rendering option we created for
     // ourselves
     renderRowSubComponent={renderRowSubComponent}
+    handleVerifyClick={handleVerifyClick}
       />
 }
 

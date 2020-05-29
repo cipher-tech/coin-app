@@ -49,7 +49,11 @@ export default function InputComponent(props) {
             <p className="form" name={props.name}>
                 {props.icon ? <img className="form__icon" src={props.icon} alt="icon" /> : null}
                 <input type={props.type} 
-                onChange={(event) =>{  props.handleChange(props.name, event.target.value ); setvalue(event.target.value) } } 
+                onChange={(event) =>{  props.handleChange(props.name, event.target.value );
+                 if(props.updatedValue){
+                    props.updatedValue(event.target.value)
+                 }
+                setvalue(event.target.value) } } 
                 name={props.name}
                 placeholder={props.placeHolder ? props.placeHolder : "Enter Value"} 
                 className="form__input"

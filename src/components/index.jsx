@@ -14,6 +14,7 @@ import { Galary } from "./galary";
 import SellCoin from "./buySellCard/buySellCoin";
 import Accodion from "./accodion/accodion";
 import adminCard from "./adminDashboardCard/adminDashboardCard"
+import ModalComponent from "./modalComponent/modalComponent";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -31,3 +32,4 @@ export const PhotoGallery = Galary
 export const SellBitcoinCard = SellCoin;
 export const DropAccodion = Accodion
 export const AdminCard = adminCard
+export const Modal = ModalComponent

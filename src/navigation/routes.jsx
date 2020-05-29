@@ -16,6 +16,9 @@ const routes = {
     api: {
         login:  (prod ? server  : localhost)    +     'login',
         signUp: prod ? server  : localhost      +    'register',
+        verifyUsers: prod ? server  : localhost      +    'users/verify',
+        addRates: prod ? server  : localhost      +    'admin/add-rate',
+        getRates: prod ? server  : localhost      +    'admin/get-rate',
     },
 
     admin: {

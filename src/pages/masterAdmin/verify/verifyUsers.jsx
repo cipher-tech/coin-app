@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
+import routes from '../../../navigation/routes'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -111,15 +112,55 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 					accessor: 'status',
 				},
 			],
-		}
+		},
+		{
+			// Make an expander cell
+			Header: () => null, // No header
+			id: 'action', // It needs an ID
+			Cell: ({ row }) => (
+			  // Use Cell to render an expander for each row.
+			  // We can use the getToggleRowExpandedProps prop-getter
+			  // to build the expander.
+			  <button onClick={(e) => verify(row.original.user_id, row.original.id) }>
+				Verify
+				{/* {console.log(row.original.id)} */}
+			  </button>
+			),
+		  },
 	]
-	console.log(fetchedUsers);
+
+	const expandedComponent = (row) => (
+		<div
+        style={{
+          fontSize: '10px',
+          height: "20rem",
+          width: "100%",
+          display: "grid",
+         "gridTemplateColumns": "1fr 1fr 1fr",
+         overflow: "hidden"
+
+        }}
+      >
+        {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
+        {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
+          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
+          ))}
+      </div>
+	)
+	// console.log(fetchedUsers);
 	// console.log(token);
+	const verify = (user_id, id) => {
+		console.log(user_id);
+		Axios.post(routes.api.verifyUsers, {user_id: +user_id, verifyId: id,  action: "verify"})
+		.then( res => {
+			console.log(res.data);
+		})
+	}
 	return (
 		<Container>
 			<div className="rate">
 				<h1 className="rate__title">Verify Users</h1>
-				{fetchedUsers ? <Table data={allUsers.allUsers} tableColumns={columns} /> : null}
+				{fetchedUsers ? <Table data={allUsers.allUsers} expandedComponent={expandedComponent} handleVerifyClick={verify} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>
 		</Container>
