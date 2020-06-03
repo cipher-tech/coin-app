@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "466c80665f50aeb63e975dfe4bc69194",
+    "revision": "aebffa9386be98309af6c227a5e3c97d",
     "url": "/coin-app/index.html"
   },
   {
-    "revision": "0680eaf6240344da4ae6",
+    "revision": "435037badfce81a660f6",
     "url": "/coin-app/static/css/2.029307b4.chunk.css"
   },
   {
-    "revision": "625ca87f1ccb0193f8af",
+    "revision": "28184ee0aead321c4d29",
     "url": "/coin-app/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "0680eaf6240344da4ae6",
-    "url": "/coin-app/static/js/2.170eb093.chunk.js"
+    "revision": "435037badfce81a660f6",
+    "url": "/coin-app/static/js/2.c516cba0.chunk.js"
   },
   {
     "revision": "020c7853cef1e7d2357bd2a7fcb72487",
-    "url": "/coin-app/static/js/2.170eb093.chunk.js.LICENSE.txt"
+    "url": "/coin-app/static/js/2.c516cba0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "625ca87f1ccb0193f8af",
-    "url": "/coin-app/static/js/main.314f7b26.chunk.js"
+    "revision": "28184ee0aead321c4d29",
+    "url": "/coin-app/static/js/main.d5589e48.chunk.js"
   },
   {
     "revision": "65df7410830b6007471b",
@@ -80,10 +80,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/media/chartBars.78250cd3.svg"
   },
   {
-    "revision": "c9d6e59b4417f33fe6e2941b8607acf0",
-    "url": "/coin-app/static/media/cimage.c9d6e59b.png"
-  },
-  {
     "revision": "f5fca313260754d035592bf76e48a753",
     "url": "/coin-app/static/media/coinRate.f5fca313.svg"
   },
@@ -120,10 +116,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/media/invest.fc6ab8c1.svg"
   },
   {
-    "revision": "38e23f331a30250111e2824becde6489",
-    "url": "/coin-app/static/media/invoice.38e23f33.svg"
-  },
-  {
     "revision": "55a9341c51fbdd4b521d258ec6fe4427",
     "url": "/coin-app/static/media/istore.55a9341c.svg"
   },
@@ -150,10 +142,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "296bdacb0424b5c7e5c06e7f86466d73",
     "url": "/coin-app/static/media/review.296bdacb.svg"
-  },
-  {
-    "revision": "b9864ed443ba9869ad0a74a35942c9e3",
-    "url": "/coin-app/static/media/settings.b9864ed4.svg"
   },
   {
     "revision": "de75ae84fc51f9e334407eb3d1deeef6",

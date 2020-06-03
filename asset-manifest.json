@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/coin-app/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/coin-app/static/js/main.314f7b26.chunk.js",
-    "main.js.map": "/coin-app/static/js/main.314f7b26.chunk.js.map",
+    "main.js": "/coin-app/static/js/main.d5589e48.chunk.js",
+    "main.js.map": "/coin-app/static/js/main.d5589e48.chunk.js.map",
     "runtime-main.js": "/coin-app/static/js/runtime-main.4e1fc714.js",
     "runtime-main.js.map": "/coin-app/static/js/runtime-main.4e1fc714.js.map",
     "static/css/2.029307b4.chunk.css": "/coin-app/static/css/2.029307b4.chunk.css",
-    "static/js/2.170eb093.chunk.js": "/coin-app/static/js/2.170eb093.chunk.js",
-    "static/js/2.170eb093.chunk.js.map": "/coin-app/static/js/2.170eb093.chunk.js.map",
+    "static/js/2.c516cba0.chunk.js": "/coin-app/static/js/2.c516cba0.chunk.js",
+    "static/js/2.c516cba0.chunk.js.map": "/coin-app/static/js/2.c516cba0.chunk.js.map",
     "index.html": "/coin-app/index.html",
-    "precache-manifest.11a3a893add515620c0448260a008f43.js": "/coin-app/precache-manifest.11a3a893add515620c0448260a008f43.js",
+    "precache-manifest.a74cd6ead65f19ecc565c0ecc3efe903.js": "/coin-app/precache-manifest.a74cd6ead65f19ecc565c0ecc3efe903.js",
     "service-worker.js": "/coin-app/service-worker.js",
     "static/css/2.029307b4.chunk.css.map": "/coin-app/static/css/2.029307b4.chunk.css.map",
     "static/css/main.5ecd60fb.chunk.css.map": "/coin-app/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.170eb093.chunk.js.LICENSE.txt": "/coin-app/static/js/2.170eb093.chunk.js.LICENSE.txt",
+    "static/js/2.c516cba0.chunk.js.LICENSE.txt": "/coin-app/static/js/2.c516cba0.chunk.js.LICENSE.txt",
     "static/media/amazon-card.png": "/coin-app/static/media/amazon-card.d08f94fc.png",
     "static/media/amazon-cardCrop.png": "/coin-app/static/media/amazon-cardCrop.37ea7c64.png",
     "static/media/avatar1.jpg": "/coin-app/static/media/avatar1.9acd921d.jpg",
@@ -27,7 +27,6 @@
     "static/media/box.80089d47.svg": "/coin-app/static/media/box.80089d47.svg",
     "static/media/brandLogo.jpg": "/coin-app/static/media/brandLogo.60b16a42.jpg",
     "static/media/chartBars.78250cd3.svg": "/coin-app/static/media/chartBars.78250cd3.svg",
-    "static/media/cimage.png": "/coin-app/static/media/cimage.c9d6e59b.png",
     "static/media/coinRate.svg": "/coin-app/static/media/coinRate.f5fca313.svg",
     "static/media/coins.fce15f5b.svg": "/coin-app/static/media/coins.fce15f5b.svg",
     "static/media/dollarSymbol.3e3165aa.svg": "/coin-app/static/media/dollarSymbol.3e3165aa.svg",
@@ -37,7 +36,6 @@
     "static/media/footerImg.jpg": "/coin-app/static/media/footerImg.5d8a0dc2.jpg",
     "static/media/home.ef1eeea2.svg": "/coin-app/static/media/home.ef1eeea2.svg",
     "static/media/invest.svg": "/coin-app/static/media/invest.fc6ab8c1.svg",
-    "static/media/invoice.38e23f33.svg": "/coin-app/static/media/invoice.38e23f33.svg",
     "static/media/istore.svg": "/coin-app/static/media/istore.55a9341c.svg",
     "static/media/lock.svg": "/coin-app/static/media/lock.2a3dff74.svg",
     "static/media/pic5.jpg": "/coin-app/static/media/pic5.274b2e94.jpg",
@@ -45,7 +43,6 @@
     "static/media/quickDetails.png": "/coin-app/static/media/quickDetails.53ea3fe8.png",
     "static/media/rate.png": "/coin-app/static/media/rate.46ec8e87.png",
     "static/media/review.svg": "/coin-app/static/media/review.296bdacb.svg",
-    "static/media/settings.b9864ed4.svg": "/coin-app/static/media/settings.b9864ed4.svg",
     "static/media/transcation.png": "/coin-app/static/media/transcation.de75ae84.png",
     "static/media/us-amazon.svg": "/coin-app/static/media/us-amazon.8cc48fb1.svg",
     "static/media/us-bitcoin.svg": "/coin-app/static/media/us-bitcoin.31377b7f.svg",
@@ -58,8 +55,8 @@
   "entrypoints": [
     "static/js/runtime-main.4e1fc714.js",
     "static/css/2.029307b4.chunk.css",
-    "static/js/2.170eb093.chunk.js",
+    "static/js/2.c516cba0.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.314f7b26.chunk.js"
+    "static/js/main.d5589e48.chunk.js"
   ]
 }
