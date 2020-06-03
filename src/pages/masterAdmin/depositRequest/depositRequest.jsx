@@ -3,13 +3,13 @@ import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 import Table from '../../../components/table/tablePagination'
-import { fetchAllUsersActionCreator } from '../../../reduxStore/user'
 import { connect } from 'react-redux'
 import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
 import routes from '../../../navigation/routes'
 import { StyledButton, PopUpMessage } from '../../../components'
+import { fetchAllDepositActionCreator } from '../../../reduxStore'
 
 
 const Container = styled.div`
@@ -60,11 +60,12 @@ const Container = styled.div`
 
     
 `
-function AdminVerifyUsers({allUsers, fetchAllUsers}) {
+function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 	// const [token, setToken] = useState([])
-	const [fetchedUsers, setFetchedUsers] = useState(false)
+	const [fetchedDeposits, setFetchedDeposits] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
-	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [hasError, setHasError] = useState(false)
 
 
 	// let authToken
@@ -73,50 +74,51 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 		console.log(auth_token);
 		
-		Axios.get(`http://localhost:8000/api/users/unverified?token=${auth_token}`)
+		Axios.get(`${routes.api.adminDeposits}?token=${auth_token}`)
 			.then(response => {
-				// console.log(response.data);
+				console.log(response.data.data);
 
-				fetchAllUsers(response.data.data)
+				fetchAllDeposits(response.data.data)
 				return response.data;
 			})
 			.then(res => {
-				setFetchedUsers(true)
-				// console.log(allUsers)
+				setFetchedDeposits(true)
+				// console.log(allDeposits)
 			})
 			.catch(error => {
-				alert(`An Error Occured! ${error}`);
+                // alert(`An Error Occured! ${error}`);
+                console.log(error);
 			});
 
-	}, [fetchAllUsers] )
+	}, [fetchAllDeposits] )
 	const columns = [
-		{
-			// Make an expander cell
-			Header: () => null, // No header
-			id: 'expander', // It needs an ID
-			Cell: ({ row }) => (
-			  // Use Cell to render an expander for each row.
-			  // We can use the getToggleRowExpandedProps prop-getter
-			  // to build the expander.
-			  <span {...row.getToggleRowExpandedProps()}>
-				{row.isExpanded ? '👇' : '👉'}
-			  </span>
-			),
-		  },
+		// {
+		// 	// Make an expander cell
+		// 	Header: () => null, // No header
+		// 	id: 'expander', // It needs an ID
+		// 	Cell: ({ row }) => (
+		// 	  // Use Cell to render an expander for each row.
+		// 	  // We can use the getToggleRowExpandedProps prop-getter
+		// 	  // to build the expander.
+		// 	  <span {...row.getToggleRowExpandedProps()}>
+		// 		{row.isExpanded ? '👇' : '👉'}
+		// 	  </span>
+		// 	),
+		//   },
 		{
 			Header: 'Unverified Users',
 			columns: [
 				{
-					Header: 'ID',
-					accessor: 'id',
+					Header: 'Amount',
+					accessor: 'amount',
 				},
 				{
-					Header: 'images',
-					accessor: 'images',
-				},
-				{
-					Header: 'status',
+					Header: 'Status',
 					accessor: 'status',
+				},
+				{
+					Header: 'Transaction Id',
+					accessor: 'slug',
 				},
 			],
 		},
@@ -128,8 +130,12 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 			  // Use Cell to render an expander for each row.
 			  // We can use the getToggleRowExpandedProps prop-getter
 			  // to build the expander.
-			  <StyledButton onClick={(e) => verify(row.original.user_id, row.original.id) }>
-				  Verify 
+			  <StyledButton onClick={(e) => acceptDeposit(row.original.amount, 
+                row.original.id, 
+                row.original.slug,
+                row.original.user_id, 
+                row.original.status) }>
+				  Accept
 			  </StyledButton>
 			),
 		  },
@@ -149,50 +155,61 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
       >
         {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
         {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
-          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
+          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="acceptDeposit info" />
           ))}
       </div>
 	)
-	const verify = (user_id, id) => {
-		console.log(user_id);
+	const acceptDeposit = (amount, id, slug,user_id,status) => {
+		// console.log();
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-
-		Axios.post(`${routes.api.verifyUsers}?token=${auth_token}`, {user_id: +user_id, verifyId: id,  action: "verify"})
+        const data = {
+            amount: amount,
+            id: id,
+            slug: slug,
+            user_id: user_id,
+            status: status
+        }
+        console.log(data);
+		Axios.post(`${routes.api.adminAcceptDeposit}?token=${auth_token}`, data)
 		.then( res => {
 			setShowPopUpMessage(false)
 			if (res.data.status === "success") {
+                setHasError(false)
 				setPopUpMessage(res.data.data[0])
-			}
+			}else{
+                setPopUpMessage(res.data.data)
+                setHasError(true)
+            }
 			return res.data.data[1];
 			// console.log(res.data);
 		})
 		.then(res => {
 			setShowPopUpMessage(true)
-			fetchAllUsers(res)
+			fetchAllDeposits(res)
 		})
-		.catch(res => {
-			setPopUpMessage(res.data.data)
-			setShowPopUpMessage(true)
-		})
+		// .catch(res => {
+		// 	setPopUpMessage(res.data.data)
+		// 	setShowPopUpMessage(true)
+		// })
 	}
 	return (
 		<Container color="">
 			<div className="rate">
-			{showpopUpMessage ? <PopUpMessage> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
-				<h1 className="rate__title">Verify Users</h1>
-				{fetchedUsers ? <Table data={allUsers.allUsers || []} expandedComponent={expandedComponent} handleVerifyClick={verify} tableColumns={columns} /> : null}
+			{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
+				<h1 className="rate__title">Deposit Requests</h1>
+				{fetchedDeposits ? <Table data={allDeposits.deposits || []} expandedComponent={expandedComponent} handleVerifyClick={acceptDeposit} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>
 		</Container>
 	)
 }
 
-const mapStateToProps = ({ users }) => ({
-	allUsers: users
+const mapStateToProps = ({ deposits }) => ({
+	allDeposits: deposits
 })
 
 const mapDispatchToProps = {
-	fetchAllUsers: fetchAllUsersActionCreator
+	fetchAllDeposits: fetchAllDepositActionCreator
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminVerifyUsers)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminDepositRequest)

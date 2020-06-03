@@ -66,7 +66,7 @@ export class FormValidator extends Component {
                     {/* <div className={`text-center  `} >  */}
                         <button className={` ${this.props.buttonClass} ${ this.getButtonClasses() }`} onClick={this.handleClick} 
                             disabled={this.state.formSubmitted && !this.formValid}> 
-                            Submit 
+                            {this.props.buttonText? this.props.buttonText : "Submit" }
                         </button>
                     {/* </div>  */}
                 </Container>

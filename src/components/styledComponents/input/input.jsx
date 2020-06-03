@@ -42,22 +42,27 @@ const Container = styled.div`
     }
 `
 export default function InputComponent(props) {
-    const [value, setvalue] = useState("")
+    const [value, setvalue] = useState(props.value)
     // const [password, setPassword] = useState("")
     return (
         <Container icon={props.icon}>
             <p className="form" name={props.name}>
                 {props.icon ? <img className="form__icon" src={props.icon} alt="icon" /> : null}
+                {props.label || ""}
                 <input type={props.type} 
-                onChange={(event) =>{  props.handleChange(props.name, event.target.value );
+                onChange={(event) =>{ 
+                    event.preventDefault()
+                     props.handleChange(props.name, event.target.value ); 
+                    setvalue(event.target.value)
                  if(props.updatedValue){
                     props.updatedValue(event.target.value)
                  }
-                setvalue(event.target.value) } } 
+                 
+                 } } 
                 name={props.name}
                 placeholder={props.placeHolder ? props.placeHolder : "Enter Value"} 
                 className="form__input"
-                value={value}
+                value={value} 
                  />
                  
                   {/* props.handleChange(event) */}

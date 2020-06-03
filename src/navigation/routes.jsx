@@ -16,11 +16,20 @@ const routes = {
     api: {
         login:  (prod ? server  : localhost)    +     'login',
         signUp: prod ? server  : localhost      +    'register',
+        requestVerification: prod ? server  : localhost      +    'users/requestVerification',
         verifyUsers: prod ? server  : localhost      +    'users/verify',
+        updateUsers: prod ? server  : localhost      +    'users/update',
         addRates: prod ? server  : localhost      +    'admin/add-rate',
         getRates: prod ? server  : localhost      +    'admin/get-rate',
+        updateRates: prod ? server  : localhost      +    'admin/update-rate',
+        usersDeposit: prod ? server  : localhost      +    'users/deposit',
+        usersWidthdrawl: prod ? server  : localhost      +    'users/widthdrawl',
+        adminDeposits: prod ? server  : localhost      +    'admin/deposits',
+        adminWidthdrawl: prod ? server  : localhost      +    'admin/widthdrawls',
+        adminAcceptDeposit: prod ? server  : localhost      +    'admin/acceptDeposit',
+        adminAcceptWidthdrawl: prod ? server  : localhost      +    'admin/acceptWidthdrawl',
     },
-
+ 
     admin: {
         index: "/admin",
         dashboard:      admin    +   "/dashboard",
@@ -29,17 +38,21 @@ const routes = {
         sellGiftcard:   admin +   "/sell-giftcard",
         transcation:    admin  +   "/transcation",
         verify:         admin  +   "/verify",
+        deposit:         admin  +   "/deposit",
+        widthdrawl:         admin  +   "/widthdraw",
 
     },
     masterAdmin: {
         index:          masterAdmin,
-        dashboard:      masterAdmin     + "/dashboard",
-        rates:          masterAdmin     + "/rates",
+        dashboard:      masterAdmin     +   "/dashboard",
+        rates:          masterAdmin     +   "/rates",
         sellBitcoin:    masterAdmin     +   "/sell-bitcoin",
         sellGiftcard:   masterAdmin     +   "/sell-giftcard",
         transcation:    masterAdmin     +   "/transcation",
         users:          masterAdmin     +   "/users",
         verify:         masterAdmin     +   "/verify",
+        deposit:        masterAdmin     +   "/deposit",
+        widthdrawl:     masterAdmin     +   "/widthdraw",
     }
 }
 export default routes

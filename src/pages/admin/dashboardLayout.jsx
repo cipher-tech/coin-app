@@ -10,8 +10,8 @@ import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
 import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymbol.svg"
-import { ReactComponent as Invoice } from "../../images/svgIcons/invoice.svg"
-import { ReactComponent as Settings } from "../../images/svgIcons/settings.svg"
+// import { ReactComponent as Invoice } from "../../images/svgIcons/invoice.svg"
+// import { ReactComponent as Settings } from "../../images/svgIcons/settings.svg"
 import avatar1 from "../../images/avatar1.jpg"
 import { Link } from 'react-router-dom'
 import routes from '../../navigation/routes'
@@ -266,32 +266,31 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <li onClick={closeSideNav} className="sideNav__container-item">
+                    <Link to={routes.admin.verify} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Box className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Message
+                            Request Verification
                         </span>
-                    </li>
-
-                    <li onClick={closeSideNav} className="sideNav__container-item">
+                    </Link>
+                    <Link to={routes.admin.deposit} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Invoice className="sideNav__container-item--icon-svg" />
+                            <Box className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Tickets
+                            Fund Account
                         </span>
-                    </li>
-
-                    <li onClick={closeSideNav} className="sideNav__container-item">
+                    </Link>
+                    <Link to={routes.admin.widthdrawl} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Settings className="sideNav__container-item--icon-svg" />
+                            <Box className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Account Settings
+                            Widthdrawl
                         </span>
-                    </li>
+                    </Link>
+
                 </ul>
                 <div className="toggleIcon">
                     <input className="toggle" checked={sideNavIsOpen} onChange={() => null} type="checkbox" name="check" id="toggleSideNav" />

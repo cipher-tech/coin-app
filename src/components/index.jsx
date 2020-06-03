@@ -15,6 +15,8 @@ import SellCoin from "./buySellCard/buySellCoin";
 import Accodion from "./accodion/accodion";
 import adminCard from "./adminDashboardCard/adminDashboardCard"
 import ModalComponent from "./modalComponent/modalComponent";
+import Button from "./button/button";
+import MessageModal from "./messageModal/messageModal";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -33,3 +35,5 @@ export const SellBitcoinCard = SellCoin;
 export const DropAccodion = Accodion
 export const AdminCard = adminCard
 export const Modal = ModalComponent
+export const StyledButton = Button
+export const PopUpMessage = MessageModal

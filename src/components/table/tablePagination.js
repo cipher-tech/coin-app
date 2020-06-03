@@ -56,7 +56,7 @@ function Table({ columns, data, renderRowSubComponent, handleVerifyClick }) {
     prepareRow,
     page, // Instead of using 'rows', we'll use page,
     // which has only the rows for the active page
-    rows,
+    // rows,
     visibleColumns,
     // The rest of these things are super handy, too ;)
     canPreviousPage,
@@ -67,7 +67,7 @@ function Table({ columns, data, renderRowSubComponent, handleVerifyClick }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize , expanded},
+    state: { pageIndex, pageSize , /* expanded */},
   } = useTable(
     {
       columns,
@@ -206,7 +206,7 @@ function PaginatedTable({data, tableColumns,handleVerifyClick, expandedComponent
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
       <>
-        {expandedComponent(row)}
+        { expandedComponent?  expandedComponent(row) : null}
       </>
     ),
     [expandedComponent]

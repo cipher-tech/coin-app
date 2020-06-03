@@ -86,7 +86,7 @@ const Container = styled.div`
         left: 95%;
         height: 3.5rem;
         width: 3.5rem;
-        font-size: 3rem;
+        font-size: 2rem;
         background: ${props => props.theme.colorSecondary};
         border-radius: 50%;
         /* padding: 1rem; */
@@ -133,6 +133,11 @@ function AdminRates({ fetchAllRates, rates }) {
 	const [currentRate, setCurrentRate] = useState('')
 	const [buying, setBuying] = useState('')
 	const [selling, setSelling] = useState('')
+	// const [editName, setEditName] = useState('')
+	// const [editType, setEditType] = useState('')
+	const [editCurrentRate, setEditCurrentRate] = useState('')
+	const [editBuying, setEditBuying] = useState('')
+	const [editSelling, setEditSelling] = useState('')
 
 	const rules = {
 		name: { required: true, minlength: 4, },
@@ -155,7 +160,7 @@ function AdminRates({ fetchAllRates, rates }) {
 		// console.log('data :>> ', data);
 		Axios.get(`${routes.api.getRates}?token=${auth_token}`)
 			.then(res => {
-				console.log(res.data);
+				// console.log(res.data.data);
 				fetchAllRates(res.data.data)
 				return
 			})
@@ -175,6 +180,7 @@ function AdminRates({ fetchAllRates, rates }) {
 				fetchAllRates(res.data.data)
 				setIsActive(false)
 			})
+			.catch(res => console.log(res))
 	}
 
 	const updateFormValue = (name, value) => {
@@ -186,12 +192,12 @@ function AdminRates({ fetchAllRates, rates }) {
 			// Make an expander cell
 			Header: () => null, // No header
 			id: 'expander', // It needs an ID
-			
+
 			Cell: ({ row }) => (
 				// Use Cell to render an expander for each row.
 				// We can use the getToggleRowExpandedProps prop-getter
 				// to build the expander.
-				<div {...row.getToggleRowExpandedProps()}>
+				<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
 					{row.isExpanded ? 'Stop Editing' : 'Edit'}
 
 					{/* <div onClick={ ()=>row.toggleRowExpanded( row.id,false)}>
@@ -230,26 +236,52 @@ function AdminRates({ fetchAllRates, rates }) {
 			],
 		},
 	]
+	const handleEditRates = (rate) => {
+		const rateInfo = {
+			rateId: rate.id,
+			currentRate: editCurrentRate || rate.currentRate,
+			buying: editBuying || rate.buying,
+			selling: editSelling || rate.selling
+		}
 
+		console.log(rateInfo);
+		updateEditRateHooks()
+        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
+			.then(res => {
+				console.log(res.data);
+				fetchAllRates(res.data.data)
+			})
+	}
+
+	const updateEditRateHooks = () => {
+		// setEditName('')
+		setEditCurrentRate('')
+		// setEditType('')
+		setEditBuying('')
+		setEditSelling('')
+	}
 	const expandedComponent = (props) => (
-		<div className="expandedDiv">
-			<StyledInput name="name" updatedValue={setName} handleChange={updateFormValue}
-				value={state.name}
-				placeHolder="Name" type="name" icon={lock} />
+		<div className="expandedDiv" onBlur={() => {console.log(props); props.toggleRowExpanded(props.id, !true)}}>
+			{console.log(props)}
+			{/* {updateEditRateHooks(props)} */}
+			{/* <StyledInput name="name" label="name" updatedValue={setEditName} handleChange={updateFormValue}
+				value={props.original.name}
+				placeHolder="Name" type="name" icon={lock} /> */}
 
-			<StyledInput name="currentRate" updatedValue={setCurrentRate}
-				handleChange={updateFormValue} value={state.currentRate}
+			<StyledInput name="currentRate" label="Current Rate" updatedValue={setEditCurrentRate}
+				handleChange={updateFormValue} value={editCurrentRate}
 				placeHolder="CurrentRate" type="currentRate" icon={envelope} />
 
-			<StyledInput name="buying" updatedValue={setBuying}
-				handleChange={updateFormValue} value={state.buying}
+			<StyledInput name="buying" label="Buying" updatedValue={setEditBuying}
+				handleChange={updateFormValue} value={props.original.buying}
 				placeHolder="Buying" type="buying" icon={envelope} />
 
-			<StyledInput name="selling" updatedValue={setSelling}
-				handleChange={updateFormValue} value={state.selling}
+			<StyledInput name="selling" label="Selling" updatedValue={setEditSelling}
+				handleChange={updateFormValue} value={props.original.selling}
 				placeHolder="Selling" type="selling" icon={envelope} />
-
-			<button className="expandedDiv__button">
+			<button onClick={() => handleEditRates(props.original)} className="expandedDiv__button">
 				Update
 			</button>
 		</div>
@@ -259,8 +291,8 @@ function AdminRates({ fetchAllRates, rates }) {
 		<Container>
 			<div className="rate">
 				<div className="toggle" onClick={() => setIsActive(!isActive)} >
-					+
-        		</div>
+					{!isActive ? "➕" : "✖"}
+				</div>
 				<Modal isActive={isActive}>
 					<FormValidator buttonClass="rate-summit"
 						classname=" rate-container "

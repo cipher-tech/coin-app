@@ -186,7 +186,7 @@ background: ${props => props.theme.colorPrimary};
 `
 
 function MasterDashboardLayout(props) {
-    const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
+    const [sideNavIsOpen, setSideNavIsOpen] = useState(true)
     const sideNavWidth = "28rem"
     const spring = useSpring({
         width: sideNavIsOpen ? sideNavWidth : "6rem"
@@ -278,6 +278,24 @@ function MasterDashboardLayout(props) {
                         </span>
                         <span className="sideNav__container-item--text">
                             Verify
+                        </span>
+                    </Link>
+
+                    <Link to={routes.masterAdmin.deposit} onClick={closeSideNav} className="sideNav__container-item">
+                        <span className="sideNav__container-item--icon">
+                            <DollarSymbol className="sideNav__container-item--icon-svg" />
+                        </span>
+                        <span className="sideNav__container-item--text">
+                            Deposit Request
+                        </span>
+                    </Link>
+
+                    <Link to={routes.masterAdmin.widthdrawl} onClick={closeSideNav} className="sideNav__container-item">
+                        <span className="sideNav__container-item--icon">
+                            <DollarSymbol className="sideNav__container-item--icon-svg" />
+                        </span>
+                        <span className="sideNav__container-item--text">
+                            Widthdrawl Request
                         </span>
                     </Link>
 

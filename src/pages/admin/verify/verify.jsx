@@ -5,6 +5,7 @@ import giftCard from "../../../images/amazon-cardCrop.png"
 import { useState } from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
+import routes from '../../../navigation/routes';
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -55,6 +56,9 @@ const Container = styled.div`
                     height: 100%;
                     width: 100%;        
                 }
+            }
+            &__message{
+                color: ${props => props.didUpload? "green": "red"};
             }
             &__input{
                 display: flex;
@@ -129,6 +133,9 @@ function UserVerify() {
     const [image, setImage] = useState('');
     const [image1, setImage1] = useState('');
     const [image2, setImage2] = useState('');
+    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [didUpload, setDidUpload] = useState(false);
 
     let handleChange = (e) => {
         let files = e.target.files || e.dataTransfer.files;
@@ -161,23 +168,48 @@ function UserVerify() {
             idCard: image1
         }
         console.log(data);
-        Axios.post(`http://localhost:8000/api/users/verify?token=${auth_token}`, data)
+        Axios.post(`${routes.api.requestVerification}?token=${auth_token}`, data)
             .then(res => {
                 console.log(res);
+                if(res.data.status === "success" ){
+                    setMessage("Uploaded Successfully")
+                    setDidUpload(!didUpload)
+                }
+                setIsLoading(!isLoading);
+
+            })
+            .catch(res => {
+                setIsLoading(!isLoading);
+                setMessage("An error occured while uploading image")
+                setIsLoading(!isLoading);
             })
     }
 
     return (
-        <Container>
+        <Container didUpload={didUpload}>
             <div className="rate">
                 {/* <img src={rateImage} alt="rate" /> */}
 
                 <div className="form">
-                    <h2 className="form__title">Sell Your Gift Card</h2>
-                    <p className="form__subTitle">We offer amazing rates for your gift cards</p>
+                    <h2 className="form__title"> Verify Your Accourt</h2>
+                    <p className="form__subTitle">To be able to do some transactions you need to be verified</p>
                     <div className="form__title-image">
                         <img src={giftCard} alt="Gift card" className="form__title-image-icon" />
                     </div>
+                    <p className="form__message">
+                        {message}
+                    </p>
+                    <ul className="form__subTitle">
+                        <li>
+                            Upload a selfi of you.
+                        </li>
+                        <li>
+                            Upload an image containing your address (eletricity bill) etc.
+                        </li>
+                        <li>
+                            Upload an image containing a valid Id Card with your details.
+                        </li>
+                    </ul>
                     <div className="form__input">
                         {/* {image} */}
                         <input type="file"
@@ -198,7 +230,7 @@ function UserVerify() {
 
                     <img src={image} alt="preview" />
                     <button onClick={handleSubmit} className="form__actionButton">
-                        Continue
+                        {isLoading? "Loading..": "Continue"}
                     </button>
                 </div>
             </div>

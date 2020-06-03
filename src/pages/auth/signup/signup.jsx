@@ -209,6 +209,7 @@ export default class SignUp extends Component {
             last_name: "", 
             account_number: "",
             bank: "",
+            isLoading: false,
             is_super: true,
             message: "",
             // messageDetails: "Email or password incorrect",
@@ -225,25 +226,26 @@ export default class SignUp extends Component {
     }
     submit = (data) => {
         Axios.post(routes.api.signUp, data) //routes.api.signUp
+            this.setState({isLoading: !this.state.isLoading})
             .then(res => {
                 console.log(res.data);
                 if (res.data.status === "success") {
+                    this.setState({isLoading: !this.state.isLoading})
                     this.props.history.push(routes.admin.index)
                 }
                 if (res.data.status === false) {
                     // console.log(res.data);
-                    this.props.history.push(routes.admin.index)
-                    this.setState({ message: res.data.data })
+                    this.setState({ message: res.data.data, isLoading: !this.state.isLoading })
                 }
                 if (res.data.status) {
                     // console.log(res.data);
                     this.props.history.push(routes.admin.index)
-                    this.setState({ message: false })
+                    this.setState({ message: false,isLoading: !this.state.isLoading })
                 }
             })
             .catch(error => {
                 this.setState({ message: "An error occured. Check your details and try again." })
-
+                this.setState({isLoading: !this.state.isLoading})
             })
         // console.log('state :>> ', this.state);
     }
@@ -275,7 +277,7 @@ export default class SignUp extends Component {
                             <br/>
                             {/* {this.state.message? `${this.state.messageDetails}` : null }  */}
                         </p>
-                        <FormValidator buttonClass="login__side-right-summit" 
+                        <FormValidator buttonText={this.state.isLoading? "loading..." : "Submit"} buttonClass="login__side-right-summit" 
                         classname=" login__side-right-container " 
                         data={ this.state } rules={ this.rules }
                         submit={this.submit}>

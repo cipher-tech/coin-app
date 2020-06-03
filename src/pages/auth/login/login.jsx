@@ -201,10 +201,12 @@ class Login extends Component {
     constructor(props) {
         super(props)
 
+
         this.state = {
             email: "",
             password: "",
             type: "client",
+            isLoading: false,
             message: "",
             messageDetails: "Email or password incorrect"
         }
@@ -216,21 +218,23 @@ class Login extends Component {
     }
     submit = async (data) => {
         // console.log('data :>> ', data);
+        this.setState({isLoading: !this.state.isLoading})
         Axios.post(routes.api.login, data) //routes.api.login
             .then (res =>  {
                 if (res.data.status === false) {
                     // console.log(res.data);
                     // this.props.history.push(routes.admin.index)
-                    this.setState({ message: res.data.data })
+                    this.setState({ message: res.data.data, isLoading: !this.state.isLoading })
                 }
                 if (res.data.status) {
                     this.props.fetchUserInfo(res.data.data.user)
-                    this.setState({ message: false })
+                    this.setState({ message: false, isLoading: !this.state.isLoading })
                     const logInInfo = {
                         isLoggedIn: true,
                         user: res.data.data.user
                     }
                     localStorage.userInfo =  JSON.stringify(logInInfo) 
+
                     this.props.history.push(routes.admin.index)
 
                 }
@@ -267,7 +271,7 @@ class Login extends Component {
                             <br/>
                             {this.state.message? `${this.state.messageDetails}` : null } 
                         </p>
-                        <FormValidator buttonClass="login__side-right-summit"
+                        <FormValidator buttonText={this.state.isLoading? "loading..." : "Submit"} buttonClass="login__side-right-summit"
                             classname=" login__side-right-container "
                             data={this.state} rules={this.rules}
                             submit={this.submit}>

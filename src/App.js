@@ -27,6 +27,10 @@ import MasterAdminRates from "./pages/masterAdmin/rates/rates";
 import AdminUsers from './pages/masterAdmin/users/users';
 import UserVerify from './pages/admin/verify/verify';
 import VerifyUsers from './pages/masterAdmin/verify/verifyUsers';
+import DepositRequest from './pages/admin/depositRequest/depositRequest';
+import WidthdrawlRequest from './pages/admin/widthdrawlRequest/widthdrawlRequest';
+import AdminDepositRequest from './pages/masterAdmin/depositRequest/depositRequest';
+import AdminWidthdrawlRequest from './pages/masterAdmin/widthdrawlRequest/widthdrawlRequest';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -97,6 +101,8 @@ function App() {
 										<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
 										<Route exact path={routes.admin.transcation} component={AdminTransaction} />
 										<Route exact path={routes.admin.verify} component={UserVerify} />
+										<Route exact path={routes.admin.deposit} component={DepositRequest} />
+										<Route exact path={routes.admin.widthdrawl} component={WidthdrawlRequest} />
 									</Switch>
 								</DashboardLayout>
 							</Route>
@@ -110,6 +116,8 @@ function App() {
 										<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
 										<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
 										<Route exact path={routes.masterAdmin.verify} component={VerifyUsers} />
+										<Route exact path={routes.masterAdmin.deposit} component={AdminDepositRequest} />
+										<Route exact path={routes.masterAdmin.widthdrawl} component={AdminWidthdrawlRequest} />
 									</Switch>
 								</MasterDashboardLayout>
 							</Route>
