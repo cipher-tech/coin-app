@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSpring, animated } from "react-spring"
-// import homeSvg from "../../images/homeSvg.svg"
-// import {ReactComponent as Icon} from "../../images/homeSvg.svg"
+
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
 import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
 import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
@@ -10,11 +9,15 @@ import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
 import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymbol.svg"
-// import { ReactComponent as Invoice } from "../../images/svgIcons/invoice.svg"
-// import { ReactComponent as Settings } from "../../images/svgIcons/settings.svg"
+import { ReactComponent as Cog } from "../../images/svgIcons/cog.svg"
+import { ReactComponent as PowerSwitch } from "../../images/svgIcons/power-switch.svg"
+import { ReactComponent as Smile } from "../../images/svgIcons/smile.svg"
+
 import avatar1 from "../../images/avatar1.jpg"
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import routes from '../../navigation/routes'
+import useIsLoggedIn from '../../components/hooks/useIsLoggedIn'
+import logOut from '../../components/hooks/logOut'
 
 const Container = styled.div`
 grid-column: 1/-1;
@@ -38,7 +41,7 @@ background: ${props => props.theme.colorPrimary};
     &__container{
         display: grid;
         width: 100%;
-        padding: 15vh 0rem 3rem;
+        padding: 3vh 0rem 3rem;
         background: ${props => props.theme.colorPrimary};
        
         &-item-photo{
@@ -86,6 +89,7 @@ background: ${props => props.theme.colorPrimary};
                 width: 1.9rem;
                 padding: 0rem .1rem;
                 transition: all .3s ease-in-out .1s;
+                cursor: pointer;
                 justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
                 &-svg{
                     /* height: 3rem; */
@@ -174,6 +178,55 @@ background: ${props => props.theme.colorPrimary};
 
 }
 
+.dashboard__container{
+    grid-column: 2/ -1;
+    background: ${props => props.theme.colorLight};
+    min-height: 100vh;
+    min-width: 100%;
+    padding: 0;
+    display: grid;
+    grid-template-rows: 5rem 1fr;
+    z-index: 0;
+    border-radius: 2rem 0 0 2rem;
+    min-height: 100%;
+    .title_nav{
+        background: ${props => props.theme.colorWhite};
+        grid-column: 1/-1;
+        color: ${props => props.theme.colorDark};
+        padding: .5rem 5rem;
+        display: flex;
+        align-items: center;
+        font-size: ${props => props.theme.font.large};
+        justify-content: space-between;
+        z-index:40;
+        box-shadow: .1rem .2rem 30px rgba(0,0,0, .3);
+        &--icons{
+            display: flex;
+            padding: 0;
+            .indicator{
+                position: relative;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    height: 1rem;
+                    width: 1rem;
+                    border-radius: 50%;
+                    background: ${props => props.status? props.theme.colorSuccess: props.theme.colorError};
+                    top: -.4rem;
+                    right: .9rem;
+                }
+            }
+            &-item{
+                position: relative;
+                margin: 0 1.2rem;
+            }
+            &-item path{
+                fill: ${props => props.theme.colorDark};
+            }
+        }
+        
+    }
+}
 .dashboard{
     grid-column: 2/ -1;
     background: ${props => props.theme.colorLight};
@@ -188,8 +241,15 @@ background: ${props => props.theme.colorPrimary};
 `
 
 function DashboardLayout(props) {
+    const isLoggedIn = useIsLoggedIn(props.history)
+    console.log(isLoggedIn);
+    
+    const name = JSON.parse(localStorage.getItem("userInfo")).user.first_name || null
+    const status = JSON.parse(localStorage.getItem("userInfo")).user.status || null
+
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
-    const sideNavWidth = "28rem"
+    const [userStatus] = useState(status === "verified")
+    const sideNavWidth = "28rem";
     const spring = useSpring({
         width: sideNavIsOpen ? sideNavWidth : "6rem"
     })
@@ -199,11 +259,11 @@ function DashboardLayout(props) {
         // this.state.sideNavIsOpen ? this.setState({sideNavWidth: "3rem", sideNavIsOpen: !this.state.sideNavIsOpen}) : 
         // this.setState({sideNavWidth: "20rem", sideNavIsOpen: !this.state.sideNavIsOpen})
     }
-    const closeSideNav =() => {
+    const closeSideNav = () => {
         setSideNavIsOpen(false)
     }
     return (
-        <Container navWidth={sideNavWidth} sidenavIsOpen={sideNavIsOpen}>
+        <Container navWidth={sideNavWidth} status={userStatus} sidenavIsOpen={sideNavIsOpen}>
             <animated.div style={{ width: spring.width }} className="sideNav">
 
                 <ul className="sideNav__container">
@@ -300,9 +360,27 @@ function DashboardLayout(props) {
                 </div>
                 {/* {spring.width.interpolate(x => console.log(Math.floor(x * 100 / sideNavWidth)))} */}
             </animated.div>
-            {props.children}
+            <div className="dashboard__container">
+                <div className="title_nav">
+                    <span className="title_nav--name">
+                        {name}
+                    </span>
+                    <p className="title_nav--icons">
+                        <span className="">
+                            <Cog className="title_nav--icons-item" />
+                        </span>
+                        <span className="indicator">
+                            <Smile className="title_nav--icons-item" />
+                        </span>
+                        <span className="">
+                            <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
+                        </span>
+                    </p>
+                </div>
+                {props.children}
+            </div>
         </Container>
     )
 }
 
-export default DashboardLayout
+export default withRouter(DashboardLayout)

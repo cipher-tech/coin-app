@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import barChart from "../../images/barChart.svg"
 // import StatisticsSvg from "../../images/StatisticsSvg.svg"
 import ReferrerSvg from "../../images/rate.png"
@@ -7,6 +7,9 @@ import styled from 'styled-components'
 import CoinWidget from '../../components/widget/wigjet'
 import { AdminCard } from '../../components'
 import { connect } from 'react-redux'
+import Axios from 'axios'
+import routes from '../../navigation/routes'
+import { fetchUserInfoActionCreator } from '../../reduxStore'
 
 const Container = styled.div`
     .dashboard{
@@ -114,16 +117,40 @@ const Container = styled.div`
     }
     }
 `
-const Dashboard = () => {
-    const {user} = JSON.parse(localStorage.getItem("userInfo"))
-    // console.log(user);
+const Dashboard = ({ fetchUserInfo, user = 0 }) => {
+    // const {user} = JSON.parse(localStorage.getItem("userInfo"))
+    // console.log(user)
+    useEffect(() => {
+        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+        const id = JSON.parse(localStorage.getItem("userInfo")).user.id
+        // console.log('data :>> ', data);
+        Axios.post(`${routes.api.getUser}?token=${auth_token}`, { id })
+            .then(res => {
+                // console.log(res.data.data);
+                if (res.data.status === "success") {
+                    fetchUserInfo(res.data.data)
+
+                    const logInInfo = {
+                        isLoggedIn: true,
+                        user: res.data.data
+                    }
+                    localStorage.userInfo = JSON.stringify(logInInfo)
+                }
+
+                return
+            })
+
+        return () => {
+
+        }
+    }, [fetchUserInfo])
     return (
         <Container className="dashboard">
             <h1 className="dashboard__title">Dashboard</h1>
             <div className="dashboard__overView">
-                <AdminCard title="wallet balc" stats={user.wallet_balc || 0} icon={barChart}  />
-                <AdminCard title="total trans" stats={user.earnings || 0} icon={barChart} />
-                <AdminCard title="total widt" stats={user.widthdrawals_id || 0} icon={barChart}/>
+                <AdminCard title="wallet balc" stats={Object.entries(user).length > 0 ? user.userInfo.wallet_balc : 0} icon={barChart} />
+                <AdminCard title="total trans" stats={Object.entries(user).length > 0 ? user.userInfo.earnings : 0} icon={barChart} />
+                <AdminCard title="total widt" stats={Object.entries(user).length > 0 ? user.userInfo.widthdrawals_id : 0} icon={barChart} />
             </div>
             <div className="dashboard__chart">
                 <CoinWidget ele="#mydiv" id="mydiv" link={`<div style="height:560px; background-color: #FFFFFF; overflow:hidden; box-sizing: border-box; border: 1px solid #56667F; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #56667F;padding:1px;padding: 0px; margin: 0px; width: 100%;"><div style="height:540px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=chart&theme=light&coin_id=859&pref_coin_id=1505" width="100%" height="536px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;line-height:14px;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div></div>`} />
@@ -136,15 +163,15 @@ const Dashboard = () => {
     )
 }
 
-const mapStateToProps = ({users}) => ({
+const mapStateToProps = ({ users }) => ({
     user: users
 })
 
-// const mapDispatchToProps = {
-    
-// }
+const mapDispatchToProps = {
+    fetchUserInfo: fetchUserInfoActionCreator
+}
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
 
 //HostProvider- namecheap
 //username: GSSGROUP

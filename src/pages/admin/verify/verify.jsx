@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 import routes from '../../../navigation/routes';
+import { PopUpMessage } from '../../../components';
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -17,6 +18,7 @@ const Container = styled.div`
     background: ${props => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
+    position: relative;
     .rate{
         grid-column: 1/-1;
         width: clamp(100%, 100vw, 65vw);
@@ -58,7 +60,7 @@ const Container = styled.div`
                 }
             }
             &__message{
-                color: ${props => props.didUpload? "green": "red"};
+                color: ${props => props.didUpload ? "green" : "red"};
             }
             &__input{
                 display: flex;
@@ -133,9 +135,12 @@ function UserVerify() {
     const [image, setImage] = useState('');
     const [image1, setImage1] = useState('');
     const [image2, setImage2] = useState('');
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [didUpload, setDidUpload] = useState(false);
+    const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [popUpMessage, setPopUpMessage] = useState(null)
+    const [error, setError] = useState(false)
 
     let handleChange = (e) => {
         let files = e.target.files || e.dataTransfer.files;
@@ -148,15 +153,17 @@ function UserVerify() {
         reader.onload = (e) => {
             if (name === "selfi") {
                 setImage(e.target.result)
-            }else if(name === "idCard"){
+            } else if (name === "idCard") {
                 setImage1(e.target.result)
-            }else{
+            } else {
                 setImage2(e.target.result)
             }
         };
         reader.readAsDataURL(file);
     }
     let handleSubmit = () => {
+        setIsLoading(true)
+
         console.log(image);
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const formData = new FormData()
@@ -171,22 +178,30 @@ function UserVerify() {
         Axios.post(`${routes.api.requestVerification}?token=${auth_token}`, data)
             .then(res => {
                 console.log(res);
-                if(res.data.status === "success" ){
-                    setMessage("Uploaded Successfully")
+                if (res.data.status === "success") {
+                    // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
                     setDidUpload(!didUpload)
+                    setPopUpMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
+                    setShowPopUpMessage(true)
+                    setIsLoading(!true)
                 }
                 setIsLoading(!isLoading);
 
             })
             .catch(res => {
-                setIsLoading(!isLoading);
-                setMessage("An error occured while uploading image")
-                setIsLoading(!isLoading);
+                setPopUpMessage("An error occured while uploading image. Try again or contact admin")
+                setError(true)
+                setShowPopUpMessage(true)
+                setIsLoading(!true)
+
+                // setMessage("An error occured while uploading image. Try again or contact admin")
             })
     }
 
     return (
         <Container didUpload={didUpload}>
+            {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+
             <div className="rate">
                 {/* <img src={rateImage} alt="rate" /> */}
 
@@ -196,9 +211,9 @@ function UserVerify() {
                     <div className="form__title-image">
                         <img src={giftCard} alt="Gift card" className="form__title-image-icon" />
                     </div>
-                    <p className="form__message">
+                    {/* <p className="form__message">
                         {message}
-                    </p>
+                    </p> */}
                     <ul className="form__subTitle">
                         <li>
                             Upload a selfi of you.
@@ -228,9 +243,13 @@ function UserVerify() {
                             name="address" placeholder="Enter Value" className="form__input-item" />
                     </div>
 
-                    <img src={image} alt="preview" />
+                    <p>
+                        <img src={image} height="40rem" width="40rem" alt="preview" />
+                        <img src={image1} height="40rem" width="40rem" alt="preview" />
+                        <img src={image2} height="40rem" width="40rem" alt="preview" />
+                    </p>
                     <button onClick={handleSubmit} className="form__actionButton">
-                        {isLoading? "Loading..": "Continue"}
+                        {isLoading ? "Loading.." : "Continue"}
                     </button>
                 </div>
             </div>

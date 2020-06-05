@@ -255,7 +255,8 @@ class Login extends Component {
                         <div className="circle2" />
                         <p className="login__side-left-title">Welcome To Back</p>
                         <p className="login__side-left-text">
-                            It’s more than just trading Bitcoin
+                            Welcome, Login to your account to continue.
+                            Remember, it’s more than just trading Bitcoin
                             and Gift Cards  experience
                             world class transaction processes.
                         </p>

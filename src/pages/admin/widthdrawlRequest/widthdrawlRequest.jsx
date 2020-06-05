@@ -68,27 +68,39 @@ function WidthdrawlRequest() {
     const handleSubmit = (e) => {
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
+        const status = JSON.parse(localStorage.getItem("userInfo")).user.status
         setIsLoading(true)
         const object = {
             id: userid,
             amount: widthdrawlValue
         }
-        console.log(object);
-        Axios.post(`${routes.api.usersWidthdrawl}?token=${auth_token}`, object)
-            .then(res => {
-                setShowPopUpMessage(false)
-                if (res.data.status === "success") {
+        // console.log(object);
+        if (status === "verified") {
+            Axios.post(`${routes.api.usersWidthdrawl}?token=${auth_token}`, object)
+                .then(res => {
+                    setShowPopUpMessage(false)
+                    if (res.data.status === "success") {
+                        setPopUpMessage(res.data.data)
+                        setShowPopUpMessage(true)
+                        setIsLoading(!true)
+                        return
+                    }
                     setPopUpMessage(res.data.data)
+                    setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
-                    return
-                }
-                setPopUpMessage(res.data.data)
-                setError(true)
-                setShowPopUpMessage(true)
-                setIsLoading(!true)
 
-            })
+                })
+        } else {
+            setPopUpMessage("You are unverified. Click on the verify link on the menu to verify your account and continue")
+            setShowPopUpMessage(true)
+            setTimeout(() => {
+                setShowPopUpMessage(false)
+                setIsLoading(!true)
+            }, 8500)
+
+        }
+
     }
     return (
         <Container>

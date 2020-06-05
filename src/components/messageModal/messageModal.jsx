@@ -32,7 +32,7 @@ const MessageModal = styled.p`
     border-radius: 1.5rem;
     font-size: ${props => props.theme.font.large};
     transition: all 1s ease .5s;
-    animation: ${modalAnimation} 5s ease .5s;
+    animation: ${modalAnimation} 8s ease .5s;
     overflow: hidden;
     width: 0px;
 `

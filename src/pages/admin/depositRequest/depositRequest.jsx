@@ -6,7 +6,9 @@ import Button from '../../../components/button/button'
 import Axios from 'axios'
 import { connect } from 'react-redux'
 import routes from '../../../navigation/routes'
-import { PopUpMessage } from '../../../components'
+import { PopUpMessage, Modal } from '../../../components'
+import giftCard from "../../../images/amazon-cardCrop.png"
+
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -21,6 +23,23 @@ const Container = styled.div`
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
     position: relative;
+    .modal__container{
+        place-items: center;
+        background: ${props => props.theme.colorLight};
+        padding: 2rem 3rem;
+        height: max-content;
+        align-self: center;
+        color: ${props => props.theme.colorDark};
+        text-align: center;
+        position: relative;
+        border-radius: 1rem;
+        display: grid;
+
+        .close{
+            justify-self: flex-end;
+            cursor: pointer;
+        }
+    }
     .title{   
         justify-self: flex-start;
         font-weight: 500;
@@ -59,6 +78,8 @@ function DepositRequest() {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
+	const [isModalActive, setIsModalActive] = useState(false)
+
 
     const updateFormValue = (name, value) => {
 
@@ -66,19 +87,22 @@ function DepositRequest() {
     const handleSubmit = (e) => {
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
+        const status = JSON.parse(localStorage.getItem("userInfo")).user.status
         setIsLoading(true)
         const object = {
             id: userid,
             amount: depositValue
         }
         console.log(object);
-        Axios.post(`${routes.api.usersDeposit}?token=${auth_token}`, object)
+        if(status === "verified"){
+            Axios.post(`${routes.api.usersDeposit}?token=${auth_token}`, object)
             .then(res => {
                 setShowPopUpMessage(false)
                 if (res.data.status === "success") {
                     setPopUpMessage(res.data.data)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
+                    setIsModalActive(true)
                     return
                 }
 
@@ -89,9 +113,33 @@ function DepositRequest() {
                 setShowPopUpMessage(true)
                 setIsLoading(!true)
             })
+        }else{
+            setPopUpMessage("You are unverified. Click on the verify link on the menu to verify your account and continue")
+            setShowPopUpMessage(true)
+            setTimeout(() => {
+                setShowPopUpMessage(false)
+                setIsLoading(!true)
+            }, 8500)
+            
+        }
     }
     return (
         <Container>
+				<Modal isActive={isModalActive}>
+                    <div className="modal__container">
+                        <span role="img" aria-label="img"  className="close" onClick={() => setIsModalActive(false)}>
+                            ❌
+                        </span>
+                        <img src={giftCard} alt=""/>
+
+                        <p>
+                            please pay the specified amount into this address
+                        </p>
+                        <p>
+                            d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                        </p>
+                    </div>
+                </Modal>
             <h1 className="title">Deposit Requests</h1>
             {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
             <div className="deposit">

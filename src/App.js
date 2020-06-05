@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { HashRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { BrowserRouter  as Router, Switch, Route, withRouter, } from "react-router-dom"
 //HashRouter BrowserRouter 
 
 import reduxStore from "./reduxStore"
@@ -47,6 +47,7 @@ const theme = {
 	font: {
 		xxlarge: "5rem",
 		xLarge: "4rem",
+		vLarge: "3.5rem",
 		larger: "3rem",
 		xlarge: "2.2rem",
 		large: "2rem",

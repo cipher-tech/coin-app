@@ -14,6 +14,7 @@ import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
+import { PopUpMessage } from '../../../components'
 
 
 const Container = styled.div`
@@ -212,6 +213,8 @@ export default class SignUp extends Component {
             isLoading: false,
             is_super: true,
             message: "",
+            popUpMessage: '',
+            showpopUpMessage: false,
             // messageDetails: "Email or password incorrect",
         }
         this.rules = {
@@ -220,34 +223,29 @@ export default class SignUp extends Component {
             phone: { required: true, minlength: 6, },
             last_name: { required: true, minlength: 6, },
             first_name: { required: true, minlength: 6, },
-            account_number: { required: true, minlength: 6, },
-            bank: { required: true, minlength: 6, },
         }
     }
     submit = (data) => {
         Axios.post(routes.api.signUp, data) //routes.api.signUp
+        .then(res => {
             this.setState({isLoading: !this.state.isLoading})
-            .then(res => {
                 console.log(res.data);
-                if (res.data.status === "success") {
-                    this.setState({isLoading: !this.state.isLoading})
-                    this.props.history.push(routes.admin.index)
-                }
-                if (res.data.status === false) {
-                    // console.log(res.data);
-                    this.setState({ message: res.data.data, isLoading: !this.state.isLoading })
-                }
                 if (res.data.status) {
-                    // console.log(res.data);
-                    this.props.history.push(routes.admin.index)
-                    this.setState({ message: false,isLoading: !this.state.isLoading })
+                    this.setState({isLoading: !this.state.isLoading})
+                    this.props.history.push(routes.public.login)
+                    return
+                }else{
+                    this.setState({ message: "An error Occured While loading. Please check your details and try again.", isLoading: !this.state.isLoading })
+                    this.setState({isLoading: !this.state.isLoading})
+                    return
                 }
+              
             })
-            .catch(error => {
-                this.setState({ message: "An error occured. Check your details and try again." })
+            .catch(res => {
                 this.setState({isLoading: !this.state.isLoading})
+                this.setState({ message: "AN error Occured While loading please check your details and try again.", isLoading: !this.state.isLoading })
             })
-        // console.log('state :>> ', this.state);
+          
     }
     updateFormValue = (name, value) => {
         this.setState({ [name]: value });
@@ -255,6 +253,8 @@ export default class SignUp extends Component {
     render() {
         return (
             <Container>
+			{this.state.showpopUpMessage ? <PopUpMessage> {this.state.popUpMessage} <span onClick={() => this.setState({setShowPopUpMessage: false }) }>✖</span> </PopUpMessage> : null}
+
                 <div className="login">
                     <div className="login__side-left">
                         <div className="circle"/>
@@ -287,25 +287,25 @@ export default class SignUp extends Component {
                                 placeHolder="Email" icon={envelope} />
                                 <ValidationMessage field="email"/>
 
-                            <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.firftname}
+                            <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.first_name}
                                 placeHolder="Firstname" type="text" icon={envelope} />
                                 <ValidationMessage field="first_name"/>
 
-                            <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.lastname}
+                            <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.last_name}
                                 placeHolder="Lastname" type="text" icon={envelope} />
                                 <ValidationMessage field="last_name"/>
 
-                            <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phoneNumber}
+                            <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phone}
                                 placeHolder="phoneNumber" type="text" icon={envelope} />
                                 <ValidationMessage field="phone"/>
 
-                            <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
+                            {/* <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
                                 placeHolder="Bank" type="text" icon={envelope} />
-                                <ValidationMessage field="bank"/>
+                                <ValidationMessage field="bank"/> */}
 
-                            <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
+                            {/* <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
                                 placeHolder="Account_number" type="number" icon={envelope} />
-                                <ValidationMessage field="account_number"/>
+                                <ValidationMessage field="account_number"/> */}
 
                             <StyledInput name="password" handleChange={this.updateFormValue} value={this.state.password}
                                 placeHolder="password" type="password" icon={envelope} />

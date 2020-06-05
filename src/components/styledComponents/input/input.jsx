@@ -20,7 +20,7 @@ const Container = styled.div`
         line-height: 1rem;
         transition: all .1s ease .2s;
         position: relative;
-        text-transform: capitalize;
+        /* text-transform: capitalize; */
 /* inputs dont have after elements apperently */
         &::after{
             content: ${props => props.icon};
@@ -42,7 +42,7 @@ const Container = styled.div`
     }
 `
 export default function InputComponent(props) {
-    const [value, setvalue] = useState(props.value)
+    const [value, setvalue] = useState('')
     // const [password, setPassword] = useState("")
     return (
         <Container icon={props.icon}>

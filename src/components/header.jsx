@@ -254,9 +254,9 @@ const Header = () => {
                 </div>
                 <ul className="navbar-list">
                     <li className="navbar-list-item">Home</li>
-                    <li className="navbar-list-item">Register</li>
+                    {/* <li className="navbar-list-item">Register</li> */}
                     <Link to="/login" className="navbar-list-item">Login</Link>
-                    <li className="navbar-list-item">Services</li>
+                    {/* <li className="navbar-list-item">Services</li> */}
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
                     <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
                 </ul>
