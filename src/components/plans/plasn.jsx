@@ -141,9 +141,9 @@ const Container = styled.div`
 const Plans = () => {
     return (
         <Container>
-    
+
             <Heading title="Pricing Plans" />
-        
+
             {/* <div className="section-title">
                 <h1> Pricing Plans </h1>
             </div> */}
@@ -152,33 +152,37 @@ const Plans = () => {
 
                 {/* <!-- Plan --> */}
                 <div className="pricing-plan">
-                    <h3>Basic Plan</h3>
-                    <p>To start your learning to day you will get free 10 Course .</p>
+                    <h3>BEGINNERS</h3>
+                    <p> BEGINNERS ($500 - $19,999) makes </p>
                     <ul className="uk-switcher" id="change-plan">
                         <li>
-                            <div className="pricing-plan-label"><strong>$29</strong>/ monthly</div>
+                            <div className="pricing-plan-label"><strong>1.5%</strong> daily profit.</div>
                         </li>
 
                     </ul>
                     <div className="pricing-plan-features">
                         <strong>Features of Basic Plan</strong>
                         <ul>
-                            <li>Exercise files </li>
+                            <li>
+                                Calculation procedures: $500 multiplied by 7.2% will give you
+                                $15.00 daily which will subsequently earn you $52.5 weekly.
+                            </li>
+                            {/* <li>Exercise files </li>
                             <li>Interactive tools</li>
-                            <li>On-demand learning</li>
+                            <li>On-demand learning</li> */}
                         </ul>
                     </div>
-                    <a href="pages-checkout-page.html" className="btns">Buy Now</a>
+                    <a href="/" className="btns">Buy Now</a>
                 </div>
 
                 {/* <!-- Plan --> */}
                 <div className="pricing-plan recommended">
                     <div className="recommended-badge">Recommended</div>
-                    <h3>Pro Plan</h3>
-                    <p>To start your learning to day you will get free 10 Course .</p>
+                    <h3>STANDARD</h3>
+                    <p>STANDARD ($20,000- $49,999) makes</p>
                     <ul className="uk-switcher" id="change-plan">
                         <li>
-                            <div className="pricing-plan-label billed-monthly-label"><strong>$69</strong>/ monthly
+                            <div className="pricing-plan-label billed-monthly-label"><strong>2.0%</strong> daily profit.
             </div>
                         </li>
 
@@ -186,21 +190,25 @@ const Plans = () => {
                     <div className="pricing-plan-features">
                         <strong>Features of Pro Plan</strong>
                         <ul>
-                            <li>Exercise files </li>
+                            <li>
+                                Calculation procedures: $20,000 multiplied by 2.0% will give you $400 daily
+                                which will subsequently earn you $2,800 weekly.
+                            </li>
+                            {/* <li>Exercise files </li>
                             <li>Access entire course library </li>
-                            <li>99+ High Quality Video Courses</li>
+                            <li>99+ High Quality Video Courses</li> */}
                         </ul>
                     </div>
-                    <a href="pages-checkout-page.html" className="btns">Buy Now</a>
+                    <a href="/" className="btns">Buy Now</a>
                 </div>
 
                 {/* <!-- Plan --> */}
                 <div className="pricing-plan">
-                    <h3>For Teams</h3>
-                    <p>To start your learning to day you will get free 10 Course .</p>
+                    <h3>ADVANCE</h3>
+                    <p>ADVANCE ($50,000 - $99,999): makes.</p>
                     <ul className="uk-switcher" id="change-plan">
                         <li>
-                            <div className="pricing-plan-label billed-monthly-label"><strong>$99</strong>/ monthly
+                            <div className="pricing-plan-label billed-monthly-label"><strong>3.0%</strong> daily profit.
             </div>
                         </li>
 
@@ -208,20 +216,48 @@ const Plans = () => {
                     <div className="pricing-plan-features">
                         <strong>Features of For Teams</strong>
                         <ul>
-                            <li>Certification exams</li>
+                            <li>
+                                Calculation procedures: $50,000 multiplied by 3.0% will give
+                                you $1,500 daily and will subsequently earn you $10,500 weekly.
+                        </li>
+                            {/* <li>Certification exams</li>
                             <li>Dedicated success team</li>
-                            <li>1000+ High Quality Video Courses</li>
+                            <li>1000+ High Quality Video Courses</li> */}
                         </ul>
                     </div>
-                    <a href="pages-checkout-page.html" className="btns">Buy Now</a>
+                    <a href="/" className="btns">Buy Now</a>
+                </div>
+
+                <div className="pricing-plan">
+                    <h3>BUSINESS</h3>
+                    <p>BUSINESS ($100,000 - $INFINITY) makes</p>
+                    <ul className="uk-switcher" id="change-plan">
+                        <li>
+                            <div className="pricing-plan-label billed-monthly-label"><strong>5.0%</strong> daily profit.
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div className="pricing-plan-features">
+                        <strong>Features of For Teams</strong>
+                        <ul>
+                            <li>
+                                Calculation procedures: $100,000 multiplied by 5.0% will give you
+                                $5000 daily and will
+                                subsequently earn you $35,000 weekly.
+                        </li>
+                            {/* <li>Certification exams</li>
+                            <li>Dedicated success team</li>
+                            <li>1000+ High Quality Video Courses</li> */}
+                        </ul>
+                    </div>
+                    <a href="/" className="btns">Buy Now</a>
                 </div>
             </div>
         </Container>
         /* 
         Global Wealth's initial investment is $500 to enable you start up and profit within a reasonable time frame.
 
-BEGINNERS ($500 - $19,999): makes 1.5% daily profit.
-EXAMPLE! Calculation procedures: $500 multiplied by 7.2% will give you $15.00 daily which will subsequently earn you $52.5 weekly.
 
 STANDARD ($20,000- $49,999): makes 2.0% daily profit.
 EXAMPLE! Calculation procedures: $20,000 multiplied by 2.0% will give you $400 daily which will subsequently earn you $2,800 weekly.

@@ -213,12 +213,13 @@ background: ${props => props.theme.colorPrimary};
                     border-radius: 50%;
                     background: ${props => props.status? props.theme.colorSuccess: props.theme.colorError};
                     top: -.4rem;
-                    right: .9rem;
+                    right: .4rem;
                 }
             }
             &-item{
                 position: relative;
                 margin: 0 1.2rem;
+                cursor: pointer;
             }
             &-item path{
                 fill: ${props => props.theme.colorDark};
@@ -242,7 +243,7 @@ background: ${props => props.theme.colorPrimary};
 
 function DashboardLayout(props) {
     const isLoggedIn = useIsLoggedIn(props.history)
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     
     const name = JSON.parse(localStorage.getItem("userInfo")).user.first_name || null
     const status = JSON.parse(localStorage.getItem("userInfo")).user.status || null
@@ -253,6 +254,13 @@ function DashboardLayout(props) {
     const spring = useSpring({
         width: sideNavIsOpen ? sideNavWidth : "6rem"
     })
+
+    
+    // if (!isLoggedIn) {
+    //     props.history.push('/')
+    //     console.log("bad");
+    //     return <p></p>
+    // }
     const toggleSideNav = () => {
         setSideNavIsOpen(!sideNavIsOpen)
         // console.log(sideNavIsOpen);
@@ -369,15 +377,15 @@ function DashboardLayout(props) {
                         <span className="">
                             <Cog className="title_nav--icons-item" />
                         </span>
-                        <span className="indicator">
+                        <span title={status === "verified"? "Account verified" :"Account Unvrifird"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>
-                        <span className="">
+                        <span title="logout" className="">
                             <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
                         </span>
                     </p>
                 </div>
-                {props.children}
+                {isLoggedIn ?  props.children : null}
             </div>
         </Container>
     )

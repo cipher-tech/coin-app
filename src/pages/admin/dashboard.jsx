@@ -11,6 +11,7 @@ import AdminRates from './rates/rates'
 import { fetchUserInfoActionCreator } from '../../reduxStore'
 import Axios from 'axios'
 import routes from '../../navigation/routes'
+import useIsLoggedIn from '../../components/hooks/useIsLoggedIn'
 
 const Container = styled.div`
     .dashboard{
@@ -123,23 +124,27 @@ const Container = styled.div`
     }
 `
 const Dashboard = ({fetchUserInfo, user=0}) => {
+    
     useEffect(() => {
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-        const id = JSON.parse(localStorage.getItem("userInfo")).user.id
-        // console.log('data :>> ', data);
-		Axios.post(`${routes.api.getUser}?token=${auth_token}`, {id})
-			.then(res => {
-                // console.log(res.data.data);
-                if (res.data.status === "success") {
-                    fetchUserInfo(res.data.data)
-                }
-				
-				return
-			})
-
-		return () => {
-
-		}
+        if(useIsLoggedIn){
+            const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+            const id = JSON.parse(localStorage.getItem("userInfo")).user.id
+            // console.log('data :>> ', data);
+            Axios.post(`${routes.api.getUser}?token=${auth_token}`, {id})
+                .then(res => {
+                    // console.log(res.data.data);
+                    if (res.data.status === "success") {
+                        fetchUserInfo(res.data.data)
+                    }
+                    
+                    return
+                })
+    
+            return () => {
+    
+            }
+        }
+       
 	}, [fetchUserInfo])
     // const {user} = JSON.parse(localStorage.getItem("userInfo"))
     // console.log(user);
@@ -164,7 +169,7 @@ const Dashboard = ({fetchUserInfo, user=0}) => {
       </Container>
     )
 }
-
+ 
 const mapStateToProps = ({users}) => ({
     user: users
 })

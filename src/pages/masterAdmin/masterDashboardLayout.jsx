@@ -8,12 +8,14 @@ import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
 import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymbol.svg"
-// import { ReactComponent as Invoice } from "../../images/svgIcons/invoice.svg"
-// import { ReactComponent as Settings } from "../../images/svgIcons/settings.svg"
+import { ReactComponent as Cog } from "../../images/svgIcons/cog.svg"
+import { ReactComponent as PowerSwitch } from "../../images/svgIcons/power-switch.svg"
+import { ReactComponent as Smile } from "../../images/svgIcons/smile.svg"
 import avatar1 from "../../images/avatar1.jpg"
 import { Link, withRouter } from 'react-router-dom'
 import routes from '../../navigation/routes'
 import useIsMasterAdmin from '../../components/hooks/useIsMasterAdmin'
+import logOut from '../../components/hooks/logOut'
 
 const Container = styled.div`
 grid-column: 1/-1;
@@ -208,12 +210,13 @@ background: ${props => props.theme.colorPrimary};
                     border-radius: 50%;
                     background: ${props => props.status? props.theme.colorSuccess: props.theme.colorError};
                     top: -.4rem;
-                    right: .9rem;
+                    right: .4rem;
                 }
             }
             &-item{
                 position: relative;
                 margin: 0 1.2rem;
+                cursor: pointer;
             }
             &-item path{
                 fill: ${props => props.theme.colorDark};
@@ -370,14 +373,15 @@ function MasterDashboardLayout(props) {
                         {name}
                     </span>
                     <p className="title_nav--icons">
-                        <span className="">
-                            <Home className="title_nav--icons-item" />
+                    <span className="">
+                            <Cog className="title_nav--icons-item" />
                         </span>
-                        <span className="indicator">
-                            <Home className="title_nav--icons-item" />
+                        <span title={status === "verified"? "Account verified" :"Account Unvrifird"} className="indicator">
+                            <Smile className="title_nav--icons-item" />
                         </span>
-                        <span className="">
-                            <Home className="title_nav--icons-item" />
+                        
+                        <span title="logout" className="">
+                            <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
                         </span>
                     </p>
                 </div>

@@ -18,7 +18,7 @@ export class Main extends Component {
                 {/* <Galary /> */}
                 <Discount/>
                 <Step/>
-                <Plans />
+                {/* <Plans /> */}
                 <Ourreachs/>
                 <Reach/>
                 {/* <PhotoGallery /> */}
