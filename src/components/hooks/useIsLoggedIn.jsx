@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+// import {useEffect} from 'react'
 import routes from '../../navigation/routes'
 
 export default (history) => {

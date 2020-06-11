@@ -131,7 +131,7 @@ const Container = styled.div`
         }
     }
 `
-function UserVerify() {
+function UserVerify(props) {
     const [image, setImage] = useState('');
     const [image1, setImage1] = useState('');
     const [image2, setImage2] = useState('');
@@ -177,15 +177,19 @@ function UserVerify() {
         console.log(data);
         Axios.post(`${routes.api.requestVerification}?token=${auth_token}`, data)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.status === "success") {
                     // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
                     setDidUpload(!didUpload)
                     setPopUpMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
                     setShowPopUpMessage(true)
-                    setIsLoading(!true)
+                    setIsLoading(false)
+                    
                 }
-                setIsLoading(!isLoading);
+                // setIsLoading(!isLoading);
+                setTimeout(() => {
+                    props.history.push(routes.admin.index)
+                }, 8000);
 
             })
             .catch(res => {
@@ -249,7 +253,7 @@ function UserVerify() {
                         <img src={image2} height="40rem" width="40rem" alt="preview" />
                     </p>
                     <button onClick={handleSubmit} className="form__actionButton">
-                        {isLoading ? "Loading.." : "Continue"}
+                        {isLoading ? "Loading..." : "Continue"}
                     </button>
                 </div>
             </div>

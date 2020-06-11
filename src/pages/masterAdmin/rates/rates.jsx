@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 import App from '../../../components/table/tablePagination'
-import { Modal } from '../../../components'
+import { Modal, PopUpMessage } from '../../../components'
 import { FormValidator } from '../../../formValidator'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
@@ -139,12 +139,16 @@ function AdminRates({ fetchAllRates, rates }) {
 	const [editBuying, setEditBuying] = useState('')
 	const [editSelling, setEditSelling] = useState('')
 
+	const [isLoading, setIsLoading] = useState(false);
+	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [popUpMessage, setPopUpMessage] = useState(null)
+    const [error, setError] = useState(false)
 	const rules = {
-		name: { required: true, minlength: 4, },
-		type: { required: true, minlength: 4, },
-		currentRate: { required: true, minlength: 4, },
+		name: { required: true, minlength: 3, },
+		type: { required: true, minlength: 3, },
+		currentRate: { required: true, minlength: 3, },
 		buying: { required: true, minlength: 2, },
-		selling: { required: true, minlength: 3, },
+		selling: { required: true, minlength: 2, },
 	}
 	const state = {
 		name: name,
@@ -171,16 +175,61 @@ function AdminRates({ fetchAllRates, rates }) {
 	}, [fetchAllRates])
 
 	const submit = async (data) => {
+		setIsLoading(true)
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
 		console.log('data :>> ', data);
 		Axios.post(`${routes.api.addRates}?token=${auth_token}`, data)
 			.then(res => {
-				console.log(res.data);
-				fetchAllRates(res.data.data)
-				setIsActive(false)
+				if (res.data.status === "success") {
+					console.log(res.data);
+					setPopUpMessage("Added Successfully")
+                    setShowPopUpMessage(true)
+					setIsLoading(false)
+					
+					fetchAllRates(res.data.data)
+					setIsActive(false)
+                }
 			})
-			.catch(res => console.log(res))
+			.catch(res => {
+				setPopUpMessage("An error occured while uploading.")
+                setError(true)
+                setShowPopUpMessage(true)
+                setIsLoading(!true)
+			})
+	}
+
+	const handleEditRates = (rate) => {
+		const rateInfo = {
+			rateId: rate.id,
+			currentRate: editCurrentRate || rate.current_rate,
+			buying: editBuying || rate.buying,
+			selling: editSelling || rate.selling
+		}
+
+		// console.log(rateInfo);
+		updateEditRateHooks()
+        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
+			.then(res => {
+				// console.log(res.data);
+				if (res.data.status === "success") {
+					console.log(res.data);
+					setPopUpMessage("Updated Successfully")
+                    setShowPopUpMessage(true)
+					setIsLoading(false)
+					
+					fetchAllRates(res.data.data)
+					setIsActive(false)
+                }
+			})
+			.catch(res => {
+				setPopUpMessage("An error occured while uploading.")
+                setError(true)
+                setShowPopUpMessage(true)
+                setIsLoading(!true)
+			})
 	}
 
 	const updateFormValue = (name, value) => {
@@ -236,24 +285,7 @@ function AdminRates({ fetchAllRates, rates }) {
 			],
 		},
 	]
-	const handleEditRates = (rate) => {
-		const rateInfo = {
-			rateId: rate.id,
-			currentRate: editCurrentRate || rate.currentRate,
-			buying: editBuying || rate.buying,
-			selling: editSelling || rate.selling
-		}
-
-		console.log(rateInfo);
-		updateEditRateHooks()
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-
-		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
-			.then(res => {
-				console.log(res.data);
-				fetchAllRates(res.data.data)
-			})
-	}
+	
 
 	const updateEditRateHooks = () => {
 		// setEditName('')
@@ -264,31 +296,28 @@ function AdminRates({ fetchAllRates, rates }) {
 	}
 	const expandedComponent = (props) => (
 		<div className="expandedDiv" onBlur={() => {console.log(props); props.toggleRowExpanded(props.id, !true)}}>
-			{console.log(props)}
-			{/* {updateEditRateHooks(props)} */}
-			{/* <StyledInput name="name" label="name" updatedValue={setEditName} handleChange={updateFormValue}
-				value={props.original.name}
-				placeHolder="Name" type="name" icon={lock} /> */}
-
+			
 			<StyledInput name="currentRate" label="Current Rate" updatedValue={setEditCurrentRate}
 				handleChange={updateFormValue} value={editCurrentRate}
-				placeHolder="CurrentRate" type="currentRate" icon={envelope} />
+				placeHolder={props.original.current_rate} type="currentRate" icon={envelope} />
 
 			<StyledInput name="buying" label="Buying" updatedValue={setEditBuying}
 				handleChange={updateFormValue} value={props.original.buying}
-				placeHolder="Buying" type="buying" icon={envelope} />
+				placeHolder={props.original.buying} type="buying" icon={envelope} />
 
 			<StyledInput name="selling" label="Selling" updatedValue={setEditSelling}
 				handleChange={updateFormValue} value={props.original.selling}
-				placeHolder="Selling" type="selling" icon={envelope} />
+				placeHolder={props.original.selling} type="selling" icon={envelope} />
 			<button onClick={() => handleEditRates(props.original)} className="expandedDiv__button">
-				Update
+				{isLoading? "Loading..." : "Update"}
 			</button>
 		</div>
 	)
 
 	return (
 		<Container>
+		{showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+
 			<div className="rate">
 				<div className="toggle" onClick={() => setIsActive(!isActive)} >
 					{!isActive ? "➕" : "✖"}

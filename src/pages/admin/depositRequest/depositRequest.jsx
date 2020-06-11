@@ -72,7 +72,7 @@ const Container = styled.div`
         }
     }
 `
-function DepositRequest() {
+function DepositRequest(props) {
     const [depositValue, setDepositValue] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
@@ -103,6 +103,9 @@ function DepositRequest() {
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
                     setIsModalActive(true)
+                    setTimeout(() => {
+                        props.history.push(routes.admin.index)
+                    }, 8000);
                     return
                 }
 

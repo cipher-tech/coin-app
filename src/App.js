@@ -101,7 +101,7 @@ function App() {
 										<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
 										<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
 										<Route exact path={routes.admin.transcation} component={AdminTransaction} />
-										<Route exact path={routes.admin.verify} component={UserVerify} />
+										<Route exact path={routes.admin.verify} component={withRouter(UserVerify)} />
 										<Route exact path={routes.admin.deposit} component={DepositRequest} />
 										<Route exact path={routes.admin.widthdrawl} component={WidthdrawlRequest} />
 									</Switch>

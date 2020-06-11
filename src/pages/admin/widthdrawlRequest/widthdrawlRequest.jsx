@@ -55,7 +55,7 @@ const Container = styled.div`
         }
     }
 `
-function WidthdrawlRequest() {
+function WidthdrawlRequest(props) {
     const [widthdrawlValue, setWidthdrawlValue] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
@@ -83,6 +83,10 @@ function WidthdrawlRequest() {
                         setPopUpMessage(res.data.data)
                         setShowPopUpMessage(true)
                         setIsLoading(!true)
+
+                        setTimeout(() => {
+                            props.history.push(routes.admin.index)
+                        }, 8000);
                         return
                     }
                     setPopUpMessage(res.data.data)
