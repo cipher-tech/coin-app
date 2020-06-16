@@ -103,9 +103,9 @@ function DepositRequest(props) {
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
                     setIsModalActive(true)
-                    setTimeout(() => {
-                        props.history.push(routes.admin.index)
-                    }, 8000);
+                    // setTimeout(() => {
+                    //     props.history.push(routes.admin.index)
+                    // }, 8000);
                     return
                 }
 

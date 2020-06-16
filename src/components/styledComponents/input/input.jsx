@@ -64,7 +64,7 @@ export default function InputComponent(props) {
                 className="form__input"
                 value={value} 
                  />
-                 
+                 {props.reset ? setvalue(0) : null}
                   {/* props.handleChange(event) */}
                  {/* value={props.value} */}
             </p>

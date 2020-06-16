@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
+// import CoinWidget from "../../../components/widget/wigjet"
 import Axios from 'axios'
-import quickDetails from "../../../images/rate.png"
+// import quickDetails from "../../../images/rate.png"
 import routes from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
@@ -21,7 +22,7 @@ const Container = styled.div`
     .rate{
         grid-column: 1/-1;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
         width: 100%;
         padding: 3rem;
         align-items: flex-start;
@@ -29,6 +30,10 @@ const Container = styled.div`
         /* height: 78vh; */
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
            padding: 3rem 0;
+        }
+        &_chat{
+          width: 75%;
+          height: 35rem;
         }
 
         img{
@@ -88,11 +93,17 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
     <Container gridPos={gridPos}>
       <div className="rate">
         <PaginatedTable tableColumns={columns} data={rates.allRates ? rates.allRates : []} />
-        <div>
-          <img src={quickDetails} width="100%" height="100%" alt=""/>
+        <div className="rate_chat">
+          <iframe id="tradingview_dd6f1"
+            src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_dd6f1&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;theme=Dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.bitlunaroptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD"
+            style={{ width: "100%", height: "100%", margin: "0 !important", padding: "0 !important" }}
+            allowtransparency="true" scrolling="no" allowFullScreen="" frameBorder="0"
+            title="coinrate">
+          </iframe>
+          {/* <img src={quickDetails} width="100%" height="100%" alt=""/> */}
         </div>
       </div>
-    </Container> 
+    </Container>
   )
 }
 const mapStateToProps = ({ rates }) => ({

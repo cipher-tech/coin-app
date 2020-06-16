@@ -56,7 +56,7 @@ const Container = styled.div`
     }
 `
 function WidthdrawlRequest(props) {
-    const [widthdrawlValue, setWidthdrawlValue] = useState("")
+    const [widthdrawlValue, setWidthdrawlValue] = useState(0)
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +68,7 @@ function WidthdrawlRequest(props) {
     const handleSubmit = (e) => {
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
+        const wallet = JSON.parse(localStorage.getItem("userInfo")).user.wallet_balc
         const status = JSON.parse(localStorage.getItem("userInfo")).user.status
         setIsLoading(true)
         const object = {
@@ -76,6 +77,22 @@ function WidthdrawlRequest(props) {
         }
         // console.log(object);
         if (status === "verified") {
+            if (widthdrawlValue > wallet) {
+                // console.log(widthdrawlValue, wallet);
+                
+                setError(false)
+                setPopUpMessage("Amount Greater than wallet balance")
+                setError(true)
+                setShowPopUpMessage(true)
+                setWidthdrawlValue(0)
+
+                setTimeout(() => {
+                setError(!true)
+                setShowPopUpMessage(false)
+                setIsLoading(!true)
+                }, 8000)
+                return
+            }
             Axios.post(`${routes.api.usersWidthdrawl}?token=${auth_token}`, object)
                 .then(res => {
                     setShowPopUpMessage(false)
@@ -83,7 +100,7 @@ function WidthdrawlRequest(props) {
                         setPopUpMessage(res.data.data)
                         setShowPopUpMessage(true)
                         setIsLoading(!true)
-
+                        setWidthdrawlValue(0)
                         setTimeout(() => {
                             props.history.push(routes.admin.index)
                         }, 8000);

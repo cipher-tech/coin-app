@@ -129,11 +129,20 @@ const Dashboard = ({fetchUserInfo, user=0}) => {
         if(useIsLoggedIn){
             const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
             const id = JSON.parse(localStorage.getItem("userInfo")).user.id
-            // console.log('data :>> ', data);
+            // let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+            // console.log('data :>> ', JSON.parse(localStorage.getItem("userInfo")));
+
             Axios.post(`${routes.api.getUser}?token=${auth_token}`, {id})
                 .then(res => {
                     // console.log(res.data.data);
                     if (res.data.status === "success") {
+                        let logInInfo = {
+                            isLoggedIn: JSON.parse(localStorage.getItem("userInfo")).isLoggedIn,
+                            user: res.data.data,
+                        }
+                        // console.log('userdata :>> ', logInInfo);
+                        localStorage.userInfo =  JSON.stringify(logInInfo) 
                         fetchUserInfo(res.data.data)
                     }
                     
