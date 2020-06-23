@@ -56,7 +56,7 @@ const Container = styled.div`
     }
 `
 function WidthdrawlRequest(props) {
-    const [widthdrawlValue, setWidthdrawlValue] = useState(0)
+    const [widthdrawlValue, setWidthdrawlValue] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
@@ -66,14 +66,24 @@ function WidthdrawlRequest(props) {
 
     }
     const handleSubmit = (e) => {
+        if(widthdrawlValue.length < 2){
+            console.log("short");
+            
+            setError(!false)
+            setPopUpMessage("Must be at least 2 digits")
+            setShowPopUpMessage(true)
+            return
+        }
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
         const wallet = JSON.parse(localStorage.getItem("userInfo")).user.wallet_balc
+        const email = JSON.parse(localStorage.getItem("userInfo")).user.email
         const status = JSON.parse(localStorage.getItem("userInfo")).user.status
         setIsLoading(true)
         const object = {
             id: userid,
-            amount: widthdrawlValue
+            amount: widthdrawlValue,
+            email: email
         }
         // console.log(object);
         if (status === "verified") {
@@ -113,9 +123,11 @@ function WidthdrawlRequest(props) {
 
                 })
         } else {
+            setError(true)
             setPopUpMessage("You are unverified. Click on the verify link on the menu to verify your account and continue")
             setShowPopUpMessage(true)
             setTimeout(() => {
+                setError(false)
                 setShowPopUpMessage(false)
                 setIsLoading(!true)
             }, 8500)

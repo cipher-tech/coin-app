@@ -46,7 +46,7 @@ const Features = () => {
 
             </div>
             <div className="features--heading">
-                <Heading title=" Do more with AJ global ventures" text={`It’s more than just trading `} end={` experience worldclass transaction processes.
+                <Heading title=" Do more with CJ GRAND EXCHANGE" text={`It’s more than just trading `} end={` experience worldclass transaction processes.
                     At CJ GRAND EXCHANGE, we are constantly working to make buying and selling of our products very easy, fast and reliable while exceeding our customer's expectations. 
 `}
                     bitcoin=" Bitcoin" and=" and " giftCard="Gift Cards " />

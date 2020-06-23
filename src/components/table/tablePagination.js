@@ -10,6 +10,7 @@ const Styles = styled.div`
   width: 100%;
   display: grid;
   justify-items: center;
+  overflow-x: scroll;
   @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
     overflow: scroll;
   }
@@ -44,6 +45,10 @@ const Styles = styled.div`
         border-right: 0;
       }
     }
+  }
+  .options_btn{
+    display: flex;
+    justify-content: space-between;
   }
 `
 
@@ -206,6 +211,7 @@ function PaginatedTable({data, tableColumns,handleVerifyClick, expandedComponent
   const renderRowSubComponent = React.useCallback(
     ({ row }) => (
       <>
+      {/* {console.log(row)} */}
         { expandedComponent?  expandedComponent(row) : null}
       </>
     ),

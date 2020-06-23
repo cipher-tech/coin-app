@@ -106,11 +106,15 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 		// 	),
 		//   },
 		{
-			Header: 'Unverified Users',
+			Header: 'Withdrawal Request',
 			columns: [
 				{
 					Header: 'Amount',
 					accessor: 'amount',
+				},
+				{
+					Header: 'email',
+					accessor: 'email',
 				},
 				{
 					Header: 'Status',
@@ -130,6 +134,8 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 			  // Use Cell to render an expander for each row.
 			  // We can use the getToggleRowExpandedProps prop-getter
 			  // to build the expander.
+
+			  <div className="options_btn">
 			  <StyledButton onClick={(e) => acceptWidthdrawl(row.original.amount, 
                 row.original.id, 
                 row.original.slug,
@@ -137,10 +143,38 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
                 row.original.status) }>
 				  Accept
 			  </StyledButton>
+
+			  <StyledButton onClick={(e) => deleteRequest(row.original.id)}>
+				  Delete
+				</StyledButton>
+		  </div>
+			 
 			),
 		  },
 	]
 
+	const deleteRequest = (id) => {
+		// console.log(user_id);
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		Axios.post(`${routes.api.adminDeleteWidthdrawl}?token=${auth_token}`, {id: id, action: "delete" })
+			.then(res => {
+				setShowPopUpMessage(false)
+				if (res.data.status === "success") {
+					setPopUpMessage(res.data.data[0])
+				}
+				return res.data.data[1];
+				// console.log(res.data);
+			})
+			.then(res => {
+				setShowPopUpMessage(true)
+				fetchAllWidthdrawl(res)
+			})
+			.catch(res => {
+				setPopUpMessage(res.data.data)
+				setShowPopUpMessage(true)
+			})
+	}
 	const expandedComponent = (row) => (
 		<div
         style={{
@@ -196,7 +230,7 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 		<Container color="">
 			<div className="rate">
 			{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
-				<h1 className="rate__title">Deposit Requests</h1>
+				<h1 className="rate__title">Withdrawal Request</h1>
 				{fetchedWidthdrawl ? <Table data={allWidthdrawl.widthdrawls || []} expandedComponent={expandedComponent} handleVerifyClick={acceptWidthdrawl} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>

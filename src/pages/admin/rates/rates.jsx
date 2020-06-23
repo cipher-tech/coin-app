@@ -43,8 +43,8 @@ const Container = styled.div`
     }
 `
 function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
-  useEffect(() => {
-    const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+  useEffect(() => { 
+    const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" :  JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
 
     // console.log('data :>> ', data);
     Axios.get(`${routes.api.getRates}?token=${auth_token}`)

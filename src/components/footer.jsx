@@ -108,7 +108,7 @@ const Footer = (props) => {
                 {/* <li className="footer-list-item"> BTC </li> */}
                 <Link to="/contact" className="footer-list-item"> Contact</Link>
                 <Link to="/faq" className="footer-list-item"> FAQ</Link>
-                <Link to="/admin" className="footer-list-item"> Admin </Link>
+                {/* <Link to="/admin" className="footer-list-item"> Admin </Link> */}
             </ul>
 
             {/* <p className="footer-credit">

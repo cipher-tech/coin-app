@@ -85,13 +85,24 @@ function DepositRequest(props) {
 
     }
     const handleSubmit = (e) => {
+        if(depositValue.length < 1){
+            console.log("short");
+            
+            setError(!false)
+            setPopUpMessage("Msust be at least 2 digits")
+            setShowPopUpMessage(true)
+            return
+        }
+        setError(false)
         const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
         const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
+        const email = JSON.parse(localStorage.getItem("userInfo")).user.email
         const status = JSON.parse(localStorage.getItem("userInfo")).user.status
         setIsLoading(true)
         const object = {
             id: userid,
-            amount: depositValue
+            email: email,
+            amount: +depositValue
         }
         console.log(object);
         if(status === "verified"){
@@ -117,9 +128,11 @@ function DepositRequest(props) {
                 setIsLoading(!true)
             })
         }else{
+            setError(!false)
             setPopUpMessage("You are unverified. Click on the verify link on the menu to verify your account and continue")
             setShowPopUpMessage(true)
             setTimeout(() => {
+                setError(false)
                 setShowPopUpMessage(false)
                 setIsLoading(!true)
             }, 8500)

@@ -21,6 +21,11 @@ const routes = {
         requestVerification: prod ? server  : localhost      +    'users/requestVerification',
         verifyUsers: prod ? server  : localhost      +    'users/verify',
         updateUsers: prod ? server  : localhost      +    'users/update',
+        deleteUnverifirdUsers: prod ? server  : localhost      +    'users/verify-delete',
+
+        addPlan: prod ? server  : localhost      +    'admin/add-plan',
+        getPlan: prod ? server  : localhost      +    'admin/get-plan',
+        registerPlan: prod ? server  : localhost      +    'admin/register-plan',
 
         addRates: prod ? server  : localhost      +    'admin/add-rate',
         getRates: prod ? server  : localhost      +    'admin/get-rate',
@@ -33,6 +38,8 @@ const routes = {
         adminWidthdrawl: prod ? server  : localhost      +    'admin/widthdrawls',
         adminAcceptDeposit: prod ? server  : localhost      +    'admin/acceptDeposit',
         adminAcceptWidthdrawl: prod ? server  : localhost      +    'admin/acceptWidthdrawl',
+        adminDeleteWidthdrawl: prod ? server  : localhost      +    'admin/delete-Widthdrawl',
+        adminDeleteDeposit: prod ? server  : localhost      +    'admin/delete-deposit',
     },
  
     admin: {
@@ -58,6 +65,7 @@ const routes = {
         verify:         masterAdmin     +   "/verify",
         deposit:        masterAdmin     +   "/deposit",
         widthdrawl:     masterAdmin     +   "/widthdraw",
+        plans:     masterAdmin     +   "/plans",
     }
 }
 export default routes

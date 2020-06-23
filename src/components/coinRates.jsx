@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 // import CoinWidget from './widget/wigjet'
 import bitcoin from "../images/us-bitcoin.svg"
+import giftcard from "../images/amazon-card.png"
 import Rates from '../pages/admin/rates/rates'
 import { connect } from 'react-redux'
 // import amazon from "../images/us-amazon.svg"
@@ -44,8 +45,8 @@ const Container = styled.div`
 
         img{
             justify-self: center;
-            /* height: 100%;
-            width: 100%; */
+            height: 100%;
+            width: 100%;
         }
         &__text{
             padding: 0 1rem;
@@ -103,8 +104,9 @@ const CoinRates = ({ rates }) => {
                     allRates.slice(0, 4).map((rate, index) => {
                         return (
                             <div key={index} className="rate-card">
-                                <img src={bitcoin} alt="bitcoin" />
+                                <img src={index === 2 || index === 3 ? giftcard : bitcoin } alt="bitcoin" />
                                 <p className="rate-card__text">
+                                {console.log(index)}
                                    {rate.name ? rate.name: "Bitcoin"}
                                 <br />
                                     <span className="rate-card__text--rate">{rate.current_rate? rate.current_rate : "0"}</span>

@@ -58,9 +58,10 @@ const Container = styled.div`
       width: 80%;        
     }
 
+
     
 `
-function AdminVerifyUsers({allUsers, fetchAllUsers}) {
+function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 	// const [token, setToken] = useState([])
 	const [fetchedUsers, setFetchedUsers] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
@@ -68,11 +69,11 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 
 
 	// let authToken
-	
+
 	useEffect(() => {
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 		console.log(auth_token);
-		
+
 		Axios.get(`http://localhost:8000/api/users/unverified?token=${auth_token}`)
 			.then(response => {
 				// console.log(response.data);
@@ -88,21 +89,21 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 				alert(`An Error Occured! ${error}`);
 			});
 
-	}, [fetchAllUsers] )
+	}, [fetchAllUsers])
 	const columns = [
 		{
 			// Make an expander cell
 			Header: () => null, // No header
 			id: 'expander', // It needs an ID
 			Cell: ({ row }) => (
-			  // Use Cell to render an expander for each row.
-			  // We can use the getToggleRowExpandedProps prop-getter
-			  // to build the expander.
-			  <span {...row.getToggleRowExpandedProps()}>
-				{row.isExpanded ? '👇' : '👉'}
-			  </span>
+				// Use Cell to render an expander for each row.
+				// We can use the getToggleRowExpandedProps prop-getter
+				// to build the expander.
+				<span {...row.getToggleRowExpandedProps()}>
+					{row.isExpanded ? '👇' : '👉'}
+				</span>
 			),
-		  },
+		},
 		{
 			Header: 'Unverified Users',
 			columns: [
@@ -111,9 +112,13 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 					accessor: 'id',
 				},
 				{
-					Header: 'images',
-					accessor: 'images',
+					Header: 'email',
+					accessor: 'email',
 				},
+				// {
+				// 	Header: '',
+				// 	accessor: 'images',
+				// },
 				{
 					Header: 'status',
 					accessor: 'status',
@@ -125,60 +130,89 @@ function AdminVerifyUsers({allUsers, fetchAllUsers}) {
 			Header: () => null, // No header
 			id: 'action', // It needs an ID
 			Cell: ({ row }) => (
-			  // Use Cell to render an expander for each row.
-			  // We can use the getToggleRowExpandedProps prop-getter
-			  // to build the expander.
-			  <StyledButton onClick={(e) => verify(row.original.user_id, row.original.id) }>
-				  Verify 
-			  </StyledButton>
+				// Use Cell to render an expander for each row.
+				// We can use the getToggleRowExpandedProps prop-getter
+				// to build the expander.
+				<div className="options_btn">
+					<StyledButton onClick={(e) => verify(row.original.user_id, row.original.id)}>
+						Verify
+			  		</StyledButton>
+
+					<StyledButton onClick={(e) => deleteVerification(row.original.id)}>
+						Delete
+			  		</StyledButton>
+				</div>
 			),
-		  },
+		},
 	]
 
+	const deleteVerification = (id) => {
+		// console.log(user_id);
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		Axios.post(`${routes.api.deleteUnverifirdUsers}?token=${auth_token}`, {verifyId: id, action: "delete" })
+			.then(res => {
+				setShowPopUpMessage(false)
+				if (res.data.status === "success") {
+					setPopUpMessage(res.data.data[0])
+				}
+				return res.data.data[1];
+				// console.log(res.data);
+			})
+			.then(res => {
+				setShowPopUpMessage(true)
+				fetchAllUsers(res)
+			})
+			.catch(res => {
+				setPopUpMessage(res.data.data)
+				setShowPopUpMessage(true)
+			})
+	}
 	const expandedComponent = (row) => (
 		<div
-        style={{
-          fontSize: '10px',
-          height: "20rem",
-          width: "100%",
-          display: "grid",
-         "gridTemplateColumns": "1fr 1fr 1fr",
-         overflow: "hidden"
+			style={{
+				fontSize: '10px',
+				height: "20rem",
+				width: "100%",
+				display: "grid",
+				"gridTemplateColumns": "1fr 1fr 1fr",
+				overflow: "hidden"
 
-        }}
-      >
-        {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
-        {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
-          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
-          ))}
-      </div>
+			}}
+		>
+		{console.log(row.original.images)}
+			{/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
+			{Object.values(JSON.parse(row.original.images)).map((photo, i) => (
+				<img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
+			))}
+		</div>
 	)
 	const verify = (user_id, id) => {
 		console.log(user_id);
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
-		Axios.post(`${routes.api.verifyUsers}?token=${auth_token}`, {user_id: +user_id, verifyId: id,  action: "verify"})
-		.then( res => {
-			setShowPopUpMessage(false)
-			if (res.data.status === "success") {
-				setPopUpMessage(res.data.data[0])
-			}
-			return res.data.data[1];
-			// console.log(res.data);
-		})
-		.then(res => {
-			setShowPopUpMessage(true)
-			fetchAllUsers(res)
-		})
-		.catch(res => {
-			setPopUpMessage(res.data.data)
-			setShowPopUpMessage(true)
-		})
+		Axios.post(`${routes.api.verifyUsers}?token=${auth_token}`, { user_id: +user_id, verifyId: id, action: "verify" })
+			.then(res => {
+				setShowPopUpMessage(false)
+				if (res.data.status === "success") {
+					setPopUpMessage(res.data.data[0])
+				}
+				return res.data.data[1];
+				// console.log(res.data);
+			})
+			.then(res => {
+				setShowPopUpMessage(true)
+				fetchAllUsers(res)
+			})
+			.catch(res => {
+				setPopUpMessage(res.data.data)
+				setShowPopUpMessage(true)
+			})
 	}
 	return (
 		<Container color="">
 			<div className="rate">
-			{showpopUpMessage ? <PopUpMessage> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
+				{showpopUpMessage ? <PopUpMessage> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
 				<h1 className="rate__title">Verify Users</h1>
 				{fetchedUsers ? <Table data={allUsers.allUsers || []} expandedComponent={expandedComponent} handleVerifyClick={verify} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
