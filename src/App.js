@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { BrowserRouter  as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
 //HashRouter BrowserRouter 
 
 import reduxStore from "./reduxStore"
@@ -19,7 +19,7 @@ import Login from './pages/auth/login/login';
 import SignUp from './pages/auth/signup/signup';
 import { ContactUs } from './pages/contact/contactUs';
 import Faq from './pages/faq/faq';
-import { Foot } from './components';
+import { Foot, Navbar } from './components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import MasterDashboardLayout from './pages/masterAdmin/masterDashboardLayout';
@@ -31,6 +31,8 @@ import DepositRequest from './pages/admin/depositRequest/depositRequest';
 import WidthdrawlRequest from './pages/admin/widthdrawlRequest/widthdrawlRequest';
 import AdminDepositRequest from './pages/masterAdmin/depositRequest/depositRequest';
 import AdminWidthdrawlRequest from './pages/masterAdmin/widthdrawlRequest/widthdrawlRequest';
+import AboutUS from './pages/aboutUs/aboutUs';
+import Policies from './pages/policies/policies';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -84,11 +86,13 @@ function App() {
 					<ThemeProvider theme={theme}>
 						<GlobalStyle />
 						<Container>
-							<Route path={["/", "/contact", "/faq"]} exact>
-
+							<Route path={["/", "/contact", "/faq", "/about", "/policies"]} exact>
+								<Navbar />
 								<Route exact path={routes.public.home} component={Main} />
 								<Route exact path={routes.public.contact} component={ContactUs} />
 								<Route exact path={routes.public.faq} component={Faq} />
+								<Route exact path={routes.public.about} component={AboutUS} />
+								<Route exact path={routes.public.policies} component={Policies} />
 								<Foot />
 							</Route>
 							<Route exact path={routes.public.login} component={withRouter(Login)} />

@@ -20,7 +20,8 @@ const Container = styled.div`
         font-size: ${props => props.theme.font.large};
         color: ${props => props.theme.colorPrimary};
         place-items: center;
-      
+        height: max-content;
+        align-self: flex-start;
         h1{
             font-size: ${props => props.theme.font.xxlarge};
         }
@@ -32,13 +33,13 @@ const Container = styled.div`
 
     .faq__main{
         grid-column: 1/-1;
-        /* display: grid; */
+        display: grid;
         font-size: ${props => props.theme.font.large};
         background: ${props => props.theme.colorWhite};
         box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
             .2rem .4rem 10px rgba(0,0,0, .3);
         height: auto;
-        align-self: center;
+        align-self: flex-start;
         &-header{
             color: ${props => props.theme.colorDark};
             padding: 1.5rem 2.5rem;
@@ -77,6 +78,8 @@ function Faq() {
                 <DropAccodion title="What is a Physical Card?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
                 <DropAccodion title="What is a face value card?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
                 <DropAccodion title="What is a Cash Receipt?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
+                <DropAccodion title="What is a debit Receipt?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
+                <DropAccodion title="What is a debit Receipt?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
                 <DropAccodion title="What is a debit Receipt?" text="A Bitcoin wallet is an application that stores, sends and receives bitcoins. You can think of it like you would a leather wallet full of physical cash, and basically that’s all you need to use Bitcoin." />
             </div>
         </Container>

@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { /* useState */ } from 'react'
 import styled, { keyframes } from 'styled-components'
-import logo from "../images/brandLogo.jpg"
-// import playstore from "../images/playstore.svg"
-// import applestore from "../images/istore.svg"
-// import bitcoinSvg from "../images/bitcoinSvg.svg"
+// import logo from "../images/brandLogo.jpg"
+// import logo from "../images/logo.png"
+
 import waveSvg from "../images/waveSvg.svg"
 import { Carusel } from '.'
-// import wavePng from "../images/wavePng.png"
-// import wavePng from "../images/waveFigure.png
 import Particles from "react-particles-js";
-import { Link } from 'react-router-dom'
-import routes from '../navigation/routes'
+// import { Link } from 'react-router-dom'
+// import routes from '../navigation/routes'
+// import { ReactComponent as MenuIcon } from "../images/svgIcons/menu.svg"
+// import { useSpring, animated } from 'react-spring'
+
 const waveAnimation = keyframes`
     from{ 
         background-position: 0
@@ -52,13 +52,80 @@ const Container = styled.div`
         grid-template-rows: min-content 65% min-content;
         height: 60vh;
     }
+    .navbar-mobile{
+        position: fixed;
+        top: 0rem;
+        right: 0rem;
+        display: grid;
+        align-items: center;
+        place-items: center;
+        padding: 2rem;
+        z-index: 1200;
+        &__icon{
+            display: grid;
+            align-items: center;
+            place-items: center;
+            align-self: center;
+            height: 4rem;
+            width: 4rem;
+            padding: 0rem .1rem;
+            transition: all .3s ease-in-out .1s;
+            z-index: 1300;
+            cursor: pointer;
+            justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
+
+            path{
+                height: 100%;
+                fill: white;
+                color: white;
+            }
+        }
+        &__overlay{
+            content: "";
+            position: fixed;
+            top: 3rem;
+            right: 3rem;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            background: linear-gradient(to bottom , ${props => props.theme.colorPrimary} 40% ,  ${props => props.theme.colorSecondary} ) ;
+            /* transform: scale(0); */
+        }
+    }
+    .navbar-mobile__list{
+        position: absolute;
+        top: 50%;
+        /* left: -50%; */
+        /* width: 25rem; */
+        transform: translate(-50%, -50%);
+        list-style: none;
+        z-index: 1203;
+        &--item{
+            text-transform: capitalize;
+            padding: 1rem 5rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            text-align: center;
+            background-image: linear-gradient(125deg,  transparent 50%,  ${props => props.theme.colorSecondary} 50% ) ;
+            font-size: ${props => props.theme.font.xlarge};
+            transition: all .4s ease-in-out .1s;
+            background-size: 230%;
+            &:hover{
+                background-position: 100%;
+                transform: translateX(1rem);
+            }
+        }            
+
+    }
+
 
     .navbar{  
+        background: ${props => props.theme.colorPrimary};
         grid-column: 1/-1;
         display: grid;
-        height: 6rem;
+        /* height: 6rem; */
         background: transparent;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr max-content;
         z-index: 1000;
 
         &-logo {
@@ -72,6 +139,7 @@ const Container = styled.div`
             &--img{
                 height: 100%;
                 width: 100%;
+                object-fit: fill;
             }
         }
 
@@ -118,7 +186,7 @@ const Container = styled.div`
                 }
             }
         }
-
+       
     }
 
     .info{
@@ -238,11 +306,33 @@ const Container = styled.div`
     }
 
 `
-const Header = () => {
+const Header = (props) => {
+    // const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true)
+    // const toggleMobileNav = () => {
+    //     setMobileNavIsOpen(!mobileNavIsOpen) 
+    // }
+    // // const closeMobileNav = () => {
+    // //     setMobileNavIsOpen(false)
+    // // }
+    // const spring = useSpring({
+    //     transform: mobileNavIsOpen ? "scale(170)": "scale(0)"
+    // })
+    // const springMove = useSpring({
+    //     left: mobileNavIsOpen ? "50%;": "-50%"
+    // })
     return (
         <Container>
-
-            <div className="navbar"
+            {/* <div className="navbar-mobile">
+                <MenuIcon className="navbar-mobile__icon" onClick={toggleMobileNav} />
+                <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
+            </div>
+            <animated.ul style={{ left: springMove.left }}  className="navbar-mobile__list">
+                <li className="navbar-mobile__list--item">home</li>
+                <li className="navbar-mobile__list--item">faq</li>
+                <li className="navbar-mobile__list--item">login</li>
+                <li className="navbar-mobile__list--item">contact us</li>
+            </animated.ul> */}
+            {/* <div className="navbar"
                 data-aos="fade-right"
                 data-aos-offset="00"
                 data-aos-delay="300"
@@ -254,14 +344,12 @@ const Header = () => {
                 </div>
                 <ul className="navbar-list">
                     <li className="navbar-list-item">Home</li>
-                    {/* <li className="navbar-list-item">Register</li> */}
                     <Link to="/login" className="navbar-list-item">Login</Link>
-                    {/* <li className="navbar-list-item">Services</li> */}
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
                     <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
                 </ul>
 
-            </div>
+            </div> */}
             <div className="info">
                 <Carusel />
             </div>

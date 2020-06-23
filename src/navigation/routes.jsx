@@ -10,12 +10,15 @@ const routes = {
         home: "/",
         contact: "/contact",
         faq: "/faq",
+        about: "/about",
+        policies: "/policies",
         login: "/login",
         signUp: "/sign-up",
     },
     api: {
         login:  (prod ? server  : localhost)    +     'login',
         signUp: prod ? server  : localhost      +    'register',
+        resetPassword: prod ? server  : localhost      +    'passwordReset',
 
         getUser:  (prod ? server  : localhost)    +     'user/get',
         requestVerification: prod ? server  : localhost      +    'users/requestVerification',

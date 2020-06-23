@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import image from "../images/footerImg.jpg"
 import logo from "../images/brandLogo.jpg"
 import { Link } from 'react-router-dom'
+import routes from '../navigation/routes'
+
 const Container = styled.div`
     display: grid;
     /* height: 50vh; */
@@ -94,22 +96,20 @@ const Footer = (props) => {
             </p>
             <ul className="footer-list">
                 <li className="footer-list-item"> Products </li>
-                <li className="footer-list-item"> Giftcards </li>
-                <li className="footer-list-item"> BTC </li>
-                <li className="footer-list-item"> Digital Access </li>
+                <Link to="/contact" className="footer-list-item"> Contact</Link>
+                <Link to="/faq" className="footer-list-item"> FAQ</Link>
+                <Link to={routes.public.about} className="footer-list-item">About</Link>
             </ul>
             <ul className="footer-list">
                 <li className="footer-list-item"> Legal </li>
-                <li className="footer-list-item"> Privacy Policy </li>
-                <li className="footer-list-item"> Anti-money </li>
+                <Link to={routes.public.policies} className="footer-list-item">Policies</Link>
             </ul>
             <ul className="footer-list">
                 <li className="footer-list-item"> Company</li>
-                {/* <li className="footer-list-item"> BTC </li> */}
-                <Link to="/contact" className="footer-list-item"> Contact</Link>
-                <Link to="/faq" className="footer-list-item"> FAQ</Link>
-                {/* <Link to="/admin" className="footer-list-item"> Admin </Link> */}
-            </ul>
+                <li className="footer-list-item"> mickeeun@gmail.com</li>
+                <li className="footer-list-item"> 31 Rushgrove Avenue, London, UNITED KINGDOM</li>
+                <li className="footer-list-item"> +2349018868939</li>
+</ul>
 
             {/* <p className="footer-credit">
                 C Cipher 2020

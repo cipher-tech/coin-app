@@ -17,12 +17,14 @@ import adminCard from "./adminDashboardCard/adminDashboardCard"
 import ModalComponent from "./modalComponent/modalComponent";
 import Button from "./button/button";
 import MessageModal from "./messageModal/messageModal";
+import NavbarComponent from "./navbar/navbarComponent";
+import SiteStats from "./siteStats/siteStats";
 
 export const Head = Header
 export const Rates = CoinRates
 export const Feature = Features
 export const Discount =  Discounts
-export const Step =  Steps
+export const Step =  Steps 
 export const Reach =  OurReach
 export const Reviews =  Review
 export const Foot =  Footer
@@ -37,3 +39,5 @@ export const AdminCard = adminCard
 export const Modal = ModalComponent
 export const StyledButton = Button
 export const PopUpMessage = MessageModal
+export const Navbar = NavbarComponent
+export const Stats = SiteStats

@@ -15,6 +15,7 @@ import Axios from 'axios'
 import routes from '../../../navigation/routes'
 import { fetchUserInfoActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
+import { Modal, PopUpMessage } from '../../../components'
 
 
 const Container = styled.div`
@@ -152,6 +153,20 @@ const Container = styled.div`
                 width: 100%;
                 display: grid;
                 justify-items: center;
+
+                &-modal{
+                    background: white;
+                    /* width: 30rem; */
+                    padding: 3rem;
+                    /* height: 40rem; */
+                    align-self: center;
+                    border-radius: 1rem;
+                    color: ${props => props.theme.colorPrimary};
+                    &-form{
+                        /* justify-self: flex-start; */
+                        width: 95%;
+                    }
+                }
             }
             &-form{
                 /* justify-self: flex-start; */
@@ -164,7 +179,10 @@ const Container = styled.div`
                 color: ${props => props.theme.colorPrimary};
                 &-action{
                     font-weight: 700;
-                    text-decoration: underline;
+                    text-decoration: none;
+                    &-red{
+                        color: ${props => props.theme.colorError};
+                    }
                 }
             }
             &-summit{
@@ -201,14 +219,25 @@ class Login extends Component {
     constructor(props) {
         super(props)
 
+        this.modalState = {
+            resetEmail: "",
+        }
+        this.modalRule = {
+            resetEmail: { required: true, minlength: 4, email: true },
+        }
 
         this.state = {
+            isActive: false,
             email: "",
+            resetEmail: "",
             password: "",
             type: "client",
             isLoading: false,
             message: "",
-            messageDetails: "Email or password incorrect"
+            messageDetails: "Email or password incorrect",
+            showpopUpMessage: false,
+            popUpMessage: "",
+            error: false,
         }
         this.rules = {
             email: { required: true, minlength: 4, email: true },
@@ -218,9 +247,9 @@ class Login extends Component {
     }
     submit = async (data) => {
         // console.log('data :>> ', data);
-        this.setState({isLoading: !this.state.isLoading})
+        this.setState({ isLoading: !this.state.isLoading })
         Axios.post(routes.api.login, data) //routes.api.login
-            .then (res =>  {
+            .then(res => {
                 if (res.data.status === false) {
                     // console.log(res.data);
                     // this.props.history.push(routes.admin.index)
@@ -233,7 +262,7 @@ class Login extends Component {
                         isLoggedIn: true,
                         user: res.data.data.user
                     }
-                    localStorage.userInfo =  JSON.stringify(logInInfo) 
+                    localStorage.userInfo = JSON.stringify(logInInfo)
 
                     this.props.history.push(routes.admin.index)
 
@@ -243,12 +272,54 @@ class Login extends Component {
             .catch(err => console.log(err))
         // console.log('state :>> ', this.state);
     }
+    resetEmail = (data) => {
+        console.log(data);
+        const {resetEmail} = data
+        // setIsLoading(true)
+        this.setState( state => { return  state.isLoading = true })
+
+		// console.log('data :>> ', data);
+		Axios.post(`${routes.api.resetPassword}`, {email: resetEmail})
+			.then(res => {
+				if (res.data.status === "success") {
+                    this.setState((state, props) => { return { 
+                        popUpMessage: "Password reset Successfully",
+                        showpopUpMessage: true,
+                        isLoading: false,
+                        isActive: false,
+                     }})
+                    
+					// console.log(res.data);
+					// setPopUpMessage("Added Successfully")
+                    // setShowPopUpMessage(true)
+					// setIsLoading(false)
+					
+					// fetchAllRates(res.data.data)
+					// setIsActive(false)
+                }
+			})
+			.catch(res => {
+                this.setState((state, props) => { return { 
+                    error: !false,
+                    showpopUpMessage: true,
+                    popUpMessage: "An error occured while trying to Password reset. Make sure you are registered ",
+                    isLoading: false,
+                    isActive: false,
+                 }})
+			})
+
+    }
     updateFormValue = (name, value) => {
+        this.setState({ [name]: value });
+    }
+    updateResetValue = (name, value) => {
         this.setState({ [name]: value });
     }
     render() {
         return (
             <Container>
+		{this.state.showpopUpMessage ? <PopUpMessage error={this.state.error}> {this.state.popUpMessage} <span onClick={() => this.setState({setShowPopUpMessage:false})}>✖</span> </PopUpMessage> : null}
+
                 <div className="login">
                     <div className="login__side-left">
                         <div className="circle" />
@@ -267,12 +338,12 @@ class Login extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
-                        <p className="login__side-right-message"> 
-                            {this.state.message? `${this.state.message}` : null } 
-                            <br/>
-                            {this.state.message? `${this.state.messageDetails}` : null } 
+                        <p className="login__side-right-message">
+                            {this.state.message ? `${this.state.message}` : null}
+                            <br />
+                            {this.state.message ? `${this.state.messageDetails}` : null}
                         </p>
-                        <FormValidator buttonText={this.state.isLoading? "loading..." : "Submit"} buttonClass="login__side-right-summit"
+                        <FormValidator buttonText={this.state.isLoading ? "loading..." : "Submit"} buttonClass="login__side-right-summit"
                             classname=" login__side-right-container "
                             data={this.state} rules={this.rules}
                             submit={this.submit}>
@@ -288,11 +359,35 @@ class Login extends Component {
                             </div>
                             <p className="login__side-right-isSugnedIn">
                                 Don't have an account?
-                            <Link to="sign-up" className="login__side-right-isSugnedIn-action">Sign Up</Link>
+                            <Link to="sign-up" className="login__side-right-isSugnedIn-action"> Sign Up</Link>
+                                <br />
+                            Forgot password?
+                            <span className="login__side-right-isSugnedIn-action"
+                                    onClick={() => this.setState({ isActive: !false, })}> Reset</span>
+
+                                <br /> <br />
+                                <span className="login__side-right-isSugnedIn-action-red"> * </span>
+                                By clicking the "Open Account" button I confirm the agreement with the terms and conditions.
                             </p>
                             {/* <button className="login__side-right-summit">Login</button> */}
                         </FormValidator>
-
+                        <Modal isActive={this.state.isActive}>
+                            <FormValidator buttonClass="login__side-right-summit"
+                                classname=" login__side-right-container-modal "
+                                data={this.state} rules={this.modalRule}
+                                submit={this.resetEmail}>
+                                <span onClick={() => this.setState({isActive: false})}>X</span>
+                                <div className="login__side-right-container-modal-form">
+                                    <StyledInput name="resetEmail" handleChange={this.updateResetValue}
+                                        value={this.state.resetEmail}
+                                        placeHolder="Enter Email" type="email" icon={lock} />
+                                    <ValidationMessage field="resetEmail" />
+                                </div>
+                                <p className="rate-isSugnedIn">
+                                    Enter your email and a new password will be sent to your email address.
+						        </p>
+                            </FormValidator>
+                        </Modal>
                     </div>
                 </div>
             </Container>
@@ -301,7 +396,7 @@ class Login extends Component {
 }
 
 
-const mapStateToProps = ({users}) => ({
+const mapStateToProps = ({ users }) => ({
     users: users
 })
 
@@ -309,4 +404,4 @@ const mapDispatchToProps = {
     fetchUserInfo: fetchUserInfoActionCreator
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -245,8 +245,8 @@ function DashboardLayout(props) {
     const isLoggedIn = useIsLoggedIn(props.history)
     // console.log(isLoggedIn);
     
-    const name = JSON.parse(localStorage.getItem("userInfo")).user.first_name || null
-    const status = JSON.parse(localStorage.getItem("userInfo")).user.status || null
+    const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.first_name : null
+    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status :null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const [userStatus] = useState(status === "verified")
@@ -385,7 +385,7 @@ function DashboardLayout(props) {
                         </span>
                     </p>
                 </div>
-                {isLoggedIn ?  props.children : null}
+                {!isLoggedIn ?  props.children : null}
             </div>
         </Container>
     )

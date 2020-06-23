@@ -9,7 +9,7 @@ const Container = styled.div`
     grid-column: 2/10;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 10rem;
+    gap: .2rem 10rem;
     min-height: 100vh;
     width: 100%;
    margin: 1.5rem;
@@ -22,6 +22,7 @@ const Container = styled.div`
         place-items: center;
         margin: 1.5rem;
         gap: 1rem;
+        align-self: flex-start;
       
         h1{
             font-size: ${props => props.theme.font.xxlarge};
@@ -33,11 +34,12 @@ const Container = styled.div`
     }
     .contactCard{
         display: grid;
-        align-self: center;
+        align-self: flex-start;
+        justify-items: flex-start;
         grid-template-columns: 1fr ;
         padding:1rem 3rem;
         /* border: 1px solid #00000060; */
-        color: ${props => props.theme.colorDark};
+        color: ${props => props.theme.colorPrimary};
         box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
             .2rem .4rem 10px rgba(0,0,0, .3);
         border-radius: 1rem;
@@ -67,6 +69,8 @@ const Container = styled.div`
             background: transparent;
             border: 1px solid ${props => props.theme.colorPrimary};
             transition: all .1s .1s ease;
+             box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
+            .2rem .4rem 10px rgba(0,0,0, .3);
 
             &:hover{
                 background: ${props => props.theme.colorSecondary};
@@ -94,7 +98,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> contact</button>
+                <button className="contactCard__button"> Contac Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={whatsapp} alt="logo"/>
@@ -103,7 +107,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> contact</button>
+                <button className="contactCard__button"> Contac Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={callIcon} alt="logo"/>
@@ -112,7 +116,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> contact</button>
+                <button className="contactCard__button"> Contac Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={ticketIcon} alt="logo"/>
@@ -121,7 +125,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> contact</button>
+                <button className="contactCard__button"> Contac Us</button>
             </div>
            
         </Container>
