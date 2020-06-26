@@ -13,7 +13,8 @@ import { ReactComponent as Cog } from "../../images/svgIcons/cog.svg"
 import { ReactComponent as PowerSwitch } from "../../images/svgIcons/power-switch.svg"
 import { ReactComponent as Smile } from "../../images/svgIcons/smile.svg"
 
-import avatar1 from "../../images/avatar1.jpg"
+// import avatar1 from "../../images/avatar1.jpg"
+import avatar1 from "../../images/brandLogo.jpg"
 import { Link, withRouter } from 'react-router-dom'
 import routes from '../../navigation/routes'
 import useIsLoggedIn from '../../components/hooks/useIsLoggedIn'
@@ -200,6 +201,9 @@ background: ${props => props.theme.colorPrimary};
         justify-content: space-between;
         z-index:40;
         box-shadow: .1rem .2rem 30px rgba(0,0,0, .3);
+        &--name{
+            text-transform: capitalize;
+        }
         &--icons{
             display: flex;
             padding: 0;
@@ -246,6 +250,7 @@ function DashboardLayout(props) {
     // console.log(isLoggedIn);
     
     const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.first_name : null
+    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.email : null
     const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status :null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
@@ -277,7 +282,10 @@ function DashboardLayout(props) {
                 <ul className="sideNav__container">
                     <li className="sideNav__container-item-photo">
                         <img src={avatar1} alt="avatar preson" />
-                        <p className="sideNav__container-item-photo--text">Nick@gmail.com</p>
+                        <p className="sideNav__container-item-photo--text">
+                            {name} <br/>
+                            {email}
+                        </p>
                     </li>
                     <li onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
@@ -312,18 +320,18 @@ function DashboardLayout(props) {
                             <Bill className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Sell Bitcoin
+                            Buy/Sell
                         </span>
                     </Link>
 
-                    <Link onClick={closeSideNav} to={routes.admin.sellGiftcard} className="sideNav__container-item">
+                    {/* <Link onClick={closeSideNav} to={routes.admin.sellGiftcard} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Bills className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Sell Gift Cart
                         </span>
-                    </Link>
+                    </Link> */}
 
                     <Link onClick={closeSideNav} to="/admin/rates" className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
@@ -371,7 +379,7 @@ function DashboardLayout(props) {
             <div className="dashboard__container">
                 <div className="title_nav">
                     <span className="title_nav--name">
-                        {name}
+                        {props.match.params.path ? props.match.params.path.replace("_", " ") : "admin"}
                     </span>
                     <p className="title_nav--icons">
                         <span className="">
@@ -385,7 +393,7 @@ function DashboardLayout(props) {
                         </span>
                     </p>
                 </div>
-                {!isLoggedIn ?  props.children : null}
+                {isLoggedIn ?  props.children : null}
             </div>
         </Container>
     )

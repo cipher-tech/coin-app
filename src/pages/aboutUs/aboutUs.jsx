@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 // import { useSpring, animated } from 'react-spring'
 // import { DropAccodion } from '../../components'
-import logo from "../../images/logo.png"
+import logo from "../../images/brandLogo.jpg"
 import investmentSvg from "../../images/investment.svg"
 import securitySvg from "../../images/security.svg"
 import licenceImg from "../../images/licence.jpg"
@@ -24,7 +24,7 @@ const Container = styled.div`
         grid-column: 1/-1;
         display: grid;
         font-size: ${props => props.theme.font.large};
-        color: ${props => props.theme.colorLight};
+        color: ${props => props.theme.colorPrimary};
         place-items: center;
         height: max-content;
         align-self: flex-start;
@@ -54,13 +54,13 @@ const Container = styled.div`
         border-radius: 2rem;
         margin: 2rem;
         &-header{
-            color: ${props => props.theme.colorLight};
+            color: ${props => props.theme.colorPrimary};
             padding: 1.5rem 2.5rem;
         }
         &--text{
             line-height: 2;
             font-size: ${props => props.theme.font.xlarge};
-            color: ${props => props.theme.colorLight};
+            color: ${props => props.theme.colorPrimary};
 
             &-header{
                 font-size: ${props => props.theme.font.xlarge};
@@ -70,7 +70,7 @@ const Container = styled.div`
                 display: flex;
                 margin: 2rem 0;
                 justify-content: space-between;
-                border-bottom: 1px dashed ${props => props.theme.colorLight};
+                border-bottom: 1px dashed ${props => props.theme.colorPrimary};
                 &-img{
                     height: 7rem;
                     width: 7rem;
@@ -94,14 +94,14 @@ function AboutUS() {
 
             <div className="header">
                 <h1>
-                    About Alphacoinz
+                    About CJ Exchange
                 </h1>
                 {/* <p>We've Got Answers!</p> */}
             </div>
             <div className="faq__main">
-                <h2 className="faq__main-header"> Welcome to Alphacoinz </h2>
+                <h2 className="faq__main-header"> Welcome to CJ Exchange </h2>
                 <p className="faq__main--text">
-                    Welcome to Alphacoinz
+                    Welcome to CJ Exchange
                     We are working on multicurrency markets with all benefits of Forex trading. Our staff is a small but active,
                     creative team of professionals open to new information, initiative, and progress.
                     Carefully selected methods of money management and the best trading strategies allowed us to create a
@@ -122,7 +122,7 @@ function AboutUS() {
                     minimize risk by showing how to enter or exit trades at the right time.
                     The best Forex trading strategies, as well as the use of special automated programs allows our company to bring high dividends
                     to our customers. Join us! You do not need to understand any subtleties of trading on Forex markets, we will do all the work for you.
-                    Why Choose Alphatrade?
+                    Why Choose  CJ Exchange?
 
                    <span className="faq__main--text-span">
                         <img className="faq__main--text-span-img" src={logo} alt="logo" />
@@ -132,28 +132,16 @@ function AboutUS() {
                         </span>
                     </span>
 
-                    <span className="faq__main--text-span">
-                        <img className="faq__main--text-span-img" src={investmentSvg} alt="logo" />
-                        <span className="faq__main--text-span-txt">
-                            The ascending profitability available: the more is your deposit and investment period, the more profit you get.
-
-                        </span>
-                    </span>
+                  
 
                     <span className="faq__main--text-span">
                         <img className="faq__main--text-span-img" src={licenceImg} alt="logo" />
                         <span className="faq__main--text-span-txt">
-                            The company has all title documents, permits and certificates for conducting trading and investment activities.
+                            The company has all title documents, permits and certificates for conducting trading  activities.
 
                         </span>
                     </span>
-                    <span className="faq__main--text-span">
-                        <img className="faq__main--text-span-img" src={networkSvg} alt="logo" />
-                        <span className="faq__main--text-span-txt">
-                            A real opportunity to get referral reward from 1% to 10% of the deposits made by your referrals.
-
-                        </span>
-                    </span>
+                   
                     <span className="faq__main--text-span">
                         <img className="faq__main--text-span-img" src={securitySvg} alt="logo" />
                         <span className="faq__main--text-span-txt">
@@ -161,24 +149,6 @@ function AboutUS() {
                         </span>
                     </span>
 
-                    <span className="faq__main--text-header">
-                        AlphaCoinz Investment Plans. <br />
-                    </span>
-
-
-                    Our traders have been making money at the most promising Forex market for many years. We provide an opportunity to invest in our business,
-                    this possibility has been implemented to date four investments plans. Below you can check out our investment proposal
-                    and choose the most suitable plan for you. Our investment offers vary by investment duration and potential income rate. We
-                    offer you four investment plans;
-                    <br />
-
-                    Beginners plan: with daily profits of 2%, <br />
-                    Standard plan: with daily profits of 4%,  <br />
-                    Advanced Plan: with daily profits of 8%,  <br />
-                    and the Business Plan: with daily profits of 12%. <br />
-                    The minimal investment amount is only $500 and maximal investment limit is $1,000,000. <br />
-                    These plans enable you to multiply your funds, and the longer the work of your investments the greater will be your profit.
-                    Maximum investment is not limited. Your brave decision - it is a road to the pinnacle of success!
                 </p>
             </div>
         </Container>

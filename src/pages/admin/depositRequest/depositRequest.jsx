@@ -89,7 +89,7 @@ function DepositRequest(props) {
             console.log("short");
             
             setError(!false)
-            setPopUpMessage("Msust be at least 2 digits")
+            setPopUpMessage("Must be at least 2 digits")
             setShowPopUpMessage(true)
             return
         }

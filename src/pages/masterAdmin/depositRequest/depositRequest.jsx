@@ -117,6 +117,23 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 					accessor: 'email',
 				},
 				{
+					Header: 'Coin Address', 
+					accessor: (rowInfo) => {
+						return (
+						  <span>
+						   {rowInfo.user.coin_address || "none"}
+						  </span>
+						)
+					  },
+					render: (rowInfo) => {
+					  return (
+						<span>
+						 {rowInfo.value.map(coinAddress => (<span>{console.log(coinAddress.user)}</span>))}
+						</span>
+					  )
+					}
+				  },
+				{
 					Header: 'Status',
 					accessor: 'status',
 				},

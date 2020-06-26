@@ -33,6 +33,7 @@ import AdminDepositRequest from './pages/masterAdmin/depositRequest/depositReque
 import AdminWidthdrawlRequest from './pages/masterAdmin/widthdrawlRequest/widthdrawlRequest';
 import AboutUS from './pages/aboutUs/aboutUs';
 import Policies from './pages/policies/policies';
+import UpdateUserInfo from './pages/admin/updateUserInfo/updateUserInfo';
 
 const theme = {
 	colorPrimary: "#304D71",
@@ -108,6 +109,7 @@ function App() {
 										<Route exact path={routes.admin.verify} component={withRouter(UserVerify)} />
 										<Route exact path={routes.admin.deposit} component={DepositRequest} />
 										<Route exact path={routes.admin.widthdrawl} component={WidthdrawlRequest} />
+										<Route exact path={routes.admin.updateInfo} component={UpdateUserInfo} />
 									</Switch>
 								</DashboardLayout>
 							</Route>

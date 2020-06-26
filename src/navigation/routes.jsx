@@ -24,6 +24,9 @@ const routes = {
         requestVerification: prod ? server  : localhost      +    'users/requestVerification',
         verifyUsers: prod ? server  : localhost      +    'users/verify',
         updateUsers: prod ? server  : localhost      +    'users/update',
+        updateUserInfo: prod ? server  : localhost      +    'users/updateUserInfo',
+        updateUserPassword: prod ? server  : localhost      +    'users/updateUserPassword',
+        userTransactions: prod ? server  : localhost      +    'users/userTransactions',
         deleteUnverifirdUsers: prod ? server  : localhost      +    'users/verify-delete',
 
         addPlan: prod ? server  : localhost      +    'admin/add-plan',
@@ -55,6 +58,7 @@ const routes = {
         verify:         admin  +   "/verify",
         deposit:         admin  +   "/deposit",
         widthdrawl:         admin  +   "/widthdraw",
+        updateInfo:         admin  +   "/update_info",
 
     },
     masterAdmin: {

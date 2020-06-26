@@ -14,7 +14,7 @@ const Container = styled.div`
     height: max-content;
     width: 100%;
     margin: 3rem;
-    color: ${props => props.theme.colorLight};
+    color: ${props => props.theme.colorPrimary};
 
     .heading{
         grid-column: 1/-1;
@@ -96,7 +96,7 @@ const SiteStats = () => {
                     </span>
                 </p>
                 <p className="stats-content">
-                    <span className="stats-content__item">john</span>
+                    <span className="stats-content__item">jane</span>
                     <span className="stats-content__item">$4000</span>
                     <span className="stats-content__item">
                         <img className="stats-content__item--icon" src={giftcard} alt=""/>
@@ -130,7 +130,7 @@ const SiteStats = () => {
                     </span>
                 </p>
             </div>
-            <SellBitcoinCard />
+            {/* <SellBitcoinCard /> */}
         
         </Container>
     )

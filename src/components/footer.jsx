@@ -106,7 +106,7 @@ const Footer = (props) => {
             </ul>
             <ul className="footer-list">
                 <li className="footer-list-item"> Company</li>
-                <li className="footer-list-item"> mickeeun@gmail.com</li>
+                <li className="footer-list-item"> name@gmail.com</li>
                 <li className="footer-list-item"> 31 Rushgrove Avenue, London, UNITED KINGDOM</li>
                 <li className="footer-list-item"> +2349018868939</li>
 </ul>

@@ -72,11 +72,11 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 	
 	useEffect(() => {
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-		console.log(auth_token);
+		// console.log(auth_token);
 		
 		Axios.get(`${routes.api.adminWidthdrawl}?token=${auth_token}`)
 			.then(response => {
-				console.log(response.data.data);
+				// console.log(response.data.data);
 
 				fetchAllWidthdrawl(response.data.data)
 				return response.data;
@@ -116,6 +116,25 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 					Header: 'email',
 					accessor: 'email',
 				},
+				
+				{
+					Header: 'Coin Address', 
+					accessor: (rowInfo) => {
+						return (
+						  <span>
+						   {rowInfo.user.coin_address || "none"}
+						  </span>
+						)
+					  },
+					render: (rowInfo) => {
+					  return (
+						<span>
+						 {rowInfo.value.map(CoinAddress => (<span>{console.log(CoinAddress.user)}</span>))}
+						</span>
+					  )
+					}
+				  },
+
 				{
 					Header: 'Status',
 					accessor: 'status',

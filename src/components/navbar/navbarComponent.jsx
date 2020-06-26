@@ -38,10 +38,7 @@ const Container = styled.div`
             z-index: 1300;
             cursor: pointer;
             justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
-            display: none;
-            @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
-                display: block; 
-            };
+
             path{
                 height: 100%;
                 fill: white;
@@ -61,15 +58,15 @@ const Container = styled.div`
         }
     }
     .navbar-mobile__list{
-        position: absolute;
-        top: 450%;
+        position: fixed;
+        top: 20%;
         /* left: -50%; */
         /* width: 25rem; */
         transform: translate(-50%, -50%);
         list-style: none;
         z-index: 1203;
-        /* display: none;  */
-       
+        display: flex;
+        flex-direction: column;
         &--item{
             text-transform: capitalize;
             padding: 1rem 5rem;
@@ -80,6 +77,9 @@ const Container = styled.div`
             font-size: ${props => props.theme.font.xlarge};
             transition: all .4s ease-in-out .1s;
             background-size: 230%;
+            color: ${props => props.theme.colorWhite};
+            text-decoration: none;
+
             &:hover{
                 background-position: 100%;
                 transform: translateX(1rem);
@@ -178,17 +178,18 @@ const NavbarComponent = (props) => {
     })
     return (!props.show ?
         <Container>
+          
             <div className="navbar-mobile">
                 <MenuIcon className="navbar-mobile__icon" onClick={toggleMobileNav} />
                 <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
             </div>
-            <animated.ul style={{ left: springMove.left }} className="navbar-mobile__list">
-                <Link to={routes.public.home} className="navbar-list-item">Home</Link>
-                <Link to="/login" className="navbar-list-item">Login</Link>
-                <Link to={routes.public.about} className="navbar-list-item">About</Link>
-                <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
-                <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
-            </animated.ul>
+            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
+                <Link to={routes.public.home}  className="navbar-mobile__list--item">home</Link>
+                <Link to={routes.public.login} className="navbar-mobile__list--item">login</Link>
+                <Link to={routes.public.about} className="navbar-mobile__list--item">About</Link>
+                <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
+                <Link to={routes.public.contact} className="navbar-mobile__list--item">contact us</Link>
+            </animated.ul> 
             <div className="navbar"
                 data-aos="fade-right"
                 data-aos-offset="00"
