@@ -121,7 +121,7 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 					accessor: (rowInfo) => {
 						return (
 						  <span>
-						   {rowInfo.user.coin_address || "none"}
+						   {rowInfo?.user?.coin_address || "none"}
 						  </span>
 						)
 					  },

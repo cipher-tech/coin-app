@@ -5,6 +5,7 @@ import image from "../images/footerImg.jpg"
 import logo from "../images/brandLogo.jpg"
 import { Link } from 'react-router-dom'
 import routes from '../navigation/routes'
+import CoinWidget from './widget/wigjet'
 
 const Container = styled.div`
     display: grid;
@@ -111,6 +112,19 @@ const Footer = (props) => {
                 <li className="footer-list-item"> +2349018868939</li>
 </ul>
 
+<CoinWidget ele="#mydiv" id="mydiv" link={`<!--Start of Tawk.to Script-->
+                <script type="text/javascript">
+                var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/5ef62d734a7c6258179b6843/default';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+                })();
+                </script>
+                <!--End of Tawk.to Script-->`} />
             {/* <p className="footer-credit">
                 C Cipher 2020
             </p> */}

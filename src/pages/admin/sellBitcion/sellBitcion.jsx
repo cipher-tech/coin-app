@@ -135,9 +135,9 @@ function AdminSellGiftCard() {
                         <img src={giftCard} alt="Bitcoin" className="form__title-image-icon" />
                     </div>
                     <div className="form__input">
-                        <input type="text" placeholder="Enter Value" className="form__input-item" />
+                        {/* <input type="text" placeholder="Enter Value" className="form__input-item" />
                         <input type="text" placeholder="Enter Bitcoin Value" className="form__input-item" />
-                        <input type="text" placeholder="Enter Value" className="form__input-item" />
+                        <input type="text" placeholder="Enter Value" className="form__input-item" /> */}
                         <input type="text" placeholder="Enter Value" className="form__input-item" />
                         <input type="text" placeholder="Enter Value" className="form__input-item" />
                     </div>

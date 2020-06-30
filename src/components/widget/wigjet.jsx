@@ -3,10 +3,10 @@ import postscribe from 'postscribe';
 export default class CoinWidget extends Component {
 
     componentDidMount() {
-        const script = document.createElement("script");
-        script.async = !true;
-        script.src = "https://www.cryptonator.com/ui/js/widget/calc_widget.js";
-        this.div.appendChild(script);
+        // const script = document.createElement("script");
+        // script.async = !true;
+        // script.src = "https://www.cryptonator.com/ui/js/widget/calc_widget.js";
+        // this.div.appendChild(script);
         // this.el = postscribe('#mydiv','<script src="https://www.cryptonator.com/ui/js/widget/calc_widget.js"></script>')
         // this.el = postscribe('#mydiv',`
         // <script type="text/javascript">

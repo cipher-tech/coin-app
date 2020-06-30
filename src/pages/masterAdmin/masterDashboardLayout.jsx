@@ -208,7 +208,7 @@ background: ${props => props.theme.colorPrimary};
                     height: 1rem;
                     width: 1rem;
                     border-radius: 50%;
-                    background: ${props => props.status? props.theme.colorSuccess: props.theme.colorError};
+                    background: ${props => props.status ? props.theme.colorSuccess : props.theme.colorError};
                     top: -.4rem;
                     right: .4rem;
                 }
@@ -256,7 +256,7 @@ function MasterDashboardLayout(props) {
         // this.state.sideNavIsOpen ? this.setState({sideNavWidth: "3rem", sideNavIsOpen: !this.state.sideNavIsOpen}) : 
         // this.setState({sideNavWidth: "20rem", sideNavIsOpen: !this.state.sideNavIsOpen})
     }
-    const closeSideNav =() => {
+    const closeSideNav = () => {
         setSideNavIsOpen(false)
     }
     return (
@@ -305,7 +305,7 @@ function MasterDashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link onClick={closeSideNav} to={routes.masterAdmin.sellBitcoin} className="sideNav__container-item">
+                    {/* <Link onClick={closeSideNav} to={routes.masterAdmin.sellBitcoin} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Bill className="sideNav__container-item--icon-svg" />
                         </span>
@@ -321,7 +321,7 @@ function MasterDashboardLayout(props) {
                         <span className="sideNav__container-item--text">
                             Sell Gift Cart
                         </span>
-                    </Link>
+                    </Link> */}
 
                     <Link onClick={closeSideNav} to={routes.masterAdmin.rates} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
@@ -373,13 +373,13 @@ function MasterDashboardLayout(props) {
                         {name}
                     </span>
                     <p className="title_nav--icons">
-                    <span className="">
+                        <Link to={routes.admin.updateInfo} className="">
                             <Cog className="title_nav--icons-item" />
-                        </span>
-                        <span title={status === "verified"? "Account verified" :"Account Unvrifird"} className="indicator">
+                        </Link>
+                        <span title={status === "verified" ? "Account verified" : "Account Unvrifird"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>
-                        
+
                         <span title="logout" className="">
                             <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
                         </span>

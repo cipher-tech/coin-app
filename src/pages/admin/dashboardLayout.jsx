@@ -382,9 +382,9 @@ function DashboardLayout(props) {
                         {props.match.params.path ? props.match.params.path.replace("_", " ") : "admin"}
                     </span>
                     <p className="title_nav--icons">
-                        <span className="">
+                        <Link to={routes.admin.updateInfo} className="">
                             <Cog className="title_nav--icons-item" />
-                        </span>
+                        </Link>
                         <span title={status === "verified"? "Account verified" :"Account Unvrifird"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>

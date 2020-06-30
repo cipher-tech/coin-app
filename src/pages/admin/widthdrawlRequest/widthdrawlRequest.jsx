@@ -14,6 +14,7 @@ const Container = styled.div`
     /* grid-template-columns: 1fr; */
     min-height: 100%;
     min-width: 100%;
+    /* grid-auto-rows: 2; */
     /* place-items: center; */
     justify-items: center;
     align-items: flex-start;

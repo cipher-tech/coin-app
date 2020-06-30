@@ -19,7 +19,7 @@ const Container = styled.div`
         grid-column: 1/-1;
         display: grid;
         font-size: ${props => props.theme.font.large};
-        color: ${props => props.theme.colorLight};
+        color: ${props => props.theme.colorDark};
         place-items: center;
         height: max-content;
         align-self: flex-start;
@@ -49,13 +49,13 @@ const Container = styled.div`
         border-radius: 2rem;
         margin: 2rem;
         &-header{
-            color: ${props => props.theme.colorLight};
+            color: ${props => props.theme.colorDark};
             padding: 1.5rem 2.5rem;
         }
         &--text{
             line-height: 2;
             font-size: ${props => props.theme.font.xlarge};
-            color: ${props => props.theme.colorLight};
+            color: ${props => props.theme.colorDark};
 
             &-header{
                 font-size: ${props => props.theme.font.xlarge};
@@ -65,7 +65,7 @@ const Container = styled.div`
                 display: flex;
                 margin: 2rem 0;
                 justify-content: space-between;
-                border-bottom: 1px dashed ${props => props.theme.colorLight};
+                border-bottom: 1px dashed ${props => props.theme.colorDark};
                 &-img{
                     height: 7rem;
                     width: 7rem;

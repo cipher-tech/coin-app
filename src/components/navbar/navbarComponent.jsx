@@ -11,7 +11,7 @@ const Container = styled.div`
     display: grid;
     grid-column: 1/-1;
     grid-template-rows: min-content;
-    grid-template-columns: repeat(2, minmax(40rem, 1fr));
+    /* grid-template-columns: repeat(2, minmax(40rem, 1fr)); */
     /* height: auto; */
     background: ${props => props.theme.colorPrimary};
     /* width: ; */
@@ -26,6 +26,10 @@ const Container = styled.div`
         place-items: center;
         padding: 2rem;
         z-index: 1200;
+        display: none; 
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
+            display: grid; 
+        }
         &__icon{
             display: grid;
             align-items: center;
@@ -59,7 +63,7 @@ const Container = styled.div`
     }
     .navbar-mobile__list{
         position: fixed;
-        top: 20%;
+        top: 50%;
         /* left: -50%; */
         /* width: 25rem; */
         transform: translate(-50%, -50%);
@@ -183,7 +187,7 @@ const NavbarComponent = (props) => {
                 <MenuIcon className="navbar-mobile__icon" onClick={toggleMobileNav} />
                 <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
             </div>
-            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
+            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav}  className="navbar-mobile__list">
                 <Link to={routes.public.home}  className="navbar-mobile__list--item">home</Link>
                 <Link to={routes.public.login} className="navbar-mobile__list--item">login</Link>
                 <Link to={routes.public.about} className="navbar-mobile__list--item">About</Link>

@@ -322,34 +322,7 @@ const Header = (props) => {
     // })
     return (
         <Container>
-            {/* <div className="navbar-mobile">
-                <MenuIcon className="navbar-mobile__icon" onClick={toggleMobileNav} />
-                <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
-            </div>
-            <animated.ul style={{ left: springMove.left }}  className="navbar-mobile__list">
-                <li className="navbar-mobile__list--item">home</li>
-                <li className="navbar-mobile__list--item">faq</li>
-                <li className="navbar-mobile__list--item">login</li>
-                <li className="navbar-mobile__list--item">contact us</li>
-            </animated.ul> */}
-            {/* <div className="navbar"
-                data-aos="fade-right"
-                data-aos-offset="00"
-                data-aos-delay="300"
-                data-aos-duration="600"
-                data-aos-easing="ease-in-out"
-                data-aos-once="true">
-                <div className="navbar-logo">
-                    <img src={logo} alt="" className="navbar-logo--img" />
-                </div>
-                <ul className="navbar-list">
-                    <li className="navbar-list-item">Home</li>
-                    <Link to="/login" className="navbar-list-item">Login</Link>
-                    <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
-                    <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
-                </ul>
-
-            </div> */}
+           
             <div className="info">
                 <Carusel />
             </div>
