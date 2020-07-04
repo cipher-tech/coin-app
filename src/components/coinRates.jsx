@@ -3,8 +3,9 @@ import styled from 'styled-components'
 // import CoinWidget from './widget/wigjet'
 import bitcoin from "../images/us-bitcoin.svg"
 import giftcard from "../images/amazon-card.png"
-import Rates from '../pages/admin/rates/rates'
+// import Rates from '../pages/admin/rates/rates'
 import { connect } from 'react-redux'
+import SingleCoinRates from '../pages/admin/rates/singleCoinRates'
 // import amazon from "../images/us-amazon.svg"
 // import CoinCalculator from './coinCalculator'
 // import chat from "../images/coinRate.svg"
@@ -35,6 +36,7 @@ const Container = styled.div`
         display: grid;
         grid-template-columns: 1fr 2fr;
         align-self: center;
+        justify-self: center;
         place-items: center;
         padding: 1rem;
         width: 16rem;
@@ -106,7 +108,7 @@ const CoinRates = ({ rates }) => {
                             <div key={index} className="rate-card">
                                 <img src={index === 2 || index === 3 ? giftcard : bitcoin } alt="bitcoin" />
                                 <p className="rate-card__text">
-                                {console.log(index)}
+                                {/* {console.log(index)} */}
                                    {rate.name ? rate.name: "Bitcoin"}
                                 <br />
                                     <span className="rate-card__text--rate">{rate.selling? rate.selling : "0"}</span>
@@ -120,7 +122,8 @@ const CoinRates = ({ rates }) => {
             </div>
 
             <div className="rate-table">
-                <Rates limit={4} gridPos="1/-1" />
+                {/* <Rates limit={4} gridPos="1/-1" /> */}
+                <SingleCoinRates/>
             </div>
             {/* <div className="rate-card">
                 <img src={chat} alt="bitcoin" /> */}
@@ -152,14 +155,7 @@ const CoinRates = ({ rates }) => {
                  allowtransparency="true" scrolling="no" allowfullscreen="" frameborder="0"
                  title="coinrate"></iframe> */}
 
-            {/* <img 
-                data-aos="fade-right"
-                data-aos-offset="300"
-                data-aos-delay="500"
-                data-aos-duration="400"
-                data-aos-easing="ease-in-out"
-                data-aos-once="true" src={chat} width="100%" alt="chat"/> */}
-
+           
         </Container>
     )
 }

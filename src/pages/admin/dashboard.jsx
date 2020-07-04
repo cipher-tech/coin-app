@@ -125,6 +125,7 @@ const Container = styled.div`
 `
 const Dashboard = ({fetchUserInfo, user=0}) => {
     
+
     useEffect(() => {
         if(useIsLoggedIn){
             const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token

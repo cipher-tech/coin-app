@@ -2,16 +2,17 @@ import React, {Component} from "react";
 import {ValidateData} from "./validation";
 import {ValidationContext} from "./validationContex";
 import styled from "styled-components";
+import Button from "./components/button/button";
 
 const Container = styled.div`
     .danger{
-        color: red;
-        /* background: red; */
+        color: ${props => props.theme.colorWhite};
+        background: red !important;
     }
-    .good{
-        color: green;
-        /* background: green; */
-    }
+    /* .good{
+        color: white;
+        /* background: green !important; 
+    } */
     .wrapper{
        width: 100%;
        display: grid;
@@ -59,15 +60,19 @@ export class FormValidator extends Component {
     render() {
             return <Container className={this.props.classname}>
                     <ValidationContext.Provider value = {this.state}>
-                    <div className={`btn wrapper`} onChange={this.handleChange}>
+                    <div className={`btn wrapper ${this.props?.wrapperClass}`} onChange={this.handleChange}>
                         {this.props.children} 
                     </div>
                     </ValidationContext.Provider> 
                     {/* <div className={`text-center  `} >  */}
-                        <button className={` ${this.props.buttonClass} ${ this.getButtonClasses() }`} onClick={this.handleClick} 
+                    <Button className={` ${this.props.buttonClass} ${ this.getButtonClasses() }`} onClick={this.handleClick} 
+                            disabled={this.state.formSubmitted && !this.formValid}>
+                            {this.props.buttonText? this.props.buttonText : "Submit" }
+                    </Button>
+                        {/* <button className={` ${this.props.buttonClass} ${ this.getButtonClasses() }`} onClick={this.handleClick} 
                             disabled={this.state.formSubmitted && !this.formValid}> 
                             {this.props.buttonText? this.props.buttonText : "Submit" }
-                        </button>
+                        </button> */}
                     {/* </div>  */}
                 </Container>
     }

@@ -34,9 +34,10 @@ import AdminWidthdrawlRequest from './pages/masterAdmin/widthdrawlRequest/widthd
 import AboutUS from './pages/aboutUs/aboutUs';
 import Policies from './pages/policies/policies';
 import UpdateUserInfo from './pages/admin/updateUserInfo/updateUserInfo';
+import ContextProvider from './context/contextProvider';
 
 const theme = {
-	colorPrimary: "#304D71",
+	colorPrimary: "#581b98",
 	colorPrimaryLight: "#304D71",
 	colorSecondary: "#FB921E",
 	colorSecondaryDark: "#e47800",
@@ -86,49 +87,52 @@ function App() {
 				<Switch>
 					<ThemeProvider theme={theme}>
 						<GlobalStyle />
-						<Container>
-							<Route path={["/", "/contact", "/faq", "/about", "/policies"]} exact>
-								<Navbar />
-								<Route exact path={routes.public.home} component={Main} />
-								<Route exact path={routes.public.contact} component={ContactUs} />
-								<Route exact path={routes.public.faq} component={Faq} />
-								<Route exact path={routes.public.about} component={AboutUS} />
-								<Route exact path={routes.public.policies} component={Policies} />
-								<Foot />
-							</Route>
-							<Route exact path={routes.public.login} component={withRouter(Login)} />
-							<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
-							<Route path="/admin/:path?" exact>
-								<DashboardLayout>
-									<Switch>
-										<Route exact path={routes.admin.index} component={Dashboard} />
-										<Route exact path={routes.admin.rates} component={Rates} />
-										<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
-										<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
-										<Route exact path={routes.admin.transcation} component={AdminTransaction} />
-										<Route exact path={routes.admin.verify} component={withRouter(UserVerify)} />
-										<Route exact path={routes.admin.deposit} component={DepositRequest} />
-										<Route exact path={routes.admin.widthdrawl} component={WidthdrawlRequest} />
-										<Route exact path={routes.admin.updateInfo} component={UpdateUserInfo} />
-									</Switch>
-								</DashboardLayout>
-							</Route>
-							<Route path={"/master-admin/:path?"} exact>
-								<MasterDashboardLayout>
-									<Switch>
-										<Route exact path={routes.masterAdmin.index} component={Dashboard} />
-										<Route exact path={routes.masterAdmin.users} component={AdminUsers} />
-										<Route exact path={routes.masterAdmin.rates} component={MasterAdminRates} />
-										<Route exact path={routes.masterAdmin.sellBitcoin} component={AdminSellBitcoin} />
-										<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
-										<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
-										<Route exact path={routes.masterAdmin.verify} component={VerifyUsers} />
-										<Route exact path={routes.masterAdmin.deposit} component={AdminDepositRequest} />
-										<Route exact path={routes.masterAdmin.widthdrawl} component={AdminWidthdrawlRequest} />
-									</Switch>
-								</MasterDashboardLayout>
-							</Route>
-						</Container>
+						<ContextProvider>
+							<Container>
+								<Route path={["/", "/contact", "/faq", "/about", "/policies"]} exact>
+									<Navbar />
+									<Route exact path={routes.public.home} component={Main} />
+									<Route exact path={routes.public.contact} component={ContactUs} />
+									<Route exact path={routes.public.faq} component={Faq} />
+									<Route exact path={routes.public.about} component={AboutUS} />
+									<Route exact path={routes.public.policies} component={Policies} />
+									<Foot />
+								</Route>
+								<Route exact path={routes.public.login} component={withRouter(Login)} />
+								<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
+								<Route path="/admin/:path?" exact>
+									<DashboardLayout>
+										<Switch>
+											<Route exact path={routes.admin.index} component={Dashboard} />
+											<Route exact path={routes.admin.rates} component={Rates} />
+											<Route exact path={routes.admin.sellBitcoin} component={AdminSellBitcoin} />
+											<Route exact path={routes.admin.sellGiftcard} component={AdminSellGiftCard} />
+											<Route exact path={routes.admin.transcation} component={AdminTransaction} />
+											<Route exact path={routes.admin.verify} component={withRouter(UserVerify)} />
+											<Route exact path={routes.admin.deposit} component={DepositRequest} />
+											<Route exact path={routes.admin.widthdrawl} component={WidthdrawlRequest} />
+											<Route exact path={routes.admin.updateInfo} component={UpdateUserInfo} />
+										</Switch>
+									</DashboardLayout>
+								</Route>
+								<Route path={"/master-admin/:path?"} exact>
+									<MasterDashboardLayout>
+										<Switch>
+											<Route exact path={routes.masterAdmin.index} component={Dashboard} />
+											<Route exact path={routes.masterAdmin.users} component={AdminUsers} />
+											<Route exact path={routes.masterAdmin.rates} component={MasterAdminRates} />
+											<Route exact path={routes.masterAdmin.sellBitcoin} component={AdminSellBitcoin} />
+											<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
+											<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
+											<Route exact path={routes.masterAdmin.verify} component={VerifyUsers} />
+											<Route exact path={routes.masterAdmin.deposit} component={AdminDepositRequest} />
+											<Route exact path={routes.masterAdmin.widthdrawl} component={AdminWidthdrawlRequest} />
+										</Switch>
+									</MasterDashboardLayout>
+								</Route>
+							</Container>
+						</ContextProvider>
+
 					</ThemeProvider>
 				</Switch>
 			</Router>

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSpring, animated } from "react-spring"
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
-import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
-import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
+// import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
+// import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
 // import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"

@@ -6,7 +6,7 @@ const Container = styled.div`
     .form__icon{
         content: attr("icon");
         position: absolute;
-        top: 2.5rem;
+        top: ${props => !props.label ? "2.5rem" : "4.5rem" } ;
         left: 1rem;
         /* background: red; */
     }
@@ -45,7 +45,7 @@ export default function InputComponent(props) {
     const [value, setvalue] = useState('')
     // const [password, setPassword] = useState("")
     return (
-        <Container icon={props.icon}>
+        <Container icon={props.icon} label={props.label}>
             <p className="form" name={props.name}>
                 {props.icon ? <img className="form__icon" src={props.icon} alt="icon" /> : null}
                 {props.label || ""}

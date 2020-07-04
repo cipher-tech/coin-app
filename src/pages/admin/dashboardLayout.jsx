@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useContext } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { useSpring, animated } from "react-spring"
 
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
 import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
-import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
+// import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
 import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
@@ -19,7 +19,17 @@ import { Link, withRouter } from 'react-router-dom'
 import routes from '../../navigation/routes'
 import useIsLoggedIn from '../../components/hooks/useIsLoggedIn'
 import logOut from '../../components/hooks/logOut'
+import { ContextData } from '../../context/contextData'
 
+const blink = keyframes`
+    from{ 
+        opacity: 0
+    }
+
+    to{
+        opacity: 1;
+    }
+`
 const Container = styled.div`
 grid-column: 1/-1;
 min-height: 100vh;
@@ -190,6 +200,7 @@ background: ${props => props.theme.colorPrimary};
     z-index: 0;
     border-radius: 2rem 0 0 2rem;
     min-height: 100%;
+    overflow: hidden;
     .title_nav{
         background: ${props => props.theme.colorWhite};
         grid-column: 1/-1;
@@ -207,6 +218,20 @@ background: ${props => props.theme.colorPrimary};
         &--icons{
             display: flex;
             padding: 0;
+            .region-select{
+                background: transparent;
+                padding: .5rem 1rem;
+                color: ${props => props.theme.colorDark};
+                border-radius: .5rem;
+                /* margin-bottom: 1rem; */
+                option{
+                    color: ${props => props.theme.colorPrimary}
+                }
+                &:focus{
+                    outline: none;
+                }
+            }
+
             .indicator{
                 position: relative;
                 &::before{
@@ -215,9 +240,10 @@ background: ${props => props.theme.colorPrimary};
                     height: 1rem;
                     width: 1rem;
                     border-radius: 50%;
-                    background: ${props => props.status? props.theme.colorSuccess: props.theme.colorError};
+                    background: ${props => props.status ? props.theme.colorSuccess : props.theme.colorError};
                     top: -.4rem;
                     right: .4rem;
+                    animation: ${blink} 1.5s ease-in-out ${props => props.status ? "infinite" : "infinite"};
                 }
             }
             &-item{
@@ -247,11 +273,15 @@ background: ${props => props.theme.colorPrimary};
 
 function DashboardLayout(props) {
     const isLoggedIn = useIsLoggedIn(props.history)
+    const regionContext = useContext(ContextData)
     // console.log(isLoggedIn);
+
     
+    
+
     const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.first_name : null
     const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.email : null
-    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status :null
+    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const [userStatus] = useState(status === "verified")
@@ -260,7 +290,7 @@ function DashboardLayout(props) {
         width: sideNavIsOpen ? sideNavWidth : "6rem"
     })
 
-    
+
     // if (!isLoggedIn) {
     //     props.history.push('/')
     //     console.log("bad");
@@ -275,6 +305,9 @@ function DashboardLayout(props) {
     const closeSideNav = () => {
         setSideNavIsOpen(false)
     }
+    const selectRegion = (e)=> {
+        regionContext.changeRegion(e.target.value)
+    }
     return (
         <Container navWidth={sideNavWidth} status={userStatus} sidenavIsOpen={sideNavIsOpen}>
             <animated.div style={{ width: spring.width }} className="sideNav">
@@ -283,7 +316,7 @@ function DashboardLayout(props) {
                     <li className="sideNav__container-item-photo">
                         <img src={avatar1} alt="avatar preson" />
                         <p className="sideNav__container-item-photo--text">
-                            {name} <br/>
+                            {name} <br />
                             {email}
                         </p>
                     </li>
@@ -366,6 +399,14 @@ function DashboardLayout(props) {
                             Widthdrawl
                         </span>
                     </Link>
+                    <Link to={routes.admin.widthdrawl} onClick={closeSideNav} className="sideNav__container-item">
+                        <span className="sideNav__container-item--icon">
+                            <Box className="sideNav__container-item--icon-svg" />
+                        </span>
+                        <span className="sideNav__container-item--text">
+                            Send/Recive Money
+                        </span>
+                    </Link>
 
                 </ul>
                 <div className="toggleIcon">
@@ -385,15 +426,24 @@ function DashboardLayout(props) {
                         <Link to={routes.admin.updateInfo} className="">
                             <Cog className="title_nav--icons-item" />
                         </Link>
-                        <span title={status === "verified"? "Account verified" :"Account Unvrifird"} className="indicator">
+                        <span title={status === "verified" ? "Account verified" : "Account Unvrifird"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>
                         <span title="logout" className="">
                             <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
                         </span>
+                        <span title="logout" className="">
+                            {/* <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item region-select" /> */}
+                            <select className="region-select" defaultValue={localStorage.region ? localStorage.region.id : null} onChange={selectRegion} name="language" id="lang">
+                               { !localStorage.region ?<option> Select Region </option> : null}
+                                <option name="nigeria" value="nigeria" > Nigeria </option>
+                                <option name="ghana" value="ghana"> Ghana </option>
+                                <option name="cameroon" value="cameroon">Carmeroon</option>
+                            </select>
+                        </span>
                     </p>
                 </div>
-                {isLoggedIn ?  props.children : null}
+                {isLoggedIn ? props.children : null}
             </div>
         </Container>
     )

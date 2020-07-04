@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import envelope from "../../../images/svgIcons/envelope.svg"
+import { ReactComponent as Icon} from "../../../images/svgIcons/envelope.svg"
 import styled from 'styled-components'
 import { StyledInput } from '../../../components/styledComponents'
-import Button from '../../../components/button/button'
+// import Button from '../../../components/button/button'
 import Axios from 'axios'
 import { connect } from 'react-redux'
 import routes from '../../../navigation/routes'
 import { PopUpMessage, Modal } from '../../../components'
 import giftCard from "../../../images/amazon-cardCrop.png"
+import { FormValidator } from '../../../formValidator'
+import { ValidationMessage } from '../../../validationMessage'
 
 
 const Container = styled.div`
@@ -58,15 +61,33 @@ const Container = styled.div`
         }
       }
     .deposit{
+        display: grid;
         /* margin-top: 13rem; */
         padding: 2rem ;
-        display: flex;
-        justify-content: space-between;
+        /* display: flex; */
+        align-self: center;
+        justify-items: center;
         color: ${props => props.theme.colorDark};
         /* height: 1rem; */
         box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
             -0.2rem -0.4rem 20px rgba(255,255,255, .3);
         
+        &-header{
+            font-weight: 600;
+            font-size: ${props => props.theme.font.xlarge};
+            color: ${props => props.theme.colorPrimary};
+            justify-self: flex-start;
+            padding: 2rem;
+        }
+        &-form{
+            display: grid;
+            width: 90%;
+            justify-items: center;
+            
+            &__wrapper{
+                justify-items: initial;
+            }
+        }
         .summit{
             margin: 0 2rem;
         }
@@ -78,16 +99,25 @@ function DepositRequest(props) {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
-	const [isModalActive, setIsModalActive] = useState(false)
+    const [isModalActive, setIsModalActive] = useState(false)
 
 
     const updateFormValue = (name, value) => {
 
     }
+    const state = {
+        amount: "",
+        newPassword: "",
+        // slug: slug,
+    }
+    const modalRule = {
+        amount: { required: true, minlength: 2 },
+        newPassword: { required: true, minlength: 4 },
+    }
     const handleSubmit = (e) => {
-        if(depositValue.length < 1){
+        if (depositValue.length < 1) {
             console.log("short");
-            
+
             setError(!false)
             setPopUpMessage("Must be at least 2 digits")
             setShowPopUpMessage(true)
@@ -105,29 +135,29 @@ function DepositRequest(props) {
             amount: +depositValue
         }
         console.log(object);
-        if(status === "verified"){
+        if (status === "verified") {
             Axios.post(`${routes.api.usersDeposit}?token=${auth_token}`, object)
-            .then(res => {
-                setShowPopUpMessage(false)
-                if (res.data.status === "success") {
+                .then(res => {
+                    setShowPopUpMessage(false)
+                    if (res.data.status === "success") {
+                        setPopUpMessage(res.data.data)
+                        setShowPopUpMessage(true)
+                        setIsLoading(!true)
+                        setIsModalActive(true)
+                        // setTimeout(() => {
+                        //     props.history.push(routes.admin.index)
+                        // }, 8000);
+                        return
+                    }
+
+                })
+                .catch(res => {
                     setPopUpMessage(res.data.data)
+                    setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
-                    setIsModalActive(true)
-                    // setTimeout(() => {
-                    //     props.history.push(routes.admin.index)
-                    // }, 8000);
-                    return
-                }
-
-            })
-            .catch(res => {
-                setPopUpMessage(res.data.data)
-                setError(true)
-                setShowPopUpMessage(true)
-                setIsLoading(!true)
-            })
-        }else{
+                })
+        } else {
             setError(!false)
             setPopUpMessage("You are unverified. Click on the verify link on the menu to verify your account and continue")
             setShowPopUpMessage(true)
@@ -136,40 +166,78 @@ function DepositRequest(props) {
                 setShowPopUpMessage(false)
                 setIsLoading(!true)
             }, 8500)
-            
+
         }
+    }
+    const updateResetValue = (name, value) => {
+        state[name] = value
+    }
+    let createImage = (file) => {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            return e.target.result
+        };
+        reader.readAsDataURL(file);
     }
     return (
         <Container>
-				<Modal isActive={isModalActive}>
-                    <div className="modal__container">
-                        <span role="img" aria-label="img"  className="close" onClick={() => setIsModalActive(false)}>
-                            ❌
-                        </span>
-                        <img src={giftCard} alt=""/>
+            <Modal isActive={isModalActive}>
+                <div className="modal__container">
+                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                        ❌
 
-                        <p>
-                            please pay the specified amount into this address
+                        </span>
+                    <img src={giftCard} alt="" />
+
+                    <p>
+                        please pay the specified amount into this address
                         </p>
-                        <p>
-                            d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                    <p>
+                        d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
                         </p>
-                    </div>
-                </Modal>
-            <h1 className="title">Deposit Requests</h1>
+                </div>
+            </Modal>
+            {/* <h1 className="title">Deposit Requests</h1> */}
             {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
             <div className="deposit">
+                <h3 className="deposit-header">
+                    Deposit Form:
+                </h3>
+                <p className="deposit-text">
+                    Enter your amount to deposit and payment method.
+				</p>
+                <FormValidator buttonClass="summit"
+                    buttonText={isLoading ? "Loading..." : "Submit"}
+                    classname="deposit-form"
+                    wrapperClass="deposit-form__wrapper"
+                    data={state} rules={modalRule}
+                    submit={null}>
+                    <div className="">
 
+                        {/* <StyledInput name="deposit" label="" updatedValue={setDepositValue}
+                            handleChange={updateFormValue} value={depositValue}
+                            placeHolder="Enter amount to Deposit" type="number" icon={envelope} /> */}
 
-                <StyledInput name="deposit" label="Enter amount to Deposit" updatedValue={setDepositValue}
-                    handleChange={updateFormValue} value={depositValue}
-                    placeHolder="Enter amount to Deposit" type="number" icon={envelope} />
+                        {/* <br /> */}
+                        <StyledInput name="amount" handleChange={updateResetValue}
+                            value={state.amount}
+                            placeHolder="Enter amount to Deposit" type="text" icon={envelope} />
+                        <ValidationMessage field="amount" />
 
-                <br />
+                        <select name="paymentOptions">
+                            <option value="bank">
+                           
+                                Bank Transfer
+                            </option>
+                            <option value="bank">Bitcoin</option>
+                            <option value="bank">GiftCard</option>
+                        </select>
+                    </div>
 
-                <Button className="summit" onClick={handleSubmit}>
+                </FormValidator>
+                {/* <Button className="summit" onClick={handleSubmit}>
                     {isLoading ? "Loading..." : "Request"}
-                </Button>
+                </Button> */}
             </div>
         </Container>
     )

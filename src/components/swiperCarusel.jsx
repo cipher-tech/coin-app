@@ -2,8 +2,8 @@
 import "swiper/css/swiper.css"
 import Swiper from 'react-id-swiper';
 import styled from 'styled-components';
-import playstore from "../images/playstore.svg"
-import applestore from "../images/istore.svg"
+// import playstore from "../images/playstore.svg"
+// import applestore from "../images/istore.svg"
 import bitcoinSvg from "../images/bitcoinSvg.svg"
 // import cimage from "../images/cimage.png"
 import EthereumDesire from "../images/ethereumDesire.svg"
@@ -234,10 +234,10 @@ export default class swiperCarusel extends Component {
                             <Link to="/sign-up" className="carursel-info-btn">
                                 Sign Up
                         </Link>
-                            <div className="carursel-info-mobile-demo">
+                            {/* <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="headerSvg">
@@ -257,10 +257,10 @@ export default class swiperCarusel extends Component {
                             <Link to="/sign-up" className="carursel-info-btn">
                                 Sign Up
                             </Link>
-                            <div className="carursel-info-mobile-demo">
+                            {/* <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="headerSvg">
@@ -279,10 +279,10 @@ export default class swiperCarusel extends Component {
                             <Link to="/sign-up" className="carursel-info-btn">
                                 Sign Up
                             </Link>
-                            <div className="carursel-info-mobile-demo">
+                            {/* <div className="carursel-info-mobile-demo">
                                 <img src={playstore} alt="playStore" />
                                 <img src={applestore} alt="ios" />
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="headerSvg">

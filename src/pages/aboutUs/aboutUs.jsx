@@ -3,10 +3,10 @@ import styled from 'styled-components'
 // import { useSpring, animated } from 'react-spring'
 // import { DropAccodion } from '../../components'
 import logo from "../../images/brandLogo.jpg"
-import investmentSvg from "../../images/investment.svg"
+// import investmentSvg from "../../images/investment.svg"
 import securitySvg from "../../images/security.svg"
 import licenceImg from "../../images/licence.jpg"
-import networkSvg from "../../images/coinSteps.svg"
+// import networkSvg from "../../images/coinSteps.svg"
 
 
 const Container = styled.div`

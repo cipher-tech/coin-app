@@ -57,6 +57,8 @@ const Container = styled.div`
 `
 
 function AdminDashboardCard({title, stats, icon}) {
+    const region = localStorage.getItem("region") ? JSON.parse(localStorage.getItem("region")): null
+    // console.log(region);
     return (
         <Container className="dashboard__overView-items">
             <div className="dashboard__overView-items-stats">
@@ -64,7 +66,9 @@ function AdminDashboardCard({title, stats, icon}) {
                     {title? title : "Total tran"}
                 </p>
                 <p className="dashboard__overView-items-stats--digit">
-                {stats ? stats : 0}
+                   {title !== "total trans"? 
+                        region?.symbol? region?.symbol: null
+                        : null } {stats ? stats : 0}
                 </p>
                 <p className="dashboard__overView-items-stats--rate">^20.8%</p>
             </div>

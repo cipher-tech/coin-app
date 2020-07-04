@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Heading, SellBitcoinCard } from '..'
+import { Heading, /* SellBitcoinCard */ } from '..'
 import bitcoin from "../../images/us-bitcoin.svg"
 import giftcard from "../../images/amazon-card.png"
 

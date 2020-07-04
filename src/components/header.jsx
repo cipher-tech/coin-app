@@ -17,7 +17,7 @@ const waveAnimation = keyframes`
     }
 
     to{
-        background-position: 0PX;
+        background-position: 0px;
     }
 `
 const Container = styled.div`
@@ -28,12 +28,12 @@ const Container = styled.div`
     /* height: auto; */
     background: ${props => props.theme.colorPrimary};
     /* width: ; */
-    height: 90vh;
+    height: 80vh;
     position: relative;
     @media only screen and (min-width: ${props => props.theme.breakPoints.bpxxLarge}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
         grid-template-rows: min-content 65% min-content;
-        height: 90vh;
+        height: 80vh;
     }
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpxLarge}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
@@ -263,16 +263,16 @@ const Container = styled.div`
         }
     }
     .waveSvg{
-        position: relative;
+        /* position: relative; */
         grid-column: 1/-1;
-        height: 20rem;
+        height: 25rem;
         width: 100%;
         background-image: url(${waveSvg});
         background-size: cover;
         background-position: center;
         background-repeat: repeat-x;
         position: absolute; 
-        bottom: 0px;
+        bottom: -15px;
         z-index: -50px;
         overflow: hidden;
 

@@ -129,7 +129,7 @@ function AdminSellGiftCard() {
                 {/* <img src={rateImage} alt="rate" /> */}
 
                 <div className="form">
-                    <h2 className="form__title">Sell Your Bitcoin</h2>
+                    <h2 className="form__title">Buy or sell Bitcoin</h2>
                     <p className="form__subTitle">We offer amazing rates for your Bitcoins</p>
                     <div className="form__title-image">
                         <img src={giftCard} alt="Bitcoin" className="form__title-image-icon" />

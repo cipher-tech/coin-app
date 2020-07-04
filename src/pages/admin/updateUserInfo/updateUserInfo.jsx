@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // import rateImage from "../../../images/sellGiftcard.png"
 import lock from "../../../images/svgIcons/lock.svg"
 
-import giftCard from "../../../images/bitcoinSvg-2.svg"
+// import giftCard from "../../../images/bitcoinSvg-2.svg"
 import { FormValidator } from '../../../formValidator'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
@@ -172,7 +172,7 @@ function UpdateUserInfo() {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [hasError, setHasError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false);
+    const [, setIsLoading] = useState(false);
     // const [error, setError] = useState(false)
 	// const [isModalActive, setIsModalActive] = useState(false)
 
