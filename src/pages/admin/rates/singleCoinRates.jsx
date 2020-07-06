@@ -1,35 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 // import CoinWidget from "../../../components/widget/wigjet"
 import Axios from 'axios'
-import LTC_thumbnail from "../../../images/LTC_thumbnail.png"
+import qrcode from "../../../images/qrcode.png"
+
 import BCH_thumbnail from "../../../images/BCH_thumbnail.png"
+import LTC_thumbnail from "../../../images/LTC_thumbnail.png"
 import ETH_thumbnail from "../../../images/ETH_thumbnail.png"
 import XBT_thumbnail_alt from "../../../images/XBT_thumbnail_alt.png"
-// import bitcoinIcon from "../../../images/btcIcon.jpg"
-// import ethIcon from "../../../images/etheteumIcon.jpg"
-// import poeIcon from "../../../images/poeIcon.jpg"
-// import lunoIcon from "../../../images/lunoIcon.jpg"
-// import xCoinIcon from "../../../images/xCoinIcon.jpg"
+
 import routes from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
+import { ContextData } from '../../../context/contextData'
+import { Modal } from '../../../components'
 // import PaginatedTable from '../../../components/table/tablePagination'
 // import CoinWidget from '../../../components/widget/wigjet'
 
 const Container = styled.div`
     grid-column: ${props => props.gridPos || "2/-1"};
-    display: grid;
+    display: ${props => props.hidden ? "none" : "grid"} ;
     min-height: 100%;
     min-width: 100%;
     place-items: flex-start;
     background: ${props => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
+    position: relative;
+    
+    .modal__container{
+        place-items: center;
+        background: ${props => props.theme.colorLight};
+        padding: 2rem 3rem;
+        height: max-content;
+        align-self: center;
+        color: ${props => props.theme.colorDark};
+        text-align: center;
+        position: relative;
+        border-radius: 1rem;
+        display: grid;
+
+        .close{
+            justify-self: flex-end;
+            cursor: pointer;
+        }
+        img{
+            height: 20rem;
+            width: 20rem;
+        }
+        &--text{
+            padding: 1rem;
+        }
+        &-address{
+            font-size: ${props => props.theme.font.large};
+            color: ${props => props.theme.colorSecondary};
+        }
+    }
     .coin{
         grid-column: 1/-1;
         display: grid;
@@ -241,11 +271,19 @@ const Container = styled.div`
             .input-container{
                 margin: .2rem 0 ;
                 background: transparent;
-                padding: 1rem 2.5rem;
+                padding: 1rem 2.5rem 1rem 5rem;
                 font-size: ${props => props.theme.font.xlarge};
                 opacity: .8;
                 border: solid 1px ${props => props.theme.colorPrimary};
                 border-radius: .5rem;
+
+                %::before{
+                    content: "$";
+                    position: absolute;
+                    top: 1.6rem;
+                    left: 2.5rem;
+                    color: ${props => props.theme.colorDark};
+                }
             }
 
             &-paymentOptions{
@@ -308,7 +346,7 @@ const Container = styled.div`
 
     }
 `
-function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
+function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const coins = rates?.allRates?.slice(0, 4)
 
     const coinInfo = {
@@ -342,23 +380,29 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
             buying: 410,
         },
 
-        // bitcoin: bitcoinIcon,
-
+        bitcoinPrice: 1000
     }
-    const current = 4099999
+    // const current = 4099999
+
+    const icons = [BCH_thumbnail, LTC_thumbnail, ETH_thumbnail, XBT_thumbnail_alt,]
 
     const [showinput, setShowinput] = useState(false)
     const [selectedCoin, setSelectedCoin] = useState([])
-    const [, setAmount] = useState(coinInfo.bitcoin)
+    const [, setAmount] = useState(coinInfo.bitcoinPrice)
     const [input, setInput] = useState("")
     const [rate, setRate] = useState(0)
+    const [dollarSellingPrice, setDollarSellingPrice] = useState('')
+    const [nairaSellingPrice, setLocalSellingPrice] = useState('')
     const [isSelling, setIsSelling] = useState(true)
+    const [isModalActive, setIsModalActive] = useState(false)
 
+    const regionContext = useContext(ContextData)
+    // updateRate(1000)
     useEffect(() => {
         const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
-
-        updateRate(1000)
         // console.log('data :>> ', data);
+        // updateRate(1000)
+
         Axios.get(`${routes.api.getRates}?token=${auth_token}`)
             .then(res => {
                 // console.log(res.data.data);
@@ -372,7 +416,6 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
         }
     }, [fetchAllRates])
 
-
     const updateAmount = (value) => {
         setAmount(value)
         setShowinput(false)
@@ -381,8 +424,9 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
     const updateRate = (value) => {
         //   let quantity = (value/current).toFixed(6)
         setAmount(value)
-        setRate((value / current).toFixed(6))
+        setRate((value / selectedCoin?.buying || 1).toFixed(6))
     }
+
     const updateInput = (name, value) => {
         setInput(value)
         updateRate(value)
@@ -394,42 +438,51 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
         setSelectedCoin(coin)
     }
 
+    const updateSellingDollarAmounts = (e) => {
+        setDollarSellingPrice((e.target.value))
+        setLocalSellingPrice(e.target.value * selectedCoin?.buying || 1)
+    }
+    const updateSellingLocalAmounts = (e) => {
+        setDollarSellingPrice(e.target.value / selectedCoin?.buying || 1)
+        setLocalSellingPrice(e.target.value)
+    }
+    const buySellButton = (e) => {
+        setIsModalActive(true)
+    }
     return (
-        <Container gridPos={gridPos}>
+        <Container hidden={hidden} gridPos={gridPos}>
+            <Modal isActive={isModalActive}>
+                <div className="modal__container">
+                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                        ❌
+
+                        </span>
+                    <img src={qrcode} alt="" />
+
+                    <p className="modal__container--text">
+                        please pay the specified amount into this address
+                    </p>
+
+                    <p className="modal__container-address">
+                        d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                    </p>
+                </div>
+            </Modal>
             <div className="coin">
                 <div className="coin-options">
                     <div className="coin-options__types">
-
                         <div className="coin-options__types--container">
                             {
                                 coins?.map((coin, index) => (
                                     <div key={index} className={`coin-options__types--container--item ${selectedCoin.name === coin.name ? " active" : ""}`}>
-                                        <img src={BCH_thumbnail} alt="bitcoin" />
+                                        <img src={icons[index]} alt="bitcoin" />
                                         <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin(coin)}>
                                             {coin.name}
                                         </p>
                                     </div>
                                 ))
                             }
-                            {/* <div className={`coin-options__types--container--item ${selectedCoin?.id === "bitcoin" ? " active" : ""}`}>
-                                <img src={BCH_thumbnail} alt="bitcoin" />
-                                <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin("bitcoin")}>Bitcoin</p>
-                            </div>
 
-                            <div className={`coin-options__types--container--item ${selectedCoin?.id === "xpp" ? "active" : ""}`}>
-                                <img src={XBT_thumbnail_alt} alt="bitcoin" />
-                                <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin("xpp")}>xpp</p>
-                            </div>
-
-                            <div className={`coin-options__types--container--item  ${selectedCoin?.id === "etherum" ? " active" : ""}`}>
-                                <img src={ETH_thumbnail} alt="bitcoin" />
-                                <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin("etherum")} >etherum</p>
-                            </div>
-
-                            <div className={`coin-options__types--container--item ${selectedCoin?.id === "lite" ? " active" : ""}`}>
-                                <img src={LTC_thumbnail} alt="bitcoin" />
-                                <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin("lite")} >lite</p>
-                            </div> */}
                         </div>
                     </div>
 
@@ -442,25 +495,23 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
                         </span>
                     </p>
                     <h3 className="coin-options__prices">
-                        <span>We buy at: {selectedCoin?.buying}</span>
-                        <span>We sell at: {selectedCoin?.selling}?</span>
+                        <span>We buy at: {selectedCoin?.buying}/$</span>
+                        <span>We sell at: {selectedCoin?.selling}/$</span>
+                        <span>Avaliable Qty: 100</span>
+
                     </h3>
                     <h3 className="coin-options__header">How much {selectedCoin?.name} do you want to {isSelling ? "sell" : "buy"}?</h3>
-
-
-
-
 
                     {isSelling ? null :
                         <>
                             <div className="coin-options__card--container amount">
                                 <div className="coin-options__card--container--item price">
 
-                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1000)}>N1000</p>
+                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1000)}>₦1000</p>
                                 </div>
                                 <div className="coin-options__card--container--item price">
 
-                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1500)}>N1500</p>
+                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1500)}>₦1500</p>
                                 </div>
                                 <div className="coin-options__card--container--item price">
 
@@ -478,38 +529,35 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates }) {
                                     </div>
                             }
                             <div className="coin-options__value">
-                                {selectedCoin.short} {rate}
+                                {/* {selectedCoin.short} */} $ {rate}
                             </div>
                         </>
                     }
                     {!isSelling ? null :
                         <>
-                            <input type="text" className="coin-options__value input-container" placeholder="$ 0.0"/>
-                            <input type="text" className="coin-options__value input-container" placeholder="₦ 0.0"/>
-                            {/* <div className="coin-options__value input-container">
-                                <StyledInput name="amount" handleChange={updateInput}
-                                    value={input}
-                                    placeHolder="Enter Amount" type="text" icon={BCH_thumbnail} />
-                            </div> */}
-                            {/* <div className="coin-options__value input-container">
-                                <StyledInput name="amount" handleChange={updateInput}
-                                    value={input}
-                                    placeHolder="Enter Amount" type="text" icon={BCH_thumbnail} />
-                            </div> */}
+                            <p>
+                               {/* <span>{ regionContext?.country?. symbol}</span>  */}
+                               <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
+                            </p>
+                            <p>
+                               <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
+                            </p>
                         </>
                     }
                     <select name="coin-options" className="coin-options-paymentOptions">
                         <option value="bank">
                             Mode of payment
                         </option>
-                        <option value="bank">
-                            Bank Transfer
-                        </option>
-                        <option value="bank">Bitcoin</option>
-                        <option value="bank">GiftCard</option>
+                        {
+                            regionContext?.country?.paymentMethods?.map((item, i) => (
+                                <option key={i} value="bank">
+                                    {item.name}
+                                </option>
+                            ))
+                        }
                     </select>
 
-                    <button className="coin-options__button">
+                    <button onClick={buySellButton} className="coin-options__button">
                         {isSelling ? "Sell" : "Buy"}
                     </button>
                 </div>

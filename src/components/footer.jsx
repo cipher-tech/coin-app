@@ -82,11 +82,12 @@ const Footer = (props) => {
         <Container>
             {props.children}
             <p className="footer-options">
-                <select className="footer-options-select" name="language" id="lang">
+            <div id="google_translate_element"></div>
+                {/* <select className="footer-options-select" name="language" id="lang">
                     <option value="english">Nigeria[English] </option>
                     <option value="french">French </option>
                     <option value="spanish">Spanish </option>
-                </select>
+                </select> */}
 
                 <span className="footer-options-img">
                     <img src={logo} alt="logo" />

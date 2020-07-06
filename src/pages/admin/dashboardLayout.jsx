@@ -274,7 +274,7 @@ background: ${props => props.theme.colorPrimary};
 function DashboardLayout(props) {
     const isLoggedIn = useIsLoggedIn(props.history)
     const regionContext = useContext(ContextData)
-    // console.log(isLoggedIn);
+    // console.log( "layout" ,regionContext);
 
     
     

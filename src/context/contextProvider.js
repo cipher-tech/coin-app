@@ -1,6 +1,4 @@
-import React, {
-    Component
-} from 'react'
+import React, {Component} from 'react'
 import {
     ContextData
 } from './contextData'
@@ -17,19 +15,59 @@ class ContextProvider extends Component {
                 id: "nigeria",
                 currency: "naira",
                 symbol: '₦',
-                paymentMethods: ["MTN MOBILE MONEY","ACCESS BANK","FIDELITY ACCOUNT"],
+                paymentMethods: [
+                    {
+                        name: "MTN MOBILE MONEY",
+                        type: "digital"
+                    },
+                    {
+                        name: "ACCESS BANK",
+                        type: "bank",
+                    },
+                    {
+                        name: "FIDELITY ACCOUNT",
+                        type: "bank",
+                    }
+                ],
             },
             ghana: {
                 id: "ghana",
                 currency: "cedi",
                 symbol: '¢',
-                paymentMethods: ["MTN MOBILE MONEY","ACCESS BANK","FIDELITY ACCOUNT"],
+                paymentMethods: [
+                    {
+                        name: "MTN MOBILE MONEY",
+                        type: "digital"
+                    },
+                    {
+                        name: "ACCESS BANK",
+                        type: "bank",
+                    },
+                    {
+                        name: "FIDELITY ACCOUNT",
+                        type: "bank",
+                    }
+                ],
             },
             cameroon: {
                 id: "cameroon",
                 currency: "franc",
                 symbol: '₣',
-                paymentMethods: ["MTN FLOAT", "AFRILAND BANK","UBA"],
+                paymentMethods: [
+                    {
+                        name: "MTN FLOAT",
+                        type: "digital"
+                    },
+                    {
+                        name: "AFRILAND BANK",
+                        type: "bank",
+                    },
+                    {
+                        name:  "UBA",
+                        type: "bank",
+                    }
+                    
+                ],
             }
         }
 
@@ -42,11 +80,13 @@ class ContextProvider extends Component {
         }
     }
     componentDidMount() {
+        console.log("layout",this.regions[JSON.parse(localStorage.region).id]);
+        
         this.setState((state, props) => {
             return {
                 contextData: {
                     ...this.state.contextData,
-                    country: localStorage.region ? this.regions[localStorage.region] : null,
+                    country: JSON.parse(localStorage.region) ? this.regions[JSON.parse(localStorage.region).id] : "989898",
                     IsRegionSelected: true
                 }
 
@@ -71,16 +111,12 @@ class ContextProvider extends Component {
     }
 
     render() {
-        return ( <
-            >
-            <
-            ContextData.Provider value = {
-                this.state.contextData
-            } > {
-                this.props.children
-            } <
-            /ContextData.Provider> < /
-            >
+        return (
+            <>
+                <ContextData.Provider value={this.state.contextData}>
+                    {this.props.children}
+                </ContextData.Provider>
+            </>
         )
     }
 }

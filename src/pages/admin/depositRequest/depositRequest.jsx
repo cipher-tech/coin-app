@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import envelope from "../../../images/svgIcons/envelope.svg"
-import { ReactComponent as Icon} from "../../../images/svgIcons/envelope.svg"
+// import { ReactComponent as Icon } from "../../../images/svgIcons/envelope.svg"
 import styled from 'styled-components'
 import { StyledInput } from '../../../components/styledComponents'
 // import Button from '../../../components/button/button'
@@ -8,9 +8,10 @@ import Axios from 'axios'
 import { connect } from 'react-redux'
 import routes from '../../../navigation/routes'
 import { PopUpMessage, Modal } from '../../../components'
-import giftCard from "../../../images/amazon-cardCrop.png"
+import qrcode from "../../../images/qrcode.png"
 import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
+import { ContextData } from '../../../context/contextData'
 
 
 const Container = styled.div`
@@ -41,6 +42,17 @@ const Container = styled.div`
         .close{
             justify-self: flex-end;
             cursor: pointer;
+        }
+        img{
+            height: 20rem;
+            width: 20rem;
+        }
+        &--text{
+            padding: 1rem;
+        }
+        &-address{
+            font-size: ${props => props.theme.font.large};
+            color: ${props => props.theme.colorSecondary};
         }
     }
     .title{   
@@ -88,34 +100,52 @@ const Container = styled.div`
                 justify-items: initial;
             }
         }
+        .paymentOptions{
+            padding: 1rem 2rem;
+                margin: 1rem;
+                box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
+                    .2rem .4rem 10px rgba(0,0,0, .3);
+                background: none;
+                border-radius: .4rem;  
+                border: none;  
+                font-size: ${props => props.theme.font.medium};
+                color: ${props => props.theme.colorSecondary};
+                /* &:hover{
+                } */
+                &:focus{
+                    outline: none;
+                    /* color: ${props => props.theme.colorSecondary}; */
+                }
+        }
         .summit{
             margin: 0 2rem;
         }
     }
 `
 function DepositRequest(props) {
-    const [depositValue, setDepositValue] = useState("")
+    const regionContext = useContext(ContextData)
+    // const [depositValue, setDepositValue] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
-    const [isModalActive, setIsModalActive] = useState(false)
+    const [isModalActive, setIsModalActive] = useState(!false)
 
 
-    const updateFormValue = (name, value) => {
-
-    }
+    // const updateFormValue = (name, value) => {
+    //     setDepositValue(value)
+    // }
     const state = {
         amount: "",
-        newPassword: "",
+        // newPassword: "",
         // slug: slug,
     }
     const modalRule = {
-        amount: { required: true, minlength: 2 },
-        newPassword: { required: true, minlength: 4 },
+        // amount: { required: true, minlength: 2 },
+        // newPassword: { required: true, minlength: 4 },
     }
     const handleSubmit = (e) => {
-        if (depositValue.length < 1) {
+        if (state?.amount.length < 1) {
             console.log("short");
 
             setError(!false)
@@ -132,7 +162,7 @@ function DepositRequest(props) {
         const object = {
             id: userid,
             email: email,
-            amount: +depositValue
+            amount: +state?.amount
         }
         console.log(object);
         if (status === "verified") {
@@ -169,16 +199,18 @@ function DepositRequest(props) {
 
         }
     }
-    const updateResetValue = (name, value) => {
+    const updateAmountValue = (name, value) => {
         state[name] = value
+        console.log(value);
+
     }
-    let createImage = (file) => {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            return e.target.result
-        };
-        reader.readAsDataURL(file);
-    }
+    // let createImage = (file) => {
+    //     let reader = new FileReader();
+    //     reader.onload = (e) => {
+    //         return e.target.result
+    //     };
+    //     reader.readAsDataURL(file);
+    // }
     return (
         <Container>
             <Modal isActive={isModalActive}>
@@ -187,14 +219,15 @@ function DepositRequest(props) {
                         ❌
 
                         </span>
-                    <img src={giftCard} alt="" />
+                    <img src={qrcode} alt="" />
 
-                    <p>
+                    <p className="modal__container--text">
                         please pay the specified amount into this address
-                        </p>
-                    <p>
+                    </p>
+
+                    <p className="modal__container-address">
                         d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
-                        </p>
+                    </p>
                 </div>
             </Modal>
             {/* <h1 className="title">Deposit Requests</h1> */}
@@ -211,7 +244,7 @@ function DepositRequest(props) {
                     classname="deposit-form"
                     wrapperClass="deposit-form__wrapper"
                     data={state} rules={modalRule}
-                    submit={null}>
+                    submit={handleSubmit}>
                     <div className="">
 
                         {/* <StyledInput name="deposit" label="" updatedValue={setDepositValue}
@@ -219,18 +252,22 @@ function DepositRequest(props) {
                             placeHolder="Enter amount to Deposit" type="number" icon={envelope} /> */}
 
                         {/* <br /> */}
-                        <StyledInput name="amount" handleChange={updateResetValue}
+                        <StyledInput name="amount" handleChange={updateAmountValue}
                             value={state.amount}
                             placeHolder="Enter amount to Deposit" type="text" icon={envelope} />
                         <ValidationMessage field="amount" />
 
-                        <select name="paymentOptions">
+                        <select className="paymentOptions" name="paymentOptions">
                             <option value="bank">
-                           
                                 Bank Transfer
                             </option>
-                            <option value="bank">Bitcoin</option>
-                            <option value="bank">GiftCard</option>
+                            {
+                                regionContext?.country?.paymentMethods?.map((item, i) => (
+                                    <option key={i} value="bank">
+                                        {item.name}
+                                    </option>
+                                ))
+                            }
                         </select>
                     </div>
 

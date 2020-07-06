@@ -13,7 +13,7 @@ import SingleCoinRates from '../pages/admin/rates/singleCoinRates'
 const Container = styled.div`
     display: grid;
     grid-column: 2/10;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     justify-content: center;
     gap: 2rem 0rem;
     height: max-content;
@@ -34,12 +34,12 @@ const Container = styled.div`
     }
     .rate-card{
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 5rem 1fr;
         align-self: center;
         justify-self: center;
         place-items: center;
         padding: 1rem;
-        width: 16rem;
+        width: 25rem;
         border-radius: 1rem;
         color: ${props => props.theme.colorDark};
         box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
@@ -47,13 +47,21 @@ const Container = styled.div`
 
         img{
             justify-self: center;
-            height: 100%;
-            width: 100%;
+            height: 9rem;
+            width: 5rem;
+
         }
         &__text{
             padding: 0 1rem;
             justify-self: flex-start;
-            
+            font-size: ${props => props.theme.font.medium};
+            color:  ${props => props.theme.colorSecondary};
+            &--subtext{
+                margin-top: 1rem;
+                display: flex;
+                color:  ${props => props.theme.colorDark};
+                font-weight: 600;
+            }
             &--rate{
                 margin: 1rem 0;
                 font-size: ${props => props.theme.font.large};
@@ -67,20 +75,7 @@ const Container = styled.div`
         width: 100%;
         display: grid;
     }
-    img, div{
-        /* height: 30rem; */
-        /* width: 100%; */
-        /* object-fit: cover; */
-        /* margin: 1rem 1rem; */
-        /* margin-top: 3rem; */
-        
-        /* &:hover{
-            transition: all .3s ease-in-out .1s !important ;
-            transform: translateY(-2rem) scale(1) rotate(0deg) !important;
-        } */
-    }
-
-    /* background: whitesmoke; */
+    
 `
 const CoinRates = ({ rates }) => {
     let { allRates = [] } = rates
@@ -106,12 +101,14 @@ const CoinRates = ({ rates }) => {
                     allRates.slice(0, 4).map((rate, index) => {
                         return (
                             <div key={index} className="rate-card">
-                                <img src={index === 2 || index === 3 ? giftcard : bitcoin } alt="bitcoin" />
+                                <img src={index === 2 || index === 3 ? giftcard : bitcoin} alt="bitcoin" />
                                 <p className="rate-card__text">
-                                {/* {console.log(index)} */}
-                                   {rate.name ? rate.name: "Bitcoin"}
-                                <br />
-                                    <span className="rate-card__text--rate">{rate.selling? rate.selling : "0"}</span>
+                                 
+                                    Current {rate.name ? rate.name : "Bitcoin"} rate:
+                                    <br />
+                                    <span className="rate-card__text--subtext">We buy at:</span>
+                                    <br />
+                                    <span className="rate-card__text--rate">{rate.selling ? rate.selling : "0"}</span>
                                 </p>
                                 {/* <CoinWidget ele="#mydiv" id="mydiv" link={`<div style="height:560px; background-color: #FFFFFF; overflow:hidden; box-sizing: border-box; border: 1px solid #56667F; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #56667F;padding:1px;padding: 0px; margin: 0px; width: 100%;"><div style="height:540px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=chart&theme=light&coin_id=859&pref_coin_id=1505" width="100%" height="536px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;line-height:14px;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div></div>`} /> */}
                             </div>
@@ -123,7 +120,7 @@ const CoinRates = ({ rates }) => {
 
             <div className="rate-table">
                 {/* <Rates limit={4} gridPos="1/-1" /> */}
-                <SingleCoinRates/>
+                <SingleCoinRates hidden />
             </div>
             {/* <div className="rate-card">
                 <img src={chat} alt="bitcoin" /> */}
@@ -155,7 +152,7 @@ const CoinRates = ({ rates }) => {
                  allowtransparency="true" scrolling="no" allowfullscreen="" frameborder="0"
                  title="coinrate"></iframe> */}
 
-           
+
         </Container>
     )
 }
