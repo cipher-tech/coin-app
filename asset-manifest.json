@@ -1,19 +1,21 @@
 {
   "files": {
     "main.css": "/coin-app/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/coin-app/static/js/main.0843b1ac.chunk.js",
-    "main.js.map": "/coin-app/static/js/main.0843b1ac.chunk.js.map",
+    "main.js": "/coin-app/static/js/main.d17e1e14.chunk.js",
+    "main.js.map": "/coin-app/static/js/main.d17e1e14.chunk.js.map",
     "runtime-main.js": "/coin-app/static/js/runtime-main.18655351.js",
     "runtime-main.js.map": "/coin-app/static/js/runtime-main.18655351.js.map",
     "static/css/2.029307b4.chunk.css": "/coin-app/static/css/2.029307b4.chunk.css",
-    "static/js/2.abf0c6bc.chunk.js": "/coin-app/static/js/2.abf0c6bc.chunk.js",
-    "static/js/2.abf0c6bc.chunk.js.map": "/coin-app/static/js/2.abf0c6bc.chunk.js.map",
+    "static/js/2.b648144e.chunk.js": "/coin-app/static/js/2.b648144e.chunk.js",
+    "static/js/2.b648144e.chunk.js.map": "/coin-app/static/js/2.b648144e.chunk.js.map",
     "index.html": "/coin-app/index.html",
-    "precache-manifest.cdbb3e3554e0f4082ec4cb92185804ef.js": "/coin-app/precache-manifest.cdbb3e3554e0f4082ec4cb92185804ef.js",
+    "precache-manifest.966d37110daaf36d8f3bc9ae2bf80b9b.js": "/coin-app/precache-manifest.966d37110daaf36d8f3bc9ae2bf80b9b.js",
     "service-worker.js": "/coin-app/service-worker.js",
     "static/css/2.029307b4.chunk.css.map": "/coin-app/static/css/2.029307b4.chunk.css.map",
     "static/css/main.5ecd60fb.chunk.css.map": "/coin-app/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.abf0c6bc.chunk.js.LICENSE.txt": "/coin-app/static/js/2.abf0c6bc.chunk.js.LICENSE.txt",
+    "static/js/2.b648144e.chunk.js.LICENSE.txt": "/coin-app/static/js/2.b648144e.chunk.js.LICENSE.txt",
+    "static/media/BarChart-1.svg": "/coin-app/static/media/BarChart-1.b39d541d.svg",
+    "static/media/BarChart-2.svg": "/coin-app/static/media/BarChart-2.e6ca7e98.svg",
     "static/media/amazon-card.png": "/coin-app/static/media/amazon-card.d08f94fc.png",
     "static/media/amazon-cardCrop.png": "/coin-app/static/media/amazon-cardCrop.37ea7c64.png",
     "static/media/avatar1.jpg": "/coin-app/static/media/avatar1.9acd921d.jpg",
@@ -43,6 +45,7 @@
     "static/media/menu.453c0f95.svg": "/coin-app/static/media/menu.453c0f95.svg",
     "static/media/pic5.jpg": "/coin-app/static/media/pic5.274b2e94.jpg",
     "static/media/power-switch.c7cf6e0a.svg": "/coin-app/static/media/power-switch.c7cf6e0a.svg",
+    "static/media/qrcode.png": "/coin-app/static/media/qrcode.0ec66ccf.png",
     "static/media/review.svg": "/coin-app/static/media/review.296bdacb.svg",
     "static/media/security.svg": "/coin-app/static/media/security.14c39d2e.svg",
     "static/media/smile.133b690c.svg": "/coin-app/static/media/smile.133b690c.svg",
@@ -57,8 +60,8 @@
   "entrypoints": [
     "static/js/runtime-main.18655351.js",
     "static/css/2.029307b4.chunk.css",
-    "static/js/2.abf0c6bc.chunk.js",
+    "static/js/2.b648144e.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.0843b1ac.chunk.js"
+    "static/js/main.d17e1e14.chunk.js"
   ]
 }
