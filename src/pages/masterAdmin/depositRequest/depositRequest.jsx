@@ -60,20 +60,20 @@ const Container = styled.div`
 
     
 `
-function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
+function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 	// const [token, setToken] = useState([])
 	const [fetchedDeposits, setFetchedDeposits] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
-    const [showpopUpMessage, setShowPopUpMessage] = useState(false)
-    const [hasError, setHasError] = useState(false)
+	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+	const [hasError, setHasError] = useState(false)
 
 
 	// let authToken
-	
+
 	useEffect(() => {
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 		console.log(auth_token);
-		
+
 		Axios.get(`${routes.api.adminDeposits}?token=${auth_token}`)
 			.then(response => {
 				console.log(response.data.data);
@@ -86,11 +86,11 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 				// console.log(allDeposits)
 			})
 			.catch(error => {
-                // alert(`An Error Occured! ${error}`);
-                console.log(error);
+				// alert(`An Error Occured! ${error}`);
+				console.log(error);
 			});
 
-	}, [fetchAllDeposits] )
+	}, [fetchAllDeposits])
 	const columns = [
 		// {
 		// 	// Make an expander cell
@@ -117,22 +117,22 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 					accessor: 'email',
 				},
 				{
-					Header: 'Coin Address', 
+					Header: 'Coin Address',
 					accessor: (rowInfo) => {
 						return (
-						  <span>
-						   {rowInfo?.user?.coin_address || "none"}
-						  </span>
+							<span>
+								{rowInfo?.user?.coin_address || "none"}
+							</span>
 						)
-					  },
+					},
 					render: (rowInfo) => {
-					  return (
-						<span>
-						 {rowInfo.value.map(coinAddress => (<span>{console.log(coinAddress.user)}</span>))}
-						</span>
-					  )
+						return (
+							<span>
+								{rowInfo.value.map(coinAddress => (<span>{console.log(coinAddress.user)}</span>))}
+							</span>
+						)
 					}
-				  },
+				},
 				{
 					Header: 'Status',
 					accessor: 'status',
@@ -149,33 +149,33 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 			Header: () => null, // No header
 			id: 'action', // It needs an ID
 			Cell: ({ row }) => (
-			  // Use Cell to render an expander for each row.
-			  // We can use the getToggleRowExpandedProps prop-getter
-			  // to build the expander.
+				// Use Cell to render an expander for each row.
+				// We can use the getToggleRowExpandedProps prop-getter
+				// to build the expander.
 
-			  <div className="options_btn">
-			   <StyledButton onClick={(e) => acceptDeposit(row.original.amount, 
-                row.original.id, 
-                row.original.slug,
-                row.original.user_id, 
-                row.original.status) }>
-				  Accept
-			  </StyledButton>
+				<div className="options_btn">
+					<StyledButton onClick={(e) => acceptDeposit(row.original.amount,
+						row.original.id,
+						row.original.slug,
+						row.original.user_id,
+						row.original.status)}>
+						Accept
+			  		</StyledButton>
 
-			  <StyledButton onClick={(e) => deleteRequest(row.original.id)}>
-				  Delete
-				</StyledButton>
-		  </div>
-			 
+					<StyledButton onClick={(e) => deleteRequest(row.original.id)}>
+						Delete
+					</StyledButton>
+				</div>
+
 			),
-		  },
+		},
 	]
 
 	const deleteRequest = (id) => {
 		// console.log(user_id);
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
-		Axios.post(`${routes.api.adminDeleteDeposit}?token=${auth_token}`, {id: id, action: "delete" })
+		Axios.post(`${routes.api.adminDeleteDeposit}?token=${auth_token}`, { id: id, action: "delete" })
 			.then(res => {
 				setShowPopUpMessage(false)
 				if (res.data.status === "success") {
@@ -196,50 +196,50 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 
 	const expandedComponent = (row) => (
 		<div
-        style={{
-          fontSize: '10px',
-          height: "20rem",
-          width: "100%",
-          display: "grid",
-         "gridTemplateColumns": "1fr 1fr 1fr",
-         overflow: "hidden"
+			style={{
+				fontSize: '10px',
+				height: "20rem",
+				width: "100%",
+				display: "grid",
+				"gridTemplateColumns": "1fr 1fr 1fr",
+				overflow: "hidden"
 
-        }}
-      >
-        {/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
-        {Object.values(JSON.parse(row.values.images)).map((photo,i) => (
-          <img key={i} src={`http://localhost:8000/images/${photo}`} alt="acceptDeposit info" />
-          ))}
-      </div>
+			}}
+		>
+			{/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
+			{Object.values(JSON.parse(row.values.images)).map((photo, i) => (
+				<img key={i} src={`http://localhost:8000/images/${photo}`} alt="acceptDeposit info" />
+			))}
+		</div>
 	)
-	const acceptDeposit = (amount, id, slug,user_id,status) => {
+	const acceptDeposit = (amount, id, slug, user_id, status) => {
 		// console.log();
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-        const data = {
-            amount: amount,
-            id: id,
-            slug: slug,
-            user_id: user_id,
-            status: status
-        }
-        console.log(data);
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const data = {
+			amount: amount,
+			id: id,
+			slug: slug,
+			user_id: user_id,
+			status: status
+		}
+		console.log(data);
 		Axios.post(`${routes.api.adminAcceptDeposit}?token=${auth_token}`, data)
-		.then( res => {
-			setShowPopUpMessage(false)
-			if (res.data.status === "success") {
-                setHasError(false)
-				setPopUpMessage(res.data.data[0])
-			}else{
-                setPopUpMessage(res.data.data)
-                setHasError(true)
-            }
-			return res.data.data[1];
-			// console.log(res.data);
-		})
-		.then(res => {
-			setShowPopUpMessage(true)
-			fetchAllDeposits(res)
-		})
+			.then(res => {
+				setShowPopUpMessage(false)
+				if (res.data.status === "success") {
+					setHasError(false)
+					setPopUpMessage(res.data.data[0])
+				} else {
+					setPopUpMessage(res.data.data)
+					setHasError(true)
+				}
+				return res.data.data[1];
+				// console.log(res.data);
+			})
+			.then(res => {
+				setShowPopUpMessage(true)
+				fetchAllDeposits(res)
+			})
 		// .catch(res => {
 		// 	setPopUpMessage(res.data.data)
 		// 	setShowPopUpMessage(true)
@@ -248,7 +248,7 @@ function AdminDepositRequest({allDeposits, fetchAllDeposits}) {
 	return (
 		<Container color="">
 			<div className="rate">
-			{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
+				{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
 				<h1 className="rate__title">Deposit Requests</h1>
 				{fetchedDeposits ? <Table data={allDeposits.deposits || []} expandedComponent={expandedComponent} handleVerifyClick={acceptDeposit} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}

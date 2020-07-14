@@ -1,10 +1,6 @@
-import React, {Component} from 'react'
-import {
-    ContextData
-} from './contextData'
-import {
-    withRouter
-} from 'react-router-dom'
+import React, { Component } from 'react'
+import { ContextData } from './contextData'
+import { withRouter } from 'react-router-dom'
 // import { Redirect } from 'react-router-dom'
 
 class ContextProvider extends Component {
@@ -13,6 +9,7 @@ class ContextProvider extends Component {
         this.regions = {
             nigeria: {
                 id: "nigeria",
+                code: "NGN",
                 currency: "naira",
                 symbol: '₦',
                 paymentMethods: [
@@ -32,6 +29,7 @@ class ContextProvider extends Component {
             },
             ghana: {
                 id: "ghana",
+                code: "GHS",
                 currency: "cedi",
                 symbol: '¢',
                 paymentMethods: [
@@ -51,6 +49,7 @@ class ContextProvider extends Component {
             },
             cameroon: {
                 id: "cameroon",
+                code: "XAF",
                 currency: "franc",
                 symbol: '₣',
                 paymentMethods: [
@@ -63,30 +62,30 @@ class ContextProvider extends Component {
                         type: "bank",
                     },
                     {
-                        name:  "UBA",
+                        name: "UBA",
                         type: "bank",
                     }
-                    
+
                 ],
             }
         }
 
         this.state = {
             contextData: {
-                country: null,
+                country: this.regions[JSON.parse(localStorage.region)?.id] || this.regions.nigeria,
                 changeRegion: this.selectRegions,
                 IsRegionSelected: false
             }
         }
     }
     componentDidMount() {
-        console.log("layout",this.regions[JSON.parse(localStorage.region).id]);
-        
+        // console.log("layout",this.regions[JSON.parse(localStorage.region).id]);
+
         this.setState((state, props) => {
             return {
                 contextData: {
                     ...this.state.contextData,
-                    country: JSON.parse(localStorage.region) ? this.regions[JSON.parse(localStorage.region).id] : "989898",
+                    country: JSON.parse(localStorage.region) ? this.regions[JSON.parse(localStorage.region).id] : "",
                     IsRegionSelected: true
                 }
 
@@ -106,8 +105,8 @@ class ContextProvider extends Component {
 
             }
         })
-
-        this.props.history.push('/admin')
+        window.location.reload(false);
+        // this.props.history.push(this.props.history.location.pathname)
     }
 
     render() {

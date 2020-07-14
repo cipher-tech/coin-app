@@ -81,7 +81,7 @@ const Footer = (props) => {
     return (
         <Container>
             {props.children}
-            <p className="footer-options">
+            <div className="footer-options">
             <div id="google_translate_element"></div>
                 {/* <select className="footer-options-select" name="language" id="lang">
                     <option value="english">Nigeria[English] </option>
@@ -95,7 +95,7 @@ const Footer = (props) => {
                 <span className="footer-credit">
                     C Cipher 2020
                 </span>
-            </p>
+            </div>
             <ul className="footer-list">
                 <li className="footer-list-item"> Products </li>
                 <Link to="/contact" className="footer-list-item"> Contact</Link>

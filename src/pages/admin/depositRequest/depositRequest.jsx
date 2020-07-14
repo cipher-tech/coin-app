@@ -129,7 +129,7 @@ function DepositRequest(props) {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
-    const [isModalActive, setIsModalActive] = useState(!false)
+    const [isModalActive, setIsModalActive] = useState(false)
 
 
     // const updateFormValue = (name, value) => {

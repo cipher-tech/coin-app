@@ -243,7 +243,7 @@ background: ${props => props.theme.colorPrimary};
                     background: ${props => props.status ? props.theme.colorSuccess : props.theme.colorError};
                     top: -.4rem;
                     right: .4rem;
-                    animation: ${blink} 1.5s ease-in-out ${props => props.status ? "infinite" : "infinite"};
+                    animation: ${blink} 1.5s ease-in-out ${props => props.status === "verified" ? "" : "infinite"};
                 }
             }
             &-item{
@@ -279,12 +279,12 @@ function DashboardLayout(props) {
     
     
 
-    const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.first_name : null
-    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.email : null
-    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status : null
+    const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.first_name : null
+    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
+    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.status : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
-    const [userStatus] = useState(status === "verified")
+    // const [userStatus] = useState(status === "verified")
     const sideNavWidth = "28rem";
     const spring = useSpring({
         width: sideNavIsOpen ? sideNavWidth : "6rem"
@@ -309,7 +309,7 @@ function DashboardLayout(props) {
         regionContext.changeRegion(e.target.value)
     }
     return (
-        <Container navWidth={sideNavWidth} status={userStatus} sidenavIsOpen={sideNavIsOpen}>
+        <Container navWidth={sideNavWidth} status={status} sidenavIsOpen={sideNavIsOpen}>
             <animated.div style={{ width: spring.width }} className="sideNav">
 
                 <ul className="sideNav__container">
@@ -436,6 +436,7 @@ function DashboardLayout(props) {
                             {/* <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item region-select" /> */}
                             <select className="region-select" defaultValue={localStorage.region ? localStorage.region.id : null} onChange={selectRegion} name="language" id="lang">
                                { !localStorage.region ?<option> Select Region </option> : null}
+                                <option name="nigeria" value="nigeria" > Select Country </option>
                                 <option name="nigeria" value="nigeria" > Nigeria </option>
                                 <option name="ghana" value="ghana"> Ghana </option>
                                 <option name="cameroon" value="cameroon">Carmeroon</option>

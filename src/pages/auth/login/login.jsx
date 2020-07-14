@@ -98,6 +98,7 @@ const Container = styled.div`
                 padding: 1rem 4.5rem;
                 font-size: ${props => props.theme.font.xlarge};
                 border-radius: 20rem;
+                text-decoration: none;
                 border: 1px solid ${props => props.theme.colorLight};
                 box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
@@ -331,7 +332,8 @@ class Login extends Component {
                             and Gift Cards  experience
                             world class transaction processes.
                         </p>
-                        <button className="login__side-left-button">Sign Up</button>
+                        <Link to="sign-up" className="login__side-left-button"> Sign Up</Link>
+                        {/* <button ></button> */}
                     </div>
                     <div className="login__side-right">
                         <div className="login__side-right-image">

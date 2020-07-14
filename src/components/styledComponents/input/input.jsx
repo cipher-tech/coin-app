@@ -52,7 +52,7 @@ export default function InputComponent(props) {
                 <input type={props.type} 
                 onChange={(event) =>{ 
                     event.preventDefault()
-                     props.handleChange(props.name, event.target.value ); 
+                    props.handleChange && props.handleChange(props.name, event.target.value ); 
                     setvalue(event.target.value)
                  if(props.updatedValue){
                     props.updatedValue(event.target.value)

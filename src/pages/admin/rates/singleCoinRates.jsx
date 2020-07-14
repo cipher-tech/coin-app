@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
-// import rateImage from "../../../images/rate.png"
-// import Table from './table'
+import fx from "money"
 // import CoinWidget from "../../../components/widget/wigjet"
 import Axios from 'axios'
 import qrcode from "../../../images/qrcode.png"
@@ -11,7 +10,7 @@ import LTC_thumbnail from "../../../images/LTC_thumbnail.png"
 import ETH_thumbnail from "../../../images/ETH_thumbnail.png"
 import XBT_thumbnail_alt from "../../../images/XBT_thumbnail_alt.png"
 
-import routes from '../../../navigation/routes'
+import routes, { defaultcurrencies } from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
 import { StyledInput } from '../../../components/styledComponents'
@@ -89,6 +88,14 @@ const Container = styled.div`
             position: relative;
             margin-top: 8rem;
 
+            .red{
+                color: ${props => props.theme.colorError} !important;
+            }
+            .disabled{
+                background: #b9b9b9 !important;
+            }
+            
+            
             &__types{
                 position: absolute;
                 display: grid;
@@ -252,7 +259,7 @@ const Container = styled.div`
                 justify-content: space-evenly;
                 grid-column: 1/-1;
                 width: 100%;
-                font-size: ${props => props.theme.font.xlarge};
+                font-size: ${props => props.theme.font.large};
                 padding: 1rem 1rem;
                 font-weight: 600;
                 /* margin-top: 1rem; */
@@ -302,6 +309,10 @@ const Container = styled.div`
                     outline: none;
                     /* color: ${props => props.theme.colorSecondary}; */
                 }
+            }
+            &__acceptedPaymentMethods{
+                font-size: ${props => props.theme.font.xsmall};
+                color: red;
             }
             &__button{
                 display: flex;
@@ -384,7 +395,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     }
     // const current = 4099999
 
-    const icons = [BCH_thumbnail, LTC_thumbnail, ETH_thumbnail, XBT_thumbnail_alt,]
+    const icons = [BCH_thumbnail, ETH_thumbnail, LTC_thumbnail, XBT_thumbnail_alt,]
 
     const [showinput, setShowinput] = useState(false)
     const [selectedCoin, setSelectedCoin] = useState([])
@@ -399,15 +410,24 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const regionContext = useContext(ContextData)
     // updateRate(1000)
     useEffect(() => {
+        fx.base = "USD";
         const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
         // console.log('data :>> ', data);
         // updateRate(1000)
-
+        Axios.get(routes.exchangeApi)
+            .then(res => {
+                fx.rates = res.data.rates
+                // console.log("live Rates", res.data.rates);
+            })
+            .catch(err => {
+                fx.rates = defaultcurrencies.rates
+            })
         Axios.get(`${routes.api.getRates}?token=${auth_token}`)
             .then(res => {
                 // console.log(res.data.data);
                 fetchAllRates(res.data.data)
-                setSelectedCoin(res.data.data[0])
+                updateSelectedCoin(res.data.data[0])
+                // setSelectedCoin(])
                 return
             })
 
@@ -434,6 +454,12 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
 
     }
     const updateSelectedCoin = (coin) => {
+        // console.log(coin.selling);
+        // console.log(regionContext);
+        // console.log()
+        coin.buying = fx.convert(coin.buying,{from: "NGN", to: regionContext.country.code}).toFixed(1);
+        
+        coin.selling = fx.convert(coin.selling,{from: "NGN", to: regionContext.country.code}).toFixed(1)
         setShowinput(false);
         setSelectedCoin(coin)
     }
@@ -474,9 +500,9 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         <div className="coin-options__types--container">
                             {
                                 coins?.map((coin, index) => (
-                                    <div key={index} className={`coin-options__types--container--item ${selectedCoin.name === coin.name ? " active" : ""}`}>
+                                    <div key={index} className={`coin-options__types--container--item ${selectedCoin.name === coin.name ? " active" : ""}`} onClick={() => updateSelectedCoin(coin)}>
                                         <img src={icons[index]} alt="bitcoin" />
-                                        <p className="coin-options__types--container--item--text" onClick={() => updateSelectedCoin(coin)}>
+                                        <p className="coin-options__types--container--item--text">
                                             {coin.name}
                                         </p>
                                     </div>
@@ -497,24 +523,27 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     <h3 className="coin-options__prices">
                         <span>We buy at: {selectedCoin?.buying}/$</span>
                         <span>We sell at: {selectedCoin?.selling}/$</span>
-                        <span>Avaliable Qty: 100</span>
+                        <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>
 
                     </h3>
+
+                    {(!isSelling && !selectedCoin?.quantity) ?
+                        <h3 className="coin-options__header red"> Currently not avaliable</h3>
+                        :
+                        ""}
+
                     <h3 className="coin-options__header">How much {selectedCoin?.name} do you want to {isSelling ? "sell" : "buy"}?</h3>
 
                     {isSelling ? null :
                         <>
                             <div className="coin-options__card--container amount">
                                 <div className="coin-options__card--container--item price">
-
                                     <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1000)}>₦1000</p>
                                 </div>
                                 <div className="coin-options__card--container--item price">
-
                                     <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1500)}>₦1500</p>
                                 </div>
                                 <div className="coin-options__card--container--item price">
-
                                     <p className="coin-options__card--container--item--text" onClick={() => setShowinput(true)} >Own Amount</p>
                                 </div>
 
@@ -536,11 +565,11 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     {!isSelling ? null :
                         <>
                             <p>
-                               {/* <span>{ regionContext?.country?. symbol}</span>  */}
-                               <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
+                                {/* <span>{ regionContext?.country?. symbol}</span>  */}
+                                <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
                             </p>
                             <p>
-                               <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
+                                <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
                             </p>
                         </>
                     }
@@ -556,8 +585,10 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             ))
                         }
                     </select>
-
-                    <button onClick={buySellButton} className="coin-options__button">
+                    <p className="coin-options__acceptedPaymentMethods">
+                        *Currently accepted payment methods: UBA, BITCOIN
+                    </p>
+                    <button onClick={buySellButton} disabled={(!isSelling && !selectedCoin?.quantity)} className={`coin-options__button ${(!isSelling && !selectedCoin?.quantity) ? "disabled" : ""}`}>
                         {isSelling ? "Sell" : "Buy"}
                     </button>
                 </div>

@@ -102,6 +102,7 @@ const Container = styled.div`
                 box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
                 background: transparent;
+                text-decoration: none;
                 color: ${props => props.theme.colorLight};
                 /* border: none; */
                 margin: 1rem 1rem 4rem 1rem;
@@ -265,7 +266,7 @@ export default class SignUp extends Component {
                             and Gift Cards  experience
                             world class transaction processes.
                         </p>
-                        <button className="login__side-left-button">Sign Up</button>
+                        <Link to="/login" className="login__side-left-button"> LogIn</Link>
                     </div>
                     <div className="login__side-right">
                         <div className="login__side-right-image">

@@ -133,29 +133,33 @@ function AdminRates({ fetchAllRates, rates }) {
 	const [currentRate, setCurrentRate] = useState('')
 	const [buying, setBuying] = useState('')
 	const [selling, setSelling] = useState('')
+	const [quantity, setQuantity] = useState('')
 	// const [editName, setEditName] = useState('')
 	// const [editType, setEditType] = useState('')
-	const [editCurrentRate, setEditCurrentRate] = useState('')
+	// const [editCurrentRate, setEditCurrentRate] = useState('')
+	const [editQuantity, setEditQuantity] = useState('')
 	const [editBuying, setEditBuying] = useState('')
 	const [editSelling, setEditSelling] = useState('')
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
-    const [popUpMessage, setPopUpMessage] = useState(null)
-    const [error, setError] = useState(false)
+	const [popUpMessage, setPopUpMessage] = useState(null)
+	const [error, setError] = useState(false)
 	const rules = {
 		name: { required: true, minlength: 3, },
 		type: { required: true, minlength: 3, },
 		currentRate: { required: true, minlength: 3, },
 		buying: { required: true, minlength: 2, },
 		selling: { required: true, minlength: 2, },
+		quantity: { required: true, minlength: 2, },
 	}
 	const state = {
 		name: name,
 		type: type,
 		currentRate: currentRate,
 		buying: buying,
-		selling: selling
+		selling: selling,
+		quantity: quantity
 	}
 
 	useEffect(() => {
@@ -175,6 +179,8 @@ function AdminRates({ fetchAllRates, rates }) {
 	}, [fetchAllRates])
 
 	const submit = async (data) => {
+		setError(!true)
+		setShowPopUpMessage(!true)
 		setIsLoading(true)
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
@@ -184,32 +190,33 @@ function AdminRates({ fetchAllRates, rates }) {
 				if (res.data.status === "success") {
 					console.log(res.data);
 					setPopUpMessage("Added Successfully")
-                    setShowPopUpMessage(true)
+					setShowPopUpMessage(true)
 					setIsLoading(false)
-					
+
 					fetchAllRates(res.data.data)
 					setIsActive(false)
-                }
+				}
 			})
 			.catch(res => {
 				setPopUpMessage("An error occured while uploading.")
-                setError(true)
-                setShowPopUpMessage(true)
-                setIsLoading(!true)
+				setError(true)
+				setShowPopUpMessage(true)
+				setIsLoading(!true)
 			})
 	}
 
 	const handleEditRates = (rate) => {
 		const rateInfo = {
 			rateId: rate.id,
-			currentRate: editCurrentRate || rate.current_rate,
+			// currentRate: editCurrentRate || rate.current_rate,
+			quantity: editQuantity || rate.quantity,
 			buying: editBuying || rate.buying,
 			selling: editSelling || rate.selling
 		}
 
 		// console.log(rateInfo);
 		updateEditRateHooks()
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
 		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
 			.then(res => {
@@ -217,18 +224,18 @@ function AdminRates({ fetchAllRates, rates }) {
 				if (res.data.status === "success") {
 					console.log(res.data);
 					setPopUpMessage("Updated Successfully")
-                    setShowPopUpMessage(true)
+					setShowPopUpMessage(true)
 					setIsLoading(false)
-					
+
 					fetchAllRates(res.data.data)
 					setIsActive(false)
-                }
+				}
 			})
 			.catch(res => {
 				setPopUpMessage("An error occured while uploading.")
-                setError(true)
-                setShowPopUpMessage(true)
-                setIsLoading(!true)
+				setError(true)
+				setShowPopUpMessage(true)
+				setIsLoading(!true)
 			})
 	}
 
@@ -239,7 +246,7 @@ function AdminRates({ fetchAllRates, rates }) {
 	const columns = [
 		{
 			// Make an expander cell
-			Header: () => null, // No header
+			Header: () => null, // No header	
 			id: 'expander', // It needs an ID
 
 			Cell: ({ row }) => (
@@ -263,11 +270,11 @@ function AdminRates({ fetchAllRates, rates }) {
 					accessor: 'name',
 					collapse: true,
 				},
-				{
-					Header: 'Current_rate',
-					accessor: 'current_rate',
-					collapse: true,
-				},
+				// {
+				// 	Header: 'Current_rate',
+				// 	accessor: 'current_rate',
+				// 	collapse: true,
+				// },
 				{
 					Header: 'Type',
 					accessor: 'type',
@@ -282,41 +289,51 @@ function AdminRates({ fetchAllRates, rates }) {
 					accessor: 'selling',
 					collapse: true,
 				},
+				{
+					Header: 'Quantity',
+					accessor: 'quantity',
+					collapse: true,
+				},
 			],
 		},
 	]
-	
+
 
 	const updateEditRateHooks = () => {
 		// setEditName('')
-		setEditCurrentRate('')
+		// setEditCurrentRate('')
 		// setEditType('')
 		setEditBuying('')
+		setEditQuantity('')
 		setEditSelling('')
 	}
 	const expandedComponent = (props) => (
-		<div className="expandedDiv" onBlur={() => {console.log(props); props.toggleRowExpanded(props.id, !true)}}>
-			
-			<StyledInput name="currentRate" label="Current Rate" updatedValue={setEditCurrentRate}
+		<div className="expandedDiv" onBlur={() => { console.log(props); props.toggleRowExpanded(props.id, !true) }}>
+			{/* <StyledInput name="currentRate" label="Current Rate" updatedValue={setEditCurrentRate}
 				handleChange={updateFormValue} value={editCurrentRate}
-				placeHolder={props.original.current_rate} type="currentRate" icon={envelope} />
+				placeHolder={props.original.current_rate} type="currentRate" icon={envelope} /> */}
 
 			<StyledInput name="buying" label="Buying" updatedValue={setEditBuying}
 				handleChange={updateFormValue} value={props.original.buying}
-				placeHolder={props.original.buying} type="buying" icon={envelope} />
+				placeHolder={props.original.buying} type="text" icon={envelope} />
 
 			<StyledInput name="selling" label="Selling" updatedValue={setEditSelling}
 				handleChange={updateFormValue} value={props.original.selling}
-				placeHolder={props.original.selling} type="selling" icon={envelope} />
+				placeHolder={props.original.selling} type="text" icon={envelope} />
+
+			<StyledInput name="quantity" label="Quantity" updatedValue={setEditQuantity}
+				handleChange={updateFormValue} value={editQuantity}
+				placeHolder={props.original.quantity} type="text" icon={envelope} />
+
 			<button onClick={() => handleEditRates(props.original)} className="expandedDiv__button">
-				{isLoading? "Loading..." : "Update"}
+				{isLoading ? "Loading..." : "Update"}
 			</button>
 		</div>
 	)
 
 	return (
 		<Container>
-		{showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+			{showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
 
 			<div className="rate">
 				<div className="toggle" onClick={() => setIsActive(!isActive)} >
@@ -351,6 +368,10 @@ function AdminRates({ fetchAllRates, rates }) {
 								value={state.selling}
 								placeHolder="Selling" type="selling" icon={lock} />
 							<ValidationMessage field="selling" />
+							<StyledInput name="quantity" updatedValue={setQuantity} handleChange={updateFormValue}
+								value={state.quantity}
+								placeHolder="Quantity" type="number" icon={lock} />
+							<ValidationMessage field="quantity" />
 						</div>
 						<p className="rate-isSugnedIn">
 							Add new bitcoin or gift card.

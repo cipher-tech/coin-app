@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "aos": "^2.3.4",
     "axios": "^0.19.2",
+    "money": "^0.2.0",
     "namor": "^2.0.2",
     "postscribe": "^2.0.8",
     "react": "^16.13.1",

@@ -78,6 +78,7 @@ const theme = {
 	}
 }
 
+
 AOS.init()
 
 function App() {
