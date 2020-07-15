@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { HashRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
 //HashRouter BrowserRouter 
 
 import reduxStore from "./reduxStore"
