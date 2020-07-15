@@ -85,7 +85,7 @@ class ContextProvider extends Component {
             return {
                 contextData: {
                     ...this.state.contextData,
-                    country: JSON.parse(localStorage.region) ? this.regions[JSON.parse(localStorage.region).id] : "",
+                    country: JSON.parse(localStorage?.region) ? this.regions[JSON.parse(localStorage?.region).id] : "",
                     IsRegionSelected: true
                 }
 
@@ -99,7 +99,7 @@ class ContextProvider extends Component {
             return {
                 contextData: {
                     ...this.state.contextData,
-                    country: localStorage.region ? this.regions[name] : null,
+                    country: localStorage?.region ? this.regions[name] : null,
                     IsRegionSelected: true
                 }
 
