@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { useSpring, animated } from "react-spring"
 
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
-import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
+// import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
 // import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
 import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
@@ -348,14 +348,14 @@ function DashboardLayout(props) {
                         </span>
                     </Link>
 
-                    <Link onClick={closeSideNav} to={routes.admin.sellBitcoin} className="sideNav__container-item">
+                    {/* <Link onClick={closeSideNav} to={routes.admin.sellBitcoin} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Bill className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Buy/Sell
                         </span>
-                    </Link>
+                    </Link> */}
 
                     {/* <Link onClick={closeSideNav} to={routes.admin.sellGiftcard} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">

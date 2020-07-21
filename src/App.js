@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { HashRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
 //HashRouter BrowserRouter 
 
 import reduxStore from "./reduxStore"
@@ -35,6 +35,8 @@ import AboutUS from './pages/aboutUs/aboutUs';
 import Policies from './pages/policies/policies';
 import UpdateUserInfo from './pages/admin/updateUserInfo/updateUserInfo';
 import ContextProvider from './context/contextProvider';
+import Orders from './pages/masterAdmin/orders/orders';
+import UserBuySell from './pages/userBuySell/userBuySell';
 
 const theme = {
 	colorPrimary: "#581b98",
@@ -90,13 +92,14 @@ function App() {
 						<GlobalStyle />
 						<ContextProvider>
 							<Container>
-								<Route path={["/", "/contact", "/faq", "/about", "/policies"]} exact>
+								<Route path={["/", "/contact", "/faq", "/about", "/policies", "/buySell"]} exact>
 									<Navbar />
 									<Route exact path={routes.public.home} component={Main} />
 									<Route exact path={routes.public.contact} component={ContactUs} />
 									<Route exact path={routes.public.faq} component={Faq} />
 									<Route exact path={routes.public.about} component={AboutUS} />
 									<Route exact path={routes.public.policies} component={Policies} />
+									<Route exact path={routes.public.buy_sell} component={UserBuySell} />
 									<Foot />
 								</Route>
 								<Route exact path={routes.public.login} component={withRouter(Login)} />
@@ -125,6 +128,7 @@ function App() {
 											<Route exact path={routes.masterAdmin.sellBitcoin} component={AdminSellBitcoin} />
 											<Route exact path={routes.masterAdmin.sellGiftcard} component={AdminSellGiftCard} />
 											<Route exact path={routes.masterAdmin.transcation} component={AdminTransaction} />
+											<Route exact path={routes.masterAdmin.orders} component={Orders} />
 											<Route exact path={routes.masterAdmin.verify} component={VerifyUsers} />
 											<Route exact path={routes.masterAdmin.deposit} component={AdminDepositRequest} />
 											<Route exact path={routes.masterAdmin.widthdrawl} component={AdminWidthdrawlRequest} />

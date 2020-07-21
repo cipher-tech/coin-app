@@ -182,18 +182,18 @@ const NavbarComponent = (props) => {
     })
     return (!props.show ?
         <Container>
-          
+
             <div className="navbar-mobile">
                 <MenuIcon className="navbar-mobile__icon" onClick={toggleMobileNav} />
                 <animated.div style={{ transform: spring.transform }} className="navbar-mobile__overlay"></animated.div>
             </div>
-            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav}  className="navbar-mobile__list">
-                <Link to={routes.public.home}  className="navbar-mobile__list--item">home</Link>
-                <Link to={routes.public.login} className="navbar-mobile__list--item">login</Link>
+            <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
+                <Link to={routes.public.home} className="navbar-mobile__list--item">home</Link>
+                <Link to={routes.public.buy_sell} className="navbar-mobile__list--item">buy/sell</Link>
                 <Link to={routes.public.about} className="navbar-mobile__list--item">About</Link>
                 <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
                 <Link to={routes.public.contact} className="navbar-mobile__list--item">contact us</Link>
-            </animated.ul> 
+            </animated.ul>
             <div className="navbar"
                 data-aos="fade-right"
                 data-aos-offset="00"
@@ -206,8 +206,8 @@ const NavbarComponent = (props) => {
                 </div>
                 <ul className="navbar-list">
                     <Link to={routes.public.home} className="navbar-list-item">Home</Link>
-                    <Link to={routes.public.login} className="navbar-list-item">Login</Link>
-                <Link to={routes.public.about} className="navbar-list-item">About</Link>
+                    <Link to={routes.public.buy_sell} className="navbar-list-item">Buy/Sell</Link>
+                    <Link to={routes.public.about} className="navbar-list-item">About</Link>
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
                     <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
                 </ul>

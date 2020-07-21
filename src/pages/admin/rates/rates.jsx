@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 // import CoinWidget from "../../../components/widget/wigjet"
-import lock from "../../../images/svgIcons/lock.svg"
+// import lock from "../../../images/svgIcons/lock.svg"
 import qrcode from "../../../images/qrcode.png"
 import Axios from 'axios'
 import bitcoinIcon from "../../../images/btcIcon.jpg"

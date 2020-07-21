@@ -197,6 +197,9 @@ background: ${props => props.theme.colorPrimary};
         justify-content: space-between;
         z-index:40;
         box-shadow: .1rem .2rem 30px rgba(0,0,0, .3);
+        &--name{
+            text-transform: capitalize;
+        }
         &--icons{
             display: flex;
             padding: 0;
@@ -241,8 +244,9 @@ background: ${props => props.theme.colorPrimary};
 function MasterDashboardLayout(props) {
     useIsMasterAdmin(props.history);
 
-    const name = JSON.parse(localStorage.getItem("userInfo")).user.first_name || null
-    const status = JSON.parse(localStorage.getItem("userInfo")).user.status || null
+    const name = JSON.parse(localStorage.getItem("userInfo"))?.user?.first_name || null
+    const status = JSON.parse(localStorage.getItem("userInfo"))?.user?.status || null
+    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(true)
     const [userStatus] = useState(status === "verified")
@@ -266,7 +270,10 @@ function MasterDashboardLayout(props) {
                 <ul className="sideNav__container">
                     <li className="sideNav__container-item-photo">
                         <img src={avatar1} alt="avatar preson" />
-                        <p className="sideNav__container-item-photo--text">Nick@gmail.com</p>
+                        <p className="sideNav__container-item-photo--text">
+                            {name} <br />
+                            {email}
+                        </p>
                     </li>
                     <a onClick={closeSideNav} href={routes.masterAdmin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
@@ -302,6 +309,14 @@ function MasterDashboardLayout(props) {
                         </span>
                         <span className="sideNav__container-item--text">
                             Transction
+                        </span>
+                    </Link>
+                    <Link onClick={closeSideNav} to={routes.masterAdmin.orders} className="sideNav__container-item">
+                        <span className="sideNav__container-item--icon">
+                            <Coins className="sideNav__container-item--icon-svg" />
+                        </span>
+                        <span className="sideNav__container-item--text">
+                            Buy/Sell
                         </span>
                     </Link>
 
@@ -370,7 +385,8 @@ function MasterDashboardLayout(props) {
             <div className="dashboard__container">
                 <div className="title_nav">
                     <span className="title_nav--name">
-                        {name}
+                        {props.match.params.path ? props.match.params.path.replace("_", " ") : "admin"}
+
                     </span>
                     <p className="title_nav--icons">
                         <Link to={routes.admin.updateInfo} className="">

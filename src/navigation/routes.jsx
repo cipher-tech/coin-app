@@ -15,6 +15,7 @@ const routes = {
         faq: "/faq",
         about: "/about",
         policies: "/policies",
+        buy_sell: "/buySell",
         login: "/login",
         signUp: "/sign-up",
     },
@@ -53,6 +54,10 @@ const routes = {
         adminAcceptWidthdrawl: prod ? server : localhost + 'admin/acceptWidthdrawl',
         adminDeleteWidthdrawl: prod ? server : localhost + 'admin/delete-Widthdrawl',
         adminDeleteDeposit: prod ? server : localhost + 'admin/delete-deposit',
+
+        adminGetOrders:  prod ? server : localhost + 'admin/getOrders',
+        adminConfirmTransaction:  prod ? server : localhost + 'admin/confirmTransaction',
+        adminDestroyOrder:  prod ? server : localhost + 'admin/destroyTransaction',
     },
 
     admin: {
@@ -80,6 +85,7 @@ const routes = {
         deposit: masterAdmin + "/deposit",
         widthdrawl: masterAdmin + "/widthdraw",
         plans: masterAdmin + "/plans",
+        orders: masterAdmin + "/orders",
     }
 }
 
