@@ -4,6 +4,19 @@ object-assign
 @license MIT
 */
 
+/*!
+ * money.js / fx() v0.2
+ * Copyright 2014 Open Exchange Rates
+ *
+ * JavaScript library for realtime currency conversion and exchange rate calculation.
+ *
+ * Freely distributable under the MIT license.
+ * Portions of money.js are inspired by or borrowed from underscore.js
+ *
+ * For details, examples and documentation:
+ * http://openexchangerates.github.io/money.js/
+ */
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
