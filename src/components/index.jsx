@@ -20,6 +20,7 @@ import MessageModal from "./messageModal/messageModal";
 import NavbarComponent from "./navbar/navbarComponent";
 import SiteStats from "./siteStats/siteStats";
 import GiftCardOptions from "./giftCardOptions/giftCardOptions";
+import addEditGiftCard from "./addEditGiftCard/addEditGiftCard";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -43,3 +44,4 @@ export const PopUpMessage = MessageModal
 export const Navbar = NavbarComponent
 export const Stats = SiteStats
 export const CardOptions = GiftCardOptions
+export const AddEditGiftcard = addEditGiftCard
