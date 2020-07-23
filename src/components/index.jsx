@@ -19,6 +19,7 @@ import Button from "./button/button";
 import MessageModal from "./messageModal/messageModal";
 import NavbarComponent from "./navbar/navbarComponent";
 import SiteStats from "./siteStats/siteStats";
+import GiftCardOptions from "./giftCardOptions/giftCardOptions";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -41,3 +42,4 @@ export const StyledButton = Button
 export const PopUpMessage = MessageModal
 export const Navbar = NavbarComponent
 export const Stats = SiteStats
+export const CardOptions = GiftCardOptions

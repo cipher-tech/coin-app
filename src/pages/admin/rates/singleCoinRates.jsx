@@ -434,6 +434,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         return () => {
 
         }
+        // eslint-disable-next-line
     }, [fetchAllRates])
 
     const updateAmount = (value) => {

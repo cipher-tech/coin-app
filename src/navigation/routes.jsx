@@ -45,6 +45,8 @@ const routes = {
         getRates: prod ? server : localhost + 'admin/get-rate',
         updateRates: prod ? server : localhost + 'admin/update-rate',
 
+        adminCreateGiftcard: prod ? server : localhost + 'admin/add-giftcard',
+
         usersDeposit: prod ? server : localhost + 'users/deposit',
         usersWidthdrawl: prod ? server : localhost + 'users/widthdrawl',
 

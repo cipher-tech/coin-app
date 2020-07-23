@@ -12,8 +12,9 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
     background: #00000070;
-    overflow: hidden;
+    overflow: scroll;
     z-index: 180;
+    padding-top: 6rem;
     
     .content{
         /* background: ${props => props.theme.colorLight}; */

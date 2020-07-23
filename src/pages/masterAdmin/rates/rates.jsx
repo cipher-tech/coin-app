@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 import App from '../../../components/table/tablePagination'
-import { Modal, PopUpMessage } from '../../../components'
+import { Modal, PopUpMessage, CardOptions } from '../../../components'
 import { FormValidator } from '../../../formValidator'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
@@ -23,6 +23,41 @@ const Container = styled.div`
     background: ${props => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
+
+	.editButton{
+		padding: .5rem 1rem;
+		display: flex;
+		place-items: center;
+		z-index: 200;
+		border: none;
+		text-transform: capitalize;
+		color: ${props => props.theme.colorWhite};
+		font-size: ${props => props.theme.font.small};
+		background: ${props => props.theme.colorPrimary};
+		margin: 1rem;
+		border-radius: 2rem;
+		cursor: pointer;
+		&:focus{
+			outline: none;
+		}
+	}
+	.infoButton{
+		padding: .5rem 1rem;
+		display: flex;
+		place-items: center;
+		z-index: 200;
+		border: none;
+		text-transform: capitalize;
+		color: ${props => props.theme.colorWhite};
+		font-size: ${props => props.theme.font.small};
+		background: ${props => props.theme.colorPrimary};
+		margin: 1rem;
+		border-radius: 2rem;
+		cursor: pointer;
+		&:focus{
+			outline: none;
+		}
+	}
     .rate{
       grid-column: 1/-1;
       grid-template-rows: max-content max-content max-content;
@@ -38,18 +73,61 @@ const Container = styled.div`
         padding: 3rem 0;
       }
 	  .expandedDiv{
-		  color: red; 
-		  width: 100%;
-		  display: grid;
-		  justify-items: space-around;
-		  grid-template-columns: repeat(5, 1fr);
-		  gap: 0 1.5rem;
-		  &__button{
-			align-self: center;
-			border-radius: 1rem;
-			padding: 1.5rem 1.5rem;
-		  }
-	  }
+			color: ${props => props.theme.colorDark};
+			width: 100%;
+			display: grid;
+			justify-items: space-around;
+			background: transparent;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 0 1.5rem;
+			&__button{
+				align-self: center;
+				border-radius: 1rem;
+				padding: 1.5rem 1.5rem;
+			}
+			.header{
+				color: ${props => props.theme.colorPrimary};
+				font-size: ${props => props.theme.font.large};
+			}
+			&-attributes{
+				grid-column: 1/-1;
+				display: flex;
+				width: 100%;
+				min-width: 55rem;
+				justify-content: space-around;
+				padding: 1rem 1.5rem;
+				margin: 1rem;
+				box-shadow: .2rem .3rem 10px rgba(0,0,0, .3),
+					-0.2rem -0.3rem 20px rgba(255,255,255, .3);
+				border-radius: 1.4rem;
+				&__item{
+					width: 100%;
+					text-transform: capitalize;
+					text-align: center;
+					justify-content: space-around;
+				}
+			}
+	  	}
+		.toggle-type{
+			display: flex;
+			align-content: flex-end;
+			align-self: flex-end;
+			justify-content: center;
+
+			.active{
+				background: ${props => props.theme.colorPrimary};
+				color: ${props => props.theme.colorWhite};
+			}
+			&__item{
+				font-size: ${props => props.theme.font.large};
+				background: ${props => props.theme.colorWhite};
+				border: none;
+				padding: 1rem 2rem;
+				display: inline-block;
+				color: ${props => props.theme.colorPrimary};
+				cursor: pointer;
+			}
+		}
 	  &-summit{
 			display: grid;
 			align-self: center;
@@ -90,20 +168,41 @@ const Container = styled.div`
         background: ${props => props.theme.colorSecondary};
         border-radius: 50%;
         /* padding: 1rem; */
-      }
+    }
       
-	  &-container{
-		  background: white;
-		  /* width: 30rem; */
-		  padding: 3rem;
-		  /* height: 40rem; */
-		  align-self: center;
-		  color: ${props => props.theme.colorPrimary};
-		  &-form{
-                /* justify-self: flex-start; */
-                width: 95%;
-            }
-	  }
+	&-container{
+		background: white;
+		/* width: 30rem; */
+		padding: 3rem;
+		/* height: 40rem; */
+		align-self: flex-start;
+		color: ${props => props.theme.colorPrimary};
+		&-form{
+			/* justify-self: flex-start; */
+			width: 95%;
+			transition: all .5s ease .2s;
+			&__actions{
+				display: flex;
+			}
+			&--addCard{
+				padding: .5rem 1rem;
+				display: flex;
+				place-items: center;
+				z-index: 200;
+				border: none;
+				text-transform: capitalize;
+				color: ${props => props.theme.colorWhite};
+				font-size: ${props => props.theme.font.small};
+				background: ${props => props.theme.colorPrimary};
+				margin: 1rem;
+				border-radius: 2rem;
+				cursor: pointer;
+				&:focus{
+					outline: none;
+				}
+			}
+		}
+	}
       &__title{   
         justify-self: flex-start;
         display:flex;
@@ -126,17 +225,62 @@ const Container = styled.div`
       }
     }
 `
-function AdminRates({ fetchAllRates, rates }) {
+function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
+	const initialState = {
+		giftcardName: "",
+		quantity: 0,
+		options: [
+			{
+				country: "",
+				class: "",
+				from: "",
+				to: "",
+				rate: ""
+			}
+		]
+	};
+
+	const inputStateTypes = {
+		updateOptions: "inputStateTypes/UPDATEOPTIONS",
+		updateInput: "inputStateTypes/UPDATEINPUT",
+		popOption: "inputStateTypes/POPOPTION"
+	}
+	function reducer(state, action) {
+		switch (action.type) {
+			case inputStateTypes.updateInput: {
+				return ({
+					...state,
+					[action.payload.name]: action.payload.value
+				});
+			}
+			case inputStateTypes.updateOptions:
+				return {
+					...state,
+					options: action.payload.value
+				};
+			case inputStateTypes.popOption:
+				return {
+					...state,
+					options: action.payload.value
+				};
+			default:
+				throw new Error();
+		}
+	}
+	const [inputState, dispatch] = useReducer(reducer, initialState)
+	const [cardOptions, setCardOptions] = useState([<CardOptions id={0} />])
+	const [cardSelectedForEdit, setCardSelectedForEdit] = useState([])
+	// const [giftCardName, setGiftCardName] = useState('')
+
 	const [isActive, setIsActive] = useState(!true)
+	const [isBitcoin, setIsBitcoin] = useState(!true)
 	const [name, setName] = useState('')
 	const [type, setType] = useState('')
 	const [currentRate, setCurrentRate] = useState('')
 	const [buying, setBuying] = useState('')
 	const [selling, setSelling] = useState('')
 	const [quantity, setQuantity] = useState('')
-	// const [editName, setEditName] = useState('')
-	// const [editType, setEditType] = useState('')
-	// const [editCurrentRate, setEditCurrentRate] = useState('')
+
 	const [editQuantity, setEditQuantity] = useState('')
 	const [editBuying, setEditBuying] = useState('')
 	const [editSelling, setEditSelling] = useState('')
@@ -145,6 +289,7 @@ function AdminRates({ fetchAllRates, rates }) {
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
 	const [error, setError] = useState(false)
+
 	const rules = {
 		name: { required: true, minlength: 3, },
 		type: { required: true, minlength: 3, },
@@ -159,7 +304,7 @@ function AdminRates({ fetchAllRates, rates }) {
 		currentRate: currentRate,
 		buying: buying,
 		selling: selling,
-		quantity: quantity
+		quantity: quantity,
 	}
 
 	useEffect(() => {
@@ -205,6 +350,34 @@ function AdminRates({ fetchAllRates, rates }) {
 			})
 	}
 
+	const createGiftCard = (data) => {
+		// console.log();
+		setError(!true)
+		setShowPopUpMessage(!true)
+		setIsLoading(true)
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		console.log('data :>> ', { ...data, type: "card" });
+		Axios.post(`${routes.api.adminCreateGiftcard}?token=${auth_token}`, { ...data, type: "card" })
+			.then(res => {
+				if (res.data.status === "success") {
+					console.log(res.data);
+					setPopUpMessage("Added Successfully")
+					setShowPopUpMessage(true)
+					setIsLoading(false)
+
+					fetchAllRates(res.data.data)
+					setIsActive(false)
+				}
+			})
+			.catch(res => {
+				setPopUpMessage("An error occured while adding rate.")
+				setError(true)
+				setShowPopUpMessage(true)
+				setIsLoading(!true)
+			})
+
+	}
 	const handleEditRates = (rate) => {
 		const rateInfo = {
 			rateId: rate.id,
@@ -239,7 +412,29 @@ function AdminRates({ fetchAllRates, rates }) {
 			})
 	}
 
-	const updateFormValue = (name, value) => {
+	const updateGiftcardNameValue = (name, value) => {
+		const data = {
+			type: inputStateTypes.updateInput,
+			payload: {
+				name: name,
+				value: value
+			}
+		}
+		dispatch(data)
+	}
+	const updateGiftcardOptions = (id, value) => {
+		const options = [...inputState.options]
+		options[id] = value
+		const data = {
+			type: inputStateTypes.updateOptions,
+			payload: {
+				id: id,
+				value: options
+			}
+		}
+
+		dispatch(data)
+		// console.log("state >>>", options);
 
 	}
 
@@ -253,7 +448,7 @@ function AdminRates({ fetchAllRates, rates }) {
 				// Use Cell to render an expander for each row.
 				// We can use the getToggleRowExpandedProps prop-getter
 				// to build the expander.
-				<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
+				<div className="editButton" {...row.getToggleRowExpandedProps()}>
 					{row.isExpanded ? 'Stop Editing' : 'Edit'}
 
 					{/* <div onClick={ ()=>row.toggleRowExpanded( row.id,false)}>
@@ -270,11 +465,7 @@ function AdminRates({ fetchAllRates, rates }) {
 					accessor: 'name',
 					collapse: true,
 				},
-				// {
-				// 	Header: 'Current_rate',
-				// 	accessor: 'current_rate',
-				// 	collapse: true,
-				// },
+
 				{
 					Header: 'Type',
 					accessor: 'type',
@@ -297,7 +488,74 @@ function AdminRates({ fetchAllRates, rates }) {
 			],
 		},
 	]
+	const cardColumns = [
+		{
+			// Make an expander cell
+			Header: () => null, // No header	
+			id: 'edit', // It needs an ID
 
+			Cell: ({ row }) => (
+				// Use Cell to render an expander for each row.
+				// We can use the getToggleRowExpandedProps prop-getter
+				// to build the expander.
+				<div className="infoButton" {...row.getToggleRowExpandedProps()}>
+					{row.isExpanded ? 'Less' : 'More'}
+
+					{/* <div onClick={ ()=>row.toggleRowExpanded( row.id,false)}>
+					close
+				</div> */}
+				</div>
+			),
+		},
+		{
+			Header: 'Card Rates',
+			columns: [
+				{
+					Header: 'Name',
+					accessor: 'name',
+					collapse: true,
+				},
+
+				{
+					Header: 'Quantity',
+					accessor: 'quantity',
+					collapse: true,
+				},
+			],
+		},
+		{
+			// Make an expander cell
+			Header: () => null, // No header	
+			id: 'expander', // It needs an ID
+
+			accessor: (props) => (
+				// Use Cell to render an expander for each row.
+				// We can use the getToggleRowExpandedProps prop-getter
+				// to build the expander.
+				<button className="editButton" onClick={() => {setCardSelectedForEdit(props)}} >
+					Edit
+				</button>
+			),
+		},
+	]
+
+	const addCardOption = () => {
+		setCardOptions([...cardOptions, <CardOptions uniqueId={cardOptions.length} />])
+	}
+	const removeCardOption = () => {
+		setCardOptions(cardOptions.slice(0, cardOptions.length - 1))
+
+		const options = inputState.options.slice(0, inputState.options.length - 1)
+
+
+		const data = {
+			type: inputStateTypes.popOption,
+			payload: {
+				value: options
+			}
+		}
+		dispatch(data)
+	}
 
 	const updateEditRateHooks = () => {
 		// setEditName('')
@@ -308,26 +566,54 @@ function AdminRates({ fetchAllRates, rates }) {
 		setEditSelling('')
 	}
 	const expandedComponent = (props) => (
-		<div className="expandedDiv" onBlur={() => { console.log(props); props.toggleRowExpanded(props.id, !true) }}>
+		<div className="expandedDiv">
 			{/* <StyledInput name="currentRate" label="Current Rate" updatedValue={setEditCurrentRate}
-				handleChange={updateFormValue} value={editCurrentRate}
+				 value={editCurrentRate} onBlur={() => { console.log(props); props.toggleRowExpanded(props.id, !true) }}
 				placeHolder={props.original.current_rate} type="currentRate" icon={envelope} /> */}
 
 			<StyledInput name="buying" label="Buying" updatedValue={setEditBuying}
-				handleChange={updateFormValue} value={props.original.buying}
+				value={props.original.buying}
 				placeHolder={props.original.buying} type="text" icon={envelope} />
 
 			<StyledInput name="selling" label="Selling" updatedValue={setEditSelling}
-				handleChange={updateFormValue} value={props.original.selling}
+				value={props.original.selling}
 				placeHolder={props.original.selling} type="text" icon={envelope} />
 
 			<StyledInput name="quantity" label="Quantity" updatedValue={setEditQuantity}
-				handleChange={updateFormValue} value={editQuantity}
+				value={editQuantity}
 				placeHolder={props.original.quantity} type="text" icon={envelope} />
 
 			<button onClick={() => handleEditRates(props.original)} className="expandedDiv__button">
 				{isLoading ? "Loading..." : "Update"}
 			</button>
+		</div>
+	)
+	const expandedCardInfo = (props) => (
+		<div className="expandedDiv">
+			<p className="expandedDiv-attributes header">
+				<span className="expandedDiv-attributes__item">Country</span>
+				<span className="expandedDiv-attributes__item">Class</span>
+				<span className="expandedDiv-attributes__item">Range</span>
+				<span className="expandedDiv-attributes__item">Rate</span>
+			</p>
+			{
+				props.original?.attributes?.map((item, index) => (
+					<p className="expandedDiv-attributes" key={index}>
+						<span className="expandedDiv-attributes__item">
+							{item.country}
+						</span>
+						<span className="expandedDiv-attributes__item">
+							{item.class}
+						</span>
+						<span className="expandedDiv-attributes__item">
+							{item.from} - {item.to}
+						</span>
+						<span className="expandedDiv-attributes__item">
+							{item.rate}
+						</span>
+					</p>
+				))
+			}
 		</div>
 	)
 
@@ -340,53 +626,106 @@ function AdminRates({ fetchAllRates, rates }) {
 					{!isActive ? "➕" : "✖"}
 				</div>
 				<Modal isActive={isActive}>
-					<FormValidator buttonClass="rate-summit"
-						classname=" rate-container "
-						data={state} rules={rules}
-						submit={submit}>
-						<div className="rate-container-form">
-							<StyledInput name="name" updatedValue={setName} handleChange={updateFormValue} value={state.name}
-								placeHolder="Name" type="name" icon={envelope} />
-							<ValidationMessage field="name" />
+					<p className="toggle-type">
+						<span className={`toggle-type__item ${isBitcoin ? "active" : null}`} onClick={() => setIsBitcoin(true)}>Add Bitcoin</span>
+						<span className={`toggle-type__item ${!isBitcoin ? "active" : null}`} onClick={() => setIsBitcoin(false)}>Add Gift Card</span>
+					</p>
+					{isBitcoin ?
+						<FormValidator buttonClass="rate-summit"
+							classname=" rate-container "
+							data={state} rules={rules}
+							submit={submit}>
+							<div className="rate-container-form">
+								<StyledInput name="name" updatedValue={setName} value={state.name}
+									placeHolder="Name" type="name" icon={envelope} />
+								<ValidationMessage field="name" />
 
-							<StyledInput name="type" updatedValue={setType} handleChange={updateFormValue}
-								value={state.type}
-								placeHolder="Type" type="type" icon={lock} />
-							<ValidationMessage field="type" />
+								<StyledInput name="type" updatedValue={setType}
+									value={state.type}
+									placeHolder="Type" type="type" icon={lock} />
+								<ValidationMessage field="type" />
 
-							<StyledInput name="currentRate" updatedValue={setCurrentRate} handleChange={updateFormValue}
-								value={state.currentRate}
-								placeHolder="Current Rate" type="currentRate" icon={lock} />
-							<ValidationMessage field="currentRate" />
+								<StyledInput name="currentRate" updatedValue={setCurrentRate}
+									value={state.currentRate}
+									placeHolder="Current Rate" type="currentRate" icon={lock} />
+								<ValidationMessage field="currentRate" />
 
-							<StyledInput name="buying" updatedValue={setBuying} handleChange={updateFormValue}
-								value={state.buying}
-								placeHolder="Buying" type="buying" icon={lock} />
-							<ValidationMessage field="buying" />
+								<StyledInput name="buying" updatedValue={setBuying}
+									value={state.buying}
+									placeHolder="Buying" type="buying" icon={lock} />
+								<ValidationMessage field="buying" />
 
-							<StyledInput name="selling" updatedValue={setSelling} handleChange={updateFormValue}
-								value={state.selling}
-								placeHolder="Selling" type="selling" icon={lock} />
-							<ValidationMessage field="selling" />
-							<StyledInput name="quantity" updatedValue={setQuantity} handleChange={updateFormValue}
-								value={state.quantity}
-								placeHolder="Quantity" type="number" icon={lock} />
-							<ValidationMessage field="quantity" />
-						</div>
-						<p className="rate-isSugnedIn">
-							Add new bitcoin or gift card.
+								<StyledInput name="selling" updatedValue={setSelling}
+									value={state.selling}
+									placeHolder="Selling" type="selling" icon={lock} />
+								<ValidationMessage field="selling" />
+								<StyledInput name="quantity" updatedValue={setQuantity}
+									value={state.quantity}
+									placeHolder="Quantity" type="number" icon={lock} />
+								<ValidationMessage field="quantity" />
+							</div>
+							<p className="rate-isSugnedIn">
+								Add new bitcoin.
 						</p>
-					</FormValidator>
+						</FormValidator>
+						:
+						{/* <FormValidator buttonClass="rate-summit"
+							classname=" rate-container "
+							data={inputState} rules={{ giftcardName: { required: true, minlength: 3, } }}
+							submit={createGiftCard}>
+							<div className="rate-container-form">
+								<StyledInput name="giftcardName"
+									handleChange={updateGiftcardNameValue}
+									value={inputState.name}
+									placeHolder="Card Name" type="text" icon={envelope} />
+								<ValidationMessage field="giftcardName" />
+								<StyledInput name="quantity"
+									handleChange={updateGiftcardNameValue}
+									value={inputState.quantity}
+									placeHolder="Enter Qty" type="number" icon={envelope} />
+								<ValidationMessage field="quantity" />
+
+							</div>
+
+							{cardOptions.map((item, index) => (
+								<CardOptions updateGiftcardOptions={updateGiftcardOptions} key={index} id={index} />
+							))}
+							<p className="rate-container-form__actions">
+								<button className="rate-container-form--addCard" onClick={() => addCardOption()} >
+									Add +
+								</button>
+								<button className="rate-container-form--addCard" onClick={() => removeCardOption()} >
+									remove -
+								</button>
+							</p>
+							<p className="rate-isSugnedIn">
+								Add new gift card.
+							</p>
+						</FormValidator> */}
+						<
+					}
+
 				</Modal>
-				<h1 className="rate__title">Rates</h1>
-				<App tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? rates.allRates : []} />
+				{/* <h1 className="rate__title">Rates</h1> */}
+				<App tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ?
+					coinOnlyRates
+					:
+					[]
+				} />
+				<App tableColumns={cardColumns} expandedComponent={expandedCardInfo} data={rates.allRates ?
+					cardOnlyRates
+					:
+					[]
+				} />
 			</div>
 		</Container>
 	)
 }
 
 const mapStateToProps = ({ rates }) => ({
-	rates: rates
+	rates: rates,
+	coinOnlyRates: rates?.allRates?.filter(item => item.type === "coin"),
+	cardOnlyRates: rates?.allRates?.filter(item => item.type === "card")
 })
 
 const mapDispatchToProps = {

@@ -248,7 +248,7 @@ function MasterDashboardLayout(props) {
     const status = JSON.parse(localStorage.getItem("userInfo"))?.user?.status || null
     const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
 
-    const [sideNavIsOpen, setSideNavIsOpen] = useState(true)
+    const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const [userStatus] = useState(status === "verified")
     const sideNavWidth = "28rem"
     const spring = useSpring({
