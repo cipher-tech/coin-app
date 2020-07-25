@@ -1,9 +1,9 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 import App from '../../../components/table/tablePagination'
-import { Modal, PopUpMessage,AddEditGiftcard } from '../../../components'
+import { Modal, PopUpMessage, AddEditGiftcard, EditGiftcard } from '../../../components'
 import { FormValidator } from '../../../formValidator'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
@@ -177,6 +177,20 @@ const Container = styled.div`
 		/* height: 40rem; */
 		align-self: flex-start;
 		color: ${props => props.theme.colorPrimary};
+		position: relative;
+		&-closeBtn{
+			position: absolute;
+			color: ${props => props.theme.colorError};
+			top: 1rem;
+			right: 2rem;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			font-size: ${props => props.theme.font.large};
+			&:focus{
+				outline: none;
+			}
+		}
 		&-form{
 			/* justify-self: flex-start; */
 			width: 95%;
@@ -227,9 +241,10 @@ const Container = styled.div`
 `
 function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 	const [cardSelectedForEdit, setCardSelectedForEdit] = useState([])
+	const [isEditing, setIsEditing] = useState(false)
 	// const [giftCardName, setGiftCardName] = useState('')
-
 	const [isActive, setIsActive] = useState(!true)
+
 	const [isBitcoin, setIsBitcoin] = useState(!true)
 	const [name, setName] = useState('')
 	const [type, setType] = useState('')
@@ -333,6 +348,37 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
 			})
+			.finally((res) =>setIsActive(false))
+
+
+	}
+	const EditGiftCard = (data) => {
+		// console.log();
+		setError(!true)
+		setShowPopUpMessage(!true)
+		setIsLoading(true)
+		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+
+		console.log('data :>> ', { ...data, type: "card" });
+		Axios.post(`${routes.api.adminEditGiftcard}?token=${auth_token}`, { ...data, type: "card" })
+			.then(res => {
+				if (res.data.status === "success") {
+					console.log(res.data);
+					setPopUpMessage("Added Successfully")
+					setShowPopUpMessage(true)
+					setIsLoading(false)
+
+					fetchAllRates(res.data.data)
+					setIsActive(false)
+				}
+			})
+			.catch(res => {
+				setPopUpMessage("An error occured while adding rate.")
+				setError(true)
+				setShowPopUpMessage(true)
+				setIsLoading(!true)
+			})
+			.finally((res) =>setIsEditing(false))
 
 	}
 	const handleEditRates = (rate) => {
@@ -432,9 +478,6 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				<div className="infoButton" {...row.getToggleRowExpandedProps()}>
 					{row.isExpanded ? 'Less' : 'More'}
 
-					{/* <div onClick={ ()=>row.toggleRowExpanded( row.id,false)}>
-					close
-				</div> */}
 				</div>
 			),
 		},
@@ -463,7 +506,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				// Use Cell to render an expander for each row.
 				// We can use the getToggleRowExpandedProps prop-getter
 				// to build the expander.
-				<button className="editButton" onClick={() => {setCardSelectedForEdit(props)}} >
+				<button className="editButton" onClick={() => { setCardSelectedForEdit(props); setIsEditing(true) }} >
 					Edit
 				</button>
 			),
@@ -583,13 +626,17 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 						</FormValidator>
 						:
 						<>
-						<AddEditGiftcard createGiftCard={createGiftCard}/>
-
-						
+							<AddEditGiftcard closeModal={setIsActive} createGiftCard={createGiftCard} />
 						</>
 					}
-
 				</Modal>
+
+				{isEditing ?
+					<Modal isActive={isEditing}>
+						<EditGiftcard cardSelectedForEdit={cardSelectedForEdit} isEditing closeModal={setIsEditing} EditGiftCard={EditGiftCard} />
+					</Modal>
+					:
+					null}
 				{/* <h1 className="rate__title">Rates</h1> */}
 				<App tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ?
 					coinOnlyRates
@@ -601,7 +648,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 					:
 					[]
 				} />
-			</div> 
+			</div>
 		</Container>
 	)
 }

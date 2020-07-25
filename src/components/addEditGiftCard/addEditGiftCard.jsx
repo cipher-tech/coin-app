@@ -7,7 +7,7 @@ import { FormValidator } from '../../formValidator'
 import { StyledInput } from '../styledComponents';
 import { ValidationMessage } from '../../validationMessage';
 
-const AddEditGiftCard = ({createGiftCard}) => { 
+const AddEditGiftCard = ({createGiftCard,closeModal}) => { 
     const initialState = {
 		giftcardName: "",
 		quantity: 0,
@@ -99,6 +99,7 @@ const AddEditGiftCard = ({createGiftCard}) => {
         classname=" rate-container "
         data={inputState} rules={{ giftcardName: { required: true, minlength: 3, } }}
         submit={createGiftCard}>
+        <button className="rate-container-closeBtn" onClick={() => closeModal(false)} >✖</button>
         <div className="rate-container-form">
             <StyledInput name="giftcardName"
                 handleChange={updateGiftcardNameValue}

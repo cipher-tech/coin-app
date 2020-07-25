@@ -1,7 +1,7 @@
 const admin = "/admin"
 const masterAdmin = "/master-admin"
 // const host = "http://127.0.0.1:8080"
-const prod = true
+const prod = false
 const server = "https://coin-app-ackend.herokuapp.com/api/"
 const localhost = "http://localhost:8000/api/"
 const exchangeApiId= "12dc31345cfc42778258c4880347ceee"
@@ -46,6 +46,7 @@ const routes = {
         updateRates: prod ? server : localhost + 'admin/update-rate',
 
         adminCreateGiftcard: prod ? server : localhost + 'admin/add-giftcard',
+        adminEditGiftcard: prod ? server : localhost + 'admin/edit-giftcard',
 
         usersDeposit: prod ? server : localhost + 'users/deposit',
         usersWidthdrawl: prod ? server : localhost + 'users/widthdrawl',

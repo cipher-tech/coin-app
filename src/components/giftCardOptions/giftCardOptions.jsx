@@ -51,14 +51,14 @@ const Container = styled.fieldset`
         }
     }
 `
-const GiftCardOptions = (props) => {
-    const [selectOption, setSelectOption] = useState('')
-    const [selectClass, setSelectClass] = useState('')
-    const [from, setFrom] = useState('')
-    const [to, setTo] = useState('')
-    const [rate, setRate] = useState('')
+const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
+    const [selectOption, setSelectOption] = useState(data?.country)
+    const [selectClass, setSelectClass] = useState(data?.class)
+    const [from, setFrom] = useState(data?.from)
+    const [to, setTo] = useState(data?.to)
+    const [rate, setRate] = useState(data?.rate)
     // const [name, setName] = useState('')
-    const updateOptions = async (name,value) => {
+    const updateOptions = (name, value) => {
         const data = {
             country: selectOption,
             class: selectClass,
@@ -68,12 +68,19 @@ const GiftCardOptions = (props) => {
         }
 
         // console.log(data);
-        props.updateGiftcardOptions(props.id, data)
-    } 
+        updateGiftcardOptions(id, data)
+        // console.log(props.id, data);
+        
+    }
     useEffect(() => {
         updateOptions()
+        // setSelectOption(data?.country)
+        // setSelectClass(data?.class)
+        // setFrom(data?.from)
+        // setTo(data?.to)
+        // setRate(data?.rate)
         // eslint-disable-next-line
-      }, [selectOption,selectClass, from, to, rate,]);
+    }, [selectOption, selectClass, from, to, rate]);
 
     const countryOptions = ["Germany", "UK", "USA", "Canada", "Japan",
         "Australia", "Finland", "Ireland", "Italy", "New Zealand", "Poland", "Spain", "Sweden", "Switzerland", "Euro"]
@@ -83,71 +90,140 @@ const GiftCardOptions = (props) => {
     //     name: { required: true, minlength: 3, },
 
     // }
-   
+
     return (
         <Container>
-        {/* {console.log(props)} */}
-            <legend>Card Options</legend>
-            <p>
-                <select className="select" name="country" value={selectOption} onChange={async(e) => {
-                    
-                    setSelectOption(e.target.value)
-                    updateOptions(e.target.name, e.target.value )
-                    }}>
+            {/* {console.log(props)} */}
+            {
+                !editing ?
                     <>
-                        <option value="Select Country ">Select Country </option>
-                        {countryOptions.map((item, index) => (
-                            <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
-                                {item}
-                            </option>
-                        ))}
-                    </>
-                </select>
+                        <legend>Card Options</legend>
+                        <p>
+                            <select className="select" name="country" value={selectOption} onChange={(e) => {
+                                setSelectOption(e.target.value)
+                                updateOptions(e.target.name, e.target.value)
+                            }}>
+                                <>
+                                    <option value="Select Country ">Select Country </option>
+                                    {countryOptions.map((item, index) => (
+                                        <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
+                                            {item}
+                                        </option>
+                                    ))}
+                                </>
+                            </select>
 
-                <select className="select" name="class" value={selectClass} onChange={(e) => {
-                    const value = e.target.value
-                    const name = e.target.name
-                    setSelectClass(value)
-                    updateOptions(name, value )
-                    }}>
-                    <>
-                        <option value="Select Class ">Select Class </option>
-                        {classOptions.map((item, index) => (
-                            <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
-                                {item}
-                            </option>
-                        ))}
-                    </>
-                </select>
-            </p>
-            <div className="smallInput">
-                <span>
-                    <StyledInput name="rangeFrom" updatedValue={setFrom}
-                        // handleChange={updateOptions}
-                         value={from}
-                        placeHolder="Range(from)" type="number" icon={lock} />
-                    <ValidationMessage field="type" />
-                </span>
-                <span>
-                    <StyledInput name="rangeTo" updatedValue={setTo}
-                        // handleChange={updateOptions}
-                        value={to}
-                        placeHolder="Range(to)" type="type" icon={lock} />
-                    <ValidationMessage field="type" />
-                </span>
+                            <select className="select" name="class" value={selectClass} onChange={(e) => {
+                                const value = e.target.value
+                                const name = e.target.name
+                                setSelectClass(value)
+                                updateOptions(name, value)
+                            }}>
+                                <>
+                                    <option value="Select Class ">Select Class </option>
+                                    {classOptions.map((item, index) => (
+                                        <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
+                                            {item}
+                                        </option>
+                                    ))}
+                                </>
+                            </select>
+                        </p>
+                        <div className="smallInput">
+                            <span>
+                                <StyledInput name="rangeFrom" updatedValue={setFrom}
+                                    // handleChange={updateOptions}
+                                    value={from}
+                                    placeHolder="Range(from)" type="number" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
+                            <span>
+                                <StyledInput name="rangeTo" updatedValue={setTo}
+                                    // handleChange={updateOptions}
+                                    value={to}
+                                    placeHolder="Range(to)" type="type" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
 
-                <span>
-                    <StyledInput name="rate" updatedValue={setRate}
-                        // handleChange={updateOptions}
-                        value={rate}
-                        placeHolder="Rate" type="number" icon={lock} />
-                    <ValidationMessage field="type" />
-                </span>
-                
-                {/* <button className="smallInput--finish-btn">
+                            <span>
+                                <StyledInput name="rate" updatedValue={setRate}
+                                    // handleChange={updateOptions}
+                                    value={rate}
+                                    placeHolder="Rate" type="number" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
+
+                            {/* <button className="smallInput--finish-btn">
                     Done
                 </button> */}
-            </div>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <legend>Card Options</legend>
+                        <p>
+                        {/* {console.log(data)} */}
+                            <select className="select" name="country" value={selectOption} onChange={(e) => {
+                                setSelectOption(e.target.value)
+                                updateOptions(e.target.name, e.target.value)
+                            }}>
+                                <>
+                                    <option value={data.country}>{data.country} </option>
+                                    {countryOptions.map((item, index) => (
+                                        <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
+                                            {item}
+                                        </option>
+                                    ))}
+                                </>
+                            </select>
+
+                            <select className="select" name="class" value={selectClass} onChange={(e) => {
+                                const value = e.target.value
+                                const name = e.target.name
+                                setSelectClass(value)
+                                updateOptions(name, value)
+                            }}>
+                                <>
+                                    <option value={data.class}>{data.class} </option>
+                                    {classOptions.map((item, index) => (
+                                        <option key={index} value={item.toLowerCase()} className="rate-container-form__select--option">
+                                            {item}
+                                        </option>
+                                    ))}
+                                </>
+                            </select>
+                        </p>
+                        <div className="smallInput">
+                            <span>
+                                <StyledInput name="rangeFrom" updatedValue={setFrom}
+                                    // handleChange={updateOptions}
+                                    value={from}
+                                    placeHolder={data.from} type="number" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
+                            <span>
+                                <StyledInput name="rangeTo" updatedValue={setTo}
+                                    // handleChange={updateOptions}
+                                    value={to}
+                                    placeHolder={data.to} type="type" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
+
+                            <span>
+                                <StyledInput name="rate" updatedValue={setRate}
+                                    // handleChange={updateOptions}
+                                    value={rate}
+                                    placeHolder={data.rate} type="number" icon={lock} />
+                                <ValidationMessage field="type" />
+                            </span>
+
+                            {/* <button className="smallInput--finish-btn">
+                            Done
+                        </button> */}
+                        </div>
+                    </>
+            }
+
         </Container>
     )
 }
