@@ -1,10 +1,10 @@
-import React, { /* useState */ } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 // import logo from "../images/brandLogo.jpg"
 // import logo from "../images/logo.png"
 
 import waveSvg from "../images/waveSvg.svg"
-import { Carusel } from '.'
+import { Carusel, Modal } from '.'
 import Particles from "react-particles-js";
 // import { Link } from 'react-router-dom'
 // import routes from '../navigation/routes'
@@ -51,6 +51,35 @@ const Container = styled.div`
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
         grid-template-rows: min-content 65% min-content;
         height: 60vh;
+    }
+    .modal__container{
+        place-items: center;
+        background: ${props => props.theme.colorLight};
+        padding: 2rem 3rem;
+        height: max-content;
+        align-self: center;
+        color: ${props => props.theme.colorDark};
+        text-align: center;
+        position: relative;
+        border-radius: 1rem;
+        display: grid;
+
+        .close{
+            justify-self: flex-end;
+            cursor: pointer;
+        }
+        img{
+            height: 20rem;
+            width: 20rem;
+        }
+        &--text{
+            padding: 1rem;
+            font-size: ${props => props.theme.font.large}
+        }
+        &-address{
+            font-size: ${props => props.theme.font.large};
+            color: ${props => props.theme.colorSecondary};
+        }
     }
     .navbar-mobile{
         position: fixed;
@@ -307,50 +336,30 @@ const Container = styled.div`
 
 `
 const Header = (props) => {
-    // const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true)
-    // const toggleMobileNav = () => {
-    //     setMobileNavIsOpen(!mobileNavIsOpen) 
-    // }
-    // // const closeMobileNav = () => {
-    // //     setMobileNavIsOpen(false)
-    // // }
-    // const spring = useSpring({
-    //     transform: mobileNavIsOpen ? "scale(170)": "scale(0)"
-    // })
-    // const springMove = useSpring({
-    //     left: mobileNavIsOpen ? "50%;": "-50%"
-    // })
+    const [isModalActive, setIsModalActive] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsModalActive(true)
+        }, 4000)
+        
+    })
     return (
         <Container>
-           
+            <Modal isActive={isModalActive}>
+                <div className="modal__container">
+                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                        ❌
+                    </span>
+
+                    <p className="modal__container--text">
+                        click live chat icon on the bottom right hand coner of your screen to start trading instantly, 
+                         and exprrience blazing fast trading :)
+                    </p>
+                </div>
+            </Modal>
             <div className="info">
                 <Carusel />
             </div>
-            {/*
-            <div className="headerInfo">
-                <h3 className="headerInfo-text">
-                    AJ global ventures
-                    makes it easy to sell your 
-                    <span className="headerInfo-text--yellow"> bitcoins </span> 
-                    and <span className="headerInfo-text--yellow"> gift cards </span> 
-                </h3>
-
-                <button className="headerInfo-btn">
-                    Get Started
-                </button>
-                <div className="headerInfo-mobile-demo">
-                    <img src={playstore} alt="playStore"/>
-                    <img src={applestore} alt="ios"/>
-                </div>
-            </div>
-
-            <div className="headerSvg">
-                <img src={bitcoinSvg} alt="bitcoinSvg"/>
-            </div>
-
-            <div className="waveSvg">
-             
-            </div> */}
 
 
             <div
@@ -367,7 +376,7 @@ const Header = (props) => {
                 params={{
                     "particles": {
                         "number": {
-                            "value": 360,
+                            "value": 260,
                             "density": {
                                 "enable": false
                             }

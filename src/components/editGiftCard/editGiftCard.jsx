@@ -61,7 +61,7 @@ const EditGiftCard = ({ EditGiftCard, closeModal,cardSelectedForEdit}) => {
     useEffect(() => {
         setCardOptions(cardSelectedForEdit.attributes)
         dispatch({type: inputStateTypes.initializeState, payload: cardSelectedForEdit})
-        console.log(cardSelectedForEdit.attributes,);
+        // console.log(cardSelectedForEdit.attributes,);
         
     }, [cardSelectedForEdit,inputStateTypes.initializeState])
 

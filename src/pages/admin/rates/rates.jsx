@@ -14,7 +14,7 @@ import xCoinIcon from "../../../images/xCoinIcon.jpg"
 import routes from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
-import PaginatedTable from '../../../components/table/tablePagination'
+// import PaginatedTable from '../../../components/table/tablePagination'
 import { StyledButton, Modal, PopUpMessage } from '../../../components'
 import { StyledInput } from '../../../components/styledComponents'
 import { FormValidator } from '../../../formValidator'
@@ -71,6 +71,16 @@ const Container = styled.div`
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
            padding: 3rem 0;
         }
+		&-attrHeader{
+				text-align: center;
+				grid-column: 1/-1;
+				padding: 1.5rem;
+				display: flex;
+				justify-content: center;
+				/* width: 100%; */
+				color: ${props => props.theme.colorPrimary};
+				/* font-size: ${props => props.theme.font.arge}; */
+		}
         &_chat{
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -79,15 +89,65 @@ const Container = styled.div`
 			align-self: flex-start;
 			width: 100%;
 			height: 35rem;
+		}
+		&-card{
+			grid-column: 1/-1;
+			color: ${props => props.theme.colorDark};
+			width: 96%;
+			display: grid;
+			justify-items: space-around;
+			background: transparent;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 0 .5rem;
+			&__button{
+				align-self: center;
+				border-radius: 1rem;
+				padding: 1.5rem 1.5rem;
 			}
-
+			.header{
+				text-align: center;
+				color: ${props => props.theme.colorPrimary};
+				font-size: ${props => props.theme.font.medium};
+			}
+			&-group{
+				grid-column: 1/-1;
+				border: none 1px;
+				padding: 1rem;
+				width: 100%;
+				margin: 1rem 0;
+				border-color: ${props => props.theme.colorPrimary};
+				legend{
+					font-size: ${props => props.theme.font.large};
+					color: ${props => props.theme.colorPrimary};
+					text-transform: capitalize;
+				}
+			}
+			&-attributes{
+				grid-column: 1/-1;
+				display: flex;
+				width: 100%;
+				/* min-width: 55rem; */
+				justify-content: space-around;
+				padding: 1rem 1.5rem;
+				margin: 1rem 0;
+				box-shadow: .2rem .3rem 10px rgba(0,0,0, .3),
+					-0.2rem -0.3rem 20px rgba(255,255,255, .3);
+				border-radius: 1.4rem;
+				&__item{
+					width: 100%;
+					text-transform: capitalize;
+					text-align: center;
+					justify-content: space-around;
+				}
+	  		}
+		}	
         img, #icon{
             height: 3rem;
             width: 3rem;        }
 
     }
 `
-function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
+function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOnlyRates = [] }) {
 	const [isSelling, setIsSelling] = useState(true)
 	const [amount, setAmount] = useState("")
 	const [account_no, setAccount_no] = useState('')
@@ -99,9 +159,11 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
 	const [popUpMessage, setPopUpMessage] = useState(null)
 	const [error, setError] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
+	// const [giftCardInfo, setGiftCardInfo] = useState([])
 
-	const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-	const user_id = JSON.parse(localStorage.getItem("userInfo")).user.id
+
+	const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
+	const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
 
 
 	const rules = {
@@ -123,12 +185,14 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
 			.then(res => {
 				// console.log(res.data.data);
 				fetchAllRates(res.data.data)
-				return
+
+				return res.data.data
 			})
-
-		return () => {
-
-		}
+			.then(res => {
+				// setGiftCardInfo(res.filter(item => item.type === "card"))
+				// console.log(cardOnlyRates);
+			})
+		// eslint-disable-next-line
 	}, [fetchAllRates])
 
 	const coinIcons = {
@@ -351,7 +415,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
 
 					// setMessage("An error occured while uploading image. Try again or contact admin")
 				})
-			
+
 		}
 		// type === "buy" || setIsModalActive(true)
 	}
@@ -489,27 +553,96 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates }) {
 				</div>
 			</Modal>
 			<div className="rate">
-				<PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? rates.allRates : []} />
-				{/* <div className="rate_chat">
-					<iframe id="tradingview_dd6f1"
-						src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_dd6f1&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;theme=Dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.bitlunaroptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD"
-						style={{ width: "100%", height: "100%", margin: "0 !important", padding: "0 !important" }}
-						allowtransparency="true" scrolling="no" allowFullScreen="" frameBorder="0"
-						title="coinrate">
-					</iframe>
-				</div> */}
+				<h2 className="rate-attrHeader">Gift Cards</h2>
+				<div className="rate-card">
 
-				{/* <div style={{height:"256px", backgroundColor: "#FFFFFF", overflow:hidden, box-sizing: border-box, border: 1px solid #56667F, border-radius: 4px, text-align: right, line-height:14px, font-size: 12px, font-feature-settings: normal, text-size-adjust: 100%, box-shadow: inset 0 -20px 0 0 #56667F, padding: 0px, margin: 0px, width: 100%,}}><div style="height:236px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=full_v2&theme=light&cnt=3&pref_coin_id=1505&graph=yes" width="100%" height="232px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div></div> */}
+					{
+						cardOnlyRates.map((item, index) => (
+							<fieldset className="rate-card-group" key={index}>
+								<legend>{item.name}</legend>
+								<p className="rate-card-attributes header">
+									<span className="rate-card-attributes__item">Country</span>
+									<span className="rate-card-attributes__item">Class</span>
+									<span className="rate-card-attributes__item">Range</span>
+									<span className="rate-card-attributes__item">Rate</span>
+									<span className="rate-card-attributes__item">Qty</span>
+								</p>
+								{
+									item.attributes.map((attribute, i) => (
+										<p key={i} className="rate-card-attributes">
+											<span className="rate-card-attributes__item">
+												{attribute.country}
+											</span>
+											<span className="rate-card-attributes__item">
+												{attribute.class}
+											</span>
+											<span className="rate-card-attributes__item">
+												{attribute.from} - {attribute.to}
+											</span>
+											<span className="rate-card-attributes__item">
+												{attribute.rate}
+											</span>
+											<span className="rate-card-attributes__item">
+												{item.quantity}
+											</span>
+										</p>
+									))
+								}
 
-				{/* <CoinWidget ele="#mydiv" id="mydiv" link={`<div style="height:256px; background-color: #FFFFFF; overflow:hidden; box-sizing: border-box; border: 1px solid #56667F; border-radius: 4px; text-align: right; line-height:14px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #56667F; padding: 0px; margin: 0px; width: 100%;"><div style="height:236px; padding:0px; margin:0px; width: 100%;"><iframe src="https://widget.coinlib.io/widget?type=full_v2&theme=light&cnt=3&pref_coin_id=1505&graph=no" width="100%" height="232px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe></div><div style="color: #FFFFFF; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;"><a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #FFFFFF; text-decoration:none; font-size:11px">Cryptocurrency Prices</a>&nbsp;by Coinlib</div></div>`} /> */}
+							</fieldset>
 
-				{/* <img src={quickDetails} width="100%" height="100%" alt=""/> */}
+
+						))}
+				</div>
+
+				<h2 className="rate-attrHeader">Coins</h2>
+
+				<div className="rate-card">
+
+					{
+						coinOnlyRates?.map((item, index) => (
+							<fieldset className="rate-card-group" key={index}>
+								<legend>{item.name}</legend>
+								<p className="rate-card-attributes header">
+									<span className="rate-card-attributes__item">Name</span>
+									{/* <span className="rate-card-attributes__item">Buying</span> */}
+									<span className="rate-card-attributes__item">Class</span>
+									<span className="rate-card-attributes__item">Worth</span>
+									<span className="rate-card-attributes__item">Rate</span>
+								</p>
+								<p className="rate-card-attributes">
+									<span className="rate-card-attributes__item">
+										{item.name}
+									</span>
+									<span className="rate-card-attributes__item">
+										{item.class}
+									</span>
+									<span className="rate-card-attributes__item">
+										{item.from} - {item.to} {console.log(item.from , item.to)}
+									</span>
+									<span className="rate-card-attributes__item">
+										{item.buying}
+									</span>
+								</p>
+								{/* {
+									item.attributes.map((attribute, i) => (
+										
+									))
+								} */}
+							</fieldset>
+
+
+						))}
+				</div>
+				{/* <PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? rates.allRates : []} /> */}
 			</div>
 		</Container>
 	)
 }
 const mapStateToProps = ({ rates }) => ({
-	rates: rates
+	rates: rates,
+	coinOnlyRates: rates?.allRates?.filter(item => item.type === "coin"),
+	cardOnlyRates: rates?.allRates?.filter(item => item.type === "card")
 })
 
 const mapDispatchToProps = {

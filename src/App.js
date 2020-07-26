@@ -37,6 +37,7 @@ import UpdateUserInfo from './pages/admin/updateUserInfo/updateUserInfo';
 import ContextProvider from './context/contextProvider';
 import Orders from './pages/masterAdmin/orders/orders';
 import UserBuySell from './pages/userBuySell/userBuySell';
+import UserRates from './pages/userRates/userRates';
 
 const theme = {
 	colorPrimary: "#581b98",
@@ -92,7 +93,7 @@ function App() {
 						<GlobalStyle />
 						<ContextProvider>
 							<Container>
-								<Route path={["/", "/contact", "/faq", "/about", "/policies", "/buySell"]} exact>
+								<Route path={["/", "/contact", "/faq", "/about", "/policies", "/buySell", "/rates"]} exact>
 									<Navbar />
 									<Route exact path={routes.public.home} component={Main} />
 									<Route exact path={routes.public.contact} component={ContactUs} />
@@ -100,6 +101,7 @@ function App() {
 									<Route exact path={routes.public.about} component={AboutUS} />
 									<Route exact path={routes.public.policies} component={Policies} />
 									<Route exact path={routes.public.buy_sell} component={UserBuySell} />
+									<Route exact path={routes.public.rates} component={UserRates} />
 									<Foot />
 								</Route>
 								<Route exact path={routes.public.login} component={withRouter(Login)} />

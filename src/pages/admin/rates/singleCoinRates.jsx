@@ -21,10 +21,11 @@ import { Modal } from '../../../components'
 // import CoinWidget from '../../../components/widget/wigjet'
 
 const Container = styled.div`
-    grid-column: ${props => props.gridPos || "2/-1"};
+    grid-column: 1/-1; /*  ${props => props.gridPos || "2/-1"}; */
     display: ${props => props.hidden ? "none" : "grid"} ;
     min-height: 100%;
     min-width: 100%;
+    padding: 1.5rem;
     place-items: flex-start;
     background: ${props => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
@@ -62,7 +63,7 @@ const Container = styled.div`
     .coin{
         grid-column: 1/-1;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
         width: 100%;
         /* padding: 3rem; */
         align-items: flex-start;
@@ -358,6 +359,8 @@ const Container = styled.div`
     }
 `
 function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
+    const isVerified = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo"))?.user?.status || ""
+
     const coins = rates?.allRates?.slice(0, 4)
 
     const coinInfo = {
@@ -431,9 +434,6 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 return
             })
 
-        return () => {
-
-        }
         // eslint-disable-next-line
     }, [fetchAllRates])
 
@@ -463,7 +463,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         coin.selling = fx.convert(coin.selling,{from: "NGN", to: regionContext.country.code}).toFixed(1)
         setShowinput(false);
         setSelectedCoin(coin)
-    }
+    } 
 
     const updateSellingDollarAmounts = (e) => {
         setDollarSellingPrice((e.target.value))
@@ -514,16 +514,19 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     </div>
 
                     <p className="coin-options__buy-sell">
-                        <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
+                       {
+                           !isVerified ? null :
+                           <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
                             Buy
                         </span>
+                       }
                         <span className={`coin-options__buy-sell--item ${isSelling ? " tab" : null}`} onClick={() => setIsSelling(true)}>
                             sell
                         </span>
                     </p>
                     <h3 className="coin-options__prices">
                         <span>We buy at: {selectedCoin?.buying}/$</span>
-                        <span>We sell at: {selectedCoin?.selling}/$</span>
+                        {!isVerified ? null : <span>We sell at: {selectedCoin?.selling}/$</span>}
                         <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>
 
                     </h3>
@@ -570,6 +573,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                 <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
                             </p>
                             <p>
+                                <span className="coin-options__header">We will pay you:</span> 
+                                <br/>
                                 <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
                             </p>
                         </>

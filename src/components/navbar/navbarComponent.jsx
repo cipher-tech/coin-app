@@ -190,7 +190,7 @@ const NavbarComponent = (props) => {
             <animated.ul style={{ left: springMove.left }} onClick={toggleMobileNav} className="navbar-mobile__list">
                 <Link to={routes.public.home} className="navbar-mobile__list--item">home</Link>
                 <Link to={routes.public.buy_sell} className="navbar-mobile__list--item">buy/sell</Link>
-                <Link to={routes.public.about} className="navbar-mobile__list--item">About</Link>
+                <Link to={routes.public.rates} className="navbar-mobile__list--item">Rates</Link>
                 <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
                 <Link to={routes.public.contact} className="navbar-mobile__list--item">contact us</Link>
             </animated.ul>
@@ -207,7 +207,7 @@ const NavbarComponent = (props) => {
                 <ul className="navbar-list">
                     <Link to={routes.public.home} className="navbar-list-item">Home</Link>
                     <Link to={routes.public.buy_sell} className="navbar-list-item">Buy/Sell</Link>
-                    <Link to={routes.public.about} className="navbar-list-item">About</Link>
+                    <Link to={routes.public.rates} className="navbar-list-item">Rates</Link>
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
                     <Link to={routes.public.contact} className="navbar-list-item">Contact</Link>
                 </ul>

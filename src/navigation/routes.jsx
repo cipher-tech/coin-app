@@ -16,6 +16,7 @@ const routes = {
         about: "/about",
         policies: "/policies",
         buy_sell: "/buySell",
+        rates: "/rates",
         login: "/login",
         signUp: "/sign-up",
     },

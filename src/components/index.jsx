@@ -22,6 +22,7 @@ import SiteStats from "./siteStats/siteStats";
 import GiftCardOptions from "./giftCardOptions/giftCardOptions";
 import addEditGiftCard from "./addEditGiftCard/addEditGiftCard";
 import EditGiftCard from "./editGiftCard/editGiftCard";
+import buySellComponent from "./buySellComponent/buySellComponent";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -47,3 +48,4 @@ export const Stats = SiteStats
 export const CardOptions = GiftCardOptions
 export const AddEditGiftcard = addEditGiftCard
 export const EditGiftcard = EditGiftCard
+export const BuySell = buySellComponent

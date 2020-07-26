@@ -6,11 +6,11 @@ import { useTable, usePagination, useExpanded } from 'react-table'
 
 const Styles = styled.div`
  	padding: 1rem;
-
+  grid-column: inherit;
   width: 100%;
   display: grid;
   justify-items: center;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
     overflow: scroll;
   }

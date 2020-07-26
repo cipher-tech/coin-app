@@ -247,15 +247,21 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 
 	const [isBitcoin, setIsBitcoin] = useState(!true)
 	const [name, setName] = useState('')
-	const [type, setType] = useState('')
-	const [currentRate, setCurrentRate] = useState('')
+	// const [type, setType] = useState('')
+	// const [currentRate, setCurrentRate] = useState('')
 	const [buying, setBuying] = useState('')
+	const [classInput, setClassInput] = useState('')
+	const [from, setFrom] = useState('')
+	const [to, setTo] = useState('')
 	const [selling, setSelling] = useState('')
 	const [quantity, setQuantity] = useState('')
 
 	const [editQuantity, setEditQuantity] = useState('')
 	const [editBuying, setEditBuying] = useState('')
 	const [editSelling, setEditSelling] = useState('')
+	const [editClass, setEditClass] = useState('')
+	const [editFrom, setEditFrom] = useState('')
+	const [editTo, setEditTo] = useState('')
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
@@ -264,23 +270,29 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 
 	const rules = {
 		name: { required: true, minlength: 3, },
-		type: { required: true, minlength: 3, },
-		currentRate: { required: true, minlength: 3, },
-		buying: { required: true, minlength: 2, },
-		selling: { required: true, minlength: 2, },
-		quantity: { required: true, minlength: 2, },
+		// type: { required: true, minlength: 3, },
+		// currentRate: { required: true, minlength: 3, },
+		buying: { required: true, },
+		// classInput: { required: true, minlength: 2, },
+		// from: { required: true, minlength: 2, },
+		// to: { required: true, minlength: 2, },
+		selling: { required: true },
+		quantity: { required: true },
 	}
 	const state = {
 		name: name,
-		type: type,
-		currentRate: currentRate,
+		// type: type,
+		// currentRate: currentRate,
 		buying: buying,
+		classInput: classInput,
+		from: from,
+		to: to,
 		selling: selling,
 		quantity: quantity,
 	}
 
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
 
 		// console.log('data :>> ', data);
 		Axios.get(`${routes.api.getRates}?token=${auth_token}`)
@@ -302,7 +314,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
 		console.log('data :>> ', data);
-		Axios.post(`${routes.api.addRates}?token=${auth_token}`, data)
+		Axios.post(`${routes.api.addRates}?token=${auth_token}`, { ...data, type: "coin" })
 			.then(res => {
 				if (res.data.status === "success") {
 					console.log(res.data);
@@ -348,7 +360,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
 			})
-			.finally((res) =>setIsActive(false))
+			.finally((res) => setIsActive(false))
 
 
 	}
@@ -378,7 +390,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
 			})
-			.finally((res) =>setIsEditing(false))
+			.finally((res) => setIsEditing(false))
 
 	}
 	const handleEditRates = (rate) => {
@@ -387,11 +399,13 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 			// currentRate: editCurrentRate || rate.current_rate,
 			quantity: editQuantity || rate.quantity,
 			buying: editBuying || rate.buying,
-			selling: editSelling || rate.selling
+			selling: editSelling || rate.selling,
+			from: editFrom || rate.from,
+			class: editClass || rate.class,
+			to: editTo || rate.to
 		}
 
 		// console.log(rateInfo);
-		updateEditRateHooks()
 		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
 
 		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
@@ -412,6 +426,9 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				setError(true)
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
+			})
+			.finally(res => {
+				updateEditRateHooks()
 			})
 	}
 
@@ -539,6 +556,18 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				value={editQuantity}
 				placeHolder={props.original.quantity} type="text" icon={envelope} />
 
+			<StyledInput name="editClass" label="class" updatedValue={setEditClass}
+				value={editClass}
+				placeHolder={props.original.class} type="text" icon={envelope} />
+
+			<StyledInput name="editFrom" label="From" updatedValue={setEditFrom}
+				value={editFrom}
+				placeHolder={props.original.from} type="text" icon={envelope} />
+
+			<StyledInput name="editTo" label="To" updatedValue={setEditTo}
+				value={editTo}
+				placeHolder={props.original.to} type="text" icon={envelope} />
+
 			<button onClick={() => handleEditRates(props.original)} className="expandedDiv__button">
 				{isLoading ? "Loading..." : "Update"}
 			</button>
@@ -596,25 +625,41 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 									placeHolder="Name" type="name" icon={envelope} />
 								<ValidationMessage field="name" />
 
-								<StyledInput name="type" updatedValue={setType}
+								{/* <StyledInput name="type" updatedValue={setType}
 									value={state.type}
 									placeHolder="Type" type="type" icon={lock} />
-								<ValidationMessage field="type" />
+								<ValidationMessage field="type" /> */}
 
-								<StyledInput name="currentRate" updatedValue={setCurrentRate}
+								{/* <StyledInput name="currentRate" updatedValue={setCurrentRate}
 									value={state.currentRate}
 									placeHolder="Current Rate" type="currentRate" icon={lock} />
-								<ValidationMessage field="currentRate" />
+								<ValidationMessage field="currentRate" /> */}
+
+								<StyledInput name="classInput" updatedValue={setClassInput}
+									value={state.classInput}
+									placeHolder="Class" type="text" icon={lock} />
+								<ValidationMessage field="classInput" />
+
+								<StyledInput name="from" updatedValue={setFrom}
+									value={state.from}
+									placeHolder="From" type="number" icon={lock} />
+								<ValidationMessage field="from" />
+
+								<StyledInput name="to" updatedValue={setTo}
+									value={state.to}
+									placeHolder="To" type="number" icon={lock} />
+								<ValidationMessage field="to" />
 
 								<StyledInput name="buying" updatedValue={setBuying}
 									value={state.buying}
-									placeHolder="Buying" type="buying" icon={lock} />
+									placeHolder="Buying" type="text" icon={lock} />
 								<ValidationMessage field="buying" />
 
 								<StyledInput name="selling" updatedValue={setSelling}
 									value={state.selling}
 									placeHolder="Selling" type="selling" icon={lock} />
 								<ValidationMessage field="selling" />
+
 								<StyledInput name="quantity" updatedValue={setQuantity}
 									value={state.quantity}
 									placeHolder="Quantity" type="number" icon={lock} />
