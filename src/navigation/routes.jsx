@@ -3,7 +3,7 @@ const masterAdmin = "/master-admin"
 // const host = "http://127.0.0.1:8080"
 const prod = false
 const server = "https://coin-app-ackend.herokuapp.com/api/"
-const localhost = "http://localhost:8000/api/"
+const localhost = "http://192.168.43.95:8000/api/"
 const exchangeApiId= "12dc31345cfc42778258c4880347ceee"
 // moneyjs link = https://openexchangerates.org/api/latest.json?app_id=
 const routes = {

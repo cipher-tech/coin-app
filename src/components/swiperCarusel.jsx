@@ -73,10 +73,10 @@ export default class swiperCarusel extends Component {
             margin-bottom: 1rem;
         }
         @media only screen and (min-width: ${props => props.theme.breakPoints.bpxxLarge}) {
-        grid-template-columns: repeat(2, minmax(40rem, 1fr));
-        grid-template-rows: min-content 65% min-content;
-        height: 90vh;
-    }
+            grid-template-columns: repeat(2, minmax(40rem, 1fr));
+            grid-template-rows: min-content 65% min-content;
+            /* height: 90vh; */
+        }
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpxLarge}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
     }
@@ -172,6 +172,11 @@ export default class swiperCarusel extends Component {
         img{
             height: 90%;
             width: 100%;
+            @media only screen and (min-width: ${props => props.theme.breakPoints.bpxxLarge}) {
+                height: 80%;
+                width: 100%;
+                /* height: 90vh; */
+            }
             /* transform: scale(.8); */
         }
         .imagePhoto{

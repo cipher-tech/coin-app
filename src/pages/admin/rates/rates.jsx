@@ -568,7 +568,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 									<span className="rate-card-attributes__item">Qty</span>
 								</p>
 								{
-									item.attributes.map((attribute, i) => (
+									item?.attributes?.map((attribute, i) => (
 										<p key={i} className="rate-card-attributes">
 											<span className="rate-card-attributes__item">
 												{attribute.country}

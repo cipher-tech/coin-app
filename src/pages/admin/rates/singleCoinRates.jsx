@@ -9,6 +9,10 @@ import BCH_thumbnail from "../../../images/BCH_thumbnail.png"
 import LTC_thumbnail from "../../../images/LTC_thumbnail.png"
 import ETH_thumbnail from "../../../images/ETH_thumbnail.png"
 import XBT_thumbnail_alt from "../../../images/XBT_thumbnail_alt.png"
+import {ReactComponent as BCHIcon} from "../../../images/svgIcons/bitcoinSvg.svg"
+import {ReactComponent as ETHIcon} from "../../../images/svgIcons/ethereumSvg.svg"
+import {ReactComponent as LTCIcon } from "../../../images/svgIcons/blockchainSvg.svg"
+import {ReactComponent as XBTIcon} from "../../../images/svgIcons/blockchainSvg.svg"
 
 import routes, { defaultcurrencies } from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
@@ -63,7 +67,7 @@ const Container = styled.div`
     .coin{
         grid-column: 1/-1;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(38rem, 1fr));
         width: 100%;
         /* padding: 3rem; */
         align-items: flex-start;
@@ -72,6 +76,8 @@ const Container = styled.div`
         /* height: 78vh; */
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
            padding: 3rem 0;
+           display: flex;
+           flex-direction: column-reverse;
         }
 
         &-options{
@@ -336,21 +342,32 @@ const Container = styled.div`
         .amount{
             display: flex;
             justify-content: center;
-            width: 100%;
+            width: 100%; 
             
         }
        
         
-        &_chat{
-			display: grid;
-			/* grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-			grid-template-rows: repeat(2, minmax(30rem, 1fr));
-			gap: 2rem; */
-			align-self: center;
-			width: 30rem;
-			height: 30rem;
-			}
-
+        &-icon{
+            display: grid;
+            align-items: center;
+            align-items: center;
+            justify-items: center;
+            height: 100%;
+            width: 100%;
+            padding: 0rem .1rem;
+            transition: all .3s ease-in-out .1s;
+            cursor: pointer;
+            align-self: center;
+            justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
+            svg{
+                height: 20rem;
+                width: 20rem;
+            }
+            svg path{  
+                /* fill: white;
+                color: white; */
+            }
+        }
         /* img, #icon{
             height: 3rem;
             width: 3rem;
@@ -402,6 +419,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
 
     const [showinput, setShowinput] = useState(false)
     const [selectedCoin, setSelectedCoin] = useState([])
+    // const [selectedCoinImage, setSelectedCoinImage] = useState(icons[0])
     const [, setAmount] = useState(coinInfo.bitcoinPrice)
     const [input, setInput] = useState("")
     const [rate, setRate] = useState(0)
@@ -411,6 +429,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const [isModalActive, setIsModalActive] = useState(false)
 
     const regionContext = useContext(ContextData)
+    fx.rates = defaultcurrencies.rates
     // updateRate(1000)
     useEffect(() => {
         fx.base = "USD";
@@ -423,6 +442,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 // console.log("live Rates", res.data.rates);
             })
             .catch(err => {
+                console.log(err); 
                 fx.rates = defaultcurrencies.rates
             })
         Axios.get(`${routes.api.getRates}?token=${auth_token}`)
@@ -458,12 +478,13 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         // console.log(coin.selling);
         // console.log(regionContext);
         // console.log()
-        coin.buying = fx.convert(coin.buying,{from: "NGN", to: regionContext.country.code}).toFixed(1);
-        
-        coin.selling = fx.convert(coin.selling,{from: "NGN", to: regionContext.country.code}).toFixed(1)
+        selectCoinImage()
+        coin.buying = fx.convert(coin.buying, { from: "NGN", to: regionContext.country.code || "NGN" }).toFixed(1);
+
+        coin.selling = fx.convert(coin.selling, { from: "NGN", to: regionContext.country.code || "NGN" }).toFixed(1)
         setShowinput(false);
         setSelectedCoin(coin)
-    } 
+    }
 
     const updateSellingDollarAmounts = (e) => {
         setDollarSellingPrice((e.target.value))
@@ -475,6 +496,32 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     }
     const buySellButton = (e) => {
         setIsModalActive(true)
+    }
+
+    const selectCoinImage = () => {
+        switch (selectedCoin.name) {
+            case "bitcoin": {
+                // setSelectedCoinImage(icons[0])
+                return <BCHIcon />
+            }
+            case "etherum": {
+                // setSelectedCoinImage(icons[1])
+                return <ETHIcon />
+            }
+            case "xpss": {
+                // setSelectedCoinImage(icons[2])
+                return <LTCIcon />
+            }
+            case "cycoin": {
+                // setSelectedCoinImage(icons[3])
+                return <XBTIcon />
+            }
+
+            default: {
+                // setSelectedCoinImage(icons[0])
+                return <XBTIcon />
+            }
+        }
     }
     return (
         <Container hidden={hidden} gridPos={gridPos}>
@@ -514,12 +561,12 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     </div>
 
                     <p className="coin-options__buy-sell">
-                       {
-                           !isVerified ? null :
-                           <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
-                            Buy
+                        {
+                            !isVerified ? null :
+                                <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
+                                    Buy
                         </span>
-                       }
+                        }
                         <span className={`coin-options__buy-sell--item ${isSelling ? " tab" : null}`} onClick={() => setIsSelling(true)}>
                             sell
                         </span>
@@ -573,8 +620,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                 <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
                             </p>
                             <p>
-                                <span className="coin-options__header">We will pay you:</span> 
-                                <br/>
+                                <span className="coin-options__header">We will pay you:</span>
+                                <br />
                                 <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
                             </p>
                         </>
@@ -598,13 +645,15 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         {isSelling ? "Sell" : "Buy"}
                     </button>
                 </div>
-                <div className="coin_chat">
-                    <iframe id="tradingview_dd6f1"
+                <div className="coin-icon">
+                    {selectCoinImage()}
+                    {/* {console.log(selectedCoinImage)} */}
+                    {/* <iframe id="tradingview_dd6f1"
                         src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_dd6f1&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;theme=Dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.bitlunaroptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD"
                         style={{ width: "100%", height: "100%", margin: "0 !important", padding: "0 !important" }}
                         allowtransparency="true" scrolling="no" allowFullScreen="" frameBorder="0"
                         title="coinrate">
-                    </iframe>
+                    </iframe> */}
 
 
                 </div>

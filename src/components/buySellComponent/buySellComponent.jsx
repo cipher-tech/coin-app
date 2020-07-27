@@ -460,7 +460,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                 }}>
                                     <>
                                         <option value={''}> Select Card Country </option>
-                                        {props.original.attributes.map((item, index) => (
+                                        {props?.original?.attributes?.map((item, index) => (
                                             <option key={index} value={item.country.toLowerCase()} className="rate-container-form__select--option">
                                                 {item.country}
                                             </option>
@@ -475,7 +475,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                 }}>
                                     <>
                                         <option value={''}> Select Card Class </option>
-                                        {props.original.attributes.map((item, index) => (
+                                        {props?.original?.attributes?.map((item, index) => (
                                             <option key={index} value={item.class.toLowerCase()} className="rate-container-form__select--option">
                                                 {item.class}
                                             </option>
@@ -531,11 +531,11 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                         <p className="rate-container-form__selectContainer">
                                             <span>
                                                 you get: ₦
-                                                {amount * props.original.attributes.find(
+                                                {amount * props?.original?.attributes?.find(
                                                     item => item.country === SelectedCardCountry && item.class === SelectedCardClass )?.rate || 0}
                                             </span>
                                             <span>
-                                                rate: ₦{props.original.attributes.find(item => item.country === SelectedCardCountry)?.rate || 0}
+                                                rate: ₦{props?.original?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
                                             </span>
                                         </p>
 

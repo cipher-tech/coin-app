@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import SingleCoinRates from "../admin/rates/singleCoinRates" //'../ rates/singleCoinRates'
+import chattingSvg from "../../images/chattingSvg.svg"
 import BuySellComponent from '../../components/buySellComponent/buySellComponent'
 import { Modal } from '../../components'
 // import Rates from '../admin/rates/rates'
@@ -28,6 +29,8 @@ const Container = styled.div`
         position: relative;
         border-radius: 1rem;
         display: grid;
+        width: 90%;
+        justify-self: center;
 
         .close{
             justify-self: flex-end;
@@ -39,6 +42,7 @@ const Container = styled.div`
         }
         &--text{
             padding: 1rem;
+            font-size: ${props => props.theme.font.large};
         }
         &-address{
             font-size: ${props => props.theme.font.large};
@@ -47,7 +51,12 @@ const Container = styled.div`
     }
 `
 const UserBuySell = () => {
-    const [isModalActive, setIsModalActive] = useState(true)
+    const [isModalActive, setIsModalActive] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsModalActive(true)
+        }, 4000)
+    }, [setIsModalActive])
     return (
         <Container>
          <Modal isActive={isModalActive}>
@@ -55,7 +64,7 @@ const UserBuySell = () => {
                     <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
                         ❌
                     </span>
-
+                    <img src={chattingSvg} alt="homepage modal icon"/>
                     <p className="modal__container--text">
                         Due to constant changes in market price, contact customer care via the 
                         live chat icon on the bottom right hand coner of your screen for lower rate latency trading experience. 

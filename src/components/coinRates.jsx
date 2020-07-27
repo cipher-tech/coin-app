@@ -25,7 +25,7 @@ const Container = styled.div`
     .rate__container{
         grid-column: 1/-1;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
         justify-content: center;
         gap: 2rem 0rem;
         height: max-content;
