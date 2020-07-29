@@ -168,7 +168,7 @@ const Header = (props) => {
                 params={{
                     "particles": {
                         "number": {
-                            "value": 260,
+                            "value": 160,
                             "density": {
                                 "enable": false
                             }

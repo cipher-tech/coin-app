@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
 import { ContextData } from '../../../context/contextData'
-import { Modal } from '../../../components'
+import { Modal, PopUpMessage } from '../../../components'
 // import PaginatedTable from '../../../components/table/tablePagination'
 // import CoinWidget from '../../../components/widget/wigjet'
 
@@ -62,6 +62,8 @@ const Container = styled.div`
         &-address{
             font-size: ${props => props.theme.font.large};
             color: ${props => props.theme.colorSecondary};
+            width: 90%;
+            overflow-x: scroll;
         }
     }
     .coin{
@@ -439,15 +441,24 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const [rate, setRate] = useState(0)
     const [dollarSellingPrice, setDollarSellingPrice] = useState('')
     const [nairaSellingPrice, setLocalSellingPrice] = useState('')
+    const [modeOfPayment, setModeOfPayment] = useState('')
     const [isSelling, setIsSelling] = useState(true)
     const [isModalActive, setIsModalActive] = useState(false)
+    const [popUpMessage, setPopUpMessage] = useState(null)
+    const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [hasError, setHasError] = useState(false)
+    const [refrenceId, setRefrenceId] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const regionContext = useContext(ContextData)
     fx.rates = defaultcurrencies.rates
     // updateRate(1000)
+    const user_id = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo"))?.user?.id || ""
+
     useEffect(() => {
         fx.base = "USD";
-        const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
+        const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token || ""
         // console.log('data :>> ', data);
         // updateRate(1000)
         Axios.get(routes.exchangeApi)
@@ -509,7 +520,67 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         setLocalSellingPrice(e.target.value)
     }
     const buySellButton = (e) => {
-        setIsModalActive(true)
+        if (isNaN(dollarSellingPrice) || isNaN(nairaSellingPrice)) {
+            setPopUpMessage('Value must be a number.')
+            setHasError(true)
+            setShowPopUpMessage(true)
+            return setTimeout(() => {
+                setShowPopUpMessage(false)
+                setHasError(false)
+            }, 8000);
+        } else if (dollarSellingPrice === '' || nairaSellingPrice === '') {
+            setPopUpMessage('Please enter a value')
+            setHasError(true)
+            setShowPopUpMessage(true)
+            return setTimeout(() => {
+                setShowPopUpMessage(false)
+                setHasError(false)
+            }, 8000);
+        } else if (modeOfPayment === '') {
+            setPopUpMessage('Please select mode of payment.')
+            setHasError(true)
+            setShowPopUpMessage(true)
+            return setTimeout(() => {
+                setShowPopUpMessage(false)
+                setHasError(false)
+            }, 8000);
+        }
+        const data = {
+            user_id: user_id || null,
+            amount: dollarSellingPrice,
+            type: "bitcoin",
+            action: "sell",
+            modeOfPayment: modeOfPayment,
+        }
+        console.log(data);
+        Axios.post(`${routes.api.userSellCoin}`, data)
+            .then(res => {
+                // console.log(res);
+                if (res.data.status === "success") {
+                    setRefrenceId(res.data.data)
+                    // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
+                    setPopUpMessage("Order placed successfully")
+                    setShowPopUpMessage(true)
+                    setIsLoading(false)
+                    setIsModalActive(true)
+                }
+                return setTimeout(() => {
+                    setShowPopUpMessage(false)
+                    setHasError(false)
+                }, 8000);
+            })
+            .catch(res => {
+                setPopUpMessage("An error occured. Try again or contact admin")
+                setHasError(true)
+                setShowPopUpMessage(true)
+                setIsLoading(false)
+
+                return setTimeout(() => {
+                    setShowPopUpMessage(false)
+                    setHasError(false)
+                }, 8000);
+            })
+
     }
 
     const selectCoinImage = () => {
@@ -538,135 +609,146 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         }
     }
     return (
-        <Container hidden={hidden} gridPos={gridPos}>
-            <Modal isActive={isModalActive}>
-                <div className="modal__container">
-                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
-                        ❌
+        <>
+            {showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+
+                <Modal isActive={isModalActive}>
+                    <div className="modal__container">
+                        <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                            ❌
 
                         </span>
-                    <img src={qrcode} alt="" />
+                        <img src={qrcode} alt="" />
 
-                    <p className="modal__container--text">
-                        please pay the specified amount into this address
+                        <p className="modal__container--text">
+                            please pay exactly ${dollarSellingPrice}  into this bitcoin address
                     </p>
 
-                    <p className="modal__container-address">
-                        d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
-                    </p>
-                </div>
-            </Modal>
-            <div className="coin">
-                <div className="coin-options">
-                    <div className="coin-options__types">
-                        <div className="coin-options__types--container">
+                        <p className="modal__container-address">
+                            d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                        </p>
+
+                        <p className="modal__container--text">
+                            After successful payment contact customer care with this unique refrence id: <br />
+
+                            <span className="modal__container-address">
+                                {refrenceId}
+                            </span>
+                        </p>
+                    </div>
+                </Modal>
+            <Container hidden={hidden} gridPos={gridPos}>
+                <div className="coin">
+                    <div className="coin-options">
+                        <div className="coin-options__types">
+                            <div className="coin-options__types--container">
+                                {
+                                    coins?.map((coin, index) => (
+                                        <div key={index} className={`coin-options__types--container--item ${selectedCoin.name === coin.name ? " active" : ""}`} onClick={() => updateSelectedCoin(coin)}>
+                                            <img src={icons[index]} alt="bitcoin" />
+                                            <p className="coin-options__types--container--item--text">
+                                                {coin.name}
+                                            </p>
+                                        </div>
+                                    ))
+                                }
+
+                            </div>
+                        </div>
+
+                        <p className="coin-options__buy-sell">
                             {
-                                coins?.map((coin, index) => (
-                                    <div key={index} className={`coin-options__types--container--item ${selectedCoin.name === coin.name ? " active" : ""}`} onClick={() => updateSelectedCoin(coin)}>
-                                        <img src={icons[index]} alt="bitcoin" />
-                                        <p className="coin-options__types--container--item--text">
-                                            {coin.name}
-                                        </p>
+                                !isVerified ? null :
+                                    <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
+                                        Buy
+                                </span>
+                            }
+                            <span className={`coin-options__buy-sell--item ${isSelling ? " tab" : null}`} onClick={() => setIsSelling(true)}>
+                                sell
+                        </span>
+                        </p>
+                        <h3 className="coin-options__prices">
+                            <span>We buy at: {selectedCoin?.buying}/$</span>
+                            {!isVerified ? null : <span>We sell at: {selectedCoin?.selling}/$</span>}
+                            <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>
+
+                        </h3>
+
+                        {(!isSelling && !selectedCoin?.quantity) ?
+                            <h3 className="coin-options__header red"> Currently not avaliable</h3>
+                            :
+                            ""}
+
+                        <h3 className="coin-options__header">How much {selectedCoin?.name} do you want to {isSelling ? "sell" : "buy"}?</h3>
+
+                        {isSelling ? null :
+                            <>
+                                <div className="coin-options__card--container amount">
+                                    <div className="coin-options__card--container--item price">
+                                        <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1000)}>₦1000</p>
                                     </div>
+                                    <div className="coin-options__card--container--item price">
+                                        <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1500)}>₦1500</p>
+                                    </div>
+                                    <div className="coin-options__card--container--item price">
+                                        <p className="coin-options__card--container--item--text" onClick={() => setShowinput(true)} >Own Amount</p>
+                                    </div>
+
+                                </div>
+                                {
+                                    !showinput ? null :
+                                        <div className="coin-options__form">
+                                            <StyledInput name="amount" handleChange={updateInput}
+                                                value={input}
+                                                placeHolder="Enter Amount" type="text" icon={BCH_thumbnail} />
+                                            <ValidationMessage field="amount" />
+                                        </div>
+                                }
+                                <div className="coin-options__value">
+                                    {/* {selectedCoin.short} */} $ {rate}
+                                </div>
+                            </>
+                        }
+                        {!isSelling ? null :
+                            <>
+                                <p>
+                                    {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
+                                    <span className="coin-options__amounts" symbol={"$"}>
+                                        <input type="number" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="0.0" />
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="coin-options__header">We will pay you:</span>
+                                    <br />
+                                    <span className="coin-options__amounts" symbol={regionContext?.country?.symbol || "₦"}>
+                                        <input type="number" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="0.0" />
+                                    </span>
+                                </p>
+                            </>
+                        }
+                        <select name="coin-options" onChange={(e => (setModeOfPayment(e.target.value)))} className="coin-options-paymentOptions">
+                            <option value="">
+                                Mode of payment
+                        </option>
+                            {
+                                regionContext?.country?.paymentMethods?.map((item, i) => (
+                                    <option key={i} value="bank">
+                                        {item.name}
+                                    </option>
                                 ))
                             }
-
-                        </div>
+                        </select>
+                        <p className="coin-options__acceptedPaymentMethods">
+                            *Currently accepted payment methods: UBA, BITCOIN
+                    </p>
+                        <button onClick={buySellButton} disabled={(!isSelling && !selectedCoin?.quantity)} className={`coin-options__button ${(!isSelling && !selectedCoin?.quantity) ? "disabled" : ""}`}>
+                            {isSelling ? "Sell" : "Buy"} {isLoading ? "💱" : ""}
+                        </button>
                     </div>
-
-                    <p className="coin-options__buy-sell">
-                        {
-                            !isVerified ? null :
-                                <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
-                                    Buy
-                                </span>
-                        }
-                        <span className={`coin-options__buy-sell--item ${isSelling ? " tab" : null}`} onClick={() => setIsSelling(true)}>
-                            sell
-                        </span>
-                    </p>
-                    <h3 className="coin-options__prices">
-                        <span>We buy at: {selectedCoin?.buying}/$</span>
-                        {!isVerified ? null : <span>We sell at: {selectedCoin?.selling}/$</span>}
-                        <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>
-
-                    </h3>
- 
-                    {(!isSelling && !selectedCoin?.quantity) ?
-                        <h3 className="coin-options__header red"> Currently not avaliable</h3>
-                        :
-                        ""}
-
-                    <h3 className="coin-options__header">How much {selectedCoin?.name} do you want to {isSelling ? "sell" : "buy"}?</h3>
-
-                    {isSelling ? null :
-                        <>
-                            <div className="coin-options__card--container amount">
-                                <div className="coin-options__card--container--item price">
-                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1000)}>₦1000</p>
-                                </div>
-                                <div className="coin-options__card--container--item price">
-                                    <p className="coin-options__card--container--item--text" onClick={() => updateAmount(1500)}>₦1500</p>
-                                </div>
-                                <div className="coin-options__card--container--item price">
-                                    <p className="coin-options__card--container--item--text" onClick={() => setShowinput(true)} >Own Amount</p>
-                                </div>
-
-                            </div>
-                            {
-                                !showinput ? null :
-                                    <div className="coin-options__form">
-                                        <StyledInput name="amount" handleChange={updateInput}
-                                            value={input}
-                                            placeHolder="Enter Amount" type="text" icon={BCH_thumbnail} />
-                                        <ValidationMessage field="amount" />
-                                    </div>
-                            }
-                            <div className="coin-options__value">
-                                {/* {selectedCoin.short} */} $ {rate}
-                            </div>
-                        </>
-                    }
-                    {!isSelling ? null :
-                        <>
-                            <p>
-                                {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
-                                <span className="coin-options__amounts" symbol={"$"}>
-                                    <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="0.0" />
-                                </span>
-                            </p>
-                            <p>
-                                <span className="coin-options__header">We will pay you:</span>
-                                <br />
-                                <span className="coin-options__amounts" symbol={regionContext?.country?.symbol || "₦"}>
-                                    <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="0.0" />
-                                </span>
-                            </p>
-                        </>
-                    }
-                    <select name="coin-options" className="coin-options-paymentOptions">
-                        <option value="bank">
-                            Mode of payment
-                        </option>
-                        {
-                            regionContext?.country?.paymentMethods?.map((item, i) => (
-                                <option key={i} value="bank">
-                                    {item.name}
-                                </option>
-                            ))
-                        }
-                    </select>
-                    <p className="coin-options__acceptedPaymentMethods">
-                        *Currently accepted payment methods: UBA, BITCOIN
-                    </p>
-                    <button onClick={buySellButton} disabled={(!isSelling && !selectedCoin?.quantity)} className={`coin-options__button ${(!isSelling && !selectedCoin?.quantity) ? "disabled" : ""}`}>
-                        {isSelling ? "Sell" : "Buy"}
-                    </button>
-                </div>
-                <div className="coin-icon">
-                    {selectCoinImage()}
-                    {/* {console.log(selectedCoinImage)} */}
-                    {/* <iframe id="tradingview_dd6f1"
+                    <div className="coin-icon">
+                        {selectCoinImage()}
+                        {/* {console.log(selectedCoinImage)} */}
+                        {/* <iframe id="tradingview_dd6f1"
                         src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_dd6f1&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;theme=Dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.bitlunaroptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD"
                         style={{ width: "100%", height: "100%", margin: "0 !important", padding: "0 !important" }}
                         allowtransparency="true" scrolling="no" allowFullScreen="" frameBorder="0"
@@ -674,9 +756,10 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     </iframe> */}
 
 
+                    </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </>
     )
 }
 const mapStateToProps = ({ rates }) => ({

@@ -158,7 +158,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
 	const [error, setError] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)	
 	// const [giftCardInfo, setGiftCardInfo] = useState([])
 
 

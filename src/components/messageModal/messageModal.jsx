@@ -35,6 +35,7 @@ const MessageModal = styled.p`
     animation: ${modalAnimation} 8s ease .5s;
     overflow: hidden;
     width: 0px;
+    z-index: 1500;
 `
 
 export default MessageModal

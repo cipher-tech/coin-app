@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import Axios from 'axios'
@@ -90,6 +90,10 @@ const Container = styled.div`
                     align-self: center;
                     justify-content: space-evenly;
                     padding: 1.5rem;
+                    @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium}) {
+                        display: flex;
+                        flex-direction: column;
+                    }
                     select{
                         background: transparent;
                         padding: .5rem 1rem;
@@ -131,7 +135,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     const [card_id, setCard_id] = useState('')
     const [isModalActive, setIsModalActive] = useState(false)
     const [giftCardImage, setGiftCardImage] = useState(null)
-    const [refrenceId, setRefrenceId] = useState(!false)
+    const [refrenceId, setRefrenceId] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [error, setError] = useState(false)
@@ -144,6 +148,13 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     // const [giftCardInfo, setGiftCardInfo] = useState([])
     const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
     const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
+    const [, setIsCopied] = useState('')
+    // const copyRef = useRef(null)
+
+    async function copy(e) {
+        navigator.clipboard.writeText(refrenceId)
+        setIsCopied(true)
+    }
     const rules = {
         amount: { required: true, minlength: 2, },
         account_no: { minlength: 2, },
@@ -384,27 +395,27 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
             }
             console.log(user_data);
 
-            // Axios.post(`${routes.api.userSellCard}?token=${auth_token}`, user_data)
-            //     .then(res => {
-            //         // console.log(res);
-            //         if (res.data.status === "success") {
-            //             setRefrenceId(res.data.data)
-            //             // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
-            //             setPopUpMessage("Order placed successfully")
-            //             setShowPopUpMessage(true)
-            //             setIsLoading(false)
-            //             setIsModalActive(true)
-            //         }
+            Axios.post(`${routes.api.userSellCard}?token=${auth_token}`, user_data)
+                .then(res => {
+                    // console.log(res);
+                    if (res.data.status === "success") {
+                        setRefrenceId(res.data.data)
+                        // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
+                        setPopUpMessage("Order placed successfully")
+                        setShowPopUpMessage(true)
+                        setIsLoading(false)
+                        setIsModalActive(true)
+                    }
 
-            //     })
-            //     .catch(res => {
-            //         setPopUpMessage("An error occured. Try again or contact custormer care")
-            //         setError(true)
-            //         setShowPopUpMessage(true)
-            //         setIsLoading(!true)
+                })
+                .catch(res => {
+                    setPopUpMessage("An error occured. Try again or contact custormer care")
+                    setError(true)
+                    setShowPopUpMessage(true)
+                    setIsLoading(!true)
 
-            //         // setMessage("An error occured while uploading image. Try again or contact admin")
-            //     })
+                    // setMessage("An error occured while uploading image. Try again or contact admin")
+                })
 
         }
         // type === "buy" || setIsModalActive(true)
@@ -532,7 +543,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                             <span>
                                                 you get: ₦
                                                 {amount * props?.original?.attributes?.find(
-                                                    item => item.country === SelectedCardCountry && item.class === SelectedCardClass )?.rate || 0}
+                                                item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || 0}
                                             </span>
                                             <span>
                                                 rate: ₦{props?.original?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
@@ -605,7 +616,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                     </p>
 
                     <p className="modal__container-address">
-                        {isSelling ? "d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h" : "UBA" + <br /> + " 0236736793"}
+                        {isSelling ? "d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h" : "UBA \n 0236736793"}
                     </p>
 
                     <p className="modal__container--text">
@@ -614,6 +625,8 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                         <span className="modal__container-address">
                             {refrenceId}
                         </span>
+                        <button onClick={() =>copy()}> copy</button>
+
                     </p>
                 </div>
             </Modal>
