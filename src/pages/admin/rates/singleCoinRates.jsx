@@ -9,10 +9,10 @@ import BCH_thumbnail from "../../../images/BCH_thumbnail.png"
 import LTC_thumbnail from "../../../images/LTC_thumbnail.png"
 import ETH_thumbnail from "../../../images/ETH_thumbnail.png"
 import XBT_thumbnail_alt from "../../../images/XBT_thumbnail_alt.png"
-import {ReactComponent as BCHIcon} from "../../../images/svgIcons/bitcoinSvg.svg"
-import {ReactComponent as ETHIcon} from "../../../images/svgIcons/ethereumSvg.svg"
-import {ReactComponent as LTCIcon } from "../../../images/svgIcons/blockchainSvg.svg"
-import {ReactComponent as XBTIcon} from "../../../images/svgIcons/blockchainSvg.svg"
+import { ReactComponent as BCHIcon } from "../../../images/svgIcons/bitcoinSvg.svg"
+import { ReactComponent as ETHIcon } from "../../../images/svgIcons/ethereumSvg.svg"
+import { ReactComponent as LTCIcon } from "../../../images/svgIcons/blockchainSvg.svg"
+import { ReactComponent as XBTIcon } from "../../../images/svgIcons/blockchainSvg.svg"
 
 import routes, { defaultcurrencies } from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
@@ -261,6 +261,20 @@ const Container = styled.div`
                 transition: all .5s ease;
                 color: ${props => props.theme.colorPrimary}
             }
+
+            &__amounts{
+                position: relative;
+                display: flex;
+                &::before{
+                content: attr(symbol);
+                color: ${props => props.theme.colorPrimary};
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                padding: 0 2rem;
+                font-size: ${props => props.theme.font.xlarge};
+                }
+            }
             &__prices{
                 display: flex;
                 justify-content: space-evenly;
@@ -291,7 +305,7 @@ const Container = styled.div`
                 border: solid 1px ${props => props.theme.colorPrimary};
                 border-radius: .5rem;
 
-                %::before{
+                &::before{
                     content: "$";
                     position: absolute;
                     top: 1.6rem;
@@ -442,7 +456,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 // console.log("live Rates", res.data.rates);
             })
             .catch(err => {
-                console.log(err); 
+                console.log(err);
                 fx.rates = defaultcurrencies.rates
             })
         Axios.get(`${routes.api.getRates}?token=${auth_token}`)
@@ -565,7 +579,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             !isVerified ? null :
                                 <span className={`coin-options__buy-sell--item ${isSelling ? null : " tab"}`} onClick={() => setIsSelling(false)}>
                                     Buy
-                        </span>
+                                </span>
                         }
                         <span className={`coin-options__buy-sell--item ${isSelling ? " tab" : null}`} onClick={() => setIsSelling(true)}>
                             sell
@@ -577,7 +591,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>
 
                     </h3>
-
+ 
                     {(!isSelling && !selectedCoin?.quantity) ?
                         <h3 className="coin-options__header red"> Currently not avaliable</h3>
                         :
@@ -616,13 +630,17 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     {!isSelling ? null :
                         <>
                             <p>
-                                {/* <span>{ regionContext?.country?. symbol}</span>  */}
-                                <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="$ 0.0" />
+                                {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
+                                <span className="coin-options__amounts" symbol={"$"}>
+                                    <input type="text" value={dollarSellingPrice} onChange={updateSellingDollarAmounts} className="coin-options__value input-container" placeholder="0.0" />
+                                </span>
                             </p>
                             <p>
                                 <span className="coin-options__header">We will pay you:</span>
                                 <br />
-                                <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="₦ 0.0" />
+                                <span className="coin-options__amounts" symbol={regionContext?.country?.symbol || "₦"}>
+                                    <input type="text" value={nairaSellingPrice} onChange={updateSellingLocalAmounts} className="coin-options__value input-container" placeholder="0.0" />
+                                </span>
                             </p>
                         </>
                     }

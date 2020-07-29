@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { useSpring, animated } from "react-spring"
 
@@ -270,42 +270,39 @@ background: ${props => props.theme.colorPrimary};
     
 }
 `
+// eslint-disable-next-line
+{
+    window.matchMedia('(max-width: 720px)').addListener((e) => e.matches ? console.log("720px") : console.log("not 720px")
+    )
+}
 
 function DashboardLayout(props) {
     const isLoggedIn = useIsLoggedIn(props.history)
     const regionContext = useContext(ContextData)
-    // console.log( "layout" ,regionContext);
-
-    
-    
+    // console.log(window.matchMedia('(max-width: 720px)'));
 
     const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.first_name : null
     const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
     const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.status : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
+    const [sideNavmobile, setSideNavmobile] = useState(window.matchMedia('(max-width: 720px)').matches ? "6rem" : "6rem")
     // const [userStatus] = useState(status === "verified")
     const sideNavWidth = "28rem";
     const spring = useSpring({
-        width: sideNavIsOpen ? sideNavWidth : "6rem"
+        width: sideNavIsOpen ? sideNavWidth : sideNavmobile
     })
 
-
-    // if (!isLoggedIn) {
-    //     props.history.push('/')
-    //     console.log("bad");
-    //     return <p></p>
-    // }
+    useEffect(() => {
+        setSideNavmobile(window.matchMedia('(max-width: 720px)').matches ? "6rem" : "6rem")
+    }, [sideNavmobile])
     const toggleSideNav = () => {
         setSideNavIsOpen(!sideNavIsOpen)
-        // console.log(sideNavIsOpen);
-        // this.state.sideNavIsOpen ? this.setState({sideNavWidth: "3rem", sideNavIsOpen: !this.state.sideNavIsOpen}) : 
-        // this.setState({sideNavWidth: "20rem", sideNavIsOpen: !this.state.sideNavIsOpen})
     }
     const closeSideNav = () => {
         setSideNavIsOpen(false)
     }
-    const selectRegion = (e)=> {
+    const selectRegion = (e) => {
         regionContext.changeRegion(e.target.value)
     }
     return (
@@ -432,10 +429,10 @@ function DashboardLayout(props) {
                         <span title="logout" className="">
                             <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item" />
                         </span>
-                        <span title="logout" className="">
+                        <span title="Select Country" className="">
                             {/* <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item region-select" /> */}
                             <select className="region-select" defaultValue={localStorage.region ? localStorage.region.id : null} onChange={selectRegion} name="language" id="lang">
-                               { !localStorage.region ?<option> Select Region </option> : null}
+                                {!localStorage.region ? <option> Select Region </option> : null}
                                 <option name="nigeria" value="nigeria" > Select Country </option>
                                 <option name="nigeria" value="nigeria" > Nigeria </option>
                                 <option name="ghana" value="ghana"> Ghana </option>
