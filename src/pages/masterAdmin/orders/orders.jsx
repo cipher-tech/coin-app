@@ -289,7 +289,7 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 		<Container color="">
 			<div className="rate">
 				{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
-				<h1 className="rate__title">All Orders</h1>
+				{/* <h1 className="rate__title">All Orders</h1> */}
 				{fetchedHistory ? <Table data={allHistory.history || []} expandedComponent={expandedComponent} handleVerifyClick={confirmTransaction} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>

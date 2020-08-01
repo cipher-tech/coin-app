@@ -43,7 +43,7 @@ const Container = styled.div`
     .deposit{
         /* margin-top: 13rem; */
         padding: 2rem ;
-        align-self: flex-start;
+        align-self: center;
         display: flex;
         justify-content: space-between;
         color: ${props => props.theme.colorDark};
@@ -138,7 +138,7 @@ function WidthdrawlRequest(props) {
     }
     return (
         <Container>
-            <h1 className="title">Widthdrawl Requests</h1>
+            {/* <h1 className="title">Widthdrawl Requests</h1> */}
             {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
             <div className="deposit">
 

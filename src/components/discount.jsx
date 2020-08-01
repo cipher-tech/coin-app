@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import dots from "../images/dots.svg"
 import amazonCard from "../images/amazon-card.png"
+import routes from '../navigation/routes'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     display: grid;
@@ -13,13 +15,13 @@ const Container = styled.div`
     position: relative;
     color: ${props => props.theme.colorPrimary};
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    z-index: -19;
+    /* z-index: -19; */
 
     .dotSvg{
         position: absolute;
         top: 50%;
         left: 10rem;
-        z-index: -10;
+        z-index: 1;
         transform: translateY(-50%);
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
             left: 1rem;
@@ -28,7 +30,7 @@ const Container = styled.div`
     .discount{
         display: grid;
         place-content: center;
-
+        z-index: 5;
         &-title{
             font-size: ${props => props.theme.font.larger};
             text-align: center;
@@ -48,6 +50,7 @@ const Container = styled.div`
             color: ${props => props.theme.colorWhite};
             font-size: ${props => props.theme.font.xlarge};
             border: none;
+            text-decoration: none;
             outline: none;
             margin-top: 1rem;
             margin-bottom: 2rem;
@@ -102,9 +105,9 @@ const Discounts = () => {
                 <p className="discount-text">
                     Get 20% discount off every card when you buy from us.
                 </p>
-                <button className="discount-btn">
+                <Link to={routes.public.signUp} className="discount-btn">
                     Sign Up
-                </button>
+                </Link>
             </div>
             <div className="discount--image"
              data-aos="zoom-in"

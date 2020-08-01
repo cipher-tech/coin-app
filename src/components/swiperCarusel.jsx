@@ -123,8 +123,8 @@ export default class swiperCarusel extends Component {
             width: 20rem;
             height: 5rem;
             border-radius: 3rem;
-            background: transparent;
-            color: ${props => props.theme.colorYellow};
+            background: ${props => props.theme.colorLight};
+            color: ${props => props.theme.colorPrimary};
             font-size: ${props => props.theme.font.xlarge};
             border: none;
             outline: none;
@@ -132,6 +132,7 @@ export default class swiperCarusel extends Component {
             text-align: center;
             display: grid;
             place-content: center;
+            text-decoration: none;
             z-index: 30;
             box-shadow: .2rem .4rem 10px rgba(0,0,0, .3); 
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {

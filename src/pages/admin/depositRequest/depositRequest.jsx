@@ -130,19 +130,22 @@ function DepositRequest(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
     const [isModalActive, setIsModalActive] = useState(false)
-
+    const [paymentOptions, setPaymentOptions] = useState('bank')
+    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
+    const [amountInput, setAmountInput] = useState('bank')
 
     // const updateFormValue = (name, value) => {
     //     setDepositValue(value)
     // }
     const state = {
-        amount: "",
+        amount: amountInput,
+        paymentOptions: paymentOptions
         // newPassword: "",
         // slug: slug,
     }
     const modalRule = {
-        // amount: { required: true, minlength: 2 },
-        // newPassword: { required: true, minlength: 4 },
+        amount: { required: true, minlength: 2 },
+        // paymentOptions: { required: true },
     }
     const handleSubmit = (e) => {
         if (state?.amount.length < 1) {
@@ -161,6 +164,7 @@ function DepositRequest(props) {
         setIsLoading(true)
         const object = {
             id: userid,
+            type: paymentOptions,
             email: email,
             amount: +state?.amount
         }
@@ -199,10 +203,12 @@ function DepositRequest(props) {
 
         }
     }
-    const updateAmountValue = (name, value) => {
-        state[name] = value
-        console.log(value);
-
+    // const updateAmountValue = (name, value) => {
+    //     state[name] = value
+    //     console.log(state);
+    // }
+    async function copy(e) {
+        navigator.clipboard.writeText(bitcoinAddress)
     }
     // let createImage = (file) => {
     //     let reader = new FileReader();
@@ -222,11 +228,12 @@ function DepositRequest(props) {
                     <img src={qrcode} alt="" />
 
                     <p className="modal__container--text">
-                        please pay the specified amount into this address
+                        please pay exactly ${state.amount} amount into this address
                     </p>
 
                     <p className="modal__container-address">
                         d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                        <button onClick={() =>copy()}> copy</button>
                     </p>
                 </div>
             </Modal>
@@ -252,23 +259,21 @@ function DepositRequest(props) {
                             placeHolder="Enter amount to Deposit" type="number" icon={envelope} /> */}
 
                         {/* <br /> */}
-                        <StyledInput name="amount" handleChange={updateAmountValue}
+                        <StyledInput name="amount" updatedValue={setAmountInput}
                             value={state.amount}
-                            placeHolder="Enter amount to Deposit" type="text" icon={envelope} />
+                            placeHolder="Enter amount to Deposit" type="number" icon={envelope} />
                         <ValidationMessage field="amount" />
 
-                        <select className="paymentOptions" name="paymentOptions">
-                            <option value="bank">
-                                Bank Transfer
-                            </option>
+                        <select className="paymentOptions" value={paymentOptions} onChange={(e) => setPaymentOptions(e.target.value)} name="paymentOptions">
                             {
                                 regionContext?.country?.paymentMethods?.map((item, i) => (
-                                    <option key={i} value="bank">
+                                    <option key={i} value={item.name}>
                                         {item.name}
                                     </option>
                                 ))
                             }
                         </select>
+                        <ValidationMessage field="paymentOptions" />
                     </div>
 
                 </FormValidator>

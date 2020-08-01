@@ -131,7 +131,7 @@ const Container1 = styled.div`
         display: flex;
         height: auto;
         place-content: center;
-
+        margin-bottom: 1rem;
         img{
             height: 100%;
             width: 100%;
@@ -208,7 +208,7 @@ const OurReach = () => {
                 data-aos-once="true">
                 <img src={worldSvg} alt="world pics" />
             </div>
-            <div className="reach-form"
+            {/* <div className="reach-form"
                 data-aos="zoom-in"
                 data-aos-offset="300"
                 data-aos-delay="500"
@@ -222,7 +222,7 @@ const OurReach = () => {
                     <input type="text" className="reach-form--input--text" placeholder="Email-Address" />
                     <span className="reach-form--input--icon">></span>
                 </p>
-            </div>
+            </div> */}
             {/* </div> */}
         </Container1>
     )

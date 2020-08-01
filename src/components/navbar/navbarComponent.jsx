@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSpring, animated } from 'react-spring';
 import { Link } from 'react-router-dom';
 import routes from '../../navigation/routes';
-import logo from "../../images/logo.png"
+import logo from "../../images/brandLogo.jpg"
 import { ReactComponent as MenuIcon } from "../../images/svgIcons/menu.svg"
 
 

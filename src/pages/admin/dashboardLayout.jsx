@@ -211,7 +211,7 @@ background: ${props => props.theme.colorPrimary};
         font-size: ${props => props.theme.font.large};
         justify-content: space-between;
         z-index:40;
-        box-shadow: .1rem .2rem 30px rgba(0,0,0, .3);
+        /* box-shadow: .1rem .2rem 30px rgba(0,0,0, .3); */
         &--name{
             text-transform: capitalize;
         }

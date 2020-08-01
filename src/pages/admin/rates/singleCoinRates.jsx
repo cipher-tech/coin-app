@@ -452,7 +452,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
 
 
     const regionContext = useContext(ContextData)
-    fx.rates = defaultcurrencies.rates
+    // fx.rates = defaultcurrencies.rates
     // updateRate(1000)
     const user_id = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo"))?.user?.id || ""
 
@@ -464,20 +464,25 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         Axios.get(routes.exchangeApi)
             .then(res => {
                 fx.rates = res.data.rates
-                // console.log("live Rates", res.data.rates);
+                console.log("live", res.data.rates);
             })
             .catch(err => {
                 console.log(err);
                 fx.rates = defaultcurrencies.rates
+                console.log("dummy");
+
             })
-        Axios.get(`${routes.api.getRates}?token=${auth_token}`)
-            .then(res => {
-                // console.log(res.data.data);
-                fetchAllRates(res.data.data)
-                updateSelectedCoin(res.data.data[0])
-                // setSelectedCoin(])
-                return
-            })
+            .finally( res => 
+                Axios.get(`${routes.api.getRates}?token=${auth_token}`)
+                    .then(res => {
+                        // console.log(res.data.data);
+                        fetchAllRates(res.data.data)
+                        updateSelectedCoin(res.data.data[0])
+                        // setSelectedCoin(])
+                        
+                        return
+                    })
+            )
 
         // eslint-disable-next-line
     }, [fetchAllRates])
@@ -503,6 +508,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         // console.log(coin.selling);
         // console.log(regionContext);
         // console.log()
+        console.log("called");
+
         selectCoinImage()
         coin.buying = fx.convert(coin.buying, { from: "NGN", to: regionContext.country.code || "NGN" }).toFixed(1);
 
@@ -611,7 +618,9 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     return (
         <>
             {showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
-
+            {
+                console.log(fx.rates)
+            }
                 <Modal isActive={isModalActive}>
                     <div className="modal__container">
                         <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>

@@ -136,6 +136,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     const [isModalActive, setIsModalActive] = useState(false)
     const [giftCardImage, setGiftCardImage] = useState(null)
     const [refrenceId, setRefrenceId] = useState("")
+    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [error, setError] = useState(false)
@@ -152,7 +153,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     // const copyRef = useRef(null)
 
     async function copy(e) {
-        navigator.clipboard.writeText(refrenceId)
+        navigator.clipboard.writeText(bitcoinAddress)
         setIsCopied(true)
     }
     const rules = {
@@ -616,7 +617,8 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                     </p>
 
                     <p className="modal__container-address">
-                        {isSelling ? "d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h" : "UBA \n 0236736793"}
+                        {isSelling ? bitcoinAddress : "UBA \n 0236736793"}
+                        <button onClick={() =>copy()}> copy</button>
                     </p>
 
                     <p className="modal__container--text">
@@ -625,13 +627,13 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                         <span className="modal__container-address">
                             {refrenceId}
                         </span>
-                        <button onClick={() =>copy()}> copy</button>
+                        {/* <button onClick={() =>copy()}> copy</button> */}
 
                     </p>
                 </div>
             </Modal>
             <div className="rate">
-                <h2 className="rate-attrHeader">All gift cards and coins</h2>
+                <h2 className="rate-attrHeader">Gift Cards </h2>
                 <PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? cardOnlyRates : []} />
             </div>
         </Container>

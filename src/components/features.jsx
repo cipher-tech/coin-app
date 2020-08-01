@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import image1 from "../images/bitcoinsvg-1.svg"
 import image2 from "../images/bitcoinSvg-2.svg"
 import image3 from "../images/bitcoinSvg-3.svg"
+import undraw_security from "../images/undraw_security.svg"
 import { Heading, FeatureCard, /* SellBitcoinCard */ } from '.'
 import { useEffect } from 'react'
 // import CoinCalculator from './coinCalculator'
@@ -64,7 +65,7 @@ const Features = () => {
                 text={`Bitcoin rates do fluctuate, but at CJ GRAND EXCHANGE, the exchange rate is set at the time of exchange.`} image={image3} />
             
             <FeatureCard title="Safe and Secure Transactions: "
-                text={`Same day funding and withdrawals into your bank accounts. Transactions are secured via Secure Sockets Layer (SSL) 128-bit encryption.`} invert={1 / -1} image={image2} />
+                text={`Same day funding and withdrawals into your bank accounts. Transactions are secured via Secure Sockets Layer (SSL) 128-bit encryption.`} invert={1 / -1} image={undraw_security} />
             {/* <FeatureCard title="Fast Payments for your " 
             text={`We Offer the fastest payments avaliable anywhere anytime!.`} bitcoin=" Bitcoin " and=" and " giftCard=" Gift Cards " image={image3}/>
          */}

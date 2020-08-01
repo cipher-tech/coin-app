@@ -79,6 +79,12 @@ const Container = styled.div`
 `
 const CoinRates = ({ rates }) => {
     let { allRates = [] } = rates
+    let amazonCard = allRates.find((item) => item.name === "amazon")
+    let steamCard = allRates.find((item) => item.name === "steam card")
+
+    // console.log(amazonCard, steamCard);
+
+
     return (
         <Container>
             {/* <img
@@ -98,13 +104,13 @@ const CoinRates = ({ rates }) => {
                 data-aos-once="true"  src={chat} width="100%" alt="chat"/> */}
             <div className="rate__container">
                 {
-                    allRates.slice(0, 4).map((rate, index) => {
+                    allRates.slice(0, 2).map((rate, index) => {
                         return (
                             <div key={index} className="rate-card">
                                 <img src={index === 2 || index === 3 ? giftcard : bitcoin} alt="bitcoin" />
                                 <p className="rate-card__text">
-                                 
-                                    Current {rate.name ? rate.name : "Bitcoin"} rate:
+
+                                    {rate.name ? rate.name : "Bitcoin"} rate:
                                     <br />
                                     <span className="rate-card__text--subtext">We buy at:</span>
                                     <br />
@@ -115,7 +121,26 @@ const CoinRates = ({ rates }) => {
                         )
                     })
                 }
-
+                <div className="rate-card">
+                    <img src={giftcard} alt="bitcoin" />
+                    <p className="rate-card__text">
+                        {amazonCard?.name ? amazonCard?.name : "amazon Card"} rate:
+                                    <br />
+                        <span className="rate-card__text--subtext">We buy at:</span>
+                        <br />
+                        <span className="rate-card__text--rate">{amazonCard?.attributes? amazonCard?.attributes[0].rate : "0"}</span>
+                    </p>
+                </div>
+                <div className="rate-card">
+                    <img src={giftcard} alt="bitcoin" />
+                    <p className="rate-card__text">
+                        {steamCard?.name ? steamCard?.name : "amazon Card"} rate:
+                                    <br />
+                        <span className="rate-card__text--subtext">We buy at:</span>
+                        <br />
+                        <span className="rate-card__text--rate">{steamCard?.attributes? steamCard?.attributes[0].rate : "0"}</span>
+                    </p>
+                </div>
             </div>
 
             <div className="rate-table">

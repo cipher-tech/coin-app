@@ -68,8 +68,8 @@ const Container = styled.div`
         }
         &-item{
             padding: 1rem 1rem;
-            color: ${props => props.theme.colorWhite}
-
+            color: ${props => props.theme.colorWhite};
+            text-decoration: none;
         }
     }
     
@@ -93,7 +93,7 @@ const Footer = (props) => {
                     <img src={logo} alt="logo" />
                 </span>
                 <span className="footer-credit">
-                    C Cipher 2020
+                    CJ Exchange©2020
                 </span>
             </div>
             <ul className="footer-list">
