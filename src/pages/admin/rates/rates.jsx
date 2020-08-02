@@ -149,35 +149,27 @@ const Container = styled.div`
 `
 function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOnlyRates = [] }) {
 	const [isSelling, setIsSelling] = useState(true)
-	const [amount, setAmount] = useState("")
-	const [account_no, setAccount_no] = useState('')
-	const [card_id, setCard_id] = useState('')
+	// const [amount, setAmount] = useState("")
+	// const [account_no, setAccount_no] = useState('')
+	// const [card_id, setCard_id] = useState('')
 	const [isModalActive, setIsModalActive] = useState(false)
-	const [giftCardImage, setGiftCardImage] = useState(null)
+	// const [giftCardImage, setGiftCardImage] = useState(null)
+
+	// eslint-disable-next-line
 	const [refrenceId, setRefrenceId] = useState(!false)
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+
+	// eslint-disable-next-line
 	const [popUpMessage, setPopUpMessage] = useState(null)
+	
+	// eslint-disable-next-line
 	const [error, setError] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)	
+	// const [isLoading, setIsLoading] = useState(false)	
 	// const [giftCardInfo, setGiftCardInfo] = useState([])
 
 
-	const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
-	const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
-
-
-	const rules = {
-		amount: { required: true, minlength: 2, },
-		account_no: { minlength: 2, },
-		card_id: { minlength: 2, },
-
-	}
-	const state = {
-		amount: amount,
-		account_no: account_no,
-		card_id: card_id,
-
-	}
+	// const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
+	// const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
 	useEffect(() => {
 		const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
 		// console.log('data :>> ', data);
@@ -315,207 +307,6 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 		},
 
 	]
-	const buySell = (data, action, type, name) => {
-		setIsLoading(false);
-		setError(false)
-		setShowPopUpMessage(false)
-
-		if (action === "sell" && type === "coin") {
-			setIsSelling(true)
-			const user_data = {
-				user_id: user_id,
-				amount: data.amount,
-				action: "sell",
-				type: name,
-			}
-			console.log(user_data);
-			Axios.post(`${routes.api.userSellCoin}?token=${auth_token}`, user_data)
-				.then(res => {
-					// console.log(res);
-					if (res.data.status === "success") {
-						setRefrenceId(res.data.data)
-						// setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
-						setPopUpMessage("Order placed successfully")
-						setShowPopUpMessage(true)
-						setIsLoading(false)
-						setIsModalActive(true)
-					}
-
-				})
-				.catch(res => {
-					setPopUpMessage("An error occured. Try again or contact admin")
-					setError(true)
-					setShowPopUpMessage(true)
-					setIsLoading(!true)
-
-					// setMessage("An error occured while uploading image. Try again or contact admin")
-				})
-		} else if (action === "buy") {
-			setIsSelling(false)
-			const user_data = {
-				user_id: user_id,
-				amount: data.amount,
-				action: "buy",
-				type: name,
-				address: data.account_no,
-			}
-			console.log(user_data);
-			Axios.post(`${routes.api.userBuyCoin}?token=${auth_token}`, user_data)
-				.then(res => {
-					// console.log(res);
-					if (res.data.status === "success") {
-						setRefrenceId(res.data.data)
-						setPopUpMessage("Order placed successfully")
-						setShowPopUpMessage(true)
-						setIsLoading(false)
-						setIsModalActive(true)
-					}
-
-				})
-				.catch(res => {
-					setPopUpMessage("An error occured. Try again or contact admin")
-					setError(true)
-					setShowPopUpMessage(true)
-					setIsLoading(!true)
-				})
-		} else {
-			if (!giftCardImage) {
-				setPopUpMessage("must include card image")
-				setError(true)
-				setShowPopUpMessage(true)
-				setIsLoading(!true)
-				return
-			}
-			const user_data = {
-				user_id: user_id,
-				amount: data.amount,
-				action: "sell",
-				type: name,
-				card_id: data.account_no,
-				cardImage: giftCardImage
-			}
-			Axios.post(`${routes.api.userSellCard}?token=${auth_token}`, user_data)
-				.then(res => {
-					// console.log(res);
-					if (res.data.status === "success") {
-						setRefrenceId(res.data.data)
-						// setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
-						setPopUpMessage("Order placed successfully")
-						setShowPopUpMessage(true)
-						setIsLoading(false)
-						setIsModalActive(true)
-					}
-
-				})
-				.catch(res => {
-					setPopUpMessage("An error occured. Try again or contact custormer care")
-					setError(true)
-					setShowPopUpMessage(true)
-					setIsLoading(!true)
-
-					// setMessage("An error occured while uploading image. Try again or contact admin")
-				})
-
-		}
-		// type === "buy" || setIsModalActive(true)
-	}
-	let handleImageChange = (e) => {
-		e.preventDefault()
-		let files = e.target.files || e.dataTransfer.files;
-		if (!files.length)
-			return;
-		if ((e.target.files[0].size / 1024 / 1024) > 1) {
-			// console.log("");
-			setPopUpMessage("file too large")
-			setError(true)
-			setShowPopUpMessage(true)
-			return
-		} else {
-			createImage(files[0], e.target.name);
-
-		}
-	}
-	let createImage = (file, name) => {
-		let reader = new FileReader();
-		reader.onload = (e) => {
-			setGiftCardImage(e.target.result)
-		};
-		reader.readAsDataURL(file);
-	}
-	const expandedComponent = (props) => {
-		let content;
-
-		if (isSelling) {
-			content = (
-				<div className="expandedDiv" onBlur={() => { /*console.log(props); props.toggleRowExpanded(props.id, !true) */return null }}>
-					<h3 className="expandedDiv-header">
-						Sell {props.original.name}
-					</h3>
-					<FormValidator buttonClass="rate-summit"
-						classname=" rate-container "
-						data={state} rules={rules}
-						buttonText={isLoading ? "Loading..." : "Submit"}
-						submit={(data) => buySell(data, "sell", props.original.type, props.original.name)}>
-						<div className="rate-container-form">
-							<StyledInput name="amount" updatedValue={setAmount} value={state.amount}
-								placeHolder="Enter Amount" type="number" icon={""} />
-							<ValidationMessage field="amount" />
-
-							{
-								props.original.type === "card" ?
-									<>
-										<StyledInput name="card_id" updatedValue={setCard_id} value={state.card_id}
-											placeHolder="Enter card id" type="text" />
-										<ValidationMessage field="card_id" />
-										<p>Uplaod gift card image</p>
-										<input type="file"
-											alt="verify logo"
-											onChange={e => handleImageChange(e)}
-											name="giftCardImage" placeholder="Enter Value" className="form__input-item" />
-										<img src={giftCardImage} height="40rem" width="40rem" alt="preview" />
-									</>
-									:
-									null
-							}
-						</div>
-						<p className="rate-isSugnedIn">
-
-						</p>
-					</FormValidator>
-				</div>
-			)
-		} else {
-			content = (
-				// onBlur={() => { console.log(props); props.toggleRowExpanded(props.id, !true) }}
-				<div className="expandedDiv" >
-					<h3 className="expandedDiv-header">
-						Buy {props.original.name}
-					</h3>
-					<FormValidator buttonClass="rate-summit"
-						classname=" rate-container "
-						data={state} rules={rules}
-						submit={(data) => buySell(data, "buy", props.original.type, props.original.name)}>
-						<div className="rate-container-form">
-							<StyledInput name="amount" updatedValue={setAmount} value={state.amount}
-								placeHolder="Enter Amount" type="number" />
-							<ValidationMessage field="amount" />
-
-							<StyledInput name="account_no" updatedValue={setAccount_no}
-								value={state.account_no}
-								placeHolder="Enter coin address" type="text" />
-							<ValidationMessage field="account_no" />
-
-						</div>
-						<p className="rate-isSugnedIn">
-
-						</p>
-					</FormValidator>
-				</div>
-			)
-		}
-		return content;
-	}
-
 	const buyHandler = () => {
 		setIsSelling(false)
 	}
@@ -639,8 +430,9 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 		</Container>
 	)
 }
-const mapStateToProps = ({ rates }) => ({
+const mapStateToProps = ({ rates,users }) => ({
 	rates: rates,
+	user: users,
 	coinOnlyRates: rates?.allRates?.filter(item => item.type === "coin"),
 	cardOnlyRates: rates?.allRates?.filter(item => item.type === "card")
 })

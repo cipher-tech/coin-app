@@ -3,14 +3,14 @@ import { ThemeProvider } from 'styled-components';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { BrowserRouter as Router, Switch, Route, withRouter, } from "react-router-dom"
+import { createStore } from 'redux';
 //HashRouter BrowserRouter 
+import { Provider } from 'react-redux';
 import { ContactUs } from './pages/contact/contactUs';
 import { Foot, Navbar } from './components';
 import reduxStore from "./reduxStore"
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { GlobalStyle, Container } from './components/styledComponents';
 
+import { GlobalStyle, Container } from './components/styledComponents';
 import routes from './navigation/routes';
 const Main = lazy(() => import('./pages/main'));
 const AboutUS = lazy(() => import('./pages/aboutUs/aboutUs'));
@@ -89,9 +89,9 @@ AOS.init()
 
 function App() {
 	return (
-		<Provider store={createStore(reduxStore)}>
-			<Router basename={process.env.PUBLIC_URL}>
-				<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<div>Loading...</div>}>
+			<Provider store={createStore(reduxStore)}>
+				<Router basename={process.env.PUBLIC_URL}>
 					<Switch>
 						<ThemeProvider theme={theme}>
 							<GlobalStyle />
@@ -146,10 +146,9 @@ function App() {
 
 						</ThemeProvider>
 					</Switch>
-				</Suspense>
-			</Router>
-		</Provider>
+				</Router>
+			</Provider>
+		</Suspense>
 	);
 }
-//github homepage =https://cipher-tech.github.io/coin-app
 export default App;

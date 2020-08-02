@@ -131,8 +131,18 @@ const Header = (props) => {
     const [isModalActive, setIsModalActive] = useState(false)
     useEffect(() => {
         setTimeout(() => {
-            setIsModalActive(true)
-        }, 4000)
+            // console.log(typeof +localStorage.counts);
+            
+            if(localStorage.counts && +localStorage.counts % 10 === 0){
+                setIsModalActive(true)
+                localStorage.counts = +localStorage.counts + 1
+            }else if(localStorage.counts){
+                localStorage.counts = +localStorage.counts + 1
+            }else{
+                setIsModalActive(true);
+                localStorage.counts = 1
+            }
+        }, 1000)
     }, [setIsModalActive])
     return (
         <Container>

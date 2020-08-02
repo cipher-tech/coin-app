@@ -139,7 +139,7 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 			),
 		},
 		{
-			Header: 'Withdrawal Request',
+			Header: 'Buy and Sell Orders',
 			columns: [
 				{
 					Header: 'Amount',
@@ -250,6 +250,9 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 				</span>
 				<span className="orders-text__tranction--item">
 					{new Date(original?.created_at).toDateString()}
+				</span>
+				<span className="orders-text__tranction--item">
+					{original?.image ? <a  href={routes.api.getImage + `${original?.image}`}> View image </a> : null}
 				</span>
 			</p>
 

@@ -183,7 +183,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 		{console.log(row.original.images)}
 			{/* <code>{JSON.stringify({ values: row.values.images }, null, 2)}</code> */}
 			{Object.values(JSON.parse(row.original.images)).map((photo, i) => (
-				<img key={i} src={`http://localhost:8000/images/${photo}`} alt="verify info" />
+				<img key={i} src={routes.api.getImage + `${photo}`} alt="verify info" />
 			))}
 		</div>
 	)

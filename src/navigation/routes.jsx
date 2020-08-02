@@ -4,6 +4,8 @@ const masterAdmin = "/master-admin"
 const prod = false
 const server = "https://coin-app-ackend.herokuapp.com/api/"
 const localhost = "http://localhost:8000/api/" ///192.168.43.95:8000
+const localImageLink = "http://localhost:8000/images/"
+const remoteImageLink = "http://nameOfHost/images/"
 const exchangeApiId= "12dc31345cfc42778258c4880347ceee"
 // moneyjs link = https://openexchangerates.org/api/latest.json?app_id=
 const routes = {
@@ -21,6 +23,8 @@ const routes = {
         signUp: "/sign-up",
     },
     api: {
+
+        getImage: prod ? remoteImageLink : localImageLink  ,
         login: (prod ? server : localhost) + 'login',
         signUp: prod ? server : localhost + 'register',
         resetPassword: prod ? server : localhost + 'passwordReset',

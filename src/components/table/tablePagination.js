@@ -11,7 +11,7 @@ const Styles = styled.div`
   display: grid;
   justify-items: center;
   /* overflow-x: scroll; */
-  @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
+  @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
     overflow: scroll;
   }
   table {

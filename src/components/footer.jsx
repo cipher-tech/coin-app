@@ -113,7 +113,7 @@ const Footer = (props) => {
                 <li className="footer-list-item"> +2349018868939</li>
 </ul>
 
-<CoinWidget ele="#mydiv" id="mydiv" link={`<!--Start of Tawk.to Script-->
+{/* <CoinWidget ele="#mydiv" id="mydiv" link={`<!--Start of Tawk.to Script-->
                 <script type="text/javascript">
                 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
                 (function(){
@@ -125,7 +125,7 @@ const Footer = (props) => {
                 s0.parentNode.insertBefore(s1,s0);
                 })();
                 </script>
-                <!--End of Tawk.to Script-->`} />
+                <!--End of Tawk.to Script-->`} /> */}
             {/* <p className="footer-credit">
                 C Cipher 2020
             </p> */}
