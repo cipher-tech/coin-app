@@ -1,14 +1,14 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ed4a517f79d8b4c4c88e1b31d84e88ca",
+    "revision": "3a8e17702798b21c57e2b4969cbb3832",
     "url": "/coin-app/index.html"
   },
   {
-    "revision": "80ed3698f8c27b9882d6",
+    "revision": "b7dbf52ed910a433cb7b",
     "url": "/coin-app/static/css/3.029307b4.chunk.css"
   },
   {
-    "revision": "a84c9b9ccb5286d3dd59",
+    "revision": "cf9820bc8e0f2389a51f",
     "url": "/coin-app/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -32,16 +32,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/js/13.52074000.chunk.js"
   },
   {
-    "revision": "e9a07a952e7d546f9af3",
-    "url": "/coin-app/static/js/14.c4bf2f5e.chunk.js"
+    "revision": "fc8c41857c40d1e4d42f",
+    "url": "/coin-app/static/js/14.57254608.chunk.js"
   },
   {
     "revision": "e51b4b38f5dd7d89693c",
     "url": "/coin-app/static/js/15.496cdf69.chunk.js"
   },
   {
-    "revision": "ece5245445c3cc2ba8ff",
-    "url": "/coin-app/static/js/16.c3f3a52c.chunk.js"
+    "revision": "6153fee5e66290cf4223",
+    "url": "/coin-app/static/js/16.7d996141.chunk.js"
   },
   {
     "revision": "ac79be0170e2078739fa",
@@ -72,8 +72,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/js/23.a5664262.chunk.js"
   },
   {
-    "revision": "ea273829ed971864ebdb",
-    "url": "/coin-app/static/js/24.37df2047.chunk.js"
+    "revision": "7e0d973b4f08746877af",
+    "url": "/coin-app/static/js/24.6371aab5.chunk.js"
   },
   {
     "revision": "8e0a10fc13a3ab7b73bd",
@@ -84,8 +84,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/js/26.19e72972.chunk.js"
   },
   {
-    "revision": "5d71df1e4426e88f67b3",
-    "url": "/coin-app/static/js/27.63d73dba.chunk.js"
+    "revision": "14c46fafb05c0cbe432f",
+    "url": "/coin-app/static/js/27.e76de0e8.chunk.js"
   },
   {
     "revision": "116081180c8457b63876",
@@ -96,12 +96,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/js/29.89e6705a.chunk.js"
   },
   {
-    "revision": "80ed3698f8c27b9882d6",
-    "url": "/coin-app/static/js/3.11baa7f1.chunk.js"
+    "revision": "b7dbf52ed910a433cb7b",
+    "url": "/coin-app/static/js/3.832b0d34.chunk.js"
   },
   {
     "revision": "7fe57c1f3c8cf8262962517bdfae7daa",
-    "url": "/coin-app/static/js/3.11baa7f1.chunk.js.LICENSE.txt"
+    "url": "/coin-app/static/js/3.832b0d34.chunk.js.LICENSE.txt"
   },
   {
     "revision": "4eacb451345b2b501210",
@@ -120,20 +120,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coin-app/static/js/7.a7e418bf.chunk.js"
   },
   {
-    "revision": "d2ff97d0a9675bac7770",
-    "url": "/coin-app/static/js/8.aec2a71a.chunk.js"
+    "revision": "5c04eb5b970a22e5d99c",
+    "url": "/coin-app/static/js/8.7fc9a721.chunk.js"
   },
   {
     "revision": "83077820b863ef59b24e",
     "url": "/coin-app/static/js/9.abd0be06.chunk.js"
   },
   {
-    "revision": "a84c9b9ccb5286d3dd59",
-    "url": "/coin-app/static/js/main.5b0568d2.chunk.js"
+    "revision": "cf9820bc8e0f2389a51f",
+    "url": "/coin-app/static/js/main.1bd88916.chunk.js"
   },
   {
-    "revision": "42e1d96fb176513412d7",
-    "url": "/coin-app/static/js/runtime-main.669c6003.js"
+    "revision": "62b4d08bdae6383822c0",
+    "url": "/coin-app/static/js/runtime-main.0ce5753d.js"
   },
   {
     "revision": "b39d541db60b9be0814d9f263e45be7a",
