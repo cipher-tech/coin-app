@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-// import rateImage from "../../../images/transcation.png"
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
 import PaginatedTable from '../../../components/table/tablePagination'

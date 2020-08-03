@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import homePageModalIcon from "../images/homePageModalIcon.svg"
+import loadable from '@loadable/component'
+
 // import logo from "../images/logo.png"
 
 import waveSvg from "../images/waveSvg.svg"
 import { Carusel, Modal } from '.'
-import Particles from "react-particles-js";
+const Particles = loadable(() => import('react-particles-js'))
 
 const waveAnimation = keyframes`
     from{ 

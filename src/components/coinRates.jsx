@@ -1,14 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-// import CoinWidget from './widget/wigjet'
 import bitcoin from "../images/us-bitcoin.svg"
 import giftcard from "../images/amazon-card.png"
-// import Rates from '../pages/admin/rates/rates'
 import { connect } from 'react-redux'
 import SingleCoinRates from '../pages/admin/rates/singleCoinRates'
-// import amazon from "../images/us-amazon.svg"
-// import CoinCalculator from './coinCalculator'
-// import chat from "../images/coinRate.svg"
 
 const Container = styled.div`
     display: grid;

@@ -7,36 +7,37 @@ import { createStore } from 'redux';
 //HashRouter BrowserRouter 
 import { Provider } from 'react-redux';
 import { ContactUs } from './pages/contact/contactUs';
+import loadable from '@loadable/component'
 import { Foot, Navbar } from './components';
 import reduxStore from "./reduxStore"
 
 import { GlobalStyle, Container } from './components/styledComponents';
 import routes from './navigation/routes';
-const Main = lazy(() => import('./pages/main'));
-const AboutUS = lazy(() => import('./pages/aboutUs/aboutUs'));
-const UserRates = lazy(() => import('./pages/userRates/userRates'));
-const Dashboard = lazy(() => import('./pages/admin/dashboard'));
-const DashboardLayout = lazy(() => import('./pages/admin/dashboardLayout'));
-const Rates = lazy(() => import("./pages/admin/rates/rates"));
-const AdminSellBitcoin = lazy(() => import('./pages/admin/sellBitcion/sellBitcion'));
-const AdminSellGiftCard = lazy(() => import('./pages/admin/sellGiftCard/sellGiftCard'));
-const AdminTransaction = lazy(() => import('./pages/admin/transaction/transaction'));
-const Login = lazy(() => import('./pages/auth/login/login'));
-const SignUp = lazy(() => import('./pages/auth/signup/signup'));
-const Faq = lazy(() => import('./pages/faq/faq'));
-const MasterDashboardLayout = lazy(() => import('./pages/masterAdmin/masterDashboardLayout'));
-const MasterAdminRates = lazy(() => import("./pages/masterAdmin/rates/rates"));
-const AdminUsers = lazy(() => import('./pages/masterAdmin/users/users'));
-const UserVerify = lazy(() => import('./pages/admin/verify/verify'));
-const VerifyUsers = lazy(() => import('./pages/masterAdmin/verify/verifyUsers'));
-const DepositRequest = lazy(() => import('./pages/admin/depositRequest/depositRequest'));
-const WidthdrawlRequest = lazy(() => import('./pages/admin/widthdrawlRequest/widthdrawlRequest'));
-const AdminDepositRequest = lazy(() => import('./pages/masterAdmin/depositRequest/depositRequest'));
-const AdminWidthdrawlRequest = lazy(() => import('./pages/masterAdmin/widthdrawlRequest/widthdrawlRequest'));
-const Policies = lazy(() => import('./pages/policies/policies'));
-const UpdateUserInfo = lazy(() => import('./pages/admin/updateUserInfo/updateUserInfo'));
-const ContextProvider = lazy(() => import('./context/contextProvider'));
-const Orders = lazy(() => import('./pages/masterAdmin/orders/orders'));
+const Main = loadable(() => import('./pages/main'));
+const AboutUS = loadable(() => import('./pages/aboutUs/aboutUs'));
+const UserRates = loadable(() => import('./pages/userRates/userRates'));
+const Dashboard = loadable(() => import('./pages/admin/dashboard'));
+const DashboardLayout = loadable(() => import('./pages/admin/dashboardLayout'));
+const Rates = loadable(() => import("./pages/admin/rates/rates"));
+const AdminSellBitcoin = loadable(() => import('./pages/admin/sellBitcion/sellBitcion'));
+const AdminSellGiftCard = loadable(() => import('./pages/admin/sellGiftCard/sellGiftCard'));
+const AdminTransaction = loadable(() => import('./pages/admin/transaction/transaction'));
+const Login = loadable(() => import('./pages/auth/login/login'));
+const SignUp = loadable(() => import('./pages/auth/signup/signup'));
+const Faq = loadable(() => import('./pages/faq/faq'));
+const MasterDashboardLayout = loadable(() => import('./pages/masterAdmin/masterDashboardLayout'));
+const MasterAdminRates = loadable(() => import("./pages/masterAdmin/rates/rates"));
+const AdminUsers = loadable(() => import('./pages/masterAdmin/users/users'));
+const UserVerify = loadable(() => import('./pages/admin/verify/verify'));
+const VerifyUsers = loadable(() => import('./pages/masterAdmin/verify/verifyUsers'));
+const DepositRequest = loadable(() => import('./pages/admin/depositRequest/depositRequest'));
+const WidthdrawlRequest = loadable(() => import('./pages/admin/widthdrawlRequest/widthdrawlRequest'));
+const AdminDepositRequest = loadable(() => import('./pages/masterAdmin/depositRequest/depositRequest'));
+const AdminWidthdrawlRequest = loadable(() => import('./pages/masterAdmin/widthdrawlRequest/widthdrawlRequest'));
+const Policies = loadable(() => import('./pages/policies/policies'));
+const UpdateUserInfo = loadable(() => import('./pages/admin/updateUserInfo/updateUserInfo'));
+const ContextProvider = loadable(() => import('./context/contextProvider'));
+const Orders = loadable(() => import('./pages/masterAdmin/orders/orders'));
 const UserBuySell = lazy(() => import('./pages/userBuySell/userBuySell'));
 
 

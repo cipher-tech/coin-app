@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://cipher-tech.github.io/coin-app/",
   "dependencies": {
+    "@loadable/component": "^5.13.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -24,6 +25,7 @@
     "react-table": "^7.0.5",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
+    "secure-ls": "^1.2.6",
     "styled-components": "^5.0.1",
     "swiper": "^5.3.6",
     "validator": "^13.0.0"
