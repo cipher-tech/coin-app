@@ -122,10 +122,12 @@ const EditGiftCard = ({ EditGiftCard, closeModal,cardSelectedForEdit}) => {
                     <StyledInput name="name"
                         handleChange={updateGiftcardNameValue}
                         value={inputState.name}
+                        label="name"
                         placeHolder={cardSelectedForEdit?.name}  type="text" icon={envelope} />
                     <ValidationMessage field="name" />
                     <StyledInput name="quantity"
                         handleChange={updateGiftcardNameValue}
+                        label="quantity"
                         value={inputState.quantity}
                         placeHolder={cardSelectedForEdit?.quantity} type="number" icon={envelope} />
                     <ValidationMessage field="quantity" />

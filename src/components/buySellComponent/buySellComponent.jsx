@@ -152,7 +152,12 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     const [, setIsCopied] = useState('')
     // const copyRef = useRef(null)
 
-    async function copy(e) {
+    async function copy(type) {
+        if(type === "refId"){
+            navigator.clipboard.writeText(refrenceId)
+            setIsCopied(true)
+            return
+        }
         navigator.clipboard.writeText(bitcoinAddress)
         setIsCopied(true)
     }
@@ -544,7 +549,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                             <span>
                                                 you get: ₦
                                                 {amount * props?.original?.attributes?.find(
-                                                item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || 0}
+                                                item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || "(Range not avaliable)"}
                                             </span>
                                             <span>
                                                 rate: ₦{props?.original?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
@@ -626,6 +631,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
                         <span className="modal__container-address">
                             {refrenceId}
+                            <button onClick={() =>copy("refId")}> copy</button>
                         </span>
                         {/* <button onClick={() =>copy()}> copy</button> */}
 

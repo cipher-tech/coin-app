@@ -161,9 +161,10 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
 	// eslint-disable-next-line
 	const [popUpMessage, setPopUpMessage] = useState(null)
-	
+
 	// eslint-disable-next-line
 	const [error, setError] = useState(false)
+	const [coinKeys, setCoinKeys] = useState([])
 	// const [isLoading, setIsLoading] = useState(false)	
 	// const [giftCardInfo, setGiftCardInfo] = useState([])
 
@@ -181,9 +182,12 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 				return res.data.data
 			})
 			.then(res => {
+				let coinKeys = res.filter(item => item.type === "coin").map(item => ((item.name)))
+				setCoinKeys([...new Set(coinKeys)])
 				// setGiftCardInfo(res.filter(item => item.type === "card"))
 				// console.log(cardOnlyRates);
 			})
+
 		// eslint-disable-next-line
 	}, [fetchAllRates])
 
@@ -344,8 +348,10 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 				</div>
 			</Modal>
 			<div className="rate">
+
 				<h2 className="rate-attrHeader">Gift Cards</h2>
 				<div className="rate-card">
+
 
 					{
 						cardOnlyRates.map((item, index) => (
@@ -389,52 +395,53 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 				<h2 className="rate-attrHeader">Coins</h2>
 
 				<div className="rate-card">
-
+					{console.log(coinOnlyRates?.length)}
 					{
-						coinOnlyRates?.map((item, index) => (
-							<fieldset className="rate-card-group" key={index}>
-								<legend>{item.name}</legend>
-								<p className="rate-card-attributes header">
-									<span className="rate-card-attributes__item">Name</span>
-									{/* <span className="rate-card-attributes__item">Buying</span> */}
-									<span className="rate-card-attributes__item">Class</span>
-									<span className="rate-card-attributes__item">Worth</span>
-									<span className="rate-card-attributes__item">Rate</span>
-								</p>
-								<p className="rate-card-attributes">
-									<span className="rate-card-attributes__item">
-										{item.name}
-									</span>
-									<span className="rate-card-attributes__item">
-										{item.class}
-									</span>
-									<span className="rate-card-attributes__item">
-										{item.from} - {item.to} {console.log(item.from , item.to)}
-									</span>
-									<span className="rate-card-attributes__item">
-										{item.buying}
-									</span>
-								</p>
-								{/* {
-									item.attributes.map((attribute, i) => (
-										
-									))
-								} */}
-							</fieldset>
+						!coinOnlyRates?.length ? console.log('here') :
+							coinKeys.map((coinName, index) => (
+								<fieldset className="rate-card-group" key={index}>
+									<legend>{coinName}</legend>
+									<p className="rate-card-attributes header">
+										<span className="rate-card-attributes__item">Name</span>
+										<span className="rate-card-attributes__item">Class</span>
+										<span className="rate-card-attributes__item">Worth</span>
+										<span className="rate-card-attributes__item">Rate</span>
+									</p>
+									{coinOnlyRates.map((item, index) => (
 
+										coinName === item.name ?
 
-						))}
+											<p key={index} className="rate-card-attributes">
+												<span className="rate-card-attributes__item">
+													{item.name}
+												</span>
+												<span className="rate-card-attributes__item">
+													{item.class}
+												</span>
+												<span className="rate-card-attributes__item">
+													{item.from} - {item.to}
+												</span>
+												<span className="rate-card-attributes__item">
+													{item.buying}
+												</span>
+											</p>
+											: null
+									))}
+								</fieldset>
+							))
+					}
 				</div>
 				{/* <PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? rates.allRates : []} /> */}
 			</div>
 		</Container>
 	)
 }
-const mapStateToProps = ({ rates,users }) => ({
+const mapStateToProps = ({ rates, users }) => ({
 	rates: rates,
 	user: users,
 	coinOnlyRates: rates?.allRates?.filter(item => item.type === "coin"),
-	cardOnlyRates: rates?.allRates?.filter(item => item.type === "card")
+	cardOnlyRates: rates?.allRates?.filter(item => item.type === "card"),
+	// coinkeys: [...new Set(Object.keys(rates?.allRates?.filter(item => item.type === "coin") || []))] 
 })
 
 const mapDispatchToProps = {

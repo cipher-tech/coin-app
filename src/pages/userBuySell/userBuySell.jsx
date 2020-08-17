@@ -75,8 +75,18 @@ const UserBuySell = () => {
     const [isModalActive, setIsModalActive] = useState(false)
     useEffect(() => {
         setTimeout(() => {
-            setIsModalActive(true)
-        }, 4000)
+            // console.log(typeof +localStorage.counts);
+            
+            if(localStorage.counts && +localStorage.counts % 10 === 0){
+                setIsModalActive(true)
+                localStorage.counts = +localStorage.counts + 1
+            }else if(localStorage.counts){
+                localStorage.counts = +localStorage.counts + 1
+            }else{
+                setIsModalActive(true);
+                localStorage.counts = 1
+            }
+        }, 3000)
     }, [setIsModalActive])
 
     const selectRegion = (e) => {

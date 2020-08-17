@@ -133,6 +133,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                             <span>
                                 <StyledInput name="rangeFrom" updatedValue={setFrom}
                                     // handleChange={updateOptions}
+                                    label="from"
                                     value={from}
                                     placeHolder="Range(from)" type="number" icon={lock} />
                                 <ValidationMessage field="type" />
@@ -141,6 +142,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                                 <StyledInput name="rangeTo" updatedValue={setTo}
                                     // handleChange={updateOptions}
                                     value={to}
+                                    label="to"
                                     placeHolder="Range(to)" type="type" icon={lock} />
                                 <ValidationMessage field="type" />
                             </span>
@@ -149,6 +151,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                                 <StyledInput name="rate" updatedValue={setRate}
                                     // handleChange={updateOptions}
                                     value={rate}
+                                    label="rate"
                                     placeHolder="Rate" type="number" icon={lock} />
                                 <ValidationMessage field="type" />
                             </span>
@@ -198,6 +201,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                                 <StyledInput name="rangeFrom" updatedValue={setFrom}
                                     // handleChange={updateOptions}
                                     value={from}
+                                    label="From"
                                     placeHolder={data.from} type="number" icon={lock} />
                                 <ValidationMessage field="type" />
                             </span>
@@ -205,7 +209,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                                 <StyledInput name="rangeTo" updatedValue={setTo}
                                     // handleChange={updateOptions}
                                     value={to}
-                                    placeHolder={data.to} type="type" icon={lock} />
+                                    label="To"                                    placeHolder={data.to} type="type" icon={lock} />
                                 <ValidationMessage field="type" />
                             </span>
 
@@ -213,6 +217,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
                                 <StyledInput name="rate" updatedValue={setRate}
                                     // handleChange={updateOptions}
                                     value={rate}
+                                    label="Rate"
                                     placeHolder={data.rate} type="number" icon={lock} />
                                 <ValidationMessage field="type" />
                             </span>

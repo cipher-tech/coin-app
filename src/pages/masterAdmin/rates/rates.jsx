@@ -681,7 +681,8 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 						<EditGiftcard cardSelectedForEdit={cardSelectedForEdit} isEditing closeModal={setIsEditing} EditGiftCard={EditGiftCard} />
 					</Modal>
 					:
-					null}
+					null
+				}
 				{/* <h1 className="rate__title">Rates</h1> */}
 				<App tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ?
 					coinOnlyRates

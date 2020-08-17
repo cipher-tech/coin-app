@@ -103,7 +103,7 @@ export default class swiperCarusel extends Component {
         /* grid-template-columns: repeat(2, minmax(40rem, 1fr)); */
 
         &-text{
-            font-family: montserrat;
+            /* font-family: montserrat; */
             padding: 1rem 3rem;
             text-transform: capitalize;
             font-size: ${props => props.theme.font.xxlarge};
