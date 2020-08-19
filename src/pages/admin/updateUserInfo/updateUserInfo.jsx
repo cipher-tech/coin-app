@@ -2,6 +2,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 // import rateImage from "../../../images/sellGiftcard.png"
 import lock from "../../../images/svgIcons/lock.svg"
+import envelope from "../../../images/svgIcons/envelope.svg"
+import user from "../../../images/svgIcons/user.svg"
+import phoneHandset from "../../../images/svgIcons/phone-handset.svg"
+import calendarFull from "../../../images/svgIcons/calendar-full.svg"
+import flag from "../../../images/svgIcons/flag.svg"
+import map from "../../../images/svgIcons/map.svg"
+import mapMarker from "../../../images/svgIcons/map-marker.svg"
+import fileZip from "../../../images/svgIcons/file-zip.svg"
+import piggyBank from "../../../images/svgIcons/coin-dollar.svg"
 
 // import giftCard from "../../../images/bitcoinSvg-2.svg"
 import { FormValidator } from '../../../formValidator'
@@ -332,24 +341,24 @@ function UpdateUserInfo() {
                             <div className="updateForm-form--item">
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="email" label="Email" handleChange={updateFormValue} value={state.email}
-                                        placeHolder={email} type="email" icon={lock} />
+                                        placeHolder={email} type="email" icon={envelope} />
                                     <ValidationMessage field="email" />
                                 </span>
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="first_name" label="First name" handleChange={updateFormValue} value={state.first_name}
-                                        placeHolder={first_name} type="text" icon={lock} />
+                                        placeHolder={first_name} type="text" icon={user} />
                                     <ValidationMessage field="first_name" />
                                 </span>
                             </div>
                             <div className="updateForm-form--item">
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="last_name" label="Last_name" handleChange={updateFormValue} value={state.last_name}
-                                        placeHolder={last_name} type="text" icon={lock} />
+                                        placeHolder={last_name} type="text" icon={user} />
                                     <ValidationMessage field="last_name" />
                                 </span>
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="phone" label="Phone_number" handleChange={updateFormValue} value={state.phone}
-                                        placeHolder={phone_no} type="text" icon={lock} />
+                                        placeHolder={phone_no} type="text" icon={phoneHandset} />
                                     <ValidationMessage field="phone" />
                                 </span>
                             </div>
@@ -357,33 +366,33 @@ function UpdateUserInfo() {
                             <div className="updateForm-form--item">
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="dob" label="Date_of_Birth" handleChange={updateFormValue} value={state.dob}
-                                        placeHolder={dob} type="date" icon={lock} />
+                                        placeHolder={dob} type="date" icon={calendarFull} />
                                     <ValidationMessage field="dob" />
                                 </span>
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="city" label="City" handleChange={updateFormValue} value={state.city}
-                                        placeHolder={city} type="text" icon={lock} />
+                                        placeHolder={city} type="text" icon={flag} />
                                     <ValidationMessage field="city" />
                                 </span>
                             </div>
                             <div className="updateForm-form--item">
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="state" label="State" handleChange={updateFormValue} value={state.state}
-                                        placeHolder={stateOfOrigin} type="text" icon={lock} />
+                                        placeHolder={stateOfOrigin} type="text" icon={mapMarker} />
                                     <ValidationMessage field="state" />
                                 </span>
                                 <span className="updateForm-form--item--small">
                                     <StyledInput name="coutry" label="Country" handleChange={updateFormValue} value={state.coutry}
-                                        placeHolder={coutry} type="text" icon={lock} />
+                                        placeHolder={coutry} type="text" icon={map} />
                                     <ValidationMessage field="coutry" />
                                 </span>
                             </div>
                             <StyledInput name="zip_code" handleChange={updateFormValue} value={state.zip_code}
-                                placeHolder={zip_code} type="text" label="Zip_code" icon={lock} />
+                                placeHolder={zip_code} type="text" label="Zip_code" icon={fileZip} />
                             <ValidationMessage field="zip_code" />
 
                             <StyledInput name="coin_address" label="Coin_address" handleChange={updateFormValue} value={state.coin_address}
-                                placeHolder={coin_address} type="text" icon={lock} />
+                                placeHolder={coin_address} type="text" icon={piggyBank} />
                             <ValidationMessage field="coin_address" />
 
                         </div>

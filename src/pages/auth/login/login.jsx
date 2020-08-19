@@ -366,10 +366,6 @@ class Login extends Component {
                             Forgot password?
                             <span className="login__side-right-isSugnedIn-action"
                                     onClick={() => this.setState({ isActive: !false, })}> Reset</span>
-
-                                <br /> <br />
-                                <span className="login__side-right-isSugnedIn-action-red"> * </span>
-                                By clicking the "Open Account" button I confirm the agreement with the terms and conditions.
                             </p>
                             {/* <button className="login__side-right-summit">Login</button> */}
                         </FormValidator>

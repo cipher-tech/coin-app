@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 
 const Container = styled.div`
-    grid-column: 2/10;
+    grid-column: 1/-1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     /* gap: 10rem; */

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { ReactComponent as WelcomeSvg } from "../../../images/svgIcons/welcomeSvg.svg"
-// import CircleSvg from "../../../images/svgIcons/circleSvg.svg"
-// import Home from "../../../images/svgIcons/home.svg"
-// import lock from "../../../images/svgIcons/lock.svg"
 import envelope from "../../../images/svgIcons/envelope.svg"
+import lock from "../../../images/svgIcons/lock.svg"
+import phoneHandset from "../../../images/svgIcons/phone-handset.svg"
+import userIcon from "../../../images/svgIcons/user.svg"
+
 // import phoneHandset from "../../../images/svgIcons/phone-handset.svg"
 
 import { StyledInput } from '../../../components/styledComponents'
@@ -166,7 +167,10 @@ const Container = styled.div`
                 color: ${props => props.theme.colorPrimary};
                 &-action{
                     font-weight: 700;
-                    text-decoration: underline;
+                    text-decoration: none;
+                    &-red{
+                        color: ${props => props.theme.colorError};
+                    }
                 }
             }
             &-summit{
@@ -205,10 +209,10 @@ export default class SignUp extends Component {
 
         this.state = {
             email: "",
-            password: "",   
-            phone: "",   
-            first_name: "", 
-            last_name: "", 
+            password: "",
+            phone: "",
+            first_name: "",
+            last_name: "",
             account_number: "",
             bank: "",
             isLoading: false,
@@ -228,25 +232,25 @@ export default class SignUp extends Component {
     }
     submit = (data) => {
         Axios.post(routes.api.signUp, data) //routes.api.signUp
-        .then(res => {
-            this.setState({isLoading: !this.state.isLoading})
+            .then(res => {
+                this.setState({ isLoading: !this.state.isLoading })
                 console.log(res.data);
                 if (res.data.status) {
-                    this.setState({isLoading: !this.state.isLoading})
+                    this.setState({ isLoading: !this.state.isLoading })
                     this.props.history.push(routes.public.login)
                     return
-                }else{
+                } else {
                     this.setState({ message: "An error Occured While loading. Please check your details and try again.", isLoading: !this.state.isLoading })
-                    this.setState({isLoading: !this.state.isLoading})
+                    this.setState({ isLoading: !this.state.isLoading })
                     return
                 }
-              
+
             })
             .catch(res => {
-                this.setState({isLoading: !this.state.isLoading})
+                this.setState({ isLoading: !this.state.isLoading })
                 this.setState({ message: "AN error Occured While loading please check your details and try again.", isLoading: !this.state.isLoading })
             })
-          
+
     }
     updateFormValue = (name, value) => {
         this.setState({ [name]: value });
@@ -254,12 +258,12 @@ export default class SignUp extends Component {
     render() {
         return (
             <Container>
-			{this.state.showpopUpMessage ? <PopUpMessage> {this.state.popUpMessage} <span onClick={() => this.setState({setShowPopUpMessage: false }) }>✖</span> </PopUpMessage> : null}
+                {this.state.showpopUpMessage ? <PopUpMessage> {this.state.popUpMessage} <span onClick={() => this.setState({ setShowPopUpMessage: false })}>✖</span> </PopUpMessage> : null}
 
                 <div className="login">
                     <div className="login__side-left">
-                        <div className="circle"/>
-                        <div className="circle2"/>
+                        <div className="circle" />
+                        <div className="circle2" />
                         <p className="login__side-left-title">Welcome To Back</p>
                         <p className="login__side-left-text">
                             It’s more than just trading Bitcoin
@@ -273,54 +277,58 @@ export default class SignUp extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
-                        <p className="login__side-right-message"> 
-                            {this.state.message? `${this.state.message}` : null } 
-                            <br/>
+                        <p className="login__side-right-message">
+                            {this.state.message ? `${this.state.message}` : null}
+                            <br />
                             {/* {this.state.message? `${this.state.messageDetails}` : null }  */}
                         </p>
-                        <FormValidator buttonText={this.state.isLoading? "loading..." : "Submit"} buttonClass="login__side-right-summit" 
-                        classname=" login__side-right-container " 
-                        data={ this.state } rules={ this.rules }
-                        submit={this.submit}>
+                        <FormValidator buttonText={this.state.isLoading ? "loading..." : "Submit"} buttonClass="login__side-right-summit"
+                            classname=" login__side-right-container "
+                            data={this.state} rules={this.rules}
+                            submit={this.submit}>
 
-                        <div className="login__side-right-form">
-                            <StyledInput name="email" type="text" handleChange={this.updateFormValue} value={this.state.email}
-                                placeHolder="Email" icon={envelope} />
-                                <ValidationMessage field="email"/>
+                            <div className="login__side-right-form">
+                                <StyledInput name="email" type="text" handleChange={this.updateFormValue} value={this.state.email}
+                                    placeHolder="Email" icon={envelope} />
+                                <ValidationMessage field="email" />
 
-                            <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.first_name}
-                                placeHolder="Firstname" type="text" icon={envelope} />
-                                <ValidationMessage field="first_name"/>
+                                <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.first_name}
+                                    placeHolder="Firstname" type="text" icon={userIcon} />
+                                <ValidationMessage field="first_name" />
 
-                            <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.last_name}
-                                placeHolder="Lastname" type="text" icon={envelope} />
-                                <ValidationMessage field="last_name"/>
+                                <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.last_name}
+                                    placeHolder="Lastname" type="text" icon={userIcon} />
+                                <ValidationMessage field="last_name" />
 
-                            <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phone}
-                                placeHolder="phoneNumber" type="text" icon={envelope} />
-                                <ValidationMessage field="phone"/>
+                                <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phone}
+                                    placeHolder="phoneNumber" type="text" icon={phoneHandset} />
+                                <ValidationMessage field="phone" />
 
-                            {/* <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
+                                {/* <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
                                 placeHolder="Bank" type="text" icon={envelope} />
                                 <ValidationMessage field="bank"/> */}
 
-                            {/* <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
+                                {/* <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
                                 placeHolder="Account_number" type="number" icon={envelope} />
                                 <ValidationMessage field="account_number"/> */}
 
-                            <StyledInput name="password" handleChange={this.updateFormValue} value={this.state.password}
-                                placeHolder="password" type="password" icon={envelope} />
-                                <ValidationMessage field="password"/>
-                            {/* <StyledInput placeHolder="username" type="text" icon={Home} />
-                            {/* <StyledInput placeHolder="email" type="text" icon={envelope} /> 
-                            <StyledInput placeHolder="Phone Number" type="text" icon={phoneHandset} />
-                            <StyledInput placeHolder="Passwords" type="text" icon={lock} /> */}
-                        </div>
-                        <p className="login__side-right-isSugnedIn">
-                            Already Signed up?
+                                <StyledInput name="password" handleChange={this.updateFormValue} value={this.state.password}
+                                    placeHolder="password" type="password" icon={lock} />
+                                <ValidationMessage field="password" />
+
+                            </div>
+                            <p className="login__side-right-isSugnedIn">
+                                Already Signed up?
                             <Link to="/login" className="login__side-right-isSugnedIn-action"> LogIn</Link>
-                        </p>
-                        {/* <button className="login__side-right-summit">Login</button> */}
+
+                                <br /> <br />
+                                <span className="login__side-right-isSugnedIn-action-red"> * </span>
+                                By clicking the "Open Account" button I confirm the agreement with the  &nbsp;
+                                <Link to={routes.public.policies}>
+                                    terms and conditions.
+                                </Link>
+                            </p>
+                            {/* <button className="login__side-right-summit">Login</button> */}
                         </FormValidator>
 
                     </div>

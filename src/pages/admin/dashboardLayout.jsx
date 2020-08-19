@@ -12,7 +12,11 @@ import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymb
 import { ReactComponent as Cog } from "../../images/svgIcons/cog.svg"
 import { ReactComponent as PowerSwitch } from "../../images/svgIcons/power-switch.svg"
 import { ReactComponent as Smile } from "../../images/svgIcons/smile.svg"
+import { ReactComponent as FundAccount } from "../../images/svgIcons/coin-dollar.svg"
+import { ReactComponent as SendMoney } from "../../images/svgIcons/credit-card.svg"
 
+import { ReactComponent as Enter } from "../../images/svgIcons/enter.svg"
+import { ReactComponent as Cash } from "../../images/svgIcons/cash.svg"
 // import avatar1 from "../../images/avatar1.jpg"
 import avatar1 from "../../images/brandLogo.jpg"
 import { Link, withRouter } from 'react-router-dom'
@@ -317,14 +321,14 @@ function DashboardLayout(props) {
                             {email}
                         </p>
                     </li>
-                    <li onClick={closeSideNav} className="sideNav__container-item">
+                    <Link to="/" onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
                             <Home className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Home
                         </span>
-                    </li>
+                    </Link>
 
                     <a onClick={closeSideNav} href={routes.admin.index} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
@@ -374,7 +378,7 @@ function DashboardLayout(props) {
 
                     <Link to={routes.admin.verify} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg" />
+                            <Enter className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Request Verification
@@ -382,7 +386,7 @@ function DashboardLayout(props) {
                     </Link>
                     <Link to={routes.admin.deposit} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg" />
+                            <FundAccount className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Fund Account
@@ -390,7 +394,7 @@ function DashboardLayout(props) {
                     </Link>
                     <Link to={routes.admin.widthdrawl} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg" />
+                            <Cash className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Widthdrawl
@@ -398,7 +402,7 @@ function DashboardLayout(props) {
                     </Link>
                     <Link to={routes.admin.widthdrawl} onClick={closeSideNav} className="sideNav__container-item">
                         <span className="sideNav__container-item--icon">
-                            <Box className="sideNav__container-item--icon-svg" />
+                            <SendMoney className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
                             Send/Recive Money

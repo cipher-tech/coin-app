@@ -1,14 +1,13 @@
-// import React, { useState} from 'react';
-import "swiper/css/swiper.css"
-import Swiper from 'react-id-swiper';
-import styled from 'styled-components';
-// import playstore from "../images/playstore.svg"
-// import applestore from "../images/istore.svg"
-import bitcoinSvg from "../images/bitcoinSvg.svg"
-// import cimage from "../images/cimage.png"
-import EthereumDesire from "../images/ethereumDesire.svg"
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import Swiper from 'react-id-swiper';
+import styled from 'styled-components';
+
+import "swiper/css/swiper.css"
+import bitcoinSvg from "../images/bitcoinSvg.svg"
+import bitcoin_1 from "../images/bitcoin3.svg"
+import EthereumDesire from "../images/ethereumDesire.svg"
+import UndrawPayment from "../images/undraw_card_payment.svg"
 
 
 export default class swiperCarusel extends Component {
@@ -63,12 +62,8 @@ export default class swiperCarusel extends Component {
         justify-items:center;
         align-items: center;
         margin-top: 0rem;
-        /* height: 50vh; */
-    
-        /* align-content: flex-end; */
         margin-bottom: 7rem;
-        /* padding-left: 3rem; */
-        /* overflow: hidden; */
+        /* height: 80vh; */
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpxLarge}) {
             margin-bottom: 1rem;
         }
@@ -151,9 +146,9 @@ export default class swiperCarusel extends Component {
         /* padding: .1rem; */
         display: flex;
         justify-content: center;
-        width: 100%;
+        /* width: 100%; */
         overflow: hidden;
-        height: 100%;
+        height: 80%;
         width: 80%;
         z-index: 5px;
         position: relative;
@@ -191,8 +186,8 @@ export default class swiperCarusel extends Component {
 
         // const [state, setstate] = useState(null)
         const params = {
-            speed: 1000,
-            parallax: !true,
+            speed: 2000,
+            parallax: true,
             slidesPerView: 1,
             runCallbackOnInit: true,
             init: true,
@@ -212,7 +207,7 @@ export default class swiperCarusel extends Component {
             },
             loop: !false,
             autoplay: {
-                delay: 3500,
+                delay: 5000,
                 disableOnInteraction: false,
             },
             parallaxEl: {
@@ -270,7 +265,7 @@ export default class swiperCarusel extends Component {
                         </div>
 
                         <div className="headerSvg">
-                            <img src={EthereumDesire} alt="bitcoinSvg" />
+                            <img src={bitcoin_1} alt="bitcoinSvg" />
                         </div>
                     </div>
                     <div key='7' className="carursel">
@@ -294,6 +289,29 @@ export default class swiperCarusel extends Component {
                         <div className="headerSvg">
                             {/* <div className="headerSvg-overlay" /> */}
                             <img className="imagePhoto" src={EthereumDesire} alt="bitcoinSvg" data-swiper-parallax="-600" />
+                        </div>
+                    </div>
+                    <div key='7' className="carursel">
+                        <div className="carursel-info" data-swiper-parallax="0">
+                            <h3 className="carursel-info-text">
+                                we also enable you pay for goods in 
+                            <span className="carursel-info-text--yellow"> China </span>
+                                 {/* with the
+                             <span className="carursel-info-text--yellow"> best </span> */}
+                            </h3>
+
+                            <Link to="/sign-up" className="carursel-info-btn">
+                                Sign Up
+                            </Link>
+                            {/* <div className="carursel-info-mobile-demo">
+                                <img src={playstore} alt="playStore" />
+                                <img src={applestore} alt="ios" />
+                            </div> */}
+                        </div>
+
+                        <div className="headerSvg">
+                            {/* <div className="headerSvg-overlay" /> */}
+                            <img className="imagePhoto" src={UndrawPayment} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>
 

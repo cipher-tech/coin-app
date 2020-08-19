@@ -93,11 +93,12 @@ const Steps = () => {
             <div className="steps">
                 <div className="steps-container"
                     data-aos="fade-right"
-                    data-aos-offset="500"
+                    data-aos-offset="200"
                     data-aos-delay="400"
                     data-aos-duration="700"
                     data-aos-easing="ease-in-out"
                     data-aos-once="true">
+
                     <StepsItem step="Create an Account or not.."
                         text={` You can sell your bitcoin & giftcards to us without signing up, all
                             you have to do is just to conatct us on our live support and we will attend to you as 

@@ -226,29 +226,16 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
             collapse: true,
         },
         {
-            Header: 'Coin Rates',
+            Header: 'Buy And sell Gift Cards',
             columns: [
                 {
                     Header: 'Name',
                     accessor: 'name',
                     collapse: true,
                 },
-                // {
-                //     Header: 'Type',
-                //     accessor: 'type',
-                // },
-                // {
-                //     Header: 'Rate',
-                //     accessor: 'buying',
-                //     collapse: true,
-                // },
-                {
-                    Header: !isVerified ? '' : 'Selling',
-                    accessor: !isVerified ? 'sss' : 'selling'
-                },
                 {
                     // Make an expander cell
-                    Header: () => null, // No header
+                    Header: () => "Action", // No header
                     id: 'expander', // It needs an ID
 
                     Cell: ({ row }) => (
