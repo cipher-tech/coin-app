@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
 import routes from '../../../navigation/routes'
-import { StyledButton, PopUpMessage } from '../../../components'
+import { StyledButton, PopUpMessage, Storage } from '../../../components'
 
 
 const Container = styled.div`
@@ -71,7 +71,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 	// let authToken
 
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 		console.log(auth_token);
 
 		Axios.get(`http://localhost:8000/api/users/unverified?token=${auth_token}`)
@@ -148,7 +148,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 
 	const deleteVerification = (id) => {
 		// console.log(user_id);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.deleteUnverifirdUsers}?token=${auth_token}`, {verifyId: id, action: "delete" })
 			.then(res => {
@@ -189,7 +189,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 	)
 	const verify = (user_id, id) => {
 		console.log(user_id);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.verifyUsers}?token=${auth_token}`, { user_id: +user_id, verifyId: id, action: "verify" })
 			.then(res => {

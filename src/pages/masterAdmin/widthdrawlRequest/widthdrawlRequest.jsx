@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
 import routes from '../../../navigation/routes'
-import { StyledButton, PopUpMessage } from '../../../components'
+import { StyledButton, PopUpMessage, Storage } from '../../../components'
 import {fetchAllWidthdrawlActionCreator } from '../../../reduxStore'
 
 
@@ -71,7 +71,7 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 	// let authToken
 	
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 		// console.log(auth_token);
 		
 		Axios.get(`${routes.api.adminWidthdrawl}?token=${auth_token}`)
@@ -174,7 +174,7 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 
 	const deleteRequest = (id) => {
 		// console.log(user_id);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.adminDeleteWidthdrawl}?token=${auth_token}`, {id: id, action: "delete" })
 			.then(res => {
@@ -214,7 +214,7 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 	)
 	const acceptWidthdrawl = (amount, id, slug,user_id,status) => {
 		// console.log();
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+        const auth_token = Storage.get("userInfo").user.auth_token
         const data = {
             amount: amount,
             id: id,

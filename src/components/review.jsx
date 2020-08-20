@@ -2,7 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import "swiper/css/swiper.css"
 import Swiper from "react-id-swiper"
-import bg2 from "../images/avatar1.jpg"
+// import bg2 from "../images/user.png"
+import avatar from "../images/svgIcons/avatar.webp"
+import avatar1 from "../images/svgIcons/avatar1.png"
+import avatar7 from "../images/svgIcons/avatar7.png"
+import avatar8 from "../images/svgIcons/avatar8.png"
+import avatar2 from "../images/svgIcons/avatar2.webp"
+import avatar3 from "../images/svgIcons/avatar3.png"
+import avatar4 from "../images/svgIcons/avatar4.png"
+import avatar5 from "../images/svgIcons/avatar5.png"
+// import avatar6 from "../images/svgIcons/avatar6.png"
+
 import { Heading } from '.'
 
 const Container = styled.div`
@@ -29,7 +39,7 @@ const Container = styled.div`
                
                &--avater{
                    height: 8rem;
-                   width: 8rem;
+                   /* width: 8rem; */
                    border-radius: 1.5rem;
                    margin: 2rem 0; 
            }
@@ -74,89 +84,91 @@ const Review = () => {
         },
         breakpoints: {
             '@0.00': {
-              slidesPerView: 1,
-            //   spaceBetween: 10,
+                slidesPerView: 1,
+                //   spaceBetween: 10,
             },
             '@0.75': {
-              slidesPerView: 2,
-            //   spaceBetween: 20,
+                slidesPerView: 2,
+                //   spaceBetween: 20,
             },
             '@1.00': {
-              slidesPerView: 3,
-            //   spaceBetween: 40,
+                slidesPerView: 3,
+                //   spaceBetween: 40,
             },
             '@1.50': {
-              slidesPerView: 4,
-            //   spaceBetween: 50,
+                slidesPerView: 4,
+                //   spaceBetween: 50,
             },
-          },
+        },
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
         },
     }
+    const avaters = [avatar1,avatar3,avatar,avatar4,avatar5,avatar3,avatar7,avatar8,avatar2]
+    const reviewData = [
+        {
+            name: "chike",
+            review: 'Cjgrandexchange is not just trusted but fast and reliable ....'
+        },
+        {
+            name: "patrick",
+            review: "I do all my trades with cjgrandexchange from bitcoin to gift cards And I have never for once had reason to regret Thanks CJ grandexchange .... much love"
+        },
+        {
+            name: "mary",
+            review: "Cjgrandexchange is correct I have verified that and I have traded with them before, payment swift,You guys are honest and you fast in payment as well and also nice hospitality"
+        },
+        {
+            name: "victor",
+            review: 'Cjgrandexchange is the best exchange I have traded with so far, they are the best you can think of... Instant payment and fast response👌🏿'
+        },
+        {
+            name: "john",
+            review: " Cj grand exchange is relatively a safe place to do peer-to-peer bitcoin trading,gifts card and more. Not because there are no scammers,but because there customers support is responsive and trade moderators are really good with their jobs. Legit and fast payment assured 💯"
+        },
+        {
+            name: "frank",
+            review: "Your payments are swift and I’m being honest"
+        },
+        {
+            name: "steve",
+            review: "CJGRAND EXCHANGE is a trusted and reliable source for exchange of gift cards, Bitcoins etc.And very swift too😉"
+        },
+        {
+            name: "gedion",
+            review: "My trades with cjgrandexchange has always ended a happy one, always quick to deliver, fast and very reliable. You should also try him"
+        },
+    ]
     return (
-        <Container 
+        <Container
             data-aos="zoom-out"
             data-aos-offset="100"
             data-aos-delay="200"
             data-aos-duration="800"
             data-aos-easing="ease-in-out"
             data-aos-once="true">
-        <Heading title="What Our Clients Have To" coloredText=" Say"/>
-             <Swiper {...params} className="swiper-wrapper">
-                {/* <TestimonialCard img={bg2} /> */}
-                {/* <TestimonialCard img={bg2} /> */}
-                <div className="swiper-wrapper-mainContent">
-                    <div className="swiper-wrapper-mainContent-imgContainer">
-                        <img className="swiper-wrapper-mainContent-imgContainer--avater" src={bg2} alt="testimonial pic" />
-                    </div>
-                    <p className="swiper-wrapper-mainContent--text">
-                    I am a skilled programmer that likes writing modular codes that are easily maintainable 
-                    and supports continuous integration. I'm skilled in the art of 
-                    translating design mock-ups and prototypes in tools like figma and.
+            <Heading title="What Our Clients Have To" coloredText=" Say" />
+            <Swiper {...params} className="swiper-wrapper">
 
-                    </p>
-                    <p className="swiper-wrapper-mainContent--profile">
-                        -kacnam ojvom avjm 'sdodmv' am kbd
-                    </p>
-                </div>
-                <div className="swiper-wrapper-mainContent">
-                    <div className="swiper-wrapper-mainContent-imgContainer">
-                        <img className="swiper-wrapper-mainContent-imgContainer--avater" src={bg2} alt="testimonial pic" />
-                    </div>
-                    <p className="swiper-wrapper-mainContent--text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quo non voluptatum neque eos assumenda consequatur deserunt tempora eveniet
-                    </p>
-                    <p className="swiper-wrapper-mainContent--profile">
-                        -kacnam ojvom avjm 'sdodmv' am kbd
-                    </p>
-                </div>
-                <div className="swiper-wrapper-mainContent">
-                    <div className="swiper-wrapper-mainContent-imgContainer">
-                        <img className="swiper-wrapper-mainContent-imgContainer--avater" src={bg2} alt="testimonial pic" />
-                    </div>
-                    <p className="swiper-wrapper-mainContent--text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quo non voluptatum neque eos assumenda consequatur deserunt tempora eveniet
-                    </p>
-                    <p className="swiper-wrapper-mainContent--profile">
-                        -kacnam ojvom avjm 'sdodmv' am kbd
-                    </p>
-                </div>
-                <div className="swiper-wrapper-mainContent">
-                    <div className="swiper-wrapper-mainContent-imgContainer">
-                        <img className="swiper-wrapper-mainContent-imgContainer--avater" src={bg2} alt="testimonial pic" />
-                    </div>
-                    <p className="swiper-wrapper-mainContent--text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quo non voluptatum neque eos assumenda consequatur deserunt tempora eveniet
-                    </p>
-                    <p className="swiper-wrapper-mainContent--profile">
-                        -kacnam ojvom avjm 'sdodmv' am kbd
-                    </p>
-                </div>
+                {
+                    reviewData.map((item, index) => (
+                        <div key={index} className="swiper-wrapper-mainContent">
+                            <div className="swiper-wrapper-mainContent-imgContainer">
+                                <img className="swiper-wrapper-mainContent-imgContainer--avater" src={avaters[index]} alt="testimonial pic" />
+                            </div>
+                            <p className="swiper-wrapper-mainContent--text">
+                               {item.review}
+
+                            </p>
+                            <p className="swiper-wrapper-mainContent--profile">
+                                -{item.name}
+                            </p>
+                        </div>
+                    ))
+                }
+
+
             </Swiper>
         </Container>
     )

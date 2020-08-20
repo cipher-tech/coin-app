@@ -6,7 +6,7 @@ import Button from '../../../components/button/button'
 import Axios from 'axios'
 import { connect } from 'react-redux'
 import routes from '../../../navigation/routes'
-import { PopUpMessage } from '../../../components'
+import { PopUpMessage, Storage } from '../../../components'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -75,11 +75,11 @@ function WidthdrawlRequest(props) {
             setShowPopUpMessage(true)
             return
         }
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-        const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
-        const wallet = JSON.parse(localStorage.getItem("userInfo")).user.wallet_balc
-        const email = JSON.parse(localStorage.getItem("userInfo")).user.email
-        const status = JSON.parse(localStorage.getItem("userInfo")).user.status
+        const auth_token = Storage.get("userInfo").user.auth_token
+        const userid = Storage.get("userInfo").user.id
+        const wallet = Storage.get("userInfo").user.wallet_balc
+        const email = Storage.get("userInfo").user.email
+        const status = Storage.get("userInfo").user.status
         setIsLoading(true)
         const object = {
             id: userid,

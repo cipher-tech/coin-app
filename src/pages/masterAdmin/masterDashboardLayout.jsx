@@ -16,6 +16,7 @@ import { Link, withRouter } from 'react-router-dom'
 import routes from '../../navigation/routes'
 import useIsMasterAdmin from '../../components/hooks/useIsMasterAdmin'
 import logOut from '../../components/hooks/logOut'
+import { Storage } from '../../components'
 
 const Container = styled.div`
 grid-column: 1/-1;
@@ -243,10 +244,9 @@ background: ${props => props.theme.colorPrimary};
 
 function MasterDashboardLayout(props) {
     useIsMasterAdmin(props.history);
-
-    const name = JSON.parse(localStorage.getItem("userInfo"))?.user?.first_name || null
-    const status = JSON.parse(localStorage.getItem("userInfo"))?.user?.status || null
-    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
+    const name =  Storage.get("userInfo")?.user?.first_name || null
+    const status =  Storage.get("userInfo")?.user?.status || null
+    const email =  Storage.get("userInfo") ?  Storage.get("userInfo")?.user?.email : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const [userStatus] = useState(status === "verified")

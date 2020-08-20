@@ -11,9 +11,11 @@ const Container = styled.div`
     /* gap: 10rem; */
     min-height: 100vh;
     width: 100%;
-
     /* align-items: center; */
     place-self: center;
+    @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+        grid-column: 1/-1;
+    }
 `
 const UserRates = () => {
     return (

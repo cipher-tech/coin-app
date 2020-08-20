@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // import rateImage from "../../../images/rate.png"
 // import Table from './table'
 import App from '../../../components/table/tablePagination'
-import { Modal, PopUpMessage, AddEditGiftcard, EditGiftcard } from '../../../components'
+import { Modal, PopUpMessage, AddEditGiftcard, EditGiftcard, Storage } from '../../../components'
 import { FormValidator } from '../../../formValidator'
 import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
@@ -292,7 +292,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 	}
 
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
+		const auth_token = Storage.get("userInfo")?.user?.auth_token
 
 		// console.log('data :>> ', data);
 		Axios.get(`${routes.api.getRates}?token=${auth_token}`)
@@ -311,7 +311,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 		setError(!true)
 		setShowPopUpMessage(!true)
 		setIsLoading(true)
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		console.log('data :>> ', data);
 		Axios.post(`${routes.api.addRates}?token=${auth_token}`, { ...data, type: "coin" })
@@ -339,7 +339,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 		setError(!true)
 		setShowPopUpMessage(!true)
 		setIsLoading(true)
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		console.log('data :>> ', { ...data, type: "card" });
 		Axios.post(`${routes.api.adminCreateGiftcard}?token=${auth_token}`, { ...data, type: "card" })
@@ -369,7 +369,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 		setError(!true)
 		setShowPopUpMessage(!true)
 		setIsLoading(true)
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		console.log('data :>> ', { ...data, type: "card" });
 		Axios.post(`${routes.api.adminEditGiftcard}?token=${auth_token}`, { ...data, type: "card" })
@@ -406,7 +406,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 		}
 
 		// console.log(rateInfo);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.updateRates}?token=${auth_token}`, rateInfo)
 			.then(res => {

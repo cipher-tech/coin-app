@@ -18,7 +18,7 @@ import { StyledInput } from '../../../components/styledComponents'
 import { ValidationMessage } from '../../../validationMessage'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
-import { Modal, PopUpMessage } from '../../../components'
+import { Modal, PopUpMessage, Storage } from '../../../components'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -184,20 +184,19 @@ function UpdateUserInfo() {
     const [, setIsLoading] = useState(false);
     // const [error, setError] = useState(false)
 	// const [isModalActive, setIsModalActive] = useState(false)
-
-    const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-    const slug = JSON.parse(localStorage.getItem("userInfo")).user.slug
-    const first_name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.first_name : null
-    // const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.status : null
-    const dob = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.dob : null
-    const city = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.city : null
-    const coin_address = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.coin_address : null
-    const coutry = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.coutry : null
-    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.email : null
-    const last_name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.last_name : null
-    const phone_no = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.phone_no : null
-    const stateOfOrigin = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.state : null
-    const zip_code = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo")).user.zip_code : null
+    const auth_token = Storage.get("userInfo").user.auth_token
+    const slug = Storage.get("userInfo").user.slug
+    const first_name = Storage.get("userInfo") ? Storage.get("userInfo").user.first_name : null
+    // const status = Storage.get("userInfo") ? Storage.get("userInfo").user.status : null
+    const dob = Storage.get("userInfo") ? Storage.get("userInfo").user.dob : null
+    const city = Storage.get("userInfo") ? Storage.get("userInfo").user.city : null
+    const coin_address = Storage.get("userInfo") ? Storage.get("userInfo").user.coin_address : null
+    const coutry = Storage.get("userInfo") ? Storage.get("userInfo").user.coutry : null
+    const email = Storage.get("userInfo") ? Storage.get("userInfo").user.email : null
+    const last_name = Storage.get("userInfo") ? Storage.get("userInfo").user.last_name : null
+    const phone_no = Storage.get("userInfo") ? Storage.get("userInfo").user.phone_no : null
+    const stateOfOrigin = Storage.get("userInfo") ? Storage.get("userInfo").user.state : null
+    const zip_code = Storage.get("userInfo") ? Storage.get("userInfo").user.zip_code : null
 
     const state = {
         email: "",

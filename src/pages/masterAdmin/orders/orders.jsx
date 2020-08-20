@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
 import routes from '../../../navigation/routes'
-import { StyledButton, PopUpMessage } from '../../../components'
+import { StyledButton, PopUpMessage, Storage } from '../../../components'
 import { fetchAllHistoryActionCreator } from '../../../reduxStore'
 
 
@@ -104,7 +104,7 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 	// let authToken
 
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
+		const auth_token = Storage.get("userInfo")?.user?.auth_token
 		// console.log(auth_token);
 
 		Axios.get(`${routes.api.adminGetOrders}?token=${auth_token}`)
@@ -194,7 +194,7 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 
 	const deleteOrder = (id) => {
 		// console.log(user_id);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.adminDestroyOrder}?token=${auth_token}`, { id: id, action: "delete" })
 			.then(res => {
@@ -261,7 +261,7 @@ function AdminOrders({ allHistory, fetchAllhistory }) {
 	)
 	const confirmTransaction = (id) => {
 		// console.log();
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 		const data = {
 			id: id,
 		}

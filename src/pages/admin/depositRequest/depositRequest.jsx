@@ -7,7 +7,7 @@ import { StyledInput } from '../../../components/styledComponents'
 import Axios from 'axios'
 import { connect } from 'react-redux'
 import routes from '../../../navigation/routes'
-import { PopUpMessage, Modal } from '../../../components'
+import { PopUpMessage, Modal, Storage } from '../../../components'
 import qrcode from "../../../images/qrcode.png"
 import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
@@ -159,10 +159,10 @@ function DepositRequest(props) {
             return
         }
         setError(false)
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-        const userid = JSON.parse(localStorage.getItem("userInfo")).user.id
-        const email = JSON.parse(localStorage.getItem("userInfo")).user.email
-        const status = JSON.parse(localStorage.getItem("userInfo")).user.status
+        const auth_token = Storage.get("userInfo").user.auth_token
+        const userid = Storage.get("userInfo").user.id
+        const email = Storage.get("userInfo").user.email
+        const status = Storage.get("userInfo").user.status
         setIsLoading(true)
         const object = {
             id: userid,

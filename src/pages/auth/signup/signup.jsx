@@ -264,7 +264,7 @@ export default class SignUp extends Component {
                     <div className="login__side-left">
                         <div className="circle" />
                         <div className="circle2" />
-                        <p className="login__side-left-title">Welcome To Back</p>
+                        <p className="login__side-left-title">Welcome</p>
                         <p className="login__side-left-text">
                             It’s more than just trading Bitcoin
                             and Gift Cards  experience
@@ -323,7 +323,7 @@ export default class SignUp extends Component {
 
                                 <br /> <br />
                                 <span className="login__side-right-isSugnedIn-action-red"> * </span>
-                                By clicking the "Open Account" button I confirm the agreement with the  &nbsp;
+                                By clicking the "Submit" button I confirm the agreement with the  &nbsp;
                                 <Link to={routes.public.policies}>
                                     terms and conditions.
                                 </Link>

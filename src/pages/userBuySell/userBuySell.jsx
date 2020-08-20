@@ -19,6 +19,7 @@ const Container = styled.div`
     position: relative;
     /* align-items: center; */
     place-self: center;
+    
     .selectContainer{
         grid-column: 1/-1;
         justify-self: flex-end;

@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 import { StyledInput } from "../../../components/styledComponents";
 import { ValidationMessage } from "../../../validationMessage";
 import { ContextData } from "../../../context/contextData";
-import { Modal, PopUpMessage } from "../../../components";
+import { Modal, PopUpMessage, Storage } from "../../../components";
 // import PaginatedTable from '../../../components/table/tablePagination'
 // import CoinWidget from '../../../components/widget/wigjet'
 
@@ -435,9 +435,10 @@ const Container = styled.div`
     }
 `;
 function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
-    const isVerified = !JSON.parse(localStorage.getItem("userInfo"))
+    // console.log(Storage.get("userInfo"));
+    const isVerified = !Storage.get("userInfo")
         ? ""
-        : JSON.parse(localStorage.getItem("userInfo"))?.user?.status || "";
+        : Storage.get("userInfo")?.user?.status || "";
 
     const coins = rates?.allRates?.slice(0, 4);
 
@@ -516,15 +517,15 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         navigator.clipboard.writeText(bitcoinAddress)
         setIsCopied(true)
     }
-    const user_id = !JSON.parse(localStorage.getItem("userInfo"))
+    const user_id = !Storage.get("userInfo")
         ? ""
-        : JSON.parse(localStorage.getItem("userInfo"))?.user?.id || "";
+        : Storage.get("userInfo")?.user?.id || "";
 
     useEffect(() => {
         fx.base = "USD";
-        const auth_token = !JSON.parse(localStorage.getItem("userInfo"))
+        const auth_token = !Storage.get("userInfo")
             ? ""
-            : JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token || "";
+            : Storage.get("userInfo")?.user?.auth_token || "";
         // console.log('data :>> ', data);
         // updateRate(1000)
         Axios.get(routes.exchangeApi)

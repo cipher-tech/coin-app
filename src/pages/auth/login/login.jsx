@@ -16,6 +16,7 @@ import routes from '../../../navigation/routes'
 import { fetchUserInfoActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
 import { Modal, PopUpMessage } from '../../../components'
+import SecureLS from 'secure-ls'
 
 
 const Container = styled.div`
@@ -263,13 +264,16 @@ class Login extends Component {
                         isLoggedIn: true,
                         user: res.data.data.user
                     }
-                    localStorage.userInfo = JSON.stringify(logInInfo)
+                    // localStorage.userInfo = JSON.stringify(logInInfo)
 
+                    let ls = new SecureLS({encodingType: "rabbit"})
+                    ls.set("userInfo", logInInfo)
+                    console.log( ls.get("userInfo"))
                     this.props.history.push(routes.admin.index)
 
                 }
             })
-            .then(res => console.log(this.props.users))
+            // .then(res => console.log(this.props.users))
             .catch(err => console.log(err))
         // console.log('state :>> ', this.state);
     }

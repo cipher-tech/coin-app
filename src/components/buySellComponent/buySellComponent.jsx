@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, /* useRef */ } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import Axios from 'axios'
@@ -12,7 +12,7 @@ import xCoinIcon from "../../images/xCoinIcon.jpg"
 import routes from '../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../reduxStore'
 import PaginatedTable from '../table/tablePagination'
-import { StyledButton, Modal, PopUpMessage } from '../index'
+import { StyledButton, Modal, PopUpMessage, Storage } from '../index'
 import { StyledInput } from '../styledComponents'
 import { FormValidator } from '../../formValidator'
 import { ValidationMessage } from '../../validationMessage'
@@ -128,7 +128,7 @@ const Container = styled.div`
 `
 
 function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOnlyRates = [] }) {
-    const isVerified = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.status || ""
+    const isVerified = !Storage.get("userInfo") ? "" : Storage.get("userInfo").user.status || ""
     const [isSelling, setIsSelling] = useState(true)
     const [amount, setAmount] = useState("")
     const [account_no, setAccount_no] = useState('')
@@ -147,8 +147,8 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     const [SelectedCardRange, setSelectedCardRange] = useState('')
     const [userEmail, setUserEmail] = useState('')
     // const [giftCardInfo, setGiftCardInfo] = useState([])
-    const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
-    const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
+    const auth_token = Storage.get("userInfo")?.user?.auth_token
+    const user_id = Storage.get("userInfo")?.user?.id
     const [, setIsCopied] = useState('')
     // const copyRef = useRef(null)
 
@@ -189,7 +189,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
         card_id: card_id,
     }
     useEffect(() => {
-        const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
+        const auth_token = !Storage.get("userInfo") ? "" : Storage.get("userInfo").user.auth_token || ""
         // console.log('data :>> ', data);
         Axios.get(`${routes.api.getRates}?token=${auth_token}`)
             .then(res => {

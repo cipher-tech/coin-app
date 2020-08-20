@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { useState } from 'react'
 import routes from '../../../navigation/routes'
-import { StyledButton, PopUpMessage } from '../../../components'
+import { StyledButton, PopUpMessage, Storage } from '../../../components'
 import { fetchAllDepositActionCreator } from '../../../reduxStore'
 
 
@@ -70,8 +70,8 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 
 	// let authToken
 
-	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+	useEffect(() => { 
+		const auth_token = Storage.get("userInfo").user.auth_token
 		console.log(auth_token);
 
 		Axios.get(`${routes.api.adminDeposits}?token=${auth_token}`)
@@ -173,7 +173,7 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 
 	const deleteRequest = (id) => {
 		// console.log(user_id);
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.adminDeleteDeposit}?token=${auth_token}`, { id: id, action: "delete" })
 			.then(res => {
@@ -214,7 +214,7 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 	)
 	const acceptDeposit = (amount, id, slug, user_id, status) => {
 		// console.log();
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+		const auth_token = Storage.get("userInfo").user.auth_token
 		const data = {
 			amount: amount,
 			id: id,

@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { StyledInput } from '../../../components/styledComponents'
 import envelope from "../../../images/svgIcons/envelope.svg"
 import routes from '../../../navigation/routes'
+import { Storage } from '../../../components'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -74,8 +75,8 @@ function AdminUsers({ allUsers, fetchAllUsers }) {
 
 	// let authToken
 
-	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+	useEffect(() => { 
+		const auth_token = Storage.get("userInfo").user.auth_token
 		// console.log(auth_token);
 
 		Axios.get(`http://localhost:8000/api/users/all?token=${auth_token}`)

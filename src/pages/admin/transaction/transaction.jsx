@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
 import PaginatedTable from '../../../components/table/tablePagination'
+import { Storage } from '../../../components'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -37,15 +38,14 @@ const Container = styled.div`
 function AdminTransaction() {
 	const [history, setHistory] = useState([])
 	useEffect(() => {
-		const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-		const id = JSON.parse(localStorage.getItem("userInfo")).user.id
-
+		const auth_token = Storage.get("userInfo").user.auth_token
+		const id = Storage.get("userInfo").user.id
 		Axios.post(`${routes.api.userTransactions}?token=${auth_token}`, { id })
 			.then(res => {
 				// console.log(res.data.data);
 				if (res.data.status === "success") {
-					console.log(Object.values(res.data.data).filter(item => item.trans_type))
-					console.log(Object.values(res.data.data).filter(item => !item.trans_type))
+					// console.log(Object.values(res.data.data).filter(item => item.trans_type))
+					// console.log(Object.values(res.data.data).filter(item => !item.trans_type))
 					setHistory(Object.values(res.data.data))
 				}
 				return

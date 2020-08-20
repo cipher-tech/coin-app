@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 import routes from '../../../navigation/routes';
-import { PopUpMessage } from '../../../components';
+import { PopUpMessage, Storage } from '../../../components';
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -165,11 +165,11 @@ function UserVerify(props) {
         setIsLoading(true)
 
         console.log(image);
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
+        const auth_token = Storage.get("userInfo").user.auth_token
         const formData = new FormData()
         formData.append("image", image)
         let data = {
-            id: JSON.parse(localStorage.getItem("userInfo")).user.id,
+            id: Storage.get("userInfo").user.id,
             selfi: image,
             address: image2,
             idCard: image1

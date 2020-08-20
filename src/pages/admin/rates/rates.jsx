@@ -6,19 +6,19 @@ import styled from 'styled-components'
 // import lock from "../../../images/svgIcons/lock.svg"
 import qrcode from "../../../images/qrcode.png"
 import Axios from 'axios'
-import bitcoinIcon from "../../../images/btcIcon.jpg"
-import ethIcon from "../../../images/etheteumIcon.jpg"
-import poeIcon from "../../../images/poeIcon.jpg"
-import lunoIcon from "../../../images/lunoIcon.jpg"
-import xCoinIcon from "../../../images/xCoinIcon.jpg"
+// import bitcoinIcon from "../../../images/btcIcon.jpg"
+// import ethIcon from "../../../images/etheteumIcon.jpg"
+// import poeIcon from "../../../images/poeIcon.jpg"
+// import lunoIcon from "../../../images/lunoIcon.jpg"
+// import xCoinIcon from "../../../images/xCoinIcon.jpg"
 import routes from '../../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
 // import PaginatedTable from '../../../components/table/tablePagination'
-import { StyledButton, Modal, PopUpMessage } from '../../../components'
-import { StyledInput } from '../../../components/styledComponents'
-import { FormValidator } from '../../../formValidator'
-import { ValidationMessage } from '../../../validationMessage'
+import { /* StyledButton */ Modal, PopUpMessage, Storage } from '../../../components'
+// import { StyledInput } from '../../../components/styledComponents'
+// import { FormValidator } from '../../../formValidator'
+// import { ValidationMessage } from '../../../validationMessage'
 // import CoinWidget from '../../../components/widget/wigjet'
 
 const Container = styled.div`
@@ -30,6 +30,7 @@ const Container = styled.div`
     background: ${props => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
+
 
 	.modal__container{
         place-items: center;
@@ -148,7 +149,7 @@ const Container = styled.div`
     }
 `
 function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOnlyRates = [] }) {
-	const [isSelling, setIsSelling] = useState(true)
+	const [isSelling, /* setIsSelling */] = useState(true)
 	// const [amount, setAmount] = useState("")
 	// const [account_no, setAccount_no] = useState('')
 	// const [card_id, setCard_id] = useState('')
@@ -168,11 +169,10 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 	// const [isLoading, setIsLoading] = useState(false)	
 	// const [giftCardInfo, setGiftCardInfo] = useState([])
 
-
-	// const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
-	// const user_id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
+	// const auth_token = Storage.get("userInfo")?.user?.auth_token
+	// const user_id = Storage.get("userInfo")?.user?.id
 	useEffect(() => {
-		const auth_token = !JSON.parse(localStorage.getItem("userInfo")) ? "" : JSON.parse(localStorage.getItem("userInfo")).user.auth_token || ""
+		const auth_token = !Storage.get("userInfo") ? "" : Storage.get("userInfo").user.auth_token || ""
 		// console.log('data :>> ', data);
 		Axios.get(`${routes.api.getRates}?token=${auth_token}`)
 			.then(res => {
@@ -191,132 +191,132 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 		// eslint-disable-next-line
 	}, [fetchAllRates])
 
-	const coinIcons = {
-		bitcoin: bitcoinIcon,
+	// const coinIcons = {
+	// 	bitcoin: bitcoinIcon,
 
-		etherum: ethIcon,
+	// 	etherum: ethIcon,
 
-		// bitcoin: bitcoinIcon,
+	// 	// bitcoin: bitcoinIcon,
 
-		'gift Card': poeIcon,
+	// 	'gift Card': poeIcon,
 
-		nike: xCoinIcon,
+	// 	nike: xCoinIcon,
 
-		xpss: lunoIcon,
+	// 	xpss: lunoIcon,
 
-		cycoin: poeIcon,
+	// 	cycoin: poeIcon,
 
-	}
-	const columns = [
-		{
-			Header: ' ',
-			// accessor: 'name',
-			accessor: (rowInfo) => (
-				<img id="icon" src={coinIcons[rowInfo?.name] || bitcoinIcon} alt="cycoin" />
-			),
-			collapse: true,
-		},
-		{
-			Header: 'Coin Rates',
-			columns: [
-				// {
-				//   Header: 'Current_rate',
-				//   accessor: 'current_rate',
-				//   collapse: true,
-				// },
-				{
-					Header: 'Name',
-					accessor: 'name',
-					collapse: true,
-				},
-				{
-					Header: 'Type',
-					accessor: 'type',
-				},
-				{
-					Header: 'Buying',
-					accessor: 'buying',
-					collapse: true,
-				},
-				{
-					Header: 'Selling',
-					accessor: 'selling',
-					collapse: true,
-				},
-				{
-					// Make an expander cell
-					Header: () => null, // No header
-					id: 'expander', // It needs an ID
+	// }
+	// const columns = [
+	// 	{
+	// 		Header: ' ',
+	// 		// accessor: 'name',
+	// 		accessor: (rowInfo) => (
+	// 			<img id="icon" src={coinIcons[rowInfo?.name] || bitcoinIcon} alt="cycoin" />
+	// 		),
+	// 		collapse: true,
+	// 	},
+	// 	{
+	// 		Header: 'Coin Rates',
+	// 		columns: [
+	// 			// {
+	// 			//   Header: 'Current_rate',
+	// 			//   accessor: 'current_rate',
+	// 			//   collapse: true,
+	// 			// },
+	// 			{
+	// 				Header: 'Name',
+	// 				accessor: 'name',
+	// 				collapse: true,
+	// 			},
+	// 			{
+	// 				Header: 'Type',
+	// 				accessor: 'type',
+	// 			},
+	// 			{
+	// 				Header: 'Buying',
+	// 				accessor: 'buying',
+	// 				collapse: true,
+	// 			},
+	// 			{
+	// 				Header: 'Selling',
+	// 				accessor: 'selling',
+	// 				collapse: true,
+	// 			},
+	// 			{
+	// 				// Make an expander cell
+	// 				Header: () => null, // No header
+	// 				id: 'expander', // It needs an ID
 
-					Cell: ({ row }) => (
-						// Use Cell to render an expander for each row.
-						// We can use the getToggleRowExpandedProps prop-getter
-						// to build the expander.
-						<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
-							{row.isExpanded ?
-								<div className="options_btn">
-									<StyledButton small>
-										Cancel
-									</StyledButton>
-								</div>
-								:
-								<div className="options_btn">
-									<StyledButton small onClick={(e) => sellHandler("selling")}>
-										sell
-									</StyledButton>
-								</div>
-							}
+	// 				Cell: ({ row }) => (
+	// 					// Use Cell to render an expander for each row.
+	// 					// We can use the getToggleRowExpandedProps prop-getter
+	// 					// to build the expander.
+	// 					<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
+	// 						{row.isExpanded ?
+	// 							<div className="options_btn">
+	// 								<StyledButton small>
+	// 									Cancel
+	// 								</StyledButton>
+	// 							</div>
+	// 							:
+	// 							<div className="options_btn">
+	// 								<StyledButton small onClick={(e) => sellHandler("selling")}>
+	// 									sell
+	// 								</StyledButton>
+	// 							</div>
+	// 						}
 
-							{/* <StyledButton small onClick={(e) => buyHandler()}>
-									Buy
-			  					</StyledButton> */}
+	// 						{/* <StyledButton small onClick={(e) => buyHandler()}>
+	// 								Buy
+	// 		  					</StyledButton> */}
 
-						</div>
-					),
-				},
-				{
-					// Make an expander cell
-					Header: () => null, // No header
-					id: 'buy', // It needs an ID
+	// 					</div>
+	// 				),
+	// 			},
+	// 			{
+	// 				// Make an expander cell
+	// 				Header: () => null, // No header
+	// 				id: 'buy', // It needs an ID
 
-					Cell: ({ row }) => (
-						// Use Cell to render an expander for each row.
-						// We can use the getToggleRowExpandedProps prop-getter
-						// to build the expander.
-						<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
-							{console.log()}
-							{
-								row.original.type === "card" ? null
-									:
-									row.isExpanded ?
-										<div className="options_btn">
-											<StyledButton small>
-												Cancel
-											</StyledButton>
-										</div>
-										:
-										<div className="options_btn">
-											<StyledButton small onClick={(e) => buyHandler("buying")}>
-												Buy
-											</StyledButton>
-										</div>
+	// 				Cell: ({ row }) => (
+	// 					// Use Cell to render an expander for each row.
+	// 					// We can use the getToggleRowExpandedProps prop-getter
+	// 					// to build the expander.
+	// 					<div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
+	// 						{console.log()}
+	// 						{
+	// 							row.original.type === "card" ? null
+	// 								:
+	// 								row.isExpanded ?
+	// 									<div className="options_btn">
+	// 										<StyledButton small>
+	// 											Cancel
+	// 										</StyledButton>
+	// 									</div>
+	// 									:
+	// 									<div className="options_btn">
+	// 										<StyledButton small onClick={(e) => buyHandler("buying")}>
+	// 											Buy
+	// 										</StyledButton>
+	// 									</div>
 
-							}
+	// 						}
 
-						</div>
-					),
-				},
+	// 					</div>
+	// 				),
+	// 			},
 
-			],
-		},
+	// 		],
+	// 	},
 
-	]
-	const buyHandler = () => {
-		setIsSelling(false)
-	}
-	const sellHandler = () => {
-		setIsSelling(true)
-	}
+	// ]
+	// const buyHandler = () => {
+	// 	setIsSelling(false)
+	// }
+	// const sellHandler = () => {
+	// 	setIsSelling(true)
+	// }
 	return (
 		<Container gridPos={gridPos}>
 
@@ -395,7 +395,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 				<h2 className="rate-attrHeader">Coins</h2>
 
 				<div className="rate-card">
-					{console.log(coinOnlyRates?.length)}
+					{/* {console.log(coinOnlyRates?.length)} */}
 					{
 						!coinOnlyRates?.length ? console.log('here') :
 							coinKeys.map((coinName, index) => (

@@ -7,7 +7,7 @@ import barChart3 from "../../images/svgIcons/BarChart-2.svg"
 // import quickDetails from "../../images/quickDetails.png"
 import styled from 'styled-components'
 // import CoinWidget from '../../components/widget/wigjet'
-import { AdminCard } from '../../components'
+import { AdminCard, Storage } from '../../components'
 import { connect } from 'react-redux'
 // import AdminRates from './rates/rates'
 import { fetchUserInfoActionCreator } from '../../reduxStore'
@@ -131,22 +131,23 @@ const Dashboard = ({ fetchUserInfo, user = 0 }) => {
 
     useEffect(() => {
         if (useIsLoggedIn) {
-            const auth_token = JSON.parse(localStorage.getItem("userInfo"))?.user?.auth_token
-            const id = JSON.parse(localStorage.getItem("userInfo"))?.user?.id
-            // let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            const auth_token =  Storage.get("userInfo")?.user?.auth_token
+            const id =  Storage.get("userInfo")?.user?.id
+            // let userInfo =  Storage.get("userInfo");
 
-            // console.log('data :>> ', JSON.parse(localStorage.getItem("userInfo")));
+            // console.log('data :>> ',  Storage.get("userInfo"));
 
             Axios.post(`${routes.api.getUser}?token=${auth_token}`, { id })
                 .then(res => {
                     // console.log(res.data.data);
                     if (res.data.status === "success") {
                         let logInInfo = {
-                            isLoggedIn: JSON.parse(localStorage.getItem("userInfo")).isLoggedIn,
+                            isLoggedIn:  Storage.get("userInfo").isLoggedIn,
                             user: res.data.data,
                         }
                         // console.log('userdata :>> ', logInInfo);
-                        localStorage.userInfo = JSON.stringify(logInInfo)
+                        Storage.set("userInfo", logInInfo)
+                        // console.log( ls.get("userInfo"))
                         fetchUserInfo(res.data.data)
                     }
 
@@ -159,7 +160,7 @@ const Dashboard = ({ fetchUserInfo, user = 0 }) => {
         }
 
     }, [fetchUserInfo])
-    // const {user} = JSON.parse(localStorage.getItem("userInfo"))
+    // const {user} =  Storage.get("userInfo")
     // console.log(user);
     return (
         <Container>

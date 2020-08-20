@@ -20,7 +20,7 @@
     "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "react-spring": "^8.0.27",
     "react-table": "^7.0.5",
     "redux": "^4.0.5",
@@ -60,6 +60,8 @@
     ]
   },
   "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
     "gh-pages": "^2.2.0"
   }
 }

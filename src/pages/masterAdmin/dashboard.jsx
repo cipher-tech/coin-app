@@ -5,7 +5,7 @@ import ReferrerSvg from "../../images/rate.png"
 import quickDetails from "../../images/quickDetails.png"
 import styled from 'styled-components'
 import CoinWidget from '../../components/widget/wigjet'
-import { AdminCard } from '../../components'
+import { AdminCard, Storage } from '../../components'
 import { connect } from 'react-redux'
 import Axios from 'axios'
 import routes from '../../navigation/routes'
@@ -119,8 +119,8 @@ const Container = styled.div`
 `
 const Dashboard = ({ fetchUserInfo, user = 0 }) => {
     useEffect(() => {
-        const auth_token = JSON.parse(localStorage.getItem("userInfo")).user.auth_token
-        const id = JSON.parse(localStorage.getItem("userInfo")).user.id
+        const auth_token = Storage.get("userInfo").user.auth_token
+        const id = Storage.get("userInfo").user.id
 
         Axios.post(`${routes.api.getUser}?token=${auth_token}`, { id })
             .then(res => {

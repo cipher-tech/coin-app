@@ -23,6 +23,7 @@ import GiftCardOptions from "./giftCardOptions/giftCardOptions";
 import addEditGiftCard from "./addEditGiftCard/addEditGiftCard";
 import EditGiftCard from "./editGiftCard/editGiftCard";
 import buySellComponent from "./buySellComponent/buySellComponent";
+import ls from "./secureLs/secureLs";
 
 export const Head = Header
 export const Rates = CoinRates
@@ -49,3 +50,4 @@ export const CardOptions = GiftCardOptions
 export const AddEditGiftcard = addEditGiftCard
 export const EditGiftcard = EditGiftCard
 export const BuySell = buySellComponent
+export const Storage = ls

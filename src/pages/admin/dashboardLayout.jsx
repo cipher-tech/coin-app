@@ -5,7 +5,7 @@ import { useSpring, animated } from "react-spring"
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
 // import { ReactComponent as Bill } from "../../images/svgIcons/bill.svg"
 // import { ReactComponent as Bills } from "../../images/svgIcons/bills.svg"
-import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
+// import { ReactComponent as Box } from "../../images/svgIcons/box.svg"
 import { ReactComponent as ChartBars } from "../../images/svgIcons/chartBars.svg"
 import { ReactComponent as Coins } from "../../images/svgIcons/coins.svg"
 import { ReactComponent as DollarSymbol } from "../../images/svgIcons/dollarSymbol.svg"
@@ -24,6 +24,7 @@ import routes from '../../navigation/routes'
 import useIsLoggedIn from '../../components/hooks/useIsLoggedIn'
 import logOut from '../../components/hooks/logOut'
 import { ContextData } from '../../context/contextData'
+import { Storage } from '../../components'
 
 const blink = keyframes`
     from{ 
@@ -285,9 +286,9 @@ function DashboardLayout(props) {
     const regionContext = useContext(ContextData)
     // console.log(window.matchMedia('(max-width: 720px)'));
 
-    const name = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.first_name : null
-    const email = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.email : null
-    const status = JSON.parse(localStorage.getItem("userInfo")) ? JSON.parse(localStorage.getItem("userInfo"))?.user?.status : null
+    const name =  Storage.get("userInfo") ?  Storage.get("userInfo")?.user?.first_name : null
+    const email =  Storage.get("userInfo") ?  Storage.get("userInfo")?.user?.email : null
+    const status =  Storage.get("userInfo") ?  Storage.get("userInfo")?.user?.status : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
     const [sideNavmobile, setSideNavmobile] = useState(window.matchMedia('(max-width: 720px)').matches ? "6rem" : "6rem")

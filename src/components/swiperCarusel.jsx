@@ -291,7 +291,7 @@ export default class swiperCarusel extends Component {
                             <img className="imagePhoto" src={EthereumDesire} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
                     </div>
-                    <div key='7' className="carursel">
+                    <div key='27' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
                                 we also enable you pay for goods in 
