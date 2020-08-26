@@ -249,7 +249,7 @@ function AdminWidthdrawlRequest({allWidthdrawl, fetchAllWidthdrawl}) {
 		<Container color="">
 			<div className="rate">
 			{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false) }>✖</span> </PopUpMessage> : null}
-				<h1 className="rate__title">Withdrawal Request</h1>
+				{/* <h1 className="rate__title">Withdrawal Request</h1> */}
 				{fetchedWidthdrawl ? <Table data={allWidthdrawl.widthdrawls || []} expandedComponent={expandedComponent} handleVerifyClick={acceptWidthdrawl} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>

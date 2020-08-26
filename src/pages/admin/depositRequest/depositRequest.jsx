@@ -129,7 +129,7 @@ function DepositRequest(props) {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
-    // const [refrenceId, setRefrenceId] = useState("")
+    const [refrenceId, setRefrenceId] = useState("")
 
     const [isModalActive, setIsModalActive] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState('bank')
@@ -176,7 +176,8 @@ function DepositRequest(props) {
                 .then(res => {
                     setShowPopUpMessage(false)
                     if (res.data.status === "success") {
-                        setPopUpMessage(res.data.data)
+                        setPopUpMessage(res.data.data[0])
+                        setRefrenceId(res.data.data[1])
                         setShowPopUpMessage(true)
                         setIsLoading(!true)
                         setIsModalActive(true)
@@ -210,7 +211,12 @@ function DepositRequest(props) {
     //     console.log(state);
     // }
     async function copy(e) {
-        navigator.clipboard.writeText(bitcoinAddress)
+        
+        if (e === "refId" ) {
+            navigator.clipboard.writeText(refrenceId)
+        }else{
+            navigator.clipboard.writeText(bitcoinAddress)
+        }
     }
     // let createImage = (file) => {
     //     let reader = new FileReader();
@@ -230,20 +236,20 @@ function DepositRequest(props) {
                     <img src={qrcode} alt="" />
 
                     <p className="modal__container--text">
-                        please pay exactly ${state.amount} amount into this address
+                        please pay exactly ${state.amount} into this bitcoin address
                     </p>
 
                     <p className="modal__container-address">
-                        d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h
+                        {bitcoinAddress}
                         <button onClick={() =>copy()}> copy</button>
                     </p>
                     <p className="modal__container--text">
-                        After successful payment contact customer care for confirmation.
+                        After successful payment contact customer care with the following refrence Id for confirmation.
 
-                        {/* <span className="modal__container-address">
+                        <span className="modal__container-address">
                             {refrenceId}
                             <button onClick={() =>copy("refId")}> copy</button>
-                        </span> */}
+                        </span> 
                         {/* <button onClick={() =>copy()}> copy</button> */}
 
                     </p>

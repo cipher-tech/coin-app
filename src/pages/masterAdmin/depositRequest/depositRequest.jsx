@@ -249,7 +249,7 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 		<Container color="">
 			<div className="rate">
 				{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
-				<h1 className="rate__title">Deposit Requests</h1>
+				{/* <h1 className="rate__title">Deposit Requests</h1> */}
 				{fetchedDeposits ? <Table data={allDeposits.deposits || []} expandedComponent={expandedComponent} handleVerifyClick={acceptDeposit} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}
 			</div>

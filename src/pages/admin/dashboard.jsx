@@ -168,7 +168,7 @@ const Dashboard = ({ fetchUserInfo, user = 0 }) => {
                 <h1 className="dashboard__title">Dashboard</h1>
                 <div className="dashboard__overView">
                     <AdminCard title="Acct balc" stats={Object.entries(user).length > 0 ? user.userInfo.wallet_balc : 0} icon={barChart} />
-                    <AdminCard title="total trans" stats={Object.keys(user).length > 0 ? user.userInfo.earnings : 0} icon={barChart2} />
+                    <AdminCard title="status" stats={Object.keys(user).length > 0 ? user.userInfo.status : 0} icon={barChart2} />
                     <AdminCard title="total widt" stats={Object.entries(user).length > 0 ? user.userInfo.widthdrawals_id : 0} icon={barChart3} />
                 </div>
                 {/* <div className="dashboard__chart"> */}

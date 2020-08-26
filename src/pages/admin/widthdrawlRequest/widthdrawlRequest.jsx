@@ -5,8 +5,10 @@ import { StyledInput } from '../../../components/styledComponents'
 import Button from '../../../components/button/button'
 import Axios from 'axios'
 import { connect } from 'react-redux'
+import qrcode from "../../../images/qrcode.png"
+
 import routes from '../../../navigation/routes'
-import { PopUpMessage, Storage } from '../../../components'
+import { PopUpMessage, Storage, Modal } from '../../../components'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -22,6 +24,34 @@ const Container = styled.div`
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
     position: relative;
+    .modal__container{
+        place-items: center;
+        background: ${props => props.theme.colorLight};
+        padding: 2rem 3rem;
+        height: max-content;
+        align-self: center;
+        color: ${props => props.theme.colorDark};
+        text-align: center;
+        position: relative;
+        border-radius: 1rem;
+        display: grid;
+
+        .close{
+            justify-self: flex-end;
+            cursor: pointer;
+        }
+        img{
+            height: 20rem;
+            width: 20rem;
+        }
+        &--text{
+            padding: 1rem;
+        }
+        &-address{
+            font-size: ${props => props.theme.font.large};
+            color: ${props => props.theme.colorSecondary};
+        }
+    }
     .title{   
         justify-self: flex-start;
         font-weight: 500;
@@ -62,6 +92,9 @@ function WidthdrawlRequest(props) {
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
+    const [refrenceId, setRefrenceId] = useState("")
+    const [isModalActive, setIsModalActive] = useState(false)
+    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
 
     const updateFormValue = (name, value) => {
 
@@ -108,13 +141,15 @@ function WidthdrawlRequest(props) {
                 .then(res => {
                     setShowPopUpMessage(false)
                     if (res.data.status === "success") {
-                        setPopUpMessage(res.data.data)
+                        setPopUpMessage(res.data.data[0])
+                        setRefrenceId(res.data.data[1])
                         setShowPopUpMessage(true)
                         setIsLoading(!true)
                         setWidthdrawlValue(0)
-                        setTimeout(() => {
-                            props.history.push(routes.admin.index)
-                        }, 8000);
+                        setIsModalActive(true)
+                        // setTimeout(() => {
+                        //     props.history.push(routes.admin.index)
+                        // }, 8000);
                         return
                     }
                     setPopUpMessage(res.data.data)
@@ -136,8 +171,44 @@ function WidthdrawlRequest(props) {
         }
 
     }
+    async function copy(e) {
+        
+        if (e === "refId" ) {
+            navigator.clipboard.writeText(refrenceId)
+        }else{
+            navigator.clipboard.writeText(bitcoinAddress)
+        }
+    }
     return (
         <Container>
+         <Modal isActive={isModalActive}>
+                <div className="modal__container">
+                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                        ❌
+
+                        </span>
+                    <img src={qrcode} alt="" />
+
+                    <p className="modal__container--text">
+                        please pay exactly ${widthdrawlValue} into this bitcoin address
+                    </p>
+
+                    <p className="modal__container-address">
+                        {bitcoinAddress}
+                        <button onClick={() =>copy()}> copy</button>
+                    </p>
+                    <p className="modal__container--text">
+                        After successful payment contact customer care with the following refrence Id for confirmation.
+
+                        <span className="modal__container-address">
+                            {refrenceId}
+                            <button onClick={() =>copy("refId")}> copy</button>
+                        </span> 
+                        {/* <button onClick={() =>copy()}> copy</button> */}
+
+                    </p>
+                </div>
+            </Modal>
             {/* <h1 className="title">Widthdrawl Requests</h1> */}
             {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
             <div className="deposit">
