@@ -100,7 +100,7 @@ const UserBuySell = () => {
                     {/* <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item region-select" /> */}
                     <select className="region-select" defaultValue={localStorage.region ? localStorage.region.id : null} onChange={selectRegion} name="language" id="lang">
                         {!localStorage.region ? <option> Select Region </option> : null}
-                        <option name="nigeria" value="nigeria" > Select Country </option>
+                        {/* <option name="nigeria" value="nigeria" > Select Country </option> */}
                         <option name="nigeria" value="nigeria" > Nigeria </option>
                         <option name="ghana" value="ghana"> Ghana </option>
                         <option name="cameroon" value="cameroon">Carmeroon</option>

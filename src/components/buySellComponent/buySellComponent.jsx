@@ -108,6 +108,10 @@ const Container = styled.div`
                             outline: none;
                         }
                     }
+                    &--span{
+                        color: ${props => props.theme.colorPrimary};
+                        font-size: ${props => props.theme.font.xlarge};
+                    }
                 }
             }
         }
@@ -533,12 +537,12 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                         </div>
 
                                         <p className="rate-container-form__selectContainer">
-                                            <span>
-                                                you get: ₦
+                                            <span className="rate-container-form__selectContainer--span">
+                                                You get: ₦
                                                 {amount * props?.original?.attributes?.find(
                                                 item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || "(Range not avaliable)"}
                                             </span>
-                                            <span>
+                                            <span className="rate-container-form__selectContainer--span">
                                                 rate: ₦{props?.original?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
                                             </span>
                                         </p>
@@ -614,7 +618,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                     </p>
 
                     <p className="modal__container--text">
-                        After successful payment contact customer care with this unique refrence id: <br />
+                        After successful payment contact customer care with the unique refrence_id below, and Prof of payment: <br />
 
                         <span className="modal__container-address">
                             {refrenceId}

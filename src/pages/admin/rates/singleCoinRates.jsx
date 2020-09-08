@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import fx from "money";
 // import CoinWidget from "../../../components/widget/wigjet"
 import Axios from "axios";
@@ -14,6 +14,7 @@ import { ReactComponent as ETHIcon } from "../../../images/svgIcons/ethereumSvg.
 import { ReactComponent as LTCIcon } from "../../../images/svgIcons/blockchainSvg.svg";
 import { ReactComponent as XBTIcon } from "../../../images/svgIcons/blockchainSvg.svg";
 import { ReactComponent as ArrowDownCircleSvg } from "../../../images/svgIcons/arrow-down-circle.svg";
+import { ReactComponent as Spinner } from "../../../images/svgIcons/spinner.svg";
 
 import routes, { defaultcurrencies } from "../../../navigation/routes";
 import { fetchAllRatesActionCreator } from "../../../reduxStore";
@@ -25,6 +26,14 @@ import { Modal, PopUpMessage, Storage } from "../../../components";
 // import PaginatedTable from '../../../components/table/tablePagination'
 // import CoinWidget from '../../../components/widget/wigjet'
 
+const spinnerRotation = keyframes`
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+`
 const Container = styled.div`
     grid-column: 1/-1; /*  ${(props) => props.gridPos || "2/-1"}; */
     display: ${(props) => (props.hidden ? "none" : "grid")} ;
@@ -35,8 +44,21 @@ const Container = styled.div`
     background: ${(props) => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
-    position: relative;
+    /* position: relative; */
     
+    .loadingSpinner{
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+        height: 2rem;
+        width: 2rem;
+        margin-left: 1rem;
+        path{  
+            fill: ${(props) => props.theme.colorWhite};
+        }
+        animation: ${spinnerRotation} 2s infinite;
+        /* transform: rotate(40) */
+    }
     .modal__container{
         place-items: center;
         background: ${(props) => props.theme.colorLight};
@@ -489,8 +511,9 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const [selectedCoinClass, setSelectedCoinClass] = useState([]);
     const [toggleSelectedCoinClass, setToggleSelectedCoinClass] = useState(false);
     // const [selectedCoinImage, setSelectedCoinImage] = useState(icons[0])
-    const [, setAmount] = useState(coinInfo.bitcoinPrice);
+    const [amount, setAmount] = useState(coinInfo.bitcoinPrice);
     const [input, setInput] = useState("");
+    const [userEmail, setUserEmail] = useState("");
     const [rate, setRate] = useState(0);
     const [dollarSellingPrice, setDollarSellingPrice] = useState("");
     const [nairaSellingPrice, setLocalSellingPrice] = useState("");
@@ -517,9 +540,12 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         navigator.clipboard.writeText(bitcoinAddress)
         setIsCopied(true)
     }
+    
     const user_id = !Storage.get("userInfo")
         ? ""
         : Storage.get("userInfo")?.user?.id || "";
+
+    const auth_token = Storage.get("userInfo")?.user?.auth_token || "";
 
     useEffect(() => {
         fx.base = "USD";
@@ -601,11 +627,13 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         setDollarSellingPrice(e.target.value / selectedCoin?.buying || 1);
         setLocalSellingPrice(e.target.value);
     };
-    const buySellButton = (e) => {
+    const sellButton = async (e) => {
+        await setShowPopUpMessage(false);
+
         if (isNaN(dollarSellingPrice) || isNaN(nairaSellingPrice)) {
             setPopUpMessage("Value must be a number.");
             setHasError(true);
-            setShowPopUpMessage(true);
+            await setShowPopUpMessage(true);
             return setTimeout(() => {
                 setShowPopUpMessage(false);
                 setHasError(false);
@@ -613,7 +641,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         } else if (dollarSellingPrice === "" || nairaSellingPrice === "") {
             setPopUpMessage("Please enter a value");
             setHasError(true);
-            setShowPopUpMessage(true);
+            await setShowPopUpMessage(true);
             return setTimeout(() => {
                 setShowPopUpMessage(false);
                 setHasError(false);
@@ -621,7 +649,15 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         } else if (modeOfPayment === "") {
             setPopUpMessage("Please select mode of payment.");
             setHasError(true);
-            setShowPopUpMessage(true);
+            await setShowPopUpMessage(true);
+            return setTimeout(() => {
+                setShowPopUpMessage(false);
+                setHasError(false);
+            }, 8000);
+        } else if (userEmail.length < 4) {
+            setPopUpMessage("Please ente a valid email.");
+            setHasError(true);
+            await setShowPopUpMessage(true);
             return setTimeout(() => {
                 setShowPopUpMessage(false);
                 setHasError(false);
@@ -632,10 +668,81 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
             amount: dollarSellingPrice,
             type: "bitcoin",
             action: "sell",
+            email: userEmail,
             modeOfPayment: modeOfPayment,
         };
         console.log(data);
+        await setIsLoading(true);
+
         Axios.post(`${routes.api.userSellCoin}`, data)
+            .then((res) => {
+                // console.log(res);
+                if (res.data.status === "success") {
+                    setRefrenceId(res.data.data);
+                    // setMessage("Uploaded Successfully, Account will be reviewed and verified within three days")
+                    setPopUpMessage("Order placed successfully");
+                    setShowPopUpMessage(true);
+                    setIsLoading(false);
+                    setIsModalActive(true);
+                }
+                return setTimeout(() => {
+                    setShowPopUpMessage(false);
+                    setHasError(false);
+                }, 8000);
+            })
+            .catch((res) => {
+                setPopUpMessage("An error occured. Try again or contact admin");
+                setHasError(true);
+                setShowPopUpMessage(true);
+                setIsLoading(false);
+
+                return setTimeout(() => {
+                    setShowPopUpMessage(false);
+                    setHasError(false);
+                }, 8000);
+            });
+    };
+
+    const buyButton = async (e) => {
+        await setShowPopUpMessage(false);
+
+        if (amount < 2 ) {
+            setPopUpMessage("Must be at least 2 digits.");
+            setHasError(true);
+            await setShowPopUpMessage(true);
+            return setTimeout(() => {
+                setShowPopUpMessage(false);
+                setHasError(false);
+            }, 8000);
+        } else if (modeOfPayment === "") {
+            setPopUpMessage("Please select mode of payment.");
+            setHasError(true);
+            await setShowPopUpMessage(true);
+            return setTimeout(() => {
+                setShowPopUpMessage(false);
+                setHasError(false);
+            }, 8000);
+        }else if(!user_id){
+            setPopUpMessage("Must be registered");
+            setHasError(true);
+            await setShowPopUpMessage(true);
+            return setTimeout(() => {
+                setShowPopUpMessage(false);
+                setHasError(false);
+            }, 8000);
+        } 
+        const data = {
+            user_id: user_id,
+            amount: amount,
+            type: "bitcoin",
+            action: "buy",
+            email: userEmail || null,
+            modeOfPayment: modeOfPayment,
+        };
+        console.log(data);
+        await setIsLoading(true);
+
+        Axios.post(`${routes.api.userBuyCoin}?token=${auth_token}`, data)
             .then((res) => {
                 // console.log(res);
                 if (res.data.status === "success") {
@@ -691,6 +798,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     };
     return (
         <>
+
             {showpopUpMessage ? (
                 <PopUpMessage error={hasError}>
                     {" "}
@@ -699,6 +807,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 </PopUpMessage>
             ) : null}
             {/* {console.log(fx.rates)} */}
+            <Container hidden={hidden} gridPos={gridPos}>
             <Modal isActive={isModalActive}>
                 <div className="modal__container">
                     <span
@@ -721,8 +830,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     </p>
 
                     <p className="modal__container--text">
-                        After successful payment contact customer care with this unique
-            refrence id: <br />
+                        After successful payment contact customer care with the unique
+                        refrence_id below,and Prof of payment. <br />
                         <span className="modal__container-address">
                             {refrenceId}
                             <button onClick={() => copy("refId")}> copy</button>
@@ -730,7 +839,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     </p>
                 </div>
             </Modal>
-            <Container hidden={hidden} gridPos={gridPos}>
+                {/* <div className="loadingScreen"/> */}
                 <div className="coin">
                     <div className="coin-options">
                         <div className="coin-options__types">
@@ -774,10 +883,14 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         <h3 className="coin-options__prices">
                             <span>
                                 We buy at: {selectedCoin?.buying}/$
-                                <ArrowDownCircleSvg onClick={() => setToggleSelectedCoinClass(!toggleSelectedCoinClass)} className="coin-options__prices--icon" />
+                                {toggleSelectedCoinClass ?
+                                    <span style={{ cursor: "pointer" }} role="img" aria-label="emoji" onClick={() => setToggleSelectedCoinClass(!toggleSelectedCoinClass)}>❌</span>
+                                    :
+                                    <ArrowDownCircleSvg onClick={() => setToggleSelectedCoinClass(!toggleSelectedCoinClass)} className="coin-options__prices--icon" />
+                                }
                             </span>
 
-                            {!isVerified ? null : (
+                            {!isSelling? null : (
                                 <span>We sell at: {selectedCoin?.selling}/$</span>
                             )}
                             {isSelling ? null : <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>}
@@ -793,7 +906,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                 </p>
                                 {
                                     selectedCoinClass.map((item, index) => (
-                                        <p  key={index} className="coin-options-attributes">
+                                        <p key={index} className="coin-options-attributes">
                                             <span className="coin-options-attributes__item"> {item.class} </span>
                                             <span className="coin-options-attributes__item"> {item.from} -  {item.to} </span>
                                             <span className="coin-options-attributes__item"> {item.selling} </span>
@@ -825,7 +938,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                             onClick={() => updateAmount(1000)}
                                         >
                                             ₦1000
-                    </p>
+                                        </p>
                                     </div>
                                     <div className="coin-options__card--container--item price">
                                         <p
@@ -833,7 +946,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                             onClick={() => updateAmount(1500)}
                                         >
                                             ₦1500
-                    </p>
+                                        </p>
                                     </div>
                                     <div className="coin-options__card--container--item price">
                                         <p
@@ -841,7 +954,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                             onClick={() => setShowinput(true)}
                                         >
                                             Own Amount
-                    </p>
+                                        </p>
                                     </div>
                                 </div>
                                 {!showinput ? null : (
@@ -864,6 +977,18 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         )}
                         {!isSelling ? null : (
                             <>
+                                <p>
+                                    {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
+                                    <span className="coin-options__amounts" symbol={"$"}>
+                                        <input
+                                            type="text"
+                                            value={userEmail}
+                                            onChange={(e) => setUserEmail(e.target.value)}
+                                            className="coin-options__value input-container"
+                                            placeholder="Email"
+                                        />
+                                    </span>
+                                </p>
                                 <p>
                                     {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
                                     <span className="coin-options__amounts" symbol={"$"}>
@@ -908,15 +1033,16 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         </select>
                         <p className="coin-options__acceptedPaymentMethods">
                             *Currently accepted payment methods: UBA, BITCOIN
-            </p>
+                        </p>
                         <button
-                            onClick={buySellButton}
+                            onClick={isSelling ? sellButton : buyButton}
                             disabled={!isSelling && !selectedCoin?.quantity}
                             className={`coin-options__button ${
                                 !isSelling && !selectedCoin?.quantity ? "disabled" : ""
                                 }`}
                         >
-                            {isSelling ? "Sell" : "Buy"} {isLoading ? "💱" : ""}
+                            {isSelling ? "Sell" : "Buy"}
+                            {isLoading ? <Spinner className="loadingSpinner" /> : null}
                         </button>
                     </div>
                     <div className="coin-icon">

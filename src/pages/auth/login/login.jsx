@@ -45,7 +45,7 @@ const Container = styled.div`
         }
 
         &__side-left{
-            background: ${props => props.theme.colorPrimaryLight};
+            background: ${props => props.theme.colorPrimary};
             display: grid;
             padding: 2rem;
             position: relative;

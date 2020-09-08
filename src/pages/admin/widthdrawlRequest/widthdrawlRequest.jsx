@@ -109,13 +109,13 @@ function WidthdrawlRequest(props) {
             return
         }
         const auth_token = Storage.get("userInfo").user.auth_token
-        const userid = Storage.get("userInfo").user.id
+        const userId = Storage.get("userInfo").user.id
         const wallet = Storage.get("userInfo").user.wallet_balc
         const email = Storage.get("userInfo").user.email
         const status = Storage.get("userInfo").user.status
         setIsLoading(true)
         const object = {
-            id: userid,
+            id: userId,
             amount: widthdrawlValue,
             email: email
         }
@@ -146,7 +146,7 @@ function WidthdrawlRequest(props) {
                         setShowPopUpMessage(true)
                         setIsLoading(!true)
                         setWidthdrawlValue(0)
-                        setIsModalActive(true)
+                        // setIsModalActive(true)
                         // setTimeout(() => {
                         //     props.history.push(routes.admin.index)
                         // }, 8000);
@@ -157,6 +157,12 @@ function WidthdrawlRequest(props) {
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
 
+                })
+                .catch(() =>{
+                    setPopUpMessage("An error occurred please try again or contact customer support")
+                    setError(true)
+                    setShowPopUpMessage(true)
+                    setIsLoading(false)
                 })
         } else {
             setError(true)

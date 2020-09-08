@@ -189,7 +189,7 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 				fetchAllDeposits(res)
 			})
 			.catch(res => {
-				setPopUpMessage(res.data.data)
+				setPopUpMessage("could not delete user, try again")
 				setShowPopUpMessage(true)
 			})
 	}

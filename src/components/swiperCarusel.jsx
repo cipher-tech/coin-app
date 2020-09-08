@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import "swiper/css/swiper.css"
 import bitcoinSvg from "../images/bitcoinSvg.svg"
 import bitcoin_1 from "../images/bitcoin3.svg"
-import EthereumDesire from "../images/ethereumDesire.svg"
+// import EthereumDesire from "../images/ethereumDesire.svg"
 import UndrawPayment from "../images/undraw_card_payment.svg"
 
 
@@ -184,7 +184,7 @@ export default class swiperCarusel extends Component {
     }
 `
 
-        // const [state, setstate] = useState(null)
+        // const [state, setState] = useState(null)
         const params = {
             speed: 2000,
             parallax: true,
@@ -225,7 +225,7 @@ export default class swiperCarusel extends Component {
                             <h3 className="carursel-info-text">
                                 Welcome To CJ GRAND EXCHANGE
                                   
-                                {/* We buy and sell cryptocurrencies (Bitcoin, Giftcards and more...). Our payment is fast and secured. */}
+                                {/* We buy and sell cryptocurrencies (Bitcoin, GiftCards and more...). Our payment is fast and secured. */}
 
                             <span className="carursel-info-text--yellow"> TRADE </span>
                                 FROM YOUR 
@@ -236,8 +236,8 @@ export default class swiperCarusel extends Component {
                                 Sign Up
                         </Link>
                             {/* <div className="carursel-info-mobile-demo">
-                                <img src={playstore} alt="playStore" />
-                                <img src={applestore} alt="ios" />
+                                <img src={playStore} alt="playStore" />
+                                <img src={appleStore} alt="ios" />
                             </div> */}
                         </div>
 
@@ -259,8 +259,8 @@ export default class swiperCarusel extends Component {
                                 Sign Up
                             </Link>
                             {/* <div className="carursel-info-mobile-demo">
-                                <img src={playstore} alt="playStore" />
-                                <img src={applestore} alt="ios" />
+                                <img src={playStore} alt="playStore" />
+                                <img src={appleStore} alt="ios" />
                             </div> */}
                         </div>
 
@@ -268,29 +268,29 @@ export default class swiperCarusel extends Component {
                             <img src={bitcoin_1} alt="bitcoinSvg" />
                         </div>
                     </div>
-                    <div key='7' className="carursel">
+                    {/* <div key='7' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
                             EXCHANGE CURRENCIES TODAY at
                             <span className="carursel-info-text--yellow"> Affordable rates! </span>
                                  {/* with the
-                             <span className="carursel-info-text--yellow"> best </span> */}
+                             <span className="carursel-info-text--yellow"> best </span> 
                             </h3>
 
                             <Link to="/sign-up" className="carursel-info-btn">
                                 Sign Up
                             </Link>
                             {/* <div className="carursel-info-mobile-demo">
-                                <img src={playstore} alt="playStore" />
-                                <img src={applestore} alt="ios" />
-                            </div> */}
+                                <img src={playStore} alt="playStore" />
+                                <img src={appleStore} alt="ios" />
+                            </div> 
                         </div>
 
                         <div className="headerSvg">
-                            {/* <div className="headerSvg-overlay" /> */}
+                            
                             <img className="imagePhoto" src={EthereumDesire} alt="bitcoinSvg" data-swiper-parallax="-600" />
                         </div>
-                    </div>
+                    </div> */}
                     <div key='27' className="carursel">
                         <div className="carursel-info" data-swiper-parallax="0">
                             <h3 className="carursel-info-text">
@@ -304,8 +304,8 @@ export default class swiperCarusel extends Component {
                                 Sign Up
                             </Link>
                             {/* <div className="carursel-info-mobile-demo">
-                                <img src={playstore} alt="playStore" />
-                                <img src={applestore} alt="ios" />
+                                <img src={playStore} alt="playStore" />
+                                <img src={appleStore} alt="ios" />
                             </div> */}
                         </div>
 

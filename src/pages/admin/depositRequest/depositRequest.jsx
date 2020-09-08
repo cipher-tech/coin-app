@@ -125,7 +125,7 @@ const Container = styled.div`
 function DepositRequest(props) {
     const regionContext = useContext(ContextData)
     // const [depositValue, setDepositValue] = useState("")
-    const [showpopUpMessage, setShowPopUpMessage] = useState(false)
+    const [showPopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
@@ -160,13 +160,13 @@ function DepositRequest(props) {
         }
         setError(false)
         const auth_token = Storage.get("userInfo").user.auth_token
-        const userid = Storage.get("userInfo").user.id
+        const userId = Storage.get("userInfo").user.id
         const email = Storage.get("userInfo").user.email
         const status = Storage.get("userInfo").user.status
         setIsLoading(true)
         const object = {
-            id: userid,
-            type: paymentOptions,
+            id: userId,
+            paymentMethod: paymentOptions,
             email: email,
             amount: +state?.amount
         }
@@ -189,7 +189,7 @@ function DepositRequest(props) {
 
                 })
                 .catch(res => {
-                    setPopUpMessage(res.data.data)
+                    setPopUpMessage("An error occurred please try again or contact customer support")
                     setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
@@ -211,10 +211,10 @@ function DepositRequest(props) {
     //     console.log(state);
     // }
     async function copy(e) {
-        
-        if (e === "refId" ) {
+
+        if (e === "refId") {
             navigator.clipboard.writeText(refrenceId)
-        }else{
+        } else {
             navigator.clipboard.writeText(bitcoinAddress)
         }
     }
@@ -241,22 +241,22 @@ function DepositRequest(props) {
 
                     <p className="modal__container-address">
                         {bitcoinAddress}
-                        <button onClick={() =>copy()}> copy</button>
+                        <button onClick={() => copy()}> copy</button>
                     </p>
                     <p className="modal__container--text">
-                        After successful payment contact customer care with the following refrence Id for confirmation.
+                        After successful payment contact customer care with the refrence Id below and prof of confirmation.
 
                         <span className="modal__container-address">
                             {refrenceId}
-                            <button onClick={() =>copy("refId")}> copy</button>
-                        </span> 
+                            <button onClick={() => copy("refId")}> copy</button>
+                        </span>
                         {/* <button onClick={() =>copy()}> copy</button> */}
 
                     </p>
                 </div>
             </Modal>
             {/* <h1 className="title">Deposit Requests</h1> */}
-            {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+            {showPopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
             <div className="deposit">
                 <h3 className="deposit-header">
                     Deposit Form:
@@ -284,11 +284,18 @@ function DepositRequest(props) {
 
                         <select className="paymentOptions" value={paymentOptions} onChange={(e) => setPaymentOptions(e.target.value)} name="paymentOptions">
                             {
-                                regionContext?.country?.paymentMethods?.map((item, i) => (
-                                    <option key={i} value={item.name}>
-                                        {item.name}
+                                <>
+                                    <option value={"bank"}>
+                                        Select payment method
                                     </option>
-                                ))
+                                    {
+                                        regionContext?.country?.paymentMethods?.map((item, i) => (
+                                            <option key={i} value={item.name}>
+                                                {item.name}
+                                            </option>
+                                        ))
+                                    }
+                                </>
                             }
                         </select>
                         <ValidationMessage field="paymentOptions" />

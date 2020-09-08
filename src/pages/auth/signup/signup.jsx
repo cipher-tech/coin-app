@@ -45,7 +45,7 @@ const Container = styled.div`
         }
 
         &__side-left{
-            background: ${props => props.theme.colorPrimaryLight};
+            background: ${props => props.theme.colorPrimary};
             display: grid;
             padding: 2rem;
             position: relative;
@@ -231,17 +231,17 @@ export default class SignUp extends Component {
         }
     }
     submit = (data) => {
+        this.setState({ isLoading: true })
         Axios.post(routes.api.signUp, data) //routes.api.signUp
             .then(res => {
-                this.setState({ isLoading: !this.state.isLoading })
                 console.log(res.data);
                 if (res.data.status) {
-                    this.setState({ isLoading: !this.state.isLoading })
+                    this.setState({ isLoading: false })
                     this.props.history.push(routes.public.login)
                     return
                 } else {
-                    this.setState({ message: "An error Occured While loading. Please check your details and try again.", isLoading: !this.state.isLoading })
-                    this.setState({ isLoading: !this.state.isLoading })
+                    this.setState({ message: "An error Occured While loading. Please check your details and try again.", isLoading: false })
+                    this.setState({ isLoading: false })
                     return
                 }
 
