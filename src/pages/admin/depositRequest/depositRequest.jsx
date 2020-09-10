@@ -286,7 +286,7 @@ function DepositRequest(props) {
                             {
                                 <>
                                     <option value={"bank"}>
-                                        Select payment method
+                                        Bank transfer
                                     </option>
                                     {
                                         regionContext?.country?.paymentMethods?.map((item, i) => (

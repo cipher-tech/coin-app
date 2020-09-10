@@ -39,6 +39,8 @@ const Container = styled.div`
         position: relative;
         border-radius: 1rem;
         display: grid;
+        width: 90%;
+        justify-self: center;
 
         .close{
             justify-self: flex-end;
@@ -54,6 +56,8 @@ const Container = styled.div`
         &-address{
             font-size: ${props => props.theme.font.large};
             color: ${props => props.theme.colorSecondary};
+            width: 100%;
+            overflow: hidden;
         }
     }
     .rate{
@@ -76,7 +80,7 @@ const Container = styled.div`
 				justify-content: center;
 				/* width: 100%; */
 				color: ${props => props.theme.colorPrimary};
-				/* font-size: ${props => props.theme.font.arge}; */
+				/* font-size: ${props => props.theme.font.large}; */
 		}
         &-container{
             &-form{
@@ -140,7 +144,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     const [isModalActive, setIsModalActive] = useState(false)
     const [giftCardImage, setGiftCardImage] = useState(null)
     const [refrenceId, setRefrenceId] = useState("")
-    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
+    const [bitcoinAddress] = useState(process.env.REACT_APP_WALLET_ADDRESS)
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
     const [error, setError] = useState(false)
@@ -246,7 +250,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                         // Use Cell to render an expander for each row.
                         // We can use the getToggleRowExpandedProps prop-getter
                         // to build the expander.
-                        <div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
+                        <div onClick={() => console.log("opening")} {...row.getToggleRowExpandedProps()}>
                             {row.isExpanded ?
                                 <div className="options_btn">
                                     <StyledButton small>
@@ -277,7 +281,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                         // Use Cell to render an expander for each row.
                         // We can use the getToggleRowExpandedProps prop-getter
                         // to build the expander.
-                        <div onClick={() => console.log("opennnn")} {...row.getToggleRowExpandedProps()}>
+                        <div onClick={() => console.log("opening")} {...row.getToggleRowExpandedProps()}>
                             {console.log()}
                             {
                                 !isVerified ? null
@@ -335,12 +339,12 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
                 })
                 .catch(res => {
-                    setPopUpMessage("An error occured. Try again or contact admin")
+                    setPopUpMessage("An error occurred. Try again or contact admin")
                     setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
 
-                    // setMessage("An error occured while uploading image. Try again or contact admin")
+                    // setMessage("An error occurred while uploading image. Try again or contact admin")
                 })
         } else if (action === "buy") {
             setIsSelling(false)
@@ -365,7 +369,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
                 })
                 .catch(res => {
-                    setPopUpMessage("An error occured. Try again or contact admin")
+                    setPopUpMessage("An error occurred. Try again or contact admin")
                     setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
@@ -406,12 +410,12 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
                 })
                 .catch(res => {
-                    setPopUpMessage("An error occured. Try again or contact custormer care")
+                    setPopUpMessage("An error occurred. Try again or contact customer care")
                     setError(true)
                     setShowPopUpMessage(true)
                     setIsLoading(!true)
 
-                    // setMessage("An error occured while uploading image. Try again or contact admin")
+                    // setMessage("An error occurred while uploading image. Try again or contact admin")
                 })
 
         }
@@ -519,7 +523,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                             {
                                 props.original.type === "card" ?
                                     <>
-                                        <p>Uplaod gift card image</p>
+                                        <p>Upload gift card image</p>
                                         <input type="file"
                                             alt="verify logo"
                                             onChange={e => handleImageChange(e)}
@@ -540,7 +544,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                                             <span className="rate-container-form__selectContainer--span">
                                                 You get: ₦
                                                 {amount * props?.original?.attributes?.find(
-                                                item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || "(Range not avaliable)"}
+                                                item => item.country === SelectedCardCountry && item.class === SelectedCardClass)?.rate || "(Range not available)"}
                                             </span>
                                             <span className="rate-container-form__selectContainer--span">
                                                 rate: ₦{props?.original?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
@@ -613,12 +617,12 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                     </p>
 
                     <p className="modal__container-address">
-                        {isSelling ? bitcoinAddress : "UBA \n 0236736793"}
+                        {bitcoinAddress}
                         <button onClick={() =>copy()}> copy</button>
                     </p>
 
                     <p className="modal__container--text">
-                        After successful payment contact customer care with the unique refrence_id below, and Prof of payment: <br />
+                        After successful payment contact customer care with the unique refrence_id below, and proof of payment: <br />
 
                         <span className="modal__container-address">
                             {refrenceId}

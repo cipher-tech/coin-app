@@ -192,7 +192,8 @@ const NavbarComponent = (props) => {
                 <Link to={routes.public.buy_sell} className="navbar-mobile__list--item">buy/sell</Link>
                 <Link to={routes.public.rates} className="navbar-mobile__list--item">Rates</Link>
                 <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
-                <Link to={routes.public.about} className="navbar-mobile__list--item">About us</Link>
+                <Link to={routes.public.login} className="navbar-mobile__list--item">Login</Link>
+                <Link to={routes.public.about} className="navbar-mobile__list--item">AboutUs</Link>
             </animated.ul>
             <div className="navbar"
                 data-aos="fade-right"
@@ -209,7 +210,8 @@ const NavbarComponent = (props) => {
                     <Link to={routes.public.buy_sell} className="navbar-list-item">Buy/Sell</Link>
                     <Link to={routes.public.rates} className="navbar-list-item">Rates</Link>
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
-                    <Link to={routes.public.about} className="navbar-list-item">About us</Link>
+                    <Link to={routes.public.login} className="navbar-list-item">Login</Link>
+                    <Link to={routes.public.about} className="navbar-list-item">AboutUs</Link>
                 </ul>
 
             </div>

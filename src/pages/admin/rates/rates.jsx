@@ -361,7 +361,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 									<span className="rate-card-attributes__item">Country</span>
 									<span className="rate-card-attributes__item">Class</span>
 									<span className="rate-card-attributes__item">Range</span>
-									<span className="rate-card-attributes__item">Rate</span>
+									<span className="rate-card-attributes__item">Rate(₦)</span>
 									<span className="rate-card-attributes__item">Qty</span>
 								</p>
 								{
@@ -405,7 +405,7 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 										<span className="rate-card-attributes__item">Name</span>
 										<span className="rate-card-attributes__item">Class</span>
 										<span className="rate-card-attributes__item">Worth</span>
-										<span className="rate-card-attributes__item">Rate</span>
+										<span className="rate-card-attributes__item">Rate(₦)</span>
 									</p>
 									{coinOnlyRates.map((item, index) => (
 

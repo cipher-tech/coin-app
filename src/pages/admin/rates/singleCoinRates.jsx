@@ -70,7 +70,9 @@ const Container = styled.div`
         position: relative;
         border-radius: 1rem;
         display: grid;
-
+        width: 90%;
+        justify-self: center;
+        
         .close{
             justify-self: flex-end;
             cursor: pointer;
@@ -87,6 +89,8 @@ const Container = styled.div`
             color: ${(props) => props.theme.colorSecondary};
             width: 90%;
             overflow-x: scroll;
+            width: 100%;
+            overflow: hidden;
         }
     }
     .coin{
@@ -275,7 +279,7 @@ const Container = styled.div`
                 }
                 .tab{
                     border-bottom: solid 2px ${(props) =>
-        props.theme.colorPrimary};
+                    props.theme.colorPrimary};
                     transition: all .2s linear;
                 }
             }
@@ -398,7 +402,7 @@ const Container = styled.div`
                 }
             }
             &__acceptedPaymentMethods{
-                font-size: ${(props) => props.theme.font.xsmall};
+                font-size: ${(props) => props.theme.font.small};
                 color: red;
             }
             &__button{
@@ -518,7 +522,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     const [dollarSellingPrice, setDollarSellingPrice] = useState("");
     const [nairaSellingPrice, setLocalSellingPrice] = useState("");
     const [modeOfPayment, setModeOfPayment] = useState("");
-    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
+    const [bitcoinAddress] = useState(process.env.REACT_APP_WALLET_ADDRESS)
     const [isSelling, setIsSelling] = useState(true);
     const [isModalActive, setIsModalActive] = useState(false);
     const [popUpMessage, setPopUpMessage] = useState(null);
@@ -613,7 +617,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 })
                 .toFixed(1);
         }
-        //to notify that coin buying and sellin prop has been converted to the accurate region
+        //to notify that coin buying and selling prop has been converted to the accurate region
         coin.converted = true
         setShowinput(false);
         setSelectedCoin(coin);
@@ -655,7 +659,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 setHasError(false);
             }, 8000);
         } else if (userEmail.length < 4) {
-            setPopUpMessage("Please ente a valid email.");
+            setPopUpMessage("Please enter a valid email.");
             setHasError(true);
             await setShowPopUpMessage(true);
             return setTimeout(() => {
@@ -691,7 +695,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 }, 8000);
             })
             .catch((res) => {
-                setPopUpMessage("An error occured. Try again or contact admin");
+                setPopUpMessage("An error occurred. Try again or contact admin");
                 setHasError(true);
                 setShowPopUpMessage(true);
                 setIsLoading(false);
@@ -759,7 +763,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                 }, 8000);
             })
             .catch((res) => {
-                setPopUpMessage("An error occured. Try again or contact admin");
+                setPopUpMessage("An error occurred. Try again or contact admin");
                 setHasError(true);
                 setShowPopUpMessage(true);
                 setIsLoading(false);
@@ -821,7 +825,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                     <img src={qrcode} alt="" />
 
                     <p className="modal__container--text">
-                        please pay exactly ${dollarSellingPrice} into this bitcoin address
+                        please pay exactly ${isSelling? dollarSellingPrice: amount} into this {isSelling ? "bitcoin address" : "account"}
                     </p>
 
                     <p className="modal__container-address">
@@ -831,7 +835,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
 
                     <p className="modal__container--text">
                         After successful payment contact customer care with the unique
-                        refrence_id below,and Prof of payment. <br />
+                        refrence_id below,and proof of payment. <br />
                         <span className="modal__container-address">
                             {refrenceId}
                             <button onClick={() => copy("refId")}> copy</button>
@@ -881,19 +885,22 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             </span>
                         </p>
                         <h3 className="coin-options__prices">
-                            <span>
+                            
+
+                            {isSelling? <span>
                                 We buy at: {selectedCoin?.buying}/$
                                 {toggleSelectedCoinClass ?
                                     <span style={{ cursor: "pointer" }} role="img" aria-label="emoji" onClick={() => setToggleSelectedCoinClass(!toggleSelectedCoinClass)}>❌</span>
                                     :
                                     <ArrowDownCircleSvg onClick={() => setToggleSelectedCoinClass(!toggleSelectedCoinClass)} className="coin-options__prices--icon" />
                                 }
-                            </span>
+                            </span>: null}
 
-                            {!isSelling? null : (
+                            {isSelling? null : (
                                 <span>We sell at: {selectedCoin?.selling}/$</span>
                             )}
-                            {isSelling ? null : <span>Avaliable Qty: {selectedCoin?.quantity || 0}</span>}
+
+                            {isSelling ? null : <span>Available Qty: {selectedCoin?.quantity || 0}</span>}
                         </h3>
                         <br />
                         {
@@ -918,7 +925,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         {!isSelling && !selectedCoin?.quantity ? (
                             <h3 className="coin-options__header red">
                                 {" "}
-                                Currently not avaliable
+                                Currently not available
                             </h3>
                         ) : (
                                 ""
@@ -979,7 +986,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             <>
                                 <p>
                                     {/* <span>{ console.log(regionContext?.country?.symbol)}</span>  */}
-                                    <span className="coin-options__amounts" symbol={"$"}>
+                                    <span className="coin-options__amounts" symbol={"@"}>
                                         <input
                                             type="text"
                                             value={userEmail}
@@ -1024,7 +1031,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             onChange={(e) => setModeOfPayment(e.target.value)}
                             className="coin-options-paymentOptions"
                         >
-                            <option value="">Mode of payment</option>
+                        
+                            <option value="">Mode of payment</option> 
                             {regionContext?.country?.paymentMethods?.map((item, i) => (
                                 <option key={i} value="bank">
                                     {item.name}

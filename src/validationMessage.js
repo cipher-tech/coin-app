@@ -5,12 +5,10 @@ import styled, {css} from "styled-components";
 const Container = styled.div`
     ${({theme}) =>
         css`
-            font-size: ${theme.font.xsmall};
+            font-size: ${theme.font.small};
             color: red;
         `
     }
-   
-    /* background: orangered; */
 `
 export class ValidationMessage extends Component {
     static contextType = ValidationContext;

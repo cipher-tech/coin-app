@@ -161,10 +161,12 @@ function UserVerify(props) {
         };
         reader.readAsDataURL(file);
     }
-    let handleSubmit = () => {
-        setIsLoading(true)
+    let handleSubmit = async () => {
+        await setError(true)
+        await setShowPopUpMessage(false)
+        await setIsLoading(true)
 
-        console.log(image);
+        // console.log(image);
         const auth_token = Storage.get("userInfo").user.auth_token
         const formData = new FormData()
         formData.append("image", image)
@@ -193,12 +195,12 @@ function UserVerify(props) {
 
             })
             .catch(res => {
-                setPopUpMessage("An error occured while uploading image. Try again or contact admin")
+                setPopUpMessage("An error occurred while uploading image. Try again or contact admin")
                 setError(true)
                 setShowPopUpMessage(true)
                 setIsLoading(!true)
 
-                // setMessage("An error occured while uploading image. Try again or contact admin")
+                // setMessage("An error occurred while uploading image. Try again or contact admin")
             })
     }
 
@@ -210,7 +212,7 @@ function UserVerify(props) {
                 {/* <img src={rateImage} alt="rate" /> */}
 
                 <div className="form">
-                    <h2 className="form__title"> Verify Your Accourt</h2>
+                    <h2 className="form__title"> Verify Your Account</h2>
                     <p className="form__subTitle">To be able to do some transactions you need to be verified</p>
                     <div className="form__title-image">
                         <img src={giftCard} alt="Gift card" className="form__title-image-icon" />
@@ -220,10 +222,10 @@ function UserVerify(props) {
                     </p> */}
                     <ul className="form__subTitle">
                         <li>
-                            Upload a selfi of you.
+                            Upload a selfie of you.
                         </li>
                         <li>
-                            Upload an image containing your address (eletricity bill) etc.
+                            Upload an image containing your address (electricity bill) etc.
                         </li>
                         <li>
                             Upload an image containing a valid Id Card with your details.

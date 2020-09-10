@@ -99,7 +99,8 @@ function WidthdrawlRequest(props) {
     const updateFormValue = (name, value) => {
 
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        await setError(false)
         if(widthdrawlValue.length < 2){
             console.log("short");
             

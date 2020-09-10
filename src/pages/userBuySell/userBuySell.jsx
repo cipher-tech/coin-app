@@ -96,17 +96,16 @@ const UserBuySell = () => {
     return (
         <Container>
             <p className="selectContainer">
+            
                 <span title="Select Country" className="">
-                    {/* <PowerSwitch onClick={() => logOut(props.history)} className="title_nav--icons-item region-select" /> */}
-                    <select className="region-select" defaultValue={localStorage.region ? localStorage.region.id : null} onChange={selectRegion} name="language" id="lang">
-                        {!localStorage.region ? <option> Select Region </option> : null}
-                        {/* <option name="nigeria" value="nigeria" > Select Country </option> */}
+                    <select className="region-select" defaultValue={localStorage.region ? JSON.parse(localStorage.region).id : "nigeria"} onChange={selectRegion} name="language" id="lang">
                         <option name="nigeria" value="nigeria" > Nigeria </option>
                         <option name="ghana" value="ghana"> Ghana </option>
-                        <option name="cameroon" value="cameroon">Carmeroon</option>
+                        <option name="cameroon" value="cameroon">Cameroon</option>
                     </select>
                 </span>
             </p>
+
             <Modal isActive={isModalActive}>
                 <div className="modal__container">
                     <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
@@ -115,7 +114,7 @@ const UserBuySell = () => {
                     <img src={chattingSvg} alt="homepage modal icon" />
                     <p className="modal__container--text">
                         Due to constant changes in market price, contact customer care via the
-                        live chat icon on the bottom right hand coner of your screen for lower rate latency trading experience.
+                        live chat icon on the bottom right hand corner of your screen for lower rate latency trading experience.
                         <br /> Happy Trading :)
                     </p>
                 </div>

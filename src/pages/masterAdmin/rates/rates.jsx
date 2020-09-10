@@ -355,7 +355,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				}
 			})
 			.catch(res => {
-				setPopUpMessage("An error occured while adding rate.")
+				setPopUpMessage("An error occurred while adding rate.")
 				setError(true)
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
@@ -385,7 +385,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				}
 			})
 			.catch(res => {
-				setPopUpMessage("An error occured while adding rate.")
+				setPopUpMessage("An error occurred while adding rate.")
 				setError(true)
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
@@ -422,7 +422,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				}
 			})
 			.catch(res => {
-				setPopUpMessage("An error occured while uploading.")
+				setPopUpMessage("An error occurred while uploading.")
 				setError(true)
 				setShowPopUpMessage(true)
 				setIsLoading(!true)
@@ -465,6 +465,10 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 					accessor: 'type',
 				},
 				{
+					Header: 'Class',
+					accessor: 'class',
+				},
+				{
 					Header: 'Buying',
 					accessor: 'buying',
 					collapse: true,
@@ -477,6 +481,16 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				{
 					Header: 'Quantity',
 					accessor: 'quantity',
+					collapse: true,
+				},
+				{
+					Header: 'From',
+					accessor: 'from',
+					collapse: true,
+				},
+				{
+					Header: 'To',
+					accessor: 'to',
 					collapse: true,
 				},
 			],
@@ -685,7 +699,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				}
 				{/* <h1 className="rate__title">Rates</h1> */}
 				<App tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ?
-					coinOnlyRates
+					coinOnlyRates.sort((a,b) =>{if (a.name < b.name) return -1;return a.name > b.name ? 1 : 0})
 					:
 					[]
 				} />

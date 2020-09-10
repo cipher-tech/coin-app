@@ -78,19 +78,20 @@ class ContextProvider extends Component {
             }
         }
     }
-    componentDidMount() {
+    async componentWillMount() {
         // console.log("layout",this.regions[JSON.parse(localStorage.region).id]);
-
-        this.setState((state, props) => {
+        // console.log(this.regions[JSON.parse(localStorage?.region || false)?.id] || this.regions.nigeria);
+        await this.setState((state, props) => {
             return {
                 contextData: {
                     ...this.state.contextData,
-                    country: JSON.parse(localStorage?.region || false) ? this.regions[JSON.parse(localStorage?.region || false).id] : "",
+                    country: JSON.parse(localStorage?.region || false) ? this.regions[JSON.parse(localStorage?.region || false).id] : this.regions.nigeria,
                     IsRegionSelected: true
                 }
 
             }
         })
+        // this.selectRegions("nigeria")
     }
 
     selectRegions = (name) => {

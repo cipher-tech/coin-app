@@ -86,7 +86,7 @@ function AdminDepositRequest({ allDeposits, fetchAllDeposits }) {
 				// console.log(allDeposits)
 			})
 			.catch(error => {
-				// alert(`An Error Occured! ${error}`);
+				// alert(`An Error Occurred! ${error}`);
 				console.log(error);
 			});
 
