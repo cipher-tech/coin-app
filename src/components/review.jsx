@@ -3,47 +3,58 @@ import styled from 'styled-components'
 import "swiper/css/swiper.css"
 import Swiper from "react-id-swiper"
 // import bg2 from "../images/user.png"
-import avatar from "../images/svgIcons/avatar.webp"
-import avatar1 from "../images/svgIcons/avatar1.png"
-import avatar7 from "../images/svgIcons/avatar7.png"
-import avatar8 from "../images/svgIcons/avatar8.png"
-import avatar2 from "../images/svgIcons/avatar2.webp"
-import avatar3 from "../images/svgIcons/avatar3.png"
-import avatar4 from "../images/svgIcons/avatar4.png"
-import avatar5 from "../images/svgIcons/avatar5.png"
+// import avatar from "../images/svgIcons/avatar.webp"
+// import avatar1 from "../images/svgIcons/avatar1.png"
+// import avatar7 from "../images/svgIcons/avatar7.png"
+// import avatar8 from "../images/svgIcons/avatar8.png"
+// import avatar2 from "../images/svgIcons/avatar2.webp"
+// import avatar3 from "../images/svgIcons/avatar3.png"
+// import avatar4 from "../images/svgIcons/avatar4.png"
+// import avatar5 from "../images/svgIcons/avatar5.png"
+import logoFrame from "../images/aveterWrapper.png"
 // import avatar6 from "../images/svgIcons/avatar6.png"
 
-import { Heading } from '.'
+// import { Heading } from '.'
 
 const Container = styled.div`
     /* display: grid; */
-    grid-column: 2/10;
-    /* background: rebeccapurple; */
+    grid-column: 1/-1;
+    background: ${props => props.theme.colorPrimary};
     /* width: 100%; */
+    padding: 0 10%;
+    .header{
+        font-weight: bold;
+        text-align: center;
+        color: ${props => props.theme.colorWhite};
+        padding: 5rem 1rem;
+    }
     .swiper-wrapper{
        
-       padding: 2rem 0rem;
+        padding: 2rem 0rem;
 
-       &-mainContent{
-           display: grid;
-   
-           grid-template-rows: 1fr min-content max-content;
-           
-           justify-items: center;
-           align-items: center;
-           color: ${props => props.theme.colorPrimary};
-           &-imgContainer{
-               width:100%;
-               display: flex;
-               justify-content: center;
-               
-               &--avater{
-                   height: 8rem;
+        &-mainContent{
+            display: grid;
+            grid-template-rows: 1fr min-content max-content;
+            justify-items: center;
+            align-items: center;
+            color: ${props => props.theme.colorWhite};
+            &-imgContainer{
+                width:100%;
+                display: flex;
+                justify-content: center;
+               /* &__wrapper{
+                   background: url(${logoFrame});
+                   background-repeat: no-repeat;
+                   padding: 1.4rem;
+               } */
+                &--avater{
+
+                   height: 7rem;
                    /* width: 8rem; */
                    border-radius: 1.5rem;
-                   margin: 2rem 0; 
-           }
-           }
+                   /* margin: 2rem 0;  */
+                }
+            }
            &--text{
                font-size: 1.5rem;
                width: 80%;
@@ -75,7 +86,7 @@ const Review = () => {
         // cssMode: true,
         loop: true,
         autoplay: {
-            delay: 3500,
+            delay: 6500,
             disableOnInteraction: false,
         },
         navigation: {
@@ -105,10 +116,10 @@ const Review = () => {
             clickable: true,
         },
     }
-    const avaters = [avatar1,avatar3,avatar,avatar4,avatar5,avatar3,avatar7,avatar8,avatar2]
+    // const avaters = [avatar1, avatar3, avatar, avatar4, avatar5, avatar3, avatar7, avatar8, avatar2]
     const reviewData = [
         {
-            name: "chike",
+            name: "Chike",
             review: 'Cjgrandexchange is not just trusted but fast and reliable ....'
         },
         {
@@ -125,7 +136,7 @@ const Review = () => {
         },
         {
             name: "john",
-            review: " Cj grand exchange is relatively a safe place to do peer-to-peer bitcoin trading,gifts card and more. Not because there are no scammers,but because there customers support is responsive and trade moderators are really good with their jobs. Legit and fast payment assured 💯"
+            review: " Cj grand exchange is a safe place to do bitcoin trading, gifts card and more. Their customers support is responsive and trade moderators are really good with their jobs. Legit and fast payment assured 💯"
         },
         {
             name: "frank",
@@ -136,7 +147,7 @@ const Review = () => {
             review: "CJGRAND EXCHANGE is a trusted and reliable source for exchange of gift cards, Bitcoins etc.And very swift too😉"
         },
         {
-            name: "gedion",
+            name: "Gideon",
             review: "My trades with cjgrandexchange has always ended a happy one, always quick to deliver, fast and very reliable. You should also try him"
         },
     ]
@@ -148,17 +159,22 @@ const Review = () => {
             data-aos-duration="800"
             data-aos-easing="ease-in-out"
             data-aos-once="true">
-            <Heading title="What Our Clients Have To" coloredText=" Say" />
+            {/* <Heading title="What Our Clients Have To" coloredText=" Say" /> */}
+            <h2 className="header">
+                What Our Clients Have To Say
+            </h2>
             <Swiper {...params} className="swiper-wrapper">
 
                 {
                     reviewData.map((item, index) => (
                         <div key={index} className="swiper-wrapper-mainContent">
                             <div className="swiper-wrapper-mainContent-imgContainer">
-                                <img className="swiper-wrapper-mainContent-imgContainer--avater" src={avaters[index]} alt="testimonial pic" />
+                                <div className="swiper-wrapper-mainContent-imgContainer__wrapper">
+                                    <img className="swiper-wrapper-mainContent-imgContainer--avater" src={logoFrame} alt="testimonial pic" />
+                                </div>
                             </div>
                             <p className="swiper-wrapper-mainContent--text">
-                               {item.review}
+                                {item.review}
 
                             </p>
                             <p className="swiper-wrapper-mainContent--profile">

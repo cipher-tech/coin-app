@@ -74,7 +74,12 @@ class ContextProvider extends Component {
             contextData: {
                 country: this.regions[JSON.parse(localStorage?.region || false)?.id] || this.regions.nigeria,
                 changeRegion: this.selectRegions,
-                IsRegionSelected: false
+                IsRegionSelected: false,
+                auth: {
+                    toggleLoginSignUp: this.toggleLoginSignUp,
+                    showLogin: false,
+                    showSignUp: false,
+                },
             }
         }
     }
@@ -108,6 +113,47 @@ class ContextProvider extends Component {
         })
         window.location.reload(false);
         // this.props.history.push(this.props.history.location.pathname)
+    }
+
+    toggleLoginSignUp = (name) => {
+        if (name === "login") {
+            this.setState((state, props) => {
+                return {
+                contextData: {
+                    ...this.state.contextData,
+                    auth: {
+                        ...this.state.contextData.auth,
+                        showLogin: true,
+                        showSignUp: false,
+                    }
+                }
+                }}
+            )
+        } else if (name === "signUp") {
+            this.setState((state, props) => ({
+                contextData: {
+                    ...this.state.contextData,
+                    auth: {
+                        ...this.state.contextData.auth,
+                        showLogin: false,
+                        showSignUp: true,
+                    }
+                }
+                })
+            )
+        }else if (name === "close"){
+            this.setState((state, props) => ({
+                contextData: {
+                    ...this.state.contextData,
+                    auth: {
+                        ...this.state.contextData.auth,
+                        showLogin: false,
+                        showSignUp: false,
+                    }
+                }
+                })
+            )
+        }
     }
 
     render() {

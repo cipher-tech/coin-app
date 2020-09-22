@@ -1,45 +1,47 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import image from "../images/footerImg.jpg"
-import logo from "../images/brandLogo.jpg"
+// import image from "../images/footerImg.jpg"
+import {ReactComponent as MapMarker} from "../images/svgIcons/map-marker.svg"
+import {ReactComponent as Phone} from "../images/svgIcons/phone-handset.svg"
+import {ReactComponent as Envelope} from "../images/svgIcons/envelope.svg"
+import {ReactComponent as Instagram} from "../images/svgIcons/instagram.svg"
+import logo from "../images/logo.svg"
 import { Link } from 'react-router-dom'
 import routes from '../navigation/routes'
-import CoinWidget from './widget/wigjet'
+// import CoinWidget from './widget/wigjet'
 
 const Container = styled.div`
     display: grid;
     /* height: 50vh; */
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: 40rem calc(100% - 40rem); 
     align-items: flex-start;
     grid-column: 1/-1;
-    background-image: linear-gradient(to left, rgba(0,0,0,.6) 50%, rgba(0,0,0,.6) 50%), url(${image});
+    background: rgb(5 4 4 / 96%);
     background-size: cover;
     background-repeat: no-repeat;
     /* width: 100%; */
-    padding: 3rem 1rem;
-
+    padding: 0rem 0rem;
+    @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+        grid-template-columns: 100%; 
+        /* width: 100%; */
+    }
     .footer-options{
         padding: 2rem;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-content: space-around;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        justify-self: center;
+        /* justify-self: center; */
+        align-self: center;
+        width: 100%;
         height: 100%;
-        &-select{
-            background: transparent;
-            padding: 1rem 2rem;
-            color: ${props => props.theme.colorWhite};
-            border-radius: .5rem;
-            /* margin-bottom: 1rem; */
-            option{
-                color: ${props => props.theme.colorPrimary}
-            }
-            &:focus{
-                outline: none;
-            }
-        }
+        background: #020202 ;
+        
         &-img{
+            align-self: center;
             height: 5rem;
             width: 5rem;
             margin: 2rem 1rem;
@@ -51,6 +53,37 @@ const Container = styled.div`
                 width: 100%;
             }
         }
+        &__socialLink{
+            font-weight: lighter;
+            font-size: ${props => props.theme.font.medium};
+            color: ${props => props.theme.colorWhite + "70"};
+            a{
+                color: ${props => props.theme.colorWhite};
+                text-decoration: none;
+                font-size: ${props => props.theme.font.larger};
+                &:visited, &:hover{
+                    color: ${props => props.theme.colorWhite};
+                }
+                path{
+                    fill: ${props => props.theme.colorWhite};
+                    height: 100%;
+                }
+            }
+        }
+        &__credit{
+            color: ${props => props.theme.colorTertiary};
+            padding-top: 3rem;
+            display: flex;
+            width: 71%;
+            align-self: center;
+        }
+    }
+    .footer-groupList{
+        width: 100%;
+        display: grid;
+        padding: 2rem 3.5rem;
+        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }
     .footer-list{
         display: flex;
@@ -58,74 +91,69 @@ const Container = styled.div`
         justify-content: space-between;
         align-content: center;
         list-style-type: none;
-        text-align: center;
-
+        text-align: left;
+        width: max-content;
+        align-self: center;
         &-item:first-child{
             font-size: ${props => props.theme.font.large};
             font-weight: 500;
             padding: 2rem .5rem;
-            color: ${props => props.theme.colorSecondary}
+            color: ${props => props.theme.colorTertiary}
         }
         &-item{
+            display: flex;
+            justify-content: end;
             padding: 1rem 1rem;
             color: ${props => props.theme.colorWhite};
             text-decoration: none;
+            &__icon{
+                margin-right: 2.5rem;
+                path{
+                    fill: ${props => props.theme.colorTertiary};
+                    height: 100%;
+                }
+            }
         }
-    }
-    
-    .footer-credit{
-        grid-row: 1;
     }
 `
 const Footer = (props) => {
     return (
         <Container>
-            {props.children}
+            {/* {props.children} */}
             <div className="footer-options">
-            <div id="google_translate_element"></div>
-                {/* <select className="footer-options-select" name="language" id="lang">
-                    <option value="english">Nigeria[English] </option>
-                    <option value="french">French </option>
-                    <option value="spanish">Spanish </option>
-                </select> */}
-
+                <div id="google_translate_element"></div>
                 <span className="footer-options-img">
                     <img src={logo} alt="logo" />
                 </span>
-                <span className="footer-credit">
-                    CJ Exchange©2020
+                <p className="footer-options__socialLink">
+                    Follow us on instagram for updates 
+                    <br/>
+                    <a href="/"> <Instagram /> cjgrandexchange</a>
+                </p>
+                <span className="footer-options__credit">
+                   © 2020 Cj Grand Exchange
                 </span>
             </div>
-            <ul className="footer-list">
-                <li className="footer-list-item"> Products </li>
-                <Link to="/contact" className="footer-list-item"> Contact</Link>
-                <Link to="/faq" className="footer-list-item"> FAQ</Link>
-                <Link to={routes.public.about} className="footer-list-item">About</Link>
-            </ul>
-            <ul className="footer-list">
-                <li className="footer-list-item"> Legal </li>
-                <Link to={routes.public.policies} className="footer-list-item">Policies</Link>
-            </ul>
-            <ul className="footer-list">
-                <li className="footer-list-item"> Company</li>
-                <li className="footer-list-item"> name@gmail.com</li>
-                <li className="footer-list-item"> 31 Rushgrove Avenue, London, UNITED KINGDOM</li>
-                <li className="footer-list-item"> +2349018868939</li>
-</ul>
+            <div className="footer-groupList">
+                <ul className="footer-list">
+                    <li className="footer-list-item"> Quick Links </li>
+                    <Link to="/contact" className="footer-list-item"> Contact</Link>
+                    <Link to="/rates" className="footer-list-item"> Rates</Link>
+                    <Link to="/faq" className="footer-list-item"> FAQ</Link>
+                    <Link to={routes.public.about} className="footer-list-item">About</Link>
+                </ul>
+                <ul className="footer-list">
+                    <li className="footer-list-item">  </li>
+                    <Link to={routes.public.policies} className="footer-list-item">Policies</Link>
+                </ul>
+                <ul className="footer-list">
+                    <li className="footer-list-item"> Contact </li>
+                    <li className="footer-list-item"> <MapMarker className="footer-list-item__icon" /> Nigeria </li>
+                    <li className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 906 408 2900 <br/> +234 810 133 3244 </li>
+                    <li className="footer-list-item"> <Envelope className="footer-list-item__icon" /> cjgrandexchange@gmail.com</li>
+                </ul>
 
-<CoinWidget ele="#mydiv" id="mydiv" link={`<!--Start of Tawk.to Script-->
-                <script type="text/javascript" async>
-                var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-                (function(){
-                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-                s1.async=true;
-                s1.src='https://embed.tawk.to/5ef62d734a7c6258179b6843/default';
-                s1.charset='UTF-8';
-                s1.setAttribute('crossorigin','*');
-                s0.parentNode.insertBefore(s1,s0);
-                })();
-                </script>
-                <!--End of Tawk.to Script-->`} />
+            </div>
             {/* <p className="footer-credit">
                 C Cipher 2020
             </p> */}

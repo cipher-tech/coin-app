@@ -1,36 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
-import homePageModalIcon from "../images/homePageModalIcon.svg"
+import React, { useState, useEffect, /* useCallback, */ useContext } from 'react'
+import styled /* { keyframes } */ from 'styled-components'
+// import homePageModalIcon from "../images/homePageModalIcon.svg"
 import loadable from '@loadable/component'
 
 // import logo from "../images/logo.png"
 
-import waveSvg from "../images/waveSvg.svg"
-import { Carusel, Modal } from '.'
+// import waveSvg from "../images/waveSvg.svg"
+import girlImage from "../images/girl.png"
+import { ContextData } from '../context/contextData'
+// import { Carusel,/*  Modal  */} from '.'
 const Particles = loadable(() => import('react-particles-js'))
 
-const waveAnimation = keyframes`
-    from{ 
-        background-position: 0
-    }
+// const waveAnimation = keyframes`
+//     from{ 
+//         background-position: 0
+//     }
 
-    to{
-        background-position: 0px;
-    }
-`
+//     to{
+//         background-position: 0px;
+//     }
+// `
 const Container = styled.div`
-    display: grid;
+    /* display: grid; */
     grid-column: 1/-1;
-    grid-template-rows: min-content 70% 1fr;
-    grid-template-columns: repeat(2, minmax(40rem, 1fr));
+    /* grid-template-rows: min-content 70% 1fr; */
+    /* grid-template-columns: repeat(2, minmax(40rem, 1fr)); */
     /* height: auto; */
     background: ${props => props.theme.colorPrimary};
     /* width: ; */
-    /* height: 80vh; */
+    height: 75vh;
     position: relative;
     @media only screen and (min-width: ${props => props.theme.breakPoints.bpxxLarge}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
-        grid-template-rows: min-content 65% min-content;
+        /* grid-template-rows: min-content 65% min-content; */
         /* height: 80vh; */
     }
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpxLarge}) {
@@ -38,17 +40,17 @@ const Container = styled.div`
     }
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
         grid-template-columns: repeat(1, minmax(40rem, 1fr));
-        grid-template-rows: min-content 50% min-content;
+        /* grid-template-rows: min-content 50% min-content; */
     }
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium}) {
         grid-template-columns: repeat(1, minmax(40rem, 1fr));
-        grid-template-rows: min-content 40% min-content;
-        height: 100vh;
+        /* grid-template-rows: min-content 40% min-content; */
+        /* height: 100vh; */
     }
     @media only screen and (min-width: ${props => props.theme.breakPoints.bpLargest}) {
         grid-template-columns: repeat(2, minmax(40rem, 1fr));
-        grid-template-rows: min-content 65% min-content;
-        height: 60vh;
+        /* grid-template-rows: min-content 65% min-content; */
+        /* height: 60vh; */
     }
     .modal__container{
         place-items: center;
@@ -61,7 +63,7 @@ const Container = styled.div`
         position: relative;
         border-radius: 1rem;
         display: grid;
-        width: 90%;
+        width: 100%;
         justify-self: center;
 
         .close{
@@ -84,63 +86,69 @@ const Container = styled.div`
 
     .info{
         grid-column: 1/-1;
-    }
-    .waveSvg{
-        /* position: relative; */
-        grid-column: 1/-1;
-        height: 25rem;
-        width: 100%;
-        background-image: url(${waveSvg});
-        background-size: cover;
-        background-position: center;
-        background-repeat: repeat-x;
-        position: absolute; 
-        bottom: -15px;
-        z-index: -50px;
-        overflow: hidden;
+        height: 100%;
+        /* background: ${props => props.theme.colorSecondary}; */
+        margin: 0 10rem;
+        align-self: flex-end;
+        background-image: url(${girlImage});
+        background-size: 110%;
+        background-position-y: bottom;
+        background-position-x: 70%;
+        background-repeat: no-repeat;
+        display: grid;
+        .info-text{
+            grid-column: 1/-1;
+            align-self: center;
 
-        transition: all 3s linear 0s; 
-        animation:  ${waveAnimation} 10s linear infinite;
-        /* &::after{
-            content: '';
-            position:absolute;
-            left: 0;
-            bottom:0;
-            height: 23rem;
-            width: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: repeat-x;
-            position: absolute; 
-            bottom: 0px;
-            z-index: -2px;
-            transform: translateY(5px);
-            transition: all 3s linear 0s; 
-            animation: 19s linear infinite;
-        } */
-        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
-            height: 25rem;
+            &__welcome{
+                padding: 1.5rem 0rem;
+                font-weight: 300;
+                font-size: ${props => props.theme.font.xxlarge};
+                text-transform: capitalize;
+            }
+            &__name{
+                padding: 1.5rem 0rem;
+                color: ${props => props.theme.colorTertiary};
+                font-weight: 1000;
+                font-size: ${props => props.theme.font.xxlarge};
+                text-transform: uppercase;
+            }
+            &__text{
+                padding: 1.5rem 0rem;
+                font-weight: 700;
+                font-size: ${props => props.theme.font.xlarge};
+                text-transform: capitalize;
+            }
+            &__button{
+                padding: 1rem 4rem;
+                border-radius: 1rem;
+                cursor: pointer;
+                background: ${props => props.theme.colorTertiary};
+                outline: none;
+                border: none;
+                font-size: ${props => props.theme.font.large};
+                text-transform: capitalize;
+                color: ${props => props.theme.colorWhite};
+                &:focus{
+                    outline: none;
+                }
+            }
         }
-        /* img{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        } */
     }
-
 `
 const Header = (props) => {
-    const [isModalActive, setIsModalActive] = useState(false)
+    const loginSignUpContext = useContext(ContextData)
+    const [/* isModalActive */, setIsModalActive] = useState(false)
     useEffect(() => {
         setTimeout(() => {
             // console.log(typeof +localStorage.counts);
-            
-            if(localStorage.counts && +localStorage.counts % 10 === 0){
+
+            if (localStorage.counts && +localStorage.counts % 10 === 0) {
                 setIsModalActive(true)
                 localStorage.counts = +localStorage.counts + 1
-            }else if(localStorage.counts){
+            } else if (localStorage.counts) {
                 localStorage.counts = +localStorage.counts + 1
-            }else{
+            } else {
                 setIsModalActive(true);
                 localStorage.counts = 1
             }
@@ -148,7 +156,7 @@ const Header = (props) => {
     }, [setIsModalActive])
     return (
         <Container>
-            <Modal isActive={isModalActive}>
+            {/* <Modal isActive={isModalActive}>
                 <div className="modal__container">
                     <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
                         ❌
@@ -156,17 +164,38 @@ const Header = (props) => {
                     <img src={homePageModalIcon} alt="homepage modal icon" />
 
                     <p className="modal__container--text">
-                        click live chat icon on the bottom right hand coner of your screen to start trading instantly,
-                        and exprrience blazing fast trading :)
+                        click live chat icon on the bottom right hand corner of your screen to start trading instantly,
+                        and experience blazing fast trading :)
                     </p>
                 </div>
-            </Modal>
+            </Modal> */}
             <div className="info">
-                <Carusel />
+                <hgroup className="info-text"
+                    data-aos="fade-up"
+                    data-aos-offset="100"
+                    data-aos-delay="100"
+                    data-aos-duration="800"
+                    data-aos-easing="ease-in-out"
+                    data-aos-once="true">
+
+                    <h3 className="info-text__welcome">
+                        welcome to
+                    </h3>
+                    <h1 className="info-text__name">
+                        cj grand exchange
+                    </h1>
+                    <h4 className="info-text__text">
+                        trade your assets from your comfort zone
+                    </h4>
+                    <button onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} className="info-text__button">
+                        get started
+                    </button>
+                </hgroup>
+                {/* <Carusel /> */}
             </div>
 
 
-            <div
+            {/* <div
                 className="waveSvg"
                 data-aos="fade-up"
                 data-aos-offset="100"
@@ -174,7 +203,7 @@ const Header = (props) => {
                 data-aos-duration="600"
                 data-aos-easing="ease-in-out"
                 data-aos-once="true"
-            />
+            /> */}
 
             <Particles
                 params={{

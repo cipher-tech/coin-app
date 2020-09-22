@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import envelope from "../../../images/svgIcons/envelope.svg"
 import styled from 'styled-components'
 import { StyledInput } from '../../../components/styledComponents'
@@ -9,6 +9,8 @@ import qrcode from "../../../images/qrcode.png"
 
 import routes from '../../../navigation/routes'
 import { PopUpMessage, Storage, Modal } from '../../../components'
+import { ContextData } from '../../../context/contextData'
+import { ValidationMessage } from '../../../validationMessage'
 
 const Container = styled.div`
     grid-column: 2/-1;
@@ -70,23 +72,59 @@ const Container = styled.div`
           background: ${props => props.theme.colorPrimary};
         }
       }  
-    .deposit{
+      .deposit{
+        display: grid;
         /* margin-top: 13rem; */
         padding: 2rem ;
+        /* display: flex; */
         align-self: center;
-        display: flex;
-        justify-content: space-between;
+        justify-items: center;
         color: ${props => props.theme.colorDark};
         /* height: 1rem; */
         box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
             -0.2rem -0.4rem 20px rgba(255,255,255, .3);
         
+        &-header{
+            font-weight: 600;
+            font-size: ${props => props.theme.font.xlarge};
+            color: ${props => props.theme.colorPrimary};
+            justify-self: flex-start;
+            padding: 2rem;
+        }
+        &-form{
+            display: grid;
+            width: 90%;
+            justify-items: center;
+            
+            &__wrapper{
+                justify-items: initial;
+            }
+        }
+        .paymentOptions{
+            padding: 1rem 2rem;
+                margin: 1rem;
+                box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
+                    .2rem .4rem 10px rgba(0,0,0, .3);
+                background: none;
+                border-radius: .4rem;  
+                border: none;  
+                font-size: ${props => props.theme.font.medium};
+                color: ${props => props.theme.colorSecondary};
+                /* &:hover{
+                } */
+                &:focus{
+                    outline: none;
+                    /* color: ${props => props.theme.colorSecondary}; */
+                }
+        }
         .summit{
             margin: 0 2rem;
         }
     }
 `
 function WidthdrawlRequest(props) {
+    const regionContext = useContext(ContextData)
+
     const [widthdrawlValue, setWidthdrawlValue] = useState("")
     const [showpopUpMessage, setShowPopUpMessage] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState(null)
@@ -94,11 +132,21 @@ function WidthdrawlRequest(props) {
     const [error, setError] = useState(false)
     const [refrenceId, setRefrenceId] = useState("")
     const [isModalActive, setIsModalActive] = useState(false)
-    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
+    const [bitcoinAddress] = useState(process.env.REACT_APP_WALLET_ADDRESS)
+    const [paymentOptions, setPaymentOptions] = useState('bank')
 
     const updateFormValue = (name, value) => {
 
     }
+    async function copy(e) {
+        
+        if (e === "refId" ) {
+            navigator.clipboard.writeText(refrenceId)
+        }else{
+            navigator.clipboard.writeText(bitcoinAddress)
+        }
+    }
+    
     const handleSubmit = async (e) => {
         await setError(false)
         if(widthdrawlValue.length < 2){
@@ -117,6 +165,7 @@ function WidthdrawlRequest(props) {
         setIsLoading(true)
         const object = {
             id: userId,
+            paymentMethod: paymentOptions,
             amount: widthdrawlValue,
             email: email
         }
@@ -178,14 +227,7 @@ function WidthdrawlRequest(props) {
         }
 
     }
-    async function copy(e) {
-        
-        if (e === "refId" ) {
-            navigator.clipboard.writeText(refrenceId)
-        }else{
-            navigator.clipboard.writeText(bitcoinAddress)
-        }
-    }
+    
     return (
         <Container>
          <Modal isActive={isModalActive}>
@@ -226,8 +268,25 @@ function WidthdrawlRequest(props) {
 
                 <br />
 
+                <select className="paymentOptions" value={paymentOptions} onChange={(e) => setPaymentOptions(e.target.value)} name="paymentOptions">
+                            {
+                                <>
+                                    <option value={"bank"}>
+                                        Bank transfer
+                                    </option>
+                                    {
+                                        regionContext?.country?.paymentMethods?.map((item, i) => (
+                                            <option key={i} value={item.name}>
+                                                {item.name}
+                                            </option>
+                                        ))
+                                    }
+                                </>
+                            }
+                        </select>
+                        <ValidationMessage field="paymentOptions" />
                 <Button className="summit" onClick={handleSubmit}>
-                    {isLoading ? "Loading..." : "Request"}
+                    {isLoading ? "Loading..." : "Submit"}
                 </Button>
             </div>
         </Container>

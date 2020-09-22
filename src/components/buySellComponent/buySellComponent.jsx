@@ -12,7 +12,7 @@ import xCoinIcon from "../../images/xCoinIcon.jpg"
 import routes from '../../navigation/routes'
 import { fetchAllRatesActionCreator } from '../../reduxStore'
 import PaginatedTable from '../table/tablePagination'
-import { StyledButton, Modal, PopUpMessage, Storage } from '../index'
+import { StyledButton, Modal, PopUpMessage, Storage , SellGiftCard} from '../index'
 import { StyledInput } from '../styledComponents'
 import { FormValidator } from '../../formValidator'
 import { ValidationMessage } from '../../validationMessage'
@@ -161,7 +161,7 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
     // const copyRef = useRef(null)
 
     async function copy(type) {
-        if(type === "refId"){
+        if (type === "refId") {
             navigator.clipboard.writeText(refrenceId)
             setIsCopied(true)
             return
@@ -394,7 +394,8 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
                 range: SelectedCardRange,
                 email: userEmail
             }
-            console.log(user_data);
+            setIsLoading(true)
+            console.log(data);
 
             Axios.post(`${routes.api.userSellCard}?token=${auth_token}`, user_data)
                 .then(res => {
@@ -601,43 +602,48 @@ function BuySellComponent({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
         setIsSelling(true)
     }
     return (
-        <Container gridPos={gridPos}>
+        <>
+            <SellGiftCard />
 
-            {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+            <Container gridPos={gridPos}>
 
-            <Modal isActive={isModalActive}>
-                <div className="modal__container">
-                    <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
-                        ❌
+                {showpopUpMessage ? <PopUpMessage error={error}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+
+                <Modal isActive={isModalActive}>
+                    <div className="modal__container">
+                        <span role="img" aria-label="img" className="close" onClick={() => setIsModalActive(false)}>
+                            ❌
                     </span>
-                    <img src={qrcode} alt="" />
+                        <img src={qrcode} alt="" />
 
-                    <p className="modal__container--text">
-                        please pay the specified amount into this {isSelling ? "address" : "account"}
-                    </p>
+                        <p className="modal__container--text">
+                            please pay the specified amount into this {isSelling ? "address" : "account"}
+                        </p>
 
-                    <p className="modal__container-address">
-                        {bitcoinAddress}
-                        <button onClick={() =>copy()}> copy</button>
-                    </p>
+                        <p className="modal__container-address">
+                            {bitcoinAddress}
+                            <button onClick={() => copy()}> copy</button>
+                        </p>
 
-                    <p className="modal__container--text">
-                        After successful payment contact customer care with the unique refrence_id below, and proof of payment: <br />
+                        <p className="modal__container--text">
+                            After successful payment contact customer care with the unique refrence_id below, and proof of payment: <br />
 
-                        <span className="modal__container-address">
-                            {refrenceId}
-                            <button onClick={() =>copy("refId")}> copy</button>
-                        </span>
-                        {/* <button onClick={() =>copy()}> copy</button> */}
+                            <span className="modal__container-address">
+                                {refrenceId}
+                                <button onClick={() => copy("refId")}> copy</button>
+                            </span>
+                            {/* <button onClick={() =>copy()}> copy</button> */}
 
-                    </p>
+                        </p>
+                    </div>
+                </Modal>
+                <div className="rate">
+                    <h2 className="rate-attrHeader">Gift Cards </h2>
+                    <PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? cardOnlyRates : []} />
                 </div>
-            </Modal>
-            <div className="rate">
-                <h2 className="rate-attrHeader">Gift Cards </h2>
-                <PaginatedTable tableColumns={columns} expandedComponent={expandedComponent} data={rates.allRates ? cardOnlyRates : []} />
-            </div>
-        </Container>
+            </Container>
+           
+        </>
     )
 }
 const mapStateToProps = ({ rates }) => ({

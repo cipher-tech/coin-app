@@ -2,7 +2,7 @@
   "name": "coin-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cipher-tech.github.io/coin-app/",
+  "homepage": "https://api.cjgrandexchange.com/",
   "dependencies": {
     "@loadable/component": "^5.13.1",
     "@testing-library/jest-dom": "^4.2.4",

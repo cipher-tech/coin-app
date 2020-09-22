@@ -16,7 +16,7 @@ import { ValidationMessage } from '../../../validationMessage'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
 import { PopUpMessage } from '../../../components'
-
+import { ContextData } from '../../../context/contextData'
 
 const Container = styled.div`
     grid-column: 1/-1;
@@ -25,7 +25,7 @@ const Container = styled.div`
     place-items: center;
     min-height: 100vh;
     /* min-width: 100vh; */
-    background: ${props => props.theme.colorLight};
+    /* background: ${props => props.theme.colorLight}; */
     .login{
         grid-column: 2/6;
         /* height: 60vh; */
@@ -54,6 +54,7 @@ const Container = styled.div`
             background-repeat: no-repeat;
             background-position: 104px right; */
             .circle{
+                display:none;
                 position: absolute;
                 height: 20rem;
                 width: 20rem;
@@ -61,8 +62,9 @@ const Container = styled.div`
                 top: -10rem;
                 background: #eee;
                 border-radius: 50%
-            }
+            } 
             .circle2{
+                display:none;
                 position: absolute;
                 height: 20rem;
                 width: 20rem;
@@ -104,6 +106,7 @@ const Container = styled.div`
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
                 background: transparent;
                 text-decoration: none;
+                cursor: pointer;
                 color: ${props => props.theme.colorLight};
                 /* border: none; */
                 margin: 1rem 1rem 4rem 1rem;
@@ -168,6 +171,7 @@ const Container = styled.div`
                 &-action{
                     font-weight: 700;
                     text-decoration: none;
+                    cursor: pointer;
                     &-red{
                         color: ${props => props.theme.colorError};
                     }
@@ -204,6 +208,7 @@ const Container = styled.div`
 `
 
 export default class SignUp extends Component {
+    static contextType = ContextData
     constructor(props) {
         super(props)
 
@@ -238,9 +243,10 @@ export default class SignUp extends Component {
                 if (res.data.status) {
                     this.setState({ isLoading: false })
                     this.props.history.push(routes.public.login)
+                    this.props.modal && this.props.close() 
                     return
                 } else {
-                    this.setState({ message: "An error Occured While loading. Please check your details and try again.", isLoading: false })
+                    this.setState({ message: "An error Occurred While loading. Please check your details and try again.", isLoading: false })
                     this.setState({ isLoading: false })
                     return
                 }
@@ -248,7 +254,7 @@ export default class SignUp extends Component {
             })
             .catch(res => {
                 this.setState({ isLoading: !this.state.isLoading })
-                this.setState({ message: "AN error Occured While loading please check your details and try again.", isLoading: !this.state.isLoading })
+                this.setState({ message: "AN error Occurred While loading please check your details and try again.", isLoading: !this.state.isLoading })
             })
 
     }
@@ -270,7 +276,7 @@ export default class SignUp extends Component {
                             and Gift Cards  experience
                             world class transaction processes.
                         </p>
-                        <Link to="/login" className="login__side-left-button"> LogIn</Link>
+                        <span onClick={() => this.context.auth.toggleLoginSignUp("login")}className="login__side-left-button"> LogIn</span>
                     </div>
                     <div className="login__side-right">
                         <div className="login__side-right-image">
@@ -293,11 +299,11 @@ export default class SignUp extends Component {
                                 <ValidationMessage field="email" />
 
                                 <StyledInput name="first_name" handleChange={this.updateFormValue} value={this.state.first_name}
-                                    placeHolder="Firstname" type="text" icon={userIcon} />
+                                    placeHolder="FirstName" type="text" icon={userIcon} />
                                 <ValidationMessage field="first_name" />
 
                                 <StyledInput name="last_name" handleChange={this.updateFormValue} value={this.state.last_name}
-                                    placeHolder="Lastname" type="text" icon={userIcon} />
+                                    placeHolder="LastName" type="text" icon={userIcon} />
                                 <ValidationMessage field="last_name" />
 
                                 <StyledInput name="phone" handleChange={this.updateFormValue} value={this.state.phone}
@@ -319,7 +325,7 @@ export default class SignUp extends Component {
                             </div>
                             <p className="login__side-right-isSugnedIn">
                                 Already Signed up?
-                            <Link to="/login" className="login__side-right-isSugnedIn-action"> LogIn</Link>
+                            <span onClick={() => this.context.auth.toggleLoginSignUp("login")} className="login__side-right-isSugnedIn-action"> LogIn</span>
 
                                 <br /> <br />
                                 <span className="login__side-right-isSugnedIn-action-red"> * </span>

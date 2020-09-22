@@ -8,11 +8,13 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ContactUs } from './pages/contact/contactUs';
 import loadable from '@loadable/component'
-import { Foot, Navbar } from './components';
+import { Foot, Navbar} from './components';
 import reduxStore from "./reduxStore"
 
 import { GlobalStyle, Container } from './components/styledComponents';
 import routes from './navigation/routes';
+import ComingSoon from './pages/comingSoon/comingSoon';
+
 const Main = loadable(() => import('./pages/main'));
 const AboutUS = loadable(() => import('./pages/aboutUs/aboutUs'));
 const UserRates = loadable(() => import('./pages/userRates/userRates'));
@@ -44,10 +46,12 @@ const UserBuySell = lazy(() => import('./pages/userBuySell/userBuySell'));
 
 
 const theme = {
-	colorPrimary: "#581b98",
+	colorPrimary: "#041329",
 	colorPrimaryLight: "#304D71",
-	colorSecondary: "#FB921E",
+	colorSecondary: "#f25b2e",
 	colorSecondaryDark: "#e47800",
+	colorTertiary: "#faa84f",
+	colorLightBlue: "#97c2ff",
 	colorWhite: "#FFFFFF",
 	colorDark: "#707070",
 	colorLight: "#EEEEEE",
@@ -89,6 +93,7 @@ const theme = {
 AOS.init()
 
 function App() {
+	const isComingSoon = false
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
 			<Provider store={createStore(reduxStore)}>
@@ -97,18 +102,24 @@ function App() {
 						<ThemeProvider theme={theme}>
 							<GlobalStyle />
 							<ContextProvider>
-								<Container>
-									<Route path={["/", "/contact", "/faq", "/about", "/policies", "/buySell", "/rates"]} exact>
-										<Navbar />
-										<Route exact path={routes.public.home} component={Main} />
-										<Route exact path={routes.public.contact} component={ContactUs} />
-										<Route exact path={routes.public.faq} component={Faq} />
-										<Route exact path={routes.public.about} component={AboutUS} />
-										<Route exact path={routes.public.policies} component={Policies} />
-										<Route exact path={routes.public.buy_sell} component={UserBuySell} />
-										<Route exact path={routes.public.rates} component={UserRates} />
-										<Foot />
-									</Route>
+								<Container> 
+									
+									{
+										isComingSoon ?
+											<ComingSoon />
+											:
+											<Route path={["/", "/contact", "/faq", "/about", "/policies", "/buySell", "/rates"]} exact>
+												<Navbar />
+												<Route exact path={routes.public.home} component={Main} />
+												<Route exact path={routes.public.contact} component={ContactUs} />
+												<Route exact path={routes.public.faq} component={Faq} />
+												<Route exact path={routes.public.about} component={AboutUS} />
+												<Route exact path={routes.public.policies} component={Policies} />
+												<Route exact path={routes.public.buy_sell} component={UserBuySell} />
+												<Route exact path={routes.public.rates} component={UserRates} />
+												<Foot />
+											</Route>
+									}
 									<Route exact path={routes.public.login} component={withRouter(Login)} />
 									<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
 									<Route path="/admin/:path?" exact>

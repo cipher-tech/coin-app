@@ -115,11 +115,12 @@ const Container = styled.div`
             align-self: flex-start;
             justify-items: center;
             /* grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); */
-            box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
+            box-shadow: .3rem .3rem 20px rgba(0,0,0, .3),
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
             border-radius: 1rem;
             gap: .5rem;
             /* height: 30rem; */
+            max-width: 80rem;
             width: 100%;
             padding: 2rem 1rem;
             position: relative;
@@ -166,8 +167,8 @@ const Container = styled.div`
                         /* width: max-content; */
                         /* border: solid .5px ${(props) =>
         props.theme.colorWhite}; */
-                        box-shadow: .3rem -.4rem 10px rgba(0,0,0, .3),
-                            -0.3rem 0.4rem 20px rgba(255,255,255, .3);
+                        box-shadow: .1rem -.1rem 10px rgba(0,0,0, .2),
+                            -0.1rem 0.1rem 10px rgba(255,255,255, .2);
                         color: ${(props) => props.theme.colorWhite};
                         cursor: pointer;
                         font-size: ${(props) => props.theme.font.small};
@@ -270,6 +271,7 @@ const Container = styled.div`
                 padding: 1.5rem 2rem;
                 margin-top: 3rem;
                 transition: all .5s ease;
+                display: flex;
                 color: ${(props) => props.theme.colorPrimary};
                 &--item{
                     padding: .5rem 2rem;
@@ -916,7 +918,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                                         <p key={index} className="coin-options-attributes">
                                             <span className="coin-options-attributes__item"> {item.class} </span>
                                             <span className="coin-options-attributes__item"> {item.from} -  {item.to} </span>
-                                            <span className="coin-options-attributes__item"> {item.selling} </span>
+                                            <span className="coin-options-attributes__item"> {item.buying} </span>
                                         </p>
                                     ))
                                 }
@@ -1053,8 +1055,8 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                             {isLoading ? <Spinner className="loadingSpinner" /> : null}
                         </button>
                     </div>
-                    <div className="coin-icon">
-                        {selectCoinImage()}
+                    {/* <div className="coin-icon">
+                        {selectCoinImage()} */}
                         {/* {console.log(selectedCoinImage)} */}
                         {/* <iframe id="tradingview_dd6f1"
                         src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_dd6f1&amp;symbol=COINBASE%3ABTCUSD&amp;interval=D&amp;symboledit=1&amp;saveimage=1&amp;toolbarbg=f1f3f6&amp;studies=%5B%5D&amp;theme=Dark&amp;style=1&amp;timezone=Etc%2FUTC&amp;studies_overrides=%7B%7D&amp;overrides=%7B%7D&amp;enabled_features=%5B%5D&amp;disabled_features=%5B%5D&amp;locale=en&amp;utm_source=www.bitlunaroptions.com&amp;utm_medium=widget_new&amp;utm_campaign=chart&amp;utm_term=COINBASE%3ABTCUSD"
@@ -1062,7 +1064,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
                         allowtransparency="true" scrolling="no" allowFullScreen="" frameBorder="0"
                         title="coinrate">
                     </iframe> */}
-                    </div>
+                    {/* </div> */}
                 </div>
             </Container>
         </>

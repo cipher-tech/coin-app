@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from "styled-components";
 import { useSpring, animated } from 'react-spring';
 import { Link } from 'react-router-dom';
 import routes from '../../navigation/routes';
-import logo from "../../images/brandLogo.jpg"
+import logo from "../../images/logo.svg"
 import { ReactComponent as MenuIcon } from "../../images/svgIcons/menu.svg"
+import { ContextData } from '../../context/contextData';
 
 
 const Container = styled.div`
@@ -99,7 +100,7 @@ const Container = styled.div`
         display: grid;
         /* height: 6rem; */
         background: transparent;
-        grid-template-columns: 1fr 1fr max-content;
+        grid-template-columns: max-content 1fr max-content;
         z-index: 1000;
 
         &-logo {
@@ -119,27 +120,31 @@ const Container = styled.div`
 
         &-list{
             display: flex;
-            justify-content: space-around;
-            justify-self: flex-end;
+            justify-content: center;
+            justify-self: center;
             align-content: center;
             align-self: center;
-            width: 70%;
+            width: 100%;
             padding-right: 4rem; 
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
                 display: none; 
             }
 
+            .divider{
+                border-left: solid 1px  ${props => props.theme.colorWhite};
+            }
             &-item , a{
                 display: flex;
                 position: relative;
                 justify-content: center;
                 text-align: center;
-                padding: 1rem 1rem;
+                padding: 1rem 2rem;
                 list-style-type: none;
                 height: 100%;
-                width: 100%;
+                width: max-content;
                 color: ${props => props.theme.colorWhite};
                 text-decoration: none;
+                cursor: pointer;
                 @media only screen and (max-width: ${props => props.theme.breakPoints.bpLarge}) {
                     font-size: ${props => props.theme.font.large}
                 }
@@ -168,6 +173,7 @@ const Container = styled.div`
 const NavbarComponent = (props) => {
 
     const [mobileNavIsOpen, setMobileNavIsOpen] = useState(!true)
+    const loginSignUpContext = useContext(ContextData)
     const toggleMobileNav = () => {
         setMobileNavIsOpen(!mobileNavIsOpen)
     }
@@ -192,8 +198,8 @@ const NavbarComponent = (props) => {
                 <Link to={routes.public.buy_sell} className="navbar-mobile__list--item">buy/sell</Link>
                 <Link to={routes.public.rates} className="navbar-mobile__list--item">Rates</Link>
                 <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
-                <Link to={routes.public.login} className="navbar-mobile__list--item">Login</Link>
                 <Link to={routes.public.about} className="navbar-mobile__list--item">AboutUs</Link>
+                <span onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-mobile__list--item">Login</span>
             </animated.ul>
             <div className="navbar"
                 data-aos="fade-right"
@@ -210,8 +216,12 @@ const NavbarComponent = (props) => {
                     <Link to={routes.public.buy_sell} className="navbar-list-item">Buy/Sell</Link>
                     <Link to={routes.public.rates} className="navbar-list-item">Rates</Link>
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
-                    <Link to={routes.public.login} className="navbar-list-item">Login</Link>
                     <Link to={routes.public.about} className="navbar-list-item">AboutUs</Link>
+                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">Login</span>
+                </ul>
+                <ul className="navbar-list">
+                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">LOGIN</span>
+                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} className="navbar-list-item divider">SIGN UP</span>
                 </ul>
 
             </div>

@@ -1,29 +1,45 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Heading, StepsItem } from '.'
-import image from "../images/svgIcons/review.svg"
+import { /* Heading, */ StepsItem } from '.'
+// import image from "../images/svgIcons/review.svg"
+import handBg from "../images/Hand.png"
 
 const Container = styled.div`
     display: grid;
-    grid-column: 1/-1;
+    grid-column: 1/-1; 
     padding: 1rem 1rem;
     justify-content: center;
     /* grid-template-columns: repeat(1, minmax(35rem, 1fr)); */
     /* gap: 3rem; */
     padding: 3rem 0rem;
     color: ${props => props.theme.colorPrimary};
-    /* height: 40rem; */
-    /* width: 100%; */
-    overflow: hidden;
-
-    .steps{
-    display: grid;
-    grid-column: 1/-1;
-    grid-template-columns: repeat(2, minmax(35rem, 1fr));
     width: 100%;
-    @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
-        grid-template-columns: repeat(1, minmax(35rem, 1fr));
+    background: ${props => props.theme.colorLightBlue};
+    overflow: hidden;
+    background-image: url(${handBg});
+    background-size: 70%;
+    background-position-y: bottom;
+    background-position-x: 70%;
+    background-repeat: no-repeat;
+
+    .steps-header{
+        font-weight: lighter;
+        font-size: ${props => props.theme.font.larger};
+        width: 80%;
+        justify-self: center;
+        padding: 2rem 0;
+        span{
+            font-weight: bold;
+        }
     }
+    .steps{
+        display: grid;
+        grid-column: 1/-1;
+        grid-template-columns: repeat(2, minmax(35rem, 1fr));
+        width: 100%;
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
+            grid-template-columns: repeat(1, minmax(35rem, 1fr));
+        }
     }
     .steps-container{
         /* display: grid; */
@@ -31,18 +47,19 @@ const Container = styled.div`
         position: relative;
         width: 80%;
         height: auto;
+        margin-left: 5rem;
         /* align-content: flex-start; */
         justify-self: flex-end;      
         border-left: 5px solid ${props => props.theme.colorPrimary};
         align-self: center;
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
            /* grid-column: 1/-1; */
+           width: 90%;
         }
         &-item{
             width: 100%;
             padding: 0rem 2.5rem;
             display: grid;
-
             &::before{
                 content: attr(number);
                 position: absolute;
@@ -57,6 +74,7 @@ const Container = styled.div`
                 border-radius: 50%;
                 color: ${props => props.theme.colorWhite}
             }
+            
             h4{
                 display: grid;
                 font-size: ${props => props.theme.font.xlarge};
@@ -88,38 +106,37 @@ const Container = styled.div`
 const Steps = () => {
     return (
         <Container>
-            <Heading title="Get Started In Three Easy Steps" coloredText="Steps" />
-
+            {/* <Heading title="Get Started In Three Easy Steps" coloredText="Steps" /> */}
+            <h3 className="steps-header">
+                Get Started in
+                <br />
+                <span>3 Simple Steps</span>
+            </h3>
             <div className="steps">
                 <div className="steps-container"
                     data-aos="fade-right"
-                    data-aos-offset="200"
+                    data-aos-offset="100"
                     data-aos-delay="400"
                     data-aos-duration="700"
                     data-aos-easing="ease-in-out"
                     data-aos-once="true">
 
-                    <StepsItem step="Create an Account or not.."
-                        text={` You can sell your bitcoin & giftcards to us without signing up, all
-                            you have to do is just to conatct us on our live support and we will attend to you as 
-                            soon as possible. However, you need to sign up to buy bitcoin, and for faster transactions.`} number="1" />
-                    <StepsItem step=" Prepaid Wallet" number="2"
-                        text={`Load your wallet ahead of time and get to place your buy order at any time, any day!`} invert />
+                    <StepsItem step="Sign Up… or not"
+                        text={` You can sell bitcoin and giftcards to us without signing up.
+                            Contact us on our Live Support, and we will attend to you as soon as possible.
+                            However, you need to sign up to buy bitcoin, and for faster transactions.`} number="1" />
+                    <StepsItem step="Initiate Transactions" number="2"
+                        text={`With the click of a button, you can easily initiate transactions from anywhere. 
+                            Our system is properly designed to facilitate the smoothest buying and selling of our products.`} invert={false} />
 
                     <StepsItem step="Get Paid Instantly"
-                        text={`You get paid immediately. Directly to your bank account.`} number="3" />
-                    {/* <div className="steps-container-item" number="2">
-                        <h4>
-                            Sign Up... or not
-                    </h4>
-                        <p>
-                            You can sell bitcoin & giftcards to us without signing up. However,
-                            you need to sign up to buy bitcoin, and for faster transactions.
-                    </p>
-                    </div> */}
+                        text={`You get funded instantly after confirmation of transactions.
+                            Get paid directly into your bank account.`} number="3" />
+
                 </div>
 
-                <div className="steps-image"
+
+                {/* <div className="steps-image"
                     data-aos="fade-left"
                     data-aos-offset="500"
                     data-aos-delay="400"
@@ -127,7 +144,7 @@ const Steps = () => {
                     data-aos-easing="ease-in-out"
                     data-aos-once="true">
                     <img src={image} alt="coinSteps" />
-                </div>
+                </div> */}
             </div>
         </Container>
     )

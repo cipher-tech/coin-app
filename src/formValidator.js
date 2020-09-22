@@ -5,6 +5,10 @@ import styled from "styled-components";
 import Button from "./components/button/button";
 
 const Container = styled.div`
+    width: 100%;
+   display: grid;
+   justify-items: center;
+   justify-self: center;
     .danger{
         color: ${props => props.theme.colorWhite};
         background: red !important;

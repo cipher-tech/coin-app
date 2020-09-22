@@ -2,12 +2,14 @@ const admin = "/admin"
 const masterAdmin = "/master-admin"
 // const host = "http://127.0.0.1:8080"
 const prod = false
-const server = "https://coin-app-ackend.herokuapp.com/api/"
+// const server = "https://coin-app-ackend.herokuapp.com/api/"
+const server = "https://api.cjgrandexchange.com/api/"
 const localhost = "http://localhost:8000/api/" ///192.168.43.95:8000
+
 const localImageLink = "http://localhost:8000/images/"
-const remoteImageLink = "http://nameOfHost/images/"
+const remoteImageLink = "http://api.cjgrandexchange.com/images/"
 const exchangeApiId= "12dc31345cfc42778258c4880347ceee"
-// moneyjs link = https://openexchangerates.org/api/latest.json?app_id=
+// moneyJs link = https://openexchangerates.org/api/latest.json?app_id=
 const routes = {
     exchangeApi: `https://openexchangerates.org/api/latest.json?app_id=${exchangeApiId}`,
     master: masterAdmin,
@@ -26,46 +28,46 @@ const routes = {
 
         getImage: prod ? remoteImageLink : localImageLink  ,
         login: (prod ? server : localhost) + 'login',
-        signUp: prod ? server : localhost + 'register',
-        resetPassword: prod ? server : localhost + 'passwordReset',
+        signUp: (prod ? server : localhost) + 'register',
+        resetPassword: (prod ? server : localhost) + 'passwordReset',
 
         getUser: (prod ? server : localhost) + 'user/get',
-        requestVerification: prod ? server : localhost + 'users/requestVerification',
-        verifyUsers: prod ? server : localhost + 'users/verify',
-        updateUsers: prod ? server : localhost + 'users/update',
-        updateUserInfo: prod ? server : localhost + 'users/updateUserInfo',
-        updateUserPassword: prod ? server : localhost + 'users/updateUserPassword',
-        userTransactions: prod ? server : localhost + 'users/userTransactions',
-        deleteUnverifirdUsers: prod ? server : localhost + 'users/verify-delete',
+        requestVerification: (prod ? server : localhost) + 'users/requestVerification',
+        verifyUsers: (prod ? server : localhost) + 'users/verify',
+        updateUsers: (prod ? server : localhost) + 'users/update',
+        updateUserInfo: (prod ? server : localhost) + 'users/updateUserInfo',
+        updateUserPassword: (prod ? server : localhost) + 'users/updateUserPassword',
+        userTransactions: (prod ? server : localhost) + 'users/userTransactions',
+        deleteUnverifirdUsers: (prod ? server : localhost) + 'users/verify-delete',
 
-        userBuyCoin: prod ? server : localhost + 'users/userBuyCoin',
-        userSellCoin: prod ? server : localhost + 'users/userSellCoin',
-        userSellCard: prod ? server : localhost + 'users/userSellCard',
+        userBuyCoin: (prod ? server : localhost) + 'users/userBuyCoin',
+        userSellCoin: (prod ? server : localhost) + 'users/userSellCoin',
+        userSellCard: (prod ? server : localhost) + 'users/userSellCard',
 
-        addPlan: prod ? server : localhost + 'admin/add-plan',
-        getPlan: prod ? server : localhost + 'admin/get-plan',
-        registerPlan: prod ? server : localhost + 'admin/register-plan',
+        addPlan: (prod ? server : localhost) + 'admin/add-plan',
+        getPlan: (prod ? server : localhost) + 'admin/get-plan',
+        registerPlan: (prod ? server : localhost) + 'admin/register-plan',
 
-        addRates: prod ? server : localhost + 'admin/add-rate',
-        getRates: prod ? server : localhost + 'admin/get-rate',
-        updateRates: prod ? server : localhost + 'admin/update-rate',
+        addRates: (prod ? server : localhost) + 'admin/add-rate',
+        getRates: (prod ? server : localhost) + 'admin/get-rate',
+        updateRates: (prod ? server : localhost) + 'admin/update-rate',
 
-        adminCreateGiftcard: prod ? server : localhost + 'admin/add-giftcard',
-        adminEditGiftcard: prod ? server : localhost + 'admin/edit-giftcard',
+        adminCreateGiftcard: (prod ? server : localhost) + 'admin/add-giftcard',
+        adminEditGiftcard: (prod ? server : localhost) + 'admin/edit-giftcard',
 
-        usersDeposit: prod ? server : localhost + 'users/deposit',
-        usersWidthdrawl: prod ? server : localhost + 'users/widthdrawl',
+        usersDeposit: (prod ? server : localhost) + 'users/deposit',
+        usersWidthdrawl: (prod ? server : localhost) + 'users/widthdrawl',
 
-        adminDeposits: prod ? server : localhost + 'admin/deposits',
-        adminWidthdrawl: prod ? server : localhost + 'admin/widthdrawls',
-        adminAcceptDeposit: prod ? server : localhost + 'admin/acceptDeposit',
-        adminAcceptWidthdrawl: prod ? server : localhost + 'admin/acceptWidthdrawl',
-        adminDeleteWidthdrawl: prod ? server : localhost + 'admin/delete-Widthdrawl',
-        adminDeleteDeposit: prod ? server : localhost + 'admin/delete-deposit',
+        adminDeposits: (prod ? server : localhost) + 'admin/deposits',
+        adminWidthdrawl: (prod ? server : localhost) + 'admin/widthdrawls',
+        adminAcceptDeposit: (prod ? server : localhost) + 'admin/acceptDeposit',
+        adminAcceptWidthdrawl: (prod ? server : localhost) + 'admin/acceptWidthdrawl',
+        adminDeleteWidthdrawl: (prod ? server : localhost) + 'admin/delete-Widthdrawl',
+        adminDeleteDeposit: (prod ? server : localhost) + 'admin/delete-deposit',
 
-        adminGetOrders:  prod ? server : localhost + 'admin/getOrders',
-        adminConfirmTransaction:  prod ? server : localhost + 'admin/confirmTransaction',
-        adminDestroyOrder:  prod ? server : localhost + 'admin/destroyTransaction',
+        adminGetOrders:  (prod ? server : localhost) + 'admin/getOrders',
+        adminConfirmTransaction:  (prod ? server : localhost) + 'admin/confirmTransaction',
+        adminDestroyOrder:  (prod ? server : localhost) + 'admin/destroyTransaction',
     },
 
     admin: {

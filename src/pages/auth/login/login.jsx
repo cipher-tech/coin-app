@@ -10,13 +10,14 @@ import envelope from "../../../images/svgIcons/envelope.svg"
 import { StyledInput } from '../../../components/styledComponents'
 import { FormValidator } from '../../../formValidator'
 import { ValidationMessage } from '../../../validationMessage'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import routes from '../../../navigation/routes'
 import { fetchUserInfoActionCreator } from '../../../reduxStore'
 import { connect } from 'react-redux'
 import { Modal, PopUpMessage } from '../../../components'
 import SecureLS from 'secure-ls'
+import { ContextData } from '../../../context/contextData'
 
 
 const Container = styled.div`
@@ -26,7 +27,7 @@ const Container = styled.div`
     place-items: center;
     min-height: 100vh;
     /* min-width: 100vh; */
-    background: ${props => props.theme.colorLight};
+    /* background: ${props => props.theme.colorLight}; */
     .login{
         grid-column: 2/6;
         /* height: 60vh; */
@@ -54,6 +55,7 @@ const Container = styled.div`
             background-repeat: no-repeat;
             background-position: 104px right; */
             .circle{
+                display:none;
                 position: absolute;
                 height: 20rem;
                 width: 20rem;
@@ -63,6 +65,7 @@ const Container = styled.div`
                 border-radius: 50%
             }
             .circle2{
+                display:none;
                 position: absolute;
                 height: 20rem;
                 width: 20rem;
@@ -104,6 +107,7 @@ const Container = styled.div`
                 box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
                 background: transparent;
+                cursor: pointer;
                 color: ${props => props.theme.colorLight};
                 /* border: none; */
                 margin: 1rem 1rem 4rem 1rem;
@@ -141,6 +145,7 @@ const Container = styled.div`
                 color: ${props => props.theme.colorPrimary};
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 500;
+                align-self: center;
             }
             &-message{
                 justify-self: center;
@@ -182,6 +187,7 @@ const Container = styled.div`
                 &-action{
                     font-weight: 700;
                     text-decoration: none;
+                    cursor: pointer;
                     &-red{
                         color: ${props => props.theme.colorError};
                     }
@@ -216,11 +222,10 @@ const Container = styled.div`
         }
     }
 `
-
 class Login extends Component {
+    static contextType = ContextData
     constructor(props) {
         super(props)
-
         this.modalState = {
             resetEmail: "",
         }
@@ -266,11 +271,12 @@ class Login extends Component {
                     }
                     // localStorage.userInfo = JSON.stringify(logInInfo)
 
-                    let ls = new SecureLS({encodingType: "rabbit"})
+                    let ls = new SecureLS({ encodingType: "rabbit" })
                     ls.set("userInfo", logInInfo)
-                    console.log( ls.get("userInfo"))
+                    console.log(ls.get("userInfo"))
                     this.props.history.push(routes.admin.index)
 
+                    this.props.modal && this.props.close() 
                 }
             })
             // .then(res => console.log(this.props.users))
@@ -279,39 +285,43 @@ class Login extends Component {
     }
     resetEmail = (data) => {
         console.log(data);
-        const {resetEmail} = data
+        const { resetEmail } = data
         // setIsLoading(true)
-        this.setState( state => { return  state.isLoading = true })
+        this.setState(state => { return state.isLoading = true })
 
-		// console.log('data :>> ', data);
-		Axios.post(`${routes.api.resetPassword}`, {email: resetEmail})
-			.then(res => {
-				if (res.data.status === "success") {
-                    this.setState((state, props) => { return { 
-                        popUpMessage: "Password reset Successfully",
+        // console.log('data :>> ', data);
+        Axios.post(`${routes.api.resetPassword}`, { email: resetEmail })
+            .then(res => {
+                if (res.data.status === "success") {
+                    this.setState((state, props) => {
+                        return {
+                            popUpMessage: "Password reset Successfully",
+                            showpopUpMessage: true,
+                            isLoading: false,
+                            isActive: false,
+                        }
+                    })
+
+                    // console.log(res.data);
+                    // setPopUpMessage("Added Successfully")
+                    // setShowPopUpMessage(true)
+                    // setIsLoading(false)
+
+                    // fetchAllRates(res.data.data)
+                    // setIsActive(false)
+                }
+            })
+            .catch(res => {
+                this.setState((state, props) => {
+                    return {
+                        error: !false,
                         showpopUpMessage: true,
+                        popUpMessage: "An error occurred while trying to Password reset. Make sure you are registered ",
                         isLoading: false,
                         isActive: false,
-                     }})
-                    
-					// console.log(res.data);
-					// setPopUpMessage("Added Successfully")
-                    // setShowPopUpMessage(true)
-					// setIsLoading(false)
-					
-					// fetchAllRates(res.data.data)
-					// setIsActive(false)
-                }
-			})
-			.catch(res => {
-                this.setState((state, props) => { return { 
-                    error: !false,
-                    showpopUpMessage: true,
-                    popUpMessage: "An error occured while trying to Password reset. Make sure you are registered ",
-                    isLoading: false,
-                    isActive: false,
-                 }})
-			})
+                    }
+                })
+            })
 
     }
     updateFormValue = (name, value) => {
@@ -321,22 +331,24 @@ class Login extends Component {
         this.setState({ [name]: value });
     }
     render() {
+        console.log(this.context);
+
         return (
             <Container>
-		{this.state.showpopUpMessage ? <PopUpMessage error={this.state.error}> {this.state.popUpMessage} <span onClick={() => this.setState({setShowPopUpMessage:false})}>✖</span> </PopUpMessage> : null}
+                {this.state.showpopUpMessage ? <PopUpMessage error={this.state.error}> {this.state.popUpMessage} <span onClick={() => this.setState({ setShowPopUpMessage: false })}>✖</span> </PopUpMessage> : null}
 
                 <div className="login">
                     <div className="login__side-left">
                         <div className="circle" />
                         <div className="circle2" />
-                        <p className="login__side-left-title">Welcome To Back</p>
+                        <p className="login__side-left-title">Welcome Back</p>
                         <p className="login__side-left-text">
                             Welcome, Login to your account to continue.
                             Remember, it’s more than just trading Bitcoin
                             and Gift Cards  experience
                             world class transaction processes.
                         </p>
-                        <Link to="sign-up" className="login__side-left-button"> Sign Up</Link>
+                        <span onClick={() => this.context.auth.toggleLoginSignUp("signUp")} className="login__side-left-button"> Sign Up</span>
                         {/* <button ></button> */}
                     </div>
                     <div className="login__side-right">
@@ -344,11 +356,12 @@ class Login extends Component {
                             <WelcomeSvg />
                         </div>
                         <div className="login__side-right-title">Create Account</div>
-                        <p className="login__side-right-message">
+                        {this.state.message ? <p className="login__side-right-message">
                             {this.state.message ? `${this.state.message}` : null}
                             <br />
                             {this.state.message ? `${this.state.messageDetails}` : null}
                         </p>
+                            : null}
                         <FormValidator buttonText={this.state.isLoading ? "loading..." : "Submit"} buttonClass="login__side-right-summit"
                             classname=" login__side-right-container "
                             data={this.state} rules={this.rules}
@@ -365,7 +378,7 @@ class Login extends Component {
                             </div>
                             <p className="login__side-right-isSugnedIn">
                                 Don't have an account?
-                            <Link to="sign-up" className="login__side-right-isSugnedIn-action"> Sign Up</Link>
+                            <span onClick={() => this.context.auth.toggleLoginSignUp("signUp")} className="login__side-right-isSugnedIn-action"> Sign Up</span>
                                 <br />
                             Forgot password?
                             <span className="login__side-right-isSugnedIn-action"
@@ -378,7 +391,7 @@ class Login extends Component {
                                 classname=" login__side-right-container-modal "
                                 data={this.state} rules={this.modalRule}
                                 submit={this.resetEmail}>
-                                <span onClick={() => this.setState({isActive: false})}>X</span>
+                                <span onClick={() => this.setState({ isActive: false })}>X</span>
                                 <div className="login__side-right-container-modal-form">
                                     <StyledInput name="resetEmail" handleChange={this.updateResetValue}
                                         value={this.state.resetEmail}

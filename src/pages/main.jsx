@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
-import { Head, Rates, Feature, Discount, Step,/*  Reach ,*/ Reviews, /* Foot */ /* Carusel */ } from '../components'
-import { Ourreachs } from '../components/ourReach'
+import { Head, Rates, Feature, /* Discount, */ Step,/*  Reach ,*/ Reviews, /* Foot */ /* Carusel */ } from '../components'
+// import { Ourreachs } from '../components/ourReach'
 
 export class Main extends Component {
     render() {
+        // const IsComingSoon = !false
         return (
             <>
-            {/* <Nav/> */}
-              
                 <Head/>
                 <Rates/>
                 <Feature/>
-                <Discount/>
+                {/* <Discount/> */}
                 <Step/>
-                {/* <Plans /> */}
-                <Ourreachs/>
-                {/* <Reach/> */}
+                {/* <Ourreachs/> */}
                 <Reviews/>
-                {/* <SiteStats/> */}
-
-                {/* <Foot/> */}
                 
             </>
         )

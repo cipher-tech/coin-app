@@ -6,7 +6,7 @@ import SingleCoinRates from "../admin/rates/singleCoinRates" //'../ rates/single
 import chattingSvg from "../../images/chattingSvg.svg"
 import BuySellComponent from '../../components/buySellComponent/buySellComponent'
 import { Modal } from '../../components'
-// import Rates from '../admin/rates/rates'
+import SellGiftCardComponent  from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
 
 const Container = styled.div`
     grid-column: 1/-1;
@@ -19,12 +19,13 @@ const Container = styled.div`
     position: relative;
     /* align-items: center; */
     place-self: center;
-    
+    grid-row: auto;
     .selectContainer{
         grid-column: 1/-1;
         justify-self: flex-end;
         display: flex;
         padding: 2rem;
+        height: fit-content;
         .region-select{
             background: transparent;
             padding: .5rem 1rem;
@@ -50,7 +51,7 @@ const Container = styled.div`
         position: relative;
         border-radius: 1rem;
         display: grid;
-        width: 90%;
+        max-width: 65rem;
         justify-self: center;
 
         .close{
@@ -70,20 +71,39 @@ const Container = styled.div`
             color: ${props => props.theme.colorSecondary};
         }
     }
+    .tab{
+        display: flex;
+        place-content: center;
+        width: 100%;
+        grid-column: 1/-1;
+        height: fit-content;
+        &-item{
+            padding: 1rem 3rem;
+            font-size: ${props => props.theme.font.xlarge};
+            color: ${props => props.theme.colorPrimary};
+            cursor: pointer;
+            /* font-weight : medium; */
+            text-align: center;
+        }
+        .active{
+            border-bottom: solid 2px ${props => props.theme.colorSecondary};
+        }
+    }
 `
 const UserBuySell = () => {
     const regionContext = useContext(ContextData)
     const [isModalActive, setIsModalActive] = useState(false)
+    const [showCoinOptions, setShowCoinOptions] = useState(!true)
     useEffect(() => {
         setTimeout(() => {
             // console.log(typeof +localStorage.counts);
-            
-            if(localStorage.counts && +localStorage.counts % 10 === 0){
+
+            if (localStorage.counts && +localStorage.counts % 10 === 0) {
                 setIsModalActive(true)
                 localStorage.counts = +localStorage.counts + 1
-            }else if(localStorage.counts){
+            } else if (localStorage.counts) {
                 localStorage.counts = +localStorage.counts + 1
-            }else{
+            } else {
                 setIsModalActive(true);
                 localStorage.counts = 1
             }
@@ -93,10 +113,13 @@ const UserBuySell = () => {
     const selectRegion = (e) => {
         regionContext.changeRegion(e.target.value)
     }
+    const switchTab = (value) => {
+        setShowCoinOptions(value)
+    }
     return (
         <Container>
             <p className="selectContainer">
-            
+
                 <span title="Select Country" className="">
                     <select className="region-select" defaultValue={localStorage.region ? JSON.parse(localStorage.region).id : "nigeria"} onChange={selectRegion} name="language" id="lang">
                         <option name="nigeria" value="nigeria" > Nigeria </option>
@@ -119,9 +142,18 @@ const UserBuySell = () => {
                     </p>
                 </div>
             </Modal>
+
+            <p className="tab">
+                <span className={`tab-item ${showCoinOptions ? "active" : null}`} onClick={() => switchTab(true)}>Coins</span>
+                <span className={`tab-item ${showCoinOptions ? null : "active" }`} onClick={() => switchTab(false)}>GiftCards</span>
+            </p>
+
+            {
+                showCoinOptions ?
             <SingleCoinRates />
-            {/* <Rates /> */}
-            <BuySellComponent />
+            :
+            <SellGiftCardComponent />
+            }
         </Container>
     )
 }

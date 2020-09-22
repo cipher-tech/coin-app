@@ -133,7 +133,7 @@ function DepositRequest(props) {
 
     const [isModalActive, setIsModalActive] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState('bank')
-    const [bitcoinAddress] = useState("d763hei899o889hvy889yvreiohvo99e9jv8r98re8viu89h")
+    const [bitcoinAddress] = useState(process.env.REACT_APP_WALLET_ADDRESS)
     const [amountInput, setAmountInput] = useState('bank')
 
     // const updateFormValue = (name, value) => {
@@ -148,6 +148,13 @@ function DepositRequest(props) {
     const modalRule = {
         amount: { required: true, minlength: 2 },
         // paymentOptions: { required: true },
+    }
+    async function copy(type) {
+        if (type === "refId") {
+            navigator.clipboard.writeText(refrenceId)
+            return
+        }
+        navigator.clipboard.writeText(bitcoinAddress)
     }
     const handleSubmit = (e) => {
         if (state?.amount.length < 1) {
@@ -210,14 +217,7 @@ function DepositRequest(props) {
     //     state[name] = value
     //     console.log(state);
     // }
-    async function copy(e) {
-
-        if (e === "refId") {
-            navigator.clipboard.writeText(refrenceId)
-        } else {
-            navigator.clipboard.writeText(bitcoinAddress)
-        }
-    }
+    
     // let createImage = (file) => {
     //     let reader = new FileReader();
     //     reader.onload = (e) => {
