@@ -58,7 +58,8 @@ const Container = styled.div`
             height: 2rem;
             width: 2rem;
             border-radius: 50%;
-            background: linear-gradient(to bottom , ${props => props.theme.colorPrimary} 40% ,  ${props => props.theme.colorSecondary} ) ;
+            background: #000000e3;
+            /* background: linear-gradient(to bottom , ${props => props.theme.colorPrimary} 40% ,  ${props => props.theme.colorSecondary} ) ; */
             /* transform: scale(0); */
         }
     }
@@ -208,9 +209,9 @@ const NavbarComponent = (props) => {
                 data-aos-duration="600"
                 data-aos-easing="ease-in-out"
                 data-aos-once="true">
-                <div className="navbar-logo">
+                <Link to={routes.public.home} className="navbar-logo">
                     <img src={logo} alt="" className="navbar-logo--img" />
-                </div>
+                </Link>
                 <ul className="navbar-list">
                     <Link to={routes.public.home} className="navbar-list-item">Home</Link>
                     <Link to={routes.public.buy_sell} className="navbar-list-item">Buy/Sell</Link>

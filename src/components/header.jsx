@@ -99,7 +99,7 @@ const Container = styled.div`
         .info-text{
             grid-column: 1/-1;
             align-self: center;
-
+            z-index: 200;
             &__welcome{
                 padding: 1.5rem 0rem;
                 font-weight: 300;
@@ -209,7 +209,7 @@ const Header = (props) => {
                 params={{
                     "particles": {
                         "number": {
-                            "value": 160,
+                            "value": 100,
                             "density": {
                                 "enable": false
                             }
@@ -262,6 +262,7 @@ const Header = (props) => {
                     width: "100%",
                     top: "0px",
                     left: "0",
+                    zIndex: 1,
                 }} />
         </Container>
     )

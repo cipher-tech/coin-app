@@ -269,7 +269,7 @@ function MasterDashboardLayout(props) {
 
                 <ul className="sideNav__container">
                     <li className="sideNav__container-item-photo">
-                        <img src={avatar1} alt="avatar preson" />
+                        <img src={avatar1} alt="avatar person" />
                         <p className="sideNav__container-item-photo--text">
                             {name} <br />
                             {email}
@@ -308,7 +308,7 @@ function MasterDashboardLayout(props) {
                             <Coins className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Transction
+                            Transaction
                         </span>
                     </Link>
                     <Link onClick={closeSideNav} to={routes.masterAdmin.orders} className="sideNav__container-item">
@@ -392,7 +392,7 @@ function MasterDashboardLayout(props) {
                         <Link to={routes.admin.updateInfo} className="">
                             <Cog className="title_nav--icons-item" />
                         </Link>
-                        <span title={status === "verified" ? "Account verified" : "Account Unvrifird"} className="indicator">
+                        <span title={status === "verified" ? "Account verified" : "Account Unverified"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>
 

@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 // import image from "../images/footerImg.jpg"
-import {ReactComponent as MapMarker} from "../images/svgIcons/map-marker.svg"
-import {ReactComponent as Phone} from "../images/svgIcons/phone-handset.svg"
-import {ReactComponent as Envelope} from "../images/svgIcons/envelope.svg"
-import {ReactComponent as Instagram} from "../images/svgIcons/instagram.svg"
+import { ReactComponent as MapMarker } from "../images/svgIcons/map-marker.svg"
+import { ReactComponent as Phone } from "../images/svgIcons/phone-handset.svg"
+import { ReactComponent as Envelope } from "../images/svgIcons/envelope.svg"
+import { ReactComponent as Instagram } from "../images/svgIcons/instagram.svg"
 import logo from "../images/logo.svg"
 import { Link } from 'react-router-dom'
 import routes from '../navigation/routes'
@@ -39,7 +39,9 @@ const Container = styled.div`
         width: 100%;
         height: 100%;
         background: #020202 ;
-        
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+            grid-row: end;
+        }
         &-img{
             align-self: center;
             height: 5rem;
@@ -74,7 +76,7 @@ const Container = styled.div`
             color: ${props => props.theme.colorTertiary};
             padding-top: 3rem;
             display: flex;
-            width: 71%;
+            /* width: 71%; */
             align-self: center;
         }
     }
@@ -83,22 +85,25 @@ const Container = styled.div`
         display: grid;
         padding: 2rem 3.5rem;
         justify-items: center;
-        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+            grid-template-columns: repeat(auto-fit, minmax(max-content 1fr));
+            justify-items: center;
+        }
     }
     .footer-list{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-content: center;
+        justify-content: center;
+        align-content: flex-start;
         list-style-type: none;
         text-align: left;
         width: max-content;
-        align-self: center;
-        &-item:first-child{
-            font-size: ${props => props.theme.font.large};
-            font-weight: 500;
-            padding: 2rem .5rem;
-            color: ${props => props.theme.colorTertiary}
+        align-self: flex-start;
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+            justify-content: center;
+            width: 100%;
+            
         }
         &-item{
             display: flex;
@@ -113,6 +118,22 @@ const Container = styled.div`
                     height: 100%;
                 }
             }
+            @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+                justify-content: flex-start;
+                width: 100%;
+            }
+        }
+        &-item:first-child{
+            font-size: ${props => props.theme.font.large};
+            text-align: center;
+            font-weight: 500;
+            padding: 2rem .5rem;
+            color: ${props => props.theme.colorTertiary};
+            @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
+                justify-content: center;
+                width: 100%;
+                
+            }
         }
     }
 `
@@ -126,12 +147,12 @@ const Footer = (props) => {
                     <img src={logo} alt="logo" />
                 </span>
                 <p className="footer-options__socialLink">
-                    Follow us on instagram for updates 
-                    <br/>
+                    Follow us on instagram for updates
+                    <br />
                     <a href="/"> <Instagram /> cjgrandexchange</a>
                 </p>
                 <span className="footer-options__credit">
-                   © 2020 Cj Grand Exchange
+                    © 2020 Cj Grand Exchange
                 </span>
             </div>
             <div className="footer-groupList">
@@ -141,16 +162,17 @@ const Footer = (props) => {
                     <Link to="/rates" className="footer-list-item"> Rates</Link>
                     <Link to="/faq" className="footer-list-item"> FAQ</Link>
                     <Link to={routes.public.about} className="footer-list-item">About</Link>
-                </ul>
-                <ul className="footer-list">
-                    <li className="footer-list-item">  </li>
                     <Link to={routes.public.policies} className="footer-list-item">Policies</Link>
                 </ul>
+                {/* <ul className="footer-list">
+                    <li className="footer-list-item">  </li>
+                </ul> */}
                 <ul className="footer-list">
                     <li className="footer-list-item"> Contact </li>
                     <li className="footer-list-item"> <MapMarker className="footer-list-item__icon" /> Nigeria </li>
-                    <li className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 906 408 2900 <br/> +234 810 133 3244 </li>
-                    <li className="footer-list-item"> <Envelope className="footer-list-item__icon" /> cjgrandexchange@gmail.com</li>
+                    <a href="tel:+2349064082900" className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 906 408 2900 </a>
+                    <a href="tel:+2348101333244" className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 810 133 3244 </a>
+                    <a href="mailto:cjgrandexchange@gmail.com" className="footer-list-item"> <Envelope className="footer-list-item__icon" /> cjgrandexchange@gmail.com</a>
                 </ul>
 
             </div>

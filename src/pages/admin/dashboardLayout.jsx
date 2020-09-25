@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled/* , { keyframes } */ from 'styled-components'
 import { useSpring, animated } from "react-spring"
 
 import { ReactComponent as Home } from "../../images/svgIcons/home.svg"
@@ -26,15 +26,15 @@ import logOut from '../../components/hooks/logOut'
 import { ContextData } from '../../context/contextData'
 import { Storage } from '../../components'
 
-const blink = keyframes`
-    from{ 
-        opacity: 0
-    }
+// const blink = keyframes`
+//     from{ 
+//         opacity: 0
+//     }
 
-    to{
-        opacity: 1;
-    }
-`
+//     to{
+//         opacity: 1;
+//     }
+// `
 const Container = styled.div`
 grid-column: 1/-1;
 min-height: 100vh;
@@ -105,7 +105,6 @@ background: ${props => props.theme.colorPrimary};
                 width: 1.9rem;
                 padding: 0rem .1rem;
                 transition: all .3s ease-in-out .1s;
-                cursor: pointer;
                 justify-self: ${props => props.sidenavIsOpen ? "center" : "flex-start"};
                 &-svg{
                     /* height: 3rem; */
@@ -205,7 +204,6 @@ background: ${props => props.theme.colorPrimary};
     z-index: 0;
     border-radius: 2rem 0 0 2rem;
     min-height: 100%;
-    overflow: hidden;
     .title_nav{
         background: ${props => props.theme.colorWhite};
         grid-column: 1/-1;
@@ -216,27 +214,19 @@ background: ${props => props.theme.colorPrimary};
         font-size: ${props => props.theme.font.large};
         justify-content: space-between;
         z-index:40;
-        /* box-shadow: .1rem .2rem 30px rgba(0,0,0, .3); */
+        box-shadow: .1rem .2rem 30px rgba(0,0,0, .3);
+        @media only screen and (max-width: ${props => props.theme.breakPoints.bpxSmall}) {
+            padding: .5rem 1rem;
+        }
         &--name{
             text-transform: capitalize;
+            @media only screen and (max-width: ${props => props.theme.breakPoints.bpxSmall}) {
+                display: none;
+            }
         }
         &--icons{
             display: flex;
             padding: 0;
-            .region-select{
-                background: transparent;
-                padding: .5rem 1rem;
-                color: ${props => props.theme.colorDark};
-                border-radius: .5rem;
-                /* margin-bottom: 1rem; */
-                option{
-                    color: ${props => props.theme.colorPrimary}
-                }
-                &:focus{
-                    outline: none;
-                }
-            }
-
             .indicator{
                 position: relative;
                 &::before{
@@ -248,7 +238,6 @@ background: ${props => props.theme.colorPrimary};
                     background: ${props => props.status ? props.theme.colorSuccess : props.theme.colorError};
                     top: -.4rem;
                     right: .4rem;
-                    animation: ${blink} 1.5s ease-in-out ${props => props.status === "verified" ? "" : "infinite"};
                 }
             }
             &-item{
@@ -263,17 +252,7 @@ background: ${props => props.theme.colorPrimary};
         
     }
 }
-.dashboard{
-    grid-column: 2/ -1;
-    background: ${props => props.theme.colorLight};
-    min-height: 100vh;
-    min-width: 100%;
-    padding: 2rem 3rem;
-    display: grid;
-    z-index: 30;
-    border-radius: 2rem 0 0 2rem;
-    
-}
+
 `
 // eslint-disable-next-line
 {
@@ -291,7 +270,7 @@ function DashboardLayout(props) {
     const status =  Storage.get("userInfo") ?  Storage.get("userInfo")?.user?.status : null
 
     const [sideNavIsOpen, setSideNavIsOpen] = useState(!true)
-    const [sideNavmobile, setSideNavmobile] = useState(window.matchMedia('(max-width: 720px)').matches ? "6rem" : "6rem")
+    const [sideNavmobile, setSideNavmobile] = useState(window.matchMedia('(max-width: 720px)').matches ? "5rem" : "5rem")
     // const [userStatus] = useState(status === "verified")
     const sideNavWidth = "28rem";
     const spring = useSpring({
@@ -299,7 +278,7 @@ function DashboardLayout(props) {
     })
 
     useEffect(() => {
-        setSideNavmobile(window.matchMedia('(max-width: 720px)').matches ? "6rem" : "6rem")
+        setSideNavmobile(window.matchMedia('(max-width: 720px)').matches ? "5rem" : "5rem")
     }, [sideNavmobile])
     const toggleSideNav = () => {
         setSideNavIsOpen(!sideNavIsOpen)
@@ -316,7 +295,7 @@ function DashboardLayout(props) {
 
                 <ul className="sideNav__container">
                     <li className="sideNav__container-item-photo">
-                        <img src={avatar1} alt="avatar preson" />
+                        <img src={avatar1} alt="avatar person" />
                         <p className="sideNav__container-item-photo--text">
                             {name} <br />
                             {email}
@@ -346,7 +325,7 @@ function DashboardLayout(props) {
                             <Coins className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Transction
+                            Transaction
                         </span>
                     </Link>
 
@@ -406,7 +385,7 @@ function DashboardLayout(props) {
                             <SendMoney className="sideNav__container-item--icon-svg" />
                         </span>
                         <span className="sideNav__container-item--text">
-                            Send/Recive Money
+                            Send/Receive Money
                         </span>
                     </Link>
 
@@ -428,7 +407,7 @@ function DashboardLayout(props) {
                         <Link to={routes.admin.updateInfo} className="">
                             <Cog className="title_nav--icons-item" />
                         </Link>
-                        <span title={status === "verified" ? "Account verified" : "Account Unvrifird"} className="indicator">
+                        <span title={status === "verified" ? "Account verified" : "Account Unverified"} className="indicator">
                             <Smile className="title_nav--icons-item" />
                         </span>
                         <span title="logout" className="">
@@ -441,7 +420,7 @@ function DashboardLayout(props) {
                                 <option name="nigeria" value="nigeria" > Select Country </option>
                                 <option name="nigeria" value="nigeria" > Nigeria </option>
                                 <option name="ghana" value="ghana"> Ghana </option>
-                                <option name="cameroon" value="cameroon">Carmeroon</option>
+                                <option name="cameroon" value="cameroon">Cameroon</option>
                             </select>
                         </span>
                     </p>

@@ -5,15 +5,17 @@ import fx from "money";
 import Axios from "axios";
 import qrcode from "../../images/qrcode.png";
 
-import BCH_thumbnail from "../../images/BCH_thumbnail.png";
-import LTC_thumbnail from "../../images/LTC_thumbnail.png";
+
 import ETH_thumbnail from "../../images/ETH_thumbnail.png";
-import XBT_thumbnail_alt from "../../images/XBT_thumbnail_alt.png";
+import amazonIcon from "../../images/svgIcons/amazon-icon.svg";
+import iTunsIcon from "../../images/svgIcons/apple-itunes.svg";
+import playStoreIcon from "../../images/svgIcons/google-play-store.svg";
+import steam from "../../images/svgIcons/steam.svg";
 // import { ReactComponent as BCHIcon } from "../../images/svgIcons/bitcoinSvg.svg";
 // import { ReactComponent as ETHIcon } from "../../images/svgIcons/ethereumSvg.svg";
 // import { ReactComponent as LTCIcon } from "../../images/svgIcons/blockchainSvg.svg";
 // import { ReactComponent as XBTIcon } from "../../images/svgIcons/blockchainSvg.svg";
-import { ReactComponent as Spinner } from "../../images/svgIcons/spinner.svg";
+// import { ReactComponent as Spinner } from "../../images/svgIcons/spinner.svg";
 
 import routes, { defaultcurrencies } from "../../navigation/routes";
 import { fetchAllRatesActionCreator } from "../../reduxStore";
@@ -22,7 +24,7 @@ import { ValidationMessage } from "../../validationMessage";
 import { ContextData } from "../../context/contextData";
 import { Modal, PopUpMessage, Storage } from "../index";
 import { FormValidator } from "../../formValidator";
-import { StyledInput } from "../styledComponents";
+// import { StyledInput } from "../styledComponents";
 // import PaginatedTable from '../../../components/table/tablePagination'
 // import CoinWidget from '../../../components/widget/wigjet'
 
@@ -236,7 +238,7 @@ const Container = styled.div`
                 }
                 .tab{
                     border-bottom: solid 2px ${(props) =>
-        props.theme.colorPrimary};
+                    props.theme.colorPrimary};
                     transition: all .2s linear;
                 }
             }
@@ -307,7 +309,7 @@ const Container = styled.div`
                 opacity: .8;
                 border: solid 1px ${(props) => props.theme.colorPrimary};
                 border-radius: .5rem;
-
+                width: 100%;
                 &::before{
                     content: "$";
                     position: absolute;
@@ -384,10 +386,11 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     // const current = 4099999
 
     const icons = [
-        BCH_thumbnail,
+        amazonIcon,
+        steam,
+        playStoreIcon,
+        iTunsIcon,
         ETH_thumbnail,
-        LTC_thumbnail,
-        XBT_thumbnail_alt,
     ];
 
     const [selectedCard, setSelectedCard] = useState([]);
@@ -395,7 +398,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     // const [selectedCardImage, setSelectedCardImage] = useState(icons[0])
     // const [cardAmount, setCardAmount] = useState('');
     const [giftCardAmount, setGiftCardAmount] = useState('');
-    const [input, setInput] = useState("");
+    const [input, /* setInput */] = useState("");
     const [userEmail, setUserEmail] = useState("");
     // const [rate, setRate] = useState(0);
     // const [dollarSellingPrice, setDollarSellingPrice] = useState("");
@@ -405,16 +408,16 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const [isModalActive, setIsModalActive] = useState(false);
     const [popUpMessage, setPopUpMessage] = useState(null);
     const [showpopUpMessage, setShowPopUpMessage] = useState(false);
-    const [hasError, setHasError] = useState(false);
+    const [hasError, /* setHasError */] = useState(false);
     const [refrenceId, setRefrenceId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [, setIsCopied] = useState('')
-    const [account_no, setAccount_no] = useState('')
+    const [account_no, /* setAccount_no */] = useState('')
     const [card_id, setCard_id] = useState('')
     const [SelectedCardCountry, setSelectedCardCountry] = useState('')
     const [SelectedCardRange, setSelectedCardRange] = useState('')
     const [giftCardImage, setGiftCardImage] = useState(null)
-    const [error, setError] = useState(false)
+    const [/* error */, setError] = useState(false)
 
 
     const regionContext = useContext(ContextData);
@@ -628,7 +631,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                             }`}
                                         onClick={() => updateSelectedCard(coin)}
                                     >
-                                        <img src={icons[1]} alt="bitcoin" />
+                                        <img src={icons[index]} alt="bitcoin" />
                                         <p className="coin-options__types--container--item--text">
                                             {coin.name}
                                         </p>
@@ -804,7 +807,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
 }
 const mapStateToProps = ({ rates }) => ({
     rates: rates,
-    //ates?.allRates?.filter(item => item.type === "card")
+    //rates?.allRates?.filter(item => item.type === "card")
 });
 
 const mapDispatchToProps = {

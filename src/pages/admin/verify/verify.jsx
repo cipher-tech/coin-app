@@ -162,7 +162,7 @@ function UserVerify(props) {
         reader.readAsDataURL(file);
     }
     let handleSubmit = async () => {
-        await setError(true)
+        await setError(!true)
         await setShowPopUpMessage(false)
         await setIsLoading(true)
 
@@ -198,7 +198,7 @@ function UserVerify(props) {
                 setPopUpMessage("An error occurred while uploading image. Try again or contact admin")
                 setError(true)
                 setShowPopUpMessage(true)
-                setIsLoading(!true)
+                setIsLoading(false)
 
                 // setMessage("An error occurred while uploading image. Try again or contact admin")
             })

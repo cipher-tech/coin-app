@@ -21,7 +21,7 @@ import { ContextData } from '../../../context/contextData'
 
 
 const Container = styled.div`
-    grid-column: 1/-1;
+   grid-column: 1/-1;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     place-items: center;
@@ -33,15 +33,16 @@ const Container = styled.div`
         /* height: 60vh; */
         display: grid;
         grid-template-columns: 40% 1fr;
+        margin: 5rem 0 ;
         width: 100%;
         box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
         -0.2rem -0.4rem 10px rgba(255,255,255, .3);
         background: ${props => props.theme.colorLight};
-        /* overflow: hidden; */
+        overflow: hidden;
         border-radius: .9rem;
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium2}) {
             grid-column: 1/-1;
-            width: 90%;
+            /* width: 90%; */
 
         }
 
@@ -63,7 +64,7 @@ const Container = styled.div`
                 top: -10rem;
                 background: #eee;
                 border-radius: 50%
-            }
+            } 
             .circle2{
                 display:none;
                 position: absolute;
@@ -102,11 +103,11 @@ const Container = styled.div`
                 padding: 1rem 4.5rem;
                 font-size: ${props => props.theme.font.xlarge};
                 border-radius: 20rem;
-                text-decoration: none;
                 border: 1px solid ${props => props.theme.colorLight};
                 box-shadow: .2rem .4rem 10px rgba(0,0,0, .3),
                 -0.2rem -0.4rem 20px rgba(255,255,255, .3);
                 background: transparent;
+                text-decoration: none;
                 cursor: pointer;
                 color: ${props => props.theme.colorLight};
                 /* border: none; */
@@ -131,6 +132,7 @@ const Container = styled.div`
             display: grid;
             justify-items: center;
             @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium2}) {
+                padding: 1rem;
                 grid-column: 1/-1;
             }
             &-image{
@@ -145,7 +147,10 @@ const Container = styled.div`
                 color: ${props => props.theme.colorPrimary};
                 font-size: ${props => props.theme.font.larger};
                 font-weight: 500;
-                align-self: center;
+                @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium2}) {
+                    width: 100%;
+                    text-align: center;
+                }
             }
             &-message{
                 justify-self: center;
@@ -157,23 +162,9 @@ const Container = styled.div`
             }
             &-container{
                 justify-self: flex-start;
-                width: 100%;
+                width: auto;
                 display: grid;
                 justify-items: center;
-
-                &-modal{
-                    background: white;
-                    /* width: 30rem; */
-                    padding: 3rem;
-                    /* height: 40rem; */
-                    align-self: center;
-                    border-radius: 1rem;
-                    color: ${props => props.theme.colorPrimary};
-                    &-form{
-                        /* justify-self: flex-start; */
-                        width: 95%;
-                    }
-                }
             }
             &-form{
                 /* justify-self: flex-start; */
@@ -184,6 +175,11 @@ const Container = styled.div`
                 text-align: left;
                 width: 70%;
                 color: ${props => props.theme.colorPrimary};
+                @media only screen and (max-width: ${props => props.theme.breakPoints.bpMedium2}) {
+                    width: 100%;
+                    padding: 2rem;
+                    text-align: center;
+                }
                 &-action{
                     font-weight: 700;
                     text-decoration: none;
@@ -355,7 +351,7 @@ class Login extends Component {
                         <div className="login__side-right-image">
                             <WelcomeSvg />
                         </div>
-                        <div className="login__side-right-title">Create Account</div>
+                        <div className="login__side-right-title">Login To Account</div>
                         {this.state.message ? <p className="login__side-right-message">
                             {this.state.message ? `${this.state.message}` : null}
                             <br />

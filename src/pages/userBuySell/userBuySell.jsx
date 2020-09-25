@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { ContextData } from '../../context/contextData'
 import SingleCoinRates from "../admin/rates/singleCoinRates" //'../ rates/singleCoinRates'
 import chattingSvg from "../../images/chattingSvg.svg"
-import BuySellComponent from '../../components/buySellComponent/buySellComponent'
+// import BuySellComponent from '../../components/buySellComponent/buySellComponent'
 import { Modal } from '../../components'
 import SellGiftCardComponent  from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
 
@@ -93,7 +93,7 @@ const Container = styled.div`
 const UserBuySell = () => {
     const regionContext = useContext(ContextData)
     const [isModalActive, setIsModalActive] = useState(false)
-    const [showCoinOptions, setShowCoinOptions] = useState(!true)
+    const [showCoinOptions, setShowCoinOptions] = useState(true)
     useEffect(() => {
         setTimeout(() => {
             // console.log(typeof +localStorage.counts);

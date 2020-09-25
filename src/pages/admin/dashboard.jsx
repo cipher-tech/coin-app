@@ -20,17 +20,14 @@ const Container = styled.div`
     .dashboard{
     grid-column: 2/ -1;
     background: ${props => props.theme.colorLight};
-    min-height: 100%;
+    min-height: 100vh;
     min-width: 100%;
-    padding: 2rem 3rem;
+    padding: 2rem 0rem;
     display: grid;
-    grid-template-rows: repeat(3,max-content);
     z-index: 0;
     /* place-items: center; */
     border-radius: 2rem 0 0 2rem;
     &__title{   
-        height: max-content;
-        align-self: flex-start;
         font-weight: 500;
         color: ${props => props.theme.colorPrimary};
         font-family: ProximaNovaSoftW03-Regular;
@@ -41,7 +38,6 @@ const Container = styled.div`
         justify-items: center;
         grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
         gap: 1rem;
-        margin: 3rem 1rem;
 
         &-items{
             /* grid-column: 1/-1; */
@@ -114,17 +110,17 @@ const Container = styled.div`
         grid-column: 2/-1;
         /* width: 100%; */
         grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-        gap: 1rem;
+        gap: 3rem;
         text-align: center;
         display: grid;
         object-fit: cover;
-        & > img{
+        img{
             width: 100%;
             /* height: 100%; */
             /* object-fit: cover; */
         }
     }
-}   
+    }
 `
 const Dashboard = ({ fetchUserInfo, user = 0 }) => {
 
@@ -145,7 +141,7 @@ const Dashboard = ({ fetchUserInfo, user = 0 }) => {
                             isLoggedIn:  Storage.get("userInfo").isLoggedIn,
                             user: res.data.data,
                         }
-                        // console.log('userdata :>> ', logInInfo);
+                        // console.log('userData :>> ', logInInfo);
                         Storage.set("userInfo", logInInfo)
                         // console.log( ls.get("userInfo"))
                         fetchUserInfo(res.data.data)

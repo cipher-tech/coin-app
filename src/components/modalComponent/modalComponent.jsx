@@ -12,9 +12,9 @@ const Container = styled.div`
     left: 0;
     height: 100%;
     width: 100%;
-    background: #00000070;
+    background: #000000e3;
     overflow: scroll;
-    z-index: 1100;
+    z-index: 2100;
     /* padding-top: 6rem; */
     
     .closeButton{

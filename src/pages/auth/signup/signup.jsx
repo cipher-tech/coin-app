@@ -231,21 +231,23 @@ export default class SignUp extends Component {
             email: { required: true, minlength: 4, email: true },
             password: { required: true, minlength: 6, },
             phone: { required: true, minlength: 6, },
-            last_name: { required: true, minlength: 6, },
-            first_name: { required: true, minlength: 6, },
+            last_name: { required: true, minlength: 3, },
+            first_name: { required: true, minlength: 3, },
         }
     }
     submit = (data) => {
         this.setState({ isLoading: true })
         Axios.post(routes.api.signUp, data) //routes.api.signUp
             .then(res => {
-                console.log(res.data);
                 if (res.data.status) {
-                    this.setState({ isLoading: false })
+                    this.setState({ isLoading: false, message: ''  })
+                    this.context.auth.toggleLoginSignUp("login")
+                    
+                    console.log(res.data.status);
                     this.props.history.push(routes.public.login)
                     this.props.modal && this.props.close() 
                     return
-                } else {
+                } else  if (res.data.status === false) {
                     this.setState({ message: "An error Occurred While loading. Please check your details and try again.", isLoading: false })
                     this.setState({ isLoading: false })
                     return
