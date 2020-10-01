@@ -327,7 +327,7 @@ function AdminRates({ fetchAllRates, rates, coinOnlyRates, cardOnlyRates }) {
 				}
 			})
 			.catch(res => {
-				setPopUpMessage("An error occured while uploading.")
+				setPopUpMessage("An error occurred while uploading.")
 				setError(true)
 				setShowPopUpMessage(true)
 				setIsLoading(!true)

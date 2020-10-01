@@ -109,11 +109,6 @@ const Container = styled.div`
         text-align: center;
         display: grid;
         object-fit: cover;
-        img{
-            width: 100%;
-            /* height: 100%; */
-            /* object-fit: cover; */
-        }
     }
     }
 `

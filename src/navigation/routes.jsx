@@ -4,7 +4,7 @@ const masterAdmin = "/master-admin"
 const prod = !false
 // const server = "https://coin-app-ackend.herokuapp.com/api/"
 const server = "https://api.cjgrandexchange.com/api/"
-const localhost = "http://192.168.43.87:8000/api/" ///192.168.43.95:8000
+const localhost = "http://localhost:8000/api/" ///192.168.43.95:8000
 
 const localImageLink = "http://localhost:8000/images/"
 const remoteImageLink = "http://api.cjgrandexchange.com/images/"

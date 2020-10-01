@@ -44,6 +44,7 @@ const Container = styled.div`
     background: ${(props) => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
     z-index: 30;
+    margin-top: 1rem;
     /* position: relative; */
     
     .loadingSpinner{

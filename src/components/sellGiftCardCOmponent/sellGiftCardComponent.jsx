@@ -42,6 +42,7 @@ const Container = styled.div`
     min-height: 100%;
     min-width: 100%;
     padding: 1.5rem;
+    margin-top: 1rem;
     place-items: flex-start;
     background: ${(props) => props.theme.colorLight};
     border-radius: 2rem 0 0 2rem;
@@ -112,6 +113,9 @@ const Container = styled.div`
            flex-direction: column-reverse;
         }
 
+        .capitalize{
+            text-transform: capitalize;
+        }
         &-options{
             display: grid;
             align-self: flex-start;
@@ -382,7 +386,8 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     //     ? ""
     //     : Storage.get("userInfo")?.user?.status || "";
 
-    const coins = rates?.allRates;
+    const coins = rates?.allRates.filter(item => item.type === "card");
+    console.log("coins >>>", coins);
     // const current = 4099999
 
     const icons = [
@@ -408,16 +413,18 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const [isModalActive, setIsModalActive] = useState(false);
     const [popUpMessage, setPopUpMessage] = useState(null);
     const [showpopUpMessage, setShowPopUpMessage] = useState(false);
-    const [hasError, /* setHasError */] = useState(false);
+    const [hasError, setHasError] = useState(false);
     const [refrenceId, setRefrenceId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [, setIsCopied] = useState('')
     const [account_no, /* setAccount_no */] = useState('')
-    const [card_id, setCard_id] = useState('')
+    // const [card_id, setCard_id] = useState('')
     const [SelectedCardCountry, setSelectedCardCountry] = useState('')
-    const [SelectedCardRange, setSelectedCardRange] = useState('')
+    const [filteredCardCountry, setFilteredCardCountry] = useState({})
+    const [filteredCardClass, setFilteredCardClass] = useState({})
+    // const [SelectedCardRange, setSelectedCardRange] = useState('')
     const [giftCardImage, setGiftCardImage] = useState(null)
-    const [/* error */, setError] = useState(false)
+    // const [/* error */, setHasError] = useState(false)
 
 
     const regionContext = useContext(ContextData);
@@ -434,9 +441,9 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const CardState = {
         amount: giftCardAmount,
         account_no: account_no,
-        card_id: card_id,
+        // card_id: card_id,
         userEmail: userEmail,
-        range: SelectedCardRange,
+        // range: SelectedCardRange,
         class: selectedCardClass,
         country: SelectedCardCountry
     }
@@ -489,7 +496,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const updateSelectedCard = (coin, allCoins) => {
         /* get all coins of the same name */
         /* get the different classes(range) of a coin/card */
-        console.log(selectedCardClass);
+        // console.log(selectedCardClass);
 
         /* convert rate to local currency */
         if (!coin.converted) {
@@ -503,16 +510,28 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
         }
         //to notify that coin buying and selling prop has been converted to the accurate region
         coin.converted = true
+
+        /* filter the card attributes */
+        function filterAttributes(a, prop) {
+            var trimmedAttribute = {}
+            a.filter((attribute) => (
+                trimmedAttribute.hasOwnProperty(attribute[prop]) ? false : (trimmedAttribute[attribute[prop]] = true)
+            ));
+            return trimmedAttribute;
+        }
+        setFilteredCardCountry(filterAttributes(coin.attributes, "country"))
+        setFilteredCardClass(filterAttributes(coin.attributes, "class"))
+
         setSelectedCard(coin);
     };
 
     const sellButton = async (data) => {
 
         if (!giftCardImage) {
-            setPopUpMessage("must include card image")
-            setError(true)
-            setShowPopUpMessage(true)
-            setIsLoading(!true)
+            await setPopUpMessage("must include card image")
+            await setHasError(true)
+            await setShowPopUpMessage(true)
+            await setIsLoading(false)
             return
         }
         const user_data = {
@@ -520,14 +539,15 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
             amount: data.amount,
             action: "sell",
             type: selectedCard.name,
-            card_id: data.card_id,
+            // card_id: data.card_id,
             cardImage: giftCardImage,
             class: selectedCardClass,
             country: SelectedCardCountry,
-            range: SelectedCardRange,
+            // range: SelectedCardRange,
             email: userEmail
         }
-        setIsLoading(true)
+        await setIsLoading(true)
+        await setHasError(false)
         console.log(user_data);
 
         Axios.post(`${routes.api.userSellCard}?token=${auth_token}`, user_data)
@@ -545,7 +565,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
             })
             .catch(res => {
                 setPopUpMessage("An error occurred. Try again or contact customer care")
-                setError(true)
+                setHasError(true)
                 setShowPopUpMessage(true)
                 setIsLoading(!true)
 
@@ -561,7 +581,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
         if ((e.target.files[0].size / 1024 / 1024) > 1) {
             // console.log("");
             setPopUpMessage("file too large")
-            setError(true)
+            setHasError(true)
             setShowPopUpMessage(true)
             return
         } else {
@@ -663,7 +683,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                             submit={(data) => sellButton(data, "sell", selectedCard?.type, selectedCard?.name)}>
                             <div className="coin-options__card--container">
 
-                                <div className="coin-options--inputContainer">
+                                {/* <div className="coin-options--inputContainer">
                                     <span className="coin-options__amounts" symbol={''}>
                                         <input
                                             type="text"
@@ -675,7 +695,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                         />
                                     </span>
                                     <ValidationMessage field="card_id" />
-                                </div>
+                                </div> */}
 
                                 <div className="coin-options--inputContainer">
                                     <span className="coin-options__amounts" symbol={''}>
@@ -684,9 +704,9 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                             className="coin-options__value input-container">
                                             <>
                                                 <option value={''}> Select Card Country </option>
-                                                {selectedCard?.attributes?.map((item, index) => (
-                                                    <option key={index} value={item.country.toLowerCase()} className="rate-container-form__select--option">
-                                                        {item.country}
+                                                {Object.keys(filteredCardCountry).map((item, index) => (
+                                                    <option key={index} value={item} className="capitalize">
+                                                         {item}
                                                     </option>
                                                 ))}
                                             </>
@@ -703,9 +723,9 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                             className="coin-options__value input-container">
                                             <>
                                                 <option value={''}> Select Card Class </option>
-                                                {selectedCard?.attributes?.map((item, index) => (
-                                                    <option key={index} value={item.class.toLowerCase()} className="rate-container-form__select--option">
-                                                        {item.class}
+                                                {Object.keys(filteredCardClass).map((item, index) => (
+                                                    <option key={index} value={item} className="capitalize">
+                                                        {item}
                                                     </option>
                                                 ))}
                                             </>
@@ -714,27 +734,27 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                     <ValidationMessage field="class" />
                                 </div>
 
-                                <div className="coin-options--inputContainer">
+                                {/* <div className="coin-options--inputContainer">
                                     <span className="coin-options__amounts" symbol={''}>
                                         <select name="range" value={SelectedCardRange}
                                             onChange={(e) => setSelectedCardRange(e.target.value)}
                                             className="coin-options__value input-container">
                                             <>
                                                 <option value={''}> Select Card Range </option>
-                                                <option value="1-100" className="rate-container-form__select--option">
+                                                <option value="1-100" className="capitalize">
                                                     1 - 100
                                             </option>
-                                                <option value="1-100" className="rate-container-form__select--option">
+                                                <option value="1-100" className="capitalize">
                                                     101 - 200
                                             </option>
-                                                <option value="1-100" className="rate-container-form__select--option">
+                                                <option value="1-100" className="capitalize">
                                                     201 and above
                                             </option>
                                             </>
                                         </select>
                                     </span>
                                     <ValidationMessage field="range" />
-                                </div>
+                                </div> */}
 
                                 <h3 className="coin-options__header">
                                     Upload Card image.
@@ -779,14 +799,15 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                 <p className="coin-options__prices">
                                     <span className="">
                                         You get: {regionContext?.country?.symbol || "₦"} {giftCardAmount * selectedCard?.attributes?.find(
-                                        item => item.country === SelectedCardCountry && item.class === selectedCardClass)?.rate || "(Range not available)"}
+                                        item => item.country === SelectedCardCountry && item.class === selectedCardClass)?.rate || "(enter amount)"}
                                     </span>
                                     <span className="rate-container-form__selectContainer--span">
-                                        rate: {regionContext?.country?.symbol || "₦"} {selectedCard?.attributes?.find(item => item.country === SelectedCardCountry)?.rate || 0}
+                                        rate: {regionContext?.country?.symbol || "₦"} 
+                                        {selectedCard?.attributes?.find(item => item.country === SelectedCardCountry  && item.class === selectedCardClass)?.rate || 0}
                                     </span>
                                 </p>
 
-                            </div>
+                            </div> 
                         </FormValidator>
                         {/* <button
                             onClick={isSelling ? sellButton : null}

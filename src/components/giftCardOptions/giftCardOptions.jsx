@@ -85,7 +85,7 @@ const GiftCardOptions = ({data,updateGiftcardOptions,id,editing}) => {
     const countryOptions = ["Germany", "UK", "USA", "Canada", "Japan",
         "Australia", "Finland", "Ireland", "Italy", "New Zealand", "Poland", "Spain", "Sweden", "Switzerland", "Euro"]
 
-    const classOptions = ["Cash Receipt", "Debit Receipt", "No Receipt", "E-code", "Physical"]
+    const classOptions = ["Cash Receipt", "Debit Receipt", "No Receipt", "E-code", "Physical",'Activation Receipt']
     // const rules = {
     //     name: { required: true, minlength: 3, },
 

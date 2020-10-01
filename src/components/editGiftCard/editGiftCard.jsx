@@ -26,7 +26,7 @@ const EditGiftCard = ({ EditGiftCard, closeModal,cardSelectedForEdit}) => {
         updateOptions: "inputStateTypes/UPDATEOPTIONS",
         updateInput: "inputStateTypes/UPDATEINPUT",
         popOption: "inputStateTypes/POPOPTION",
-        initializeState: "nputStateTypes/INITIALIZESTSTE"
+        initializeState: "inputStateTypes/INITIALIZESTSTE"
     }
     function reducer(state, action) {
         switch (action.type) {
