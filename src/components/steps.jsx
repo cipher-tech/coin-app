@@ -14,6 +14,7 @@ const Container = styled.div`
     padding: 3rem 0rem;
     color: ${props => props.theme.colorPrimary};
     width: 100%;
+    max-width: 100vw;
     background: ${props => props.theme.colorLightBlue};
     overflow: hidden;
     background-image: url(${handBg});

@@ -21,6 +21,7 @@ const Container = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
+    max-width: 100vw;
     padding: 0rem 0rem;
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
         grid-template-columns: 100%; 
