@@ -1,7 +1,7 @@
 const admin = "/admin"
 const masterAdmin = "/master-admin"
 // const host = "http://127.0.0.1:8080"
-const prod = !false
+const prod = false
 // const server = "https://coin-app-ackend.herokuapp.com/api/"
 const server = "https://api.cjgrandexchange.com/api/"
 const localhost = "http://localhost:8000/api/" ///192.168.43.95:8000

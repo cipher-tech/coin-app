@@ -20,11 +20,11 @@ const Container = styled.div`
     background: rgb(5 4 4 / 96%);
     background-size: cover;
     background-repeat: no-repeat;
-    /* width: 100%; */
+    width: 100%;
     padding: 0rem 0rem;
     @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall}) {
         grid-template-columns: 100%; 
-        /* width: 100%; */
+        width: 100%;
     }
     .footer-options{
         padding: 2rem;
@@ -114,7 +114,7 @@ const Container = styled.div`
             &__icon{
                 margin-right: 2.5rem;
                 path{
-                    fill: ${props => props.theme.colorTertiary};
+                    fill: ${props => props.theme.colorTertiary} !important;
                     height: 100%;
                 }
             }
@@ -171,8 +171,8 @@ const Footer = (props) => {
                     <li className="footer-list-item"> Contact </li>
                     <li className="footer-list-item"> <MapMarker className="footer-list-item__icon" /> Nigeria </li>
                     <a href="tel:+2349064082900" className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 906 408 2900 </a>
-                    <a href="tel:+2348101333244" className="footer-list-item"> <Phone className="footer-list-item__icon" /> +234 810 133 3244 </a>
-                    <a href="mailto:cjgrandexchange@gmail.com" className="footer-list-item"> <Envelope className="footer-list-item__icon" /> cjgrandexchange@gmail.com</a>
+                    <a href="tel:+2348101333244" className="footer-list-item">  <Phone className="footer-list-item__icon" /> +234 810 133 3244 </a>
+                    <a href="mailto:cjgrandexchange@gmail.com" className="footer-list-item"> <Envelope className="footer-list-item__icon" /> Mail us </a>
                 </ul>
 
             </div>

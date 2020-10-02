@@ -9,8 +9,8 @@ const Container = styled.div`
     display: grid;
     /* height: 20rem; */
     align-self: center;
-    justify-self: flex-start;
-    place-self: flex-start;
+    /* justify-self: flex-start;
+    place-self: flex-start; */
     .faq{
         display: grid;
         justify-self: flex-start;
@@ -24,11 +24,15 @@ const Container = styled.div`
             width: 100%;
             align-content: center;
             justify-content: space-between;
-            padding: 1rem 3.5rem;
+            padding: 2rem 3.5rem;
             background: #cdcff618;
-            color: #7ecaf6;
+            color: ${props => props.theme.colorPrimary};
             font-size: ${props => props.theme.font.large};
 
+            &-icon{
+                font-size: ${props => props.theme.font.xlarge};
+                font-weight: bold;
+            }
         }
         &__body{
             color: ${props => props.theme.colorDark};

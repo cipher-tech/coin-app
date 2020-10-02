@@ -162,7 +162,7 @@ const Container = styled.div`
             }
             &-container{
                 justify-self: flex-start;
-                width: auto;
+                /* width: auto; */
                 display: grid;
                 justify-items: center;
             }

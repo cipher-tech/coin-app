@@ -7,9 +7,9 @@ import handBg from "../images/Hand.png"
 const Container = styled.div`
     display: grid;
     grid-column: 1/-1; 
-    padding: 1rem 1rem;
+    /* padding: 1rem 1rem; */
     justify-content: center;
-    /* grid-template-columns: repeat(1, minmax(35rem, 1fr)); */
+    grid-template-columns: repeat(1, minmax(35rem, 1fr));
     /* gap: 3rem; */
     padding: 3rem 0rem;
     color: ${props => props.theme.colorPrimary};
