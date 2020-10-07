@@ -126,7 +126,7 @@ const Container = styled.div`
             border-radius: 1rem;
             gap: .5rem;
             /* height: 30rem; */
-            max-width: 80rem;
+            max-width: 90rem;
             width: 100%;
             padding: 2rem 1rem;
             position: relative;
@@ -211,6 +211,11 @@ const Container = styled.div`
                             text-align: center;
                             text-transform: capitalize;
                             
+                            &-more{
+                                padding: 0 .5rem;
+                                grid-column: 1/-1;
+                                
+                            }
                             &--rate{
                                 margin: 1rem 0;
                                 font-size: ${(props) => props.theme.font.large};
@@ -242,7 +247,7 @@ const Container = styled.div`
                 }
                 .tab{
                     border-bottom: solid 2px ${(props) =>
-                    props.theme.colorPrimary};
+        props.theme.colorPrimary};
                     transition: all .2s linear;
                 }
             }
@@ -386,8 +391,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     //     ? ""
     //     : Storage.get("userInfo")?.user?.status || "";
 
-    const coins = rates?.allRates.filter(item => item.type === "card");
-    console.log("coins >>>", coins);
+    
     // const current = 4099999
 
     const icons = [
@@ -424,7 +428,11 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const [filteredCardClass, setFilteredCardClass] = useState({})
     // const [SelectedCardRange, setSelectedCardRange] = useState('')
     const [giftCardImage, setGiftCardImage] = useState(null)
-    // const [/* error */, setHasError] = useState(false)
+    const [cards, setCards] = useState(rates?.allRates?.filter(item => item.type === "card").slice(0,4))
+    const [showMoreCards, setShowMoreCards] = useState(false)
+
+    // const coins = showMoreCards
+    // console.log("coins >>>", coins);
 
 
     const regionContext = useContext(ContextData);
@@ -596,6 +604,12 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
         };
         reader.readAsDataURL(file);
     }
+
+    let toggleShowMoreCards = async () => {
+        await setShowMoreCards(!showMoreCards)
+        showMoreCards && await setCards(rates?.allRates.slice(0,4))
+        showMoreCards || await setCards(rates?.allRates)
+    }
     return (
         <>
 
@@ -643,27 +657,32 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                     <div className="coin-options">
                         <div className="coin-options__types">
                             <div className="coin-options__types--container">
-                                {coins?.map((coin, index) => (
+                                {cards?.map((coin, index) => (
                                     <div
                                         key={index}
-                                        className={`coin-options__types--container--item ${
-                                            selectedCard.name === coin.name ? " active" : ""
+                                        className={`coin-options__types--container--item ${selectedCard.name === coin.name ? " active" : ""
                                             }`}
                                         onClick={() => updateSelectedCard(coin)}
                                     >
-                                        <img src={icons[index]} alt="bitcoin" />
+                                        <img src={icons[index] || icons[4] } alt="bitcoin" />
                                         <p className="coin-options__types--container--item--text">
                                             {coin.name}
                                         </p>
                                     </div>
                                 ))}
+                                <div
+                                    className={`coin-options__types--container--item`}
+                                    onClick={() => toggleShowMoreCards()}>
+                                    <p className="coin-options__types--container--item--text-more">
+                                       { showMoreCards? `<` : ">"}
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
                         <p className="coin-options__buy-sell">
                             <span
-                                className={`coin-options__buy-sell--item ${
-                                    isSelling ? " tab" : null
+                                className={`coin-options__buy-sell--item ${isSelling ? " tab" : null
                                     }`}
                                 onClick={() => setIsSelling(true)}>
                                 sell
@@ -706,7 +725,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                                 <option value={''}> Select Card Country </option>
                                                 {Object.keys(filteredCardCountry).map((item, index) => (
                                                     <option key={index} value={item} className="capitalize">
-                                                         {item}
+                                                        {item}
                                                     </option>
                                                 ))}
                                             </>
@@ -802,12 +821,12 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                         item => item.country === SelectedCardCountry && item.class === selectedCardClass)?.rate || "(enter amount)"}
                                     </span>
                                     <span className="rate-container-form__selectContainer--span">
-                                        rate: {regionContext?.country?.symbol || "₦"} 
-                                        {selectedCard?.attributes?.find(item => item.country === SelectedCardCountry  && item.class === selectedCardClass)?.rate || 0}
+                                        rate: {regionContext?.country?.symbol || "₦"}
+                                        {selectedCard?.attributes?.find(item => item.country === SelectedCardCountry && item.class === selectedCardClass)?.rate || 0}
                                     </span>
                                 </p>
 
-                            </div> 
+                            </div>
                         </FormValidator>
                         {/* <button
                             onClick={isSelling ? sellButton : null}
