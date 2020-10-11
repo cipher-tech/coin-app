@@ -339,10 +339,7 @@ class Login extends Component {
                         <div className="circle2" />
                         <p className="login__side-left-title">Welcome Back</p>
                         <p className="login__side-left-text">
-                            Welcome, Login to your account to continue.
-                            Remember, it’s more than just trading Bitcoin
-                            and Gift Cards  experience
-                            world class transaction processes.
+                           Fill in your details to continue
                         </p>
                         <span onClick={() => this.context.auth.toggleLoginSignUp("signUp")} className="login__side-left-button"> Sign Up</span>
                         {/* <button ></button> */}

@@ -63,9 +63,10 @@ const Container = styled.div`
             color: ${props => props.theme.colorPrimary};
 
             &-header{
-                font-size: ${props => props.theme.font.xlarge};
+                font-size: ${props => props.theme.font.vLarge};
                 text-align: center;
                 display: flex;
+                font-weight: bold;
                 justify-content: center;
             }
 
@@ -85,6 +86,7 @@ const Container = styled.div`
                 } */
                 &--title{
                     font-size: ${props => props.theme.font.xlarge};
+                    font-weight: bold;
                     text-align: center;
                     display: flex;
                     justify-content: flex-start;
@@ -110,7 +112,7 @@ function AboutUS() {
                 {/* <p>We've Got Answers!</p> */}
             </div>
             <div className="faq__main">
-                <h2 className="faq__main-header"> Welcome to CJ Exchange </h2>
+                <h2 className="faq__main-header"> Welcome to CJ GRAND EXCHANGE </h2>
                 <p className="faq__main--text">
                     With over 3 years of focus in the world of cryptocurrencies, we decided to alter direction.
                     Now, we choose to use our experience to help others. Our ramp-up process is designed to help you buy and sell cryptocurrencies and gift cards,

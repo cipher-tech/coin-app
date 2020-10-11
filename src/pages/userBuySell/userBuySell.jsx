@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import { ContextData } from '../../context/contextData'
 import SingleCoinRates from "../admin/rates/singleCoinRates" //'../ rates/singleCoinRates'
 import chattingSvg from "../../images/chattingSvg.svg"
+// import NGNFlag from "../../images/flags/ng.svg"
+// import CMFlag from "../../images/flags/cm.svg"
+// import GHFlag from "../../images/flags/gh.svg"
 // import BuySellComponent from '../../components/buySellComponent/buySellComponent'
 import { Modal } from '../../components'
 import SellGiftCardComponent  from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
@@ -124,7 +127,7 @@ const UserBuySell = () => {
                     <select className="region-select" defaultValue={localStorage.region ? JSON.parse(localStorage.region).id : "nigeria"} onChange={selectRegion} name="language" id="lang">
                         <option name="nigeria" value="nigeria" > Nigeria </option>
                         <option name="ghana" value="ghana"> Ghana </option>
-                        <option name="cameroon" value="cameroon">Cameroon</option>
+                        <option name="cameroon" value="cameroon"> Cameroon</option>
                     </select>
                 </span>
             </p>

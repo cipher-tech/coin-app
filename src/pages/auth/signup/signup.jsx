@@ -274,9 +274,9 @@ export default class SignUp extends Component {
                         <div className="circle2" />
                         <p className="login__side-left-title">Welcome</p>
                         <p className="login__side-left-text">
-                            It’s more than just trading Bitcoin
-                            and Gift Cards  experience
-                            world class transaction processes.
+                            It’s more than just trading Bitcoins
+                            and GiftCards  experience
+                            world class transaction process today.
                         </p>
                         <span onClick={() => this.context.auth.toggleLoginSignUp("login")}className="login__side-left-button"> LogIn</span>
                     </div>

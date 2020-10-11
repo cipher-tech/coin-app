@@ -20,13 +20,14 @@ const Container = styled.div`
         grid-column: 1/-1;
         display: grid;
         font-size: ${props => props.theme.font.large};
-        color: ${props => props.theme.colorDark};
+        color: ${props => props.theme.colorPrimary};
         place-items: center;
         height: max-content;
         align-self: flex-start;
         margin: 2rem;
         h1{
             font-size: ${props => props.theme.font.xxlarge};
+            color: ${props => props.theme.colorPrimary};
         }
 
         p{
@@ -40,26 +41,31 @@ const Container = styled.div`
     .faq__main{
         grid-column: 1/-1;
         display: grid;
-        font-size: ${props => props.theme.font.medium};
+        font-size: ${props => props.theme.font.large};
         /* background: ${props => props.theme.colorWhite}; */
-        box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
-            .2rem .4rem 10px rgba(0,0,0, .3);
+        /* box-shadow: -0.2rem -0.4rem 20px rgba(255,255,255, .3),
+            .2rem .4rem 10px rgba(0,0,0, .3); */
         height: auto;
         align-self: flex-start;
         padding: 1rem 2rem;
         border-radius: 2rem;
         margin: 2rem;
         &-header{
-            color: ${props => props.theme.colorDark};
+            color: ${props => props.theme.colorPrimary};
             padding: 1.5rem 2.5rem;
+            text-align: center;
+            font-weight: bold;
         }
         &--text{
             line-height: 2;
-            font-size: ${props => props.theme.font.medium};
+            font-size: ${props => props.theme.font.large};
             color: ${props => props.theme.colorDark};
 
             &-header{
                 font-size: ${props => props.theme.font.xlarge};
+                color: ${props => props.theme.colorPrimary};
+                font-weight: bold;
+                padding: 2rem 2.5rem;
             }
             &-span{
                 padding: 1rem 2rem;
@@ -95,10 +101,10 @@ function Policies() {
                 {/* <p>We've Got Answers!</p> */}
             </div>
             <div className="faq__main">
-                <h2 className="faq__main-header"> Terms and Condition </h2>
+                {/* <h2 className="faq__main-header"> Terms and Condition </h2> */}
                 <div className="faq__main--text">
                     <div className="term_cont">
-                        <h1>RULES & AGREEMENTS.</h1>
+                        <h1 className="faq__main--text-header">RULES & AGREEMENTS.</h1>
 
                         <p> Please read the following rules carefully before signing in.</p>
 
