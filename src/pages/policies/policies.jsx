@@ -113,7 +113,7 @@ function Policies() {
 			            </p>
 
                         <p>
-                            CJ GRAND EXCHANGE is not available to the general public and is opened only to the qualified members of cashcapitaloption LTD, the use of this site is restricted to our members and to individuals personally invited by them. Every deposit is considered to be a private transaction between the CJ GRAND EXCHANGE and its Member.
+                            CJ GRAND EXCHANGE is not available to the general public and is opened only to the qualified members of cash capital option LTD, the use of this site is restricted to our members and to individuals personally invited by them. Every deposit is considered to be a private transaction between the CJ GRAND EXCHANGE and its Member.
 			            </p>
 
                         <p> We are not FDIC insured. We are not a licensed bank or a security firm.</p>

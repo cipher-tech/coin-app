@@ -9,7 +9,7 @@ import chattingSvg from "../../images/chattingSvg.svg"
 // import CMFlag from "../../images/flags/cm.svg"
 // import GHFlag from "../../images/flags/gh.svg"
 // import BuySellComponent from '../../components/buySellComponent/buySellComponent'
-import { Modal, SelectRegion } from '../../components'
+import { Modal} from '../../components'
 import SellGiftCardComponent from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
 
 const Container = styled.div`
