@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
+// import Select from 'react-select';
 
 import { ContextData } from '../../context/contextData'
 import SingleCoinRates from "../admin/rates/singleCoinRates" //'../ rates/singleCoinRates'
@@ -8,8 +9,8 @@ import chattingSvg from "../../images/chattingSvg.svg"
 // import CMFlag from "../../images/flags/cm.svg"
 // import GHFlag from "../../images/flags/gh.svg"
 // import BuySellComponent from '../../components/buySellComponent/buySellComponent'
-import { Modal } from '../../components'
-import SellGiftCardComponent  from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
+import { Modal, SelectRegion } from '../../components'
+import SellGiftCardComponent from '../../components/sellGiftCardCOmponent/sellGiftCardComponent'
 
 const Container = styled.div`
     grid-column: 1/-1;
@@ -97,6 +98,7 @@ const UserBuySell = () => {
     const regionContext = useContext(ContextData)
     const [isModalActive, setIsModalActive] = useState(false)
     const [showCoinOptions, setShowCoinOptions] = useState(true)
+    // const [selectInput, setSelectInput] = useState('')
     useEffect(() => {
         setTimeout(() => {
             // console.log(typeof +localStorage.counts);
@@ -119,10 +121,20 @@ const UserBuySell = () => {
     const switchTab = (value) => {
         setShowCoinOptions(value)
     }
+    // const handleSelect = (value) => {
+    //     setSelectInput(value)
+    //     console.log(value);
+    // }
+    // const options = [
+    //     { value: 'chocolate', label: 'Chocolate' },
+    //     { value: 'strawberry', label: 'Strawberry' },
+    //     { value: 'vanilla', label: 'Vanilla' },
+    // ];
+    // let input = ''
     return (
         <Container>
+               {/* <SelectRegion /> */}
             <p className="selectContainer">
-
                 <span title="Select Country" className="">
                     <select className="region-select" defaultValue={localStorage.region ? JSON.parse(localStorage.region).id : "nigeria"} onChange={selectRegion} name="language" id="lang">
                         <option name="nigeria" value="nigeria" > Nigeria </option>
@@ -148,14 +160,14 @@ const UserBuySell = () => {
 
             <p className="tab">
                 <span className={`tab-item ${showCoinOptions ? "active" : null}`} onClick={() => switchTab(true)}>Coins</span>
-                <span className={`tab-item ${showCoinOptions ? null : "active" }`} onClick={() => switchTab(false)}>GiftCards</span>
+                <span className={`tab-item ${showCoinOptions ? null : "active"}`} onClick={() => switchTab(false)}>GiftCards</span>
             </p>
 
             {
                 showCoinOptions ?
-            <SingleCoinRates />
-            :
-            <SellGiftCardComponent />
+                    <SingleCoinRates />
+                    :
+                    <SellGiftCardComponent />
             }
         </Container>
     )
