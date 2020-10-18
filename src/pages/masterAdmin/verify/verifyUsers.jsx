@@ -66,7 +66,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 	const [fetchedUsers, setFetchedUsers] = useState(false)
 	const [popUpMessage, setPopUpMessage] = useState(null)
 	const [showpopUpMessage, setShowPopUpMessage] = useState(false)
-
+	const [hasError, setHasError] = useState(false)
 
 	// let authToken
 
@@ -86,7 +86,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 				// console.log(allUsers)
 			})
 			.catch(error => {
-				alert(`An Error Occured! ${error}`);
+				alert(`An Error Occurred! ${error}`);
 			});
 
 	}, [fetchAllUsers])
@@ -146,14 +146,16 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 		},
 	]
 
-	const deleteVerification = (id) => {
+	const deleteVerification = async (id) => {
 		// console.log(user_id);
+		await setHasError(false)
 		const auth_token = Storage.get("userInfo").user.auth_token
 
 		Axios.post(`${routes.api.deleteUnverifirdUsers}?token=${auth_token}`, {verifyId: id, action: "delete" })
 			.then(res => {
 				setShowPopUpMessage(false)
 				if (res.data.status === "success") {
+					setHasError(false)
 					setPopUpMessage(res.data.data[0])
 				}
 				return res.data.data[1];
@@ -164,7 +166,8 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 				fetchAllUsers(res)
 			})
 			.catch(res => {
-				setPopUpMessage(res.data.data)
+				setHasError(true)
+				setPopUpMessage("could not delete user")
 				setShowPopUpMessage(true)
 			})
 	}
@@ -212,7 +215,7 @@ function AdminVerifyUsers({ allUsers, fetchAllUsers }) {
 	return (
 		<Container color="">
 			<div className="rate">
-				{showpopUpMessage ? <PopUpMessage> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
+				{showpopUpMessage ? <PopUpMessage error={hasError}> {popUpMessage} <span onClick={() => setShowPopUpMessage(false)}>✖</span> </PopUpMessage> : null}
 				<h1 className="rate__title">Verify Users</h1>
 				{fetchedUsers ? <Table data={allUsers.allUsers || []} expandedComponent={expandedComponent} handleVerifyClick={verify} tableColumns={columns} /> : null}
 				{/* <Table tableColumns={columns} /> */}

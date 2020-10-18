@@ -70,7 +70,7 @@ function AdminDashboardCard({title, stats, icon, noSymbol,schek}) {
                         region?.symbol? region.symbol: null
                         : null } {stats ? stats : 0}
                 </p>
-                <p className="dashboard__overView-items-stats--rate">^20.8%</p>
+                {/* <p className="dashboard__overView-items-stats--rate">^20.8%</p> */}
             </div>
             <div className="dashboard__overView-items-icon">
                 <img src={icon ? icon : barChart} alt="bar Chart" />

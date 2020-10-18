@@ -520,7 +520,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
     // const [selectedCoinImage, setSelectedCoinImage] = useState(icons[0])
     const [amount, setAmount] = useState(coinInfo.bitcoinPrice);
     const [input, setInput] = useState("");
-    const [userEmail, setUserEmail] = useState("");
+    const [userEmail, setUserEmail] = useState(Storage.get("userInfo")?.user?.email);
     const [rate, setRate] = useState(0);
     const [dollarSellingPrice, setDollarSellingPrice] = useState("");
     const [nairaSellingPrice, setLocalSellingPrice] = useState("");
@@ -553,6 +553,7 @@ function SingleCoinRates({ gridPos, fetchAllRates, rates, hidden }) {
         : Storage.get("userInfo")?.user?.id || "";
 
     const auth_token = Storage.get("userInfo")?.user?.auth_token || "";
+    // const auth_token = Storage.get("userInfo")?.user?.auth_token || "";
 
     useEffect(() => {
         fx.base = "USD";
