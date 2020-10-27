@@ -312,14 +312,6 @@ export default class SignUp extends Component {
                                     placeHolder="phoneNumber" type="text" icon={phoneHandset} />
                                 <ValidationMessage field="phone" />
 
-                                {/* <StyledInput name="bank" handleChange={this.updateFormValue} value={this.state.bank}
-                                placeHolder="Bank" type="text" icon={envelope} />
-                                <ValidationMessage field="bank"/> */}
-
-                                {/* <StyledInput name="account_number" handleChange={this.updateFormValue} value={this.state.account_number}
-                                placeHolder="Account_number" type="number" icon={envelope} />
-                                <ValidationMessage field="account_number"/> */}
-
                                 <StyledInput name="password" handleChange={this.updateFormValue} value={this.state.password}
                                     placeHolder="password" type="password" icon={lock} />
                                 <ValidationMessage field="password" />

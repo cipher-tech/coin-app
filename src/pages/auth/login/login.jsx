@@ -165,6 +165,18 @@ const Container = styled.div`
                 /* width: auto; */
                 display: grid;
                 justify-items: center;
+                &-modal{
+                    justify-self: center;
+                    background-color: ${({theme}) => theme.colorLight};
+                    align-self: center;
+                    color: ${({theme}) => theme.colorPrimary} ;
+                    padding: 2rem;
+                    border-radius: 1rem;
+                    width: min-content;
+                    &-form{
+                        width: 80%;
+                    }
+                }
             }
             &-form{
                 /* justify-self: flex-start; */

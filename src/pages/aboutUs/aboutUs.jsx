@@ -65,6 +65,7 @@ const Container = styled.div`
             &-header{
                 font-size: ${props => props.theme.font.vLarge};
                 text-align: center;
+                padding: 4rem 0;
                 display: flex;
                 font-weight: bold;
                 justify-content: center;
@@ -92,7 +93,10 @@ const Container = styled.div`
                     justify-content: flex-start;
                 }
                 &-txt{
-                    padding: 0 2rem;
+                    padding: 1rem 2rem;
+                    &:last-child{
+                        margin-bottom: 4rem;
+                    }
                 }
             }
         }
