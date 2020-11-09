@@ -75,7 +75,7 @@ const Container = styled.div`
                 padding: 1rem 2rem;
                 display: flex;
                 flex-direction: column;
-                margin: 2rem 0;
+                margin: 1rem 0;
                 justify-content: space-between;
                 /* border-bottom: 1px dashed ${props => props.theme.colorPrimary}; */
                 /* &-img{
@@ -95,7 +95,7 @@ const Container = styled.div`
                 &-txt{
                     padding: 1rem 2rem;
                     &:last-child{
-                        margin-bottom: 4rem;
+                        margin-bottom: .4rem;
                     }
                 }
             }
@@ -159,26 +159,24 @@ function AboutUS() {
                             PERFECT CUSTOMER RELATIONSHIP
                         </span>
 
-                        <span className="faq__main--text-span-txt">
+                        {/* <span className="faq__main--text-span-txt"> */}
                             We ensure to deliver just the best customer experience as well as exceed our customer’s expectations.
-                        </span>
-                    </span>
-                    
-                    <span className="faq__main--text-span">
-
-                        <span className="faq__main--text-span-txt">
+                        {/* </span> */}
+                        {/* <span className="faq__main--text-span-txt"> */}
                             The staff of our employees consists exclusively of high-level professionals who have been carefully
                             selected and have proven their professional suitability.
-                        </span>
-                        <span className="faq__main--text-span-txt">
+                        {/* </span> */}
+                        {/* <span className="faq__main--text-span-txt"> */}
                             The company has all title documents, permits, and certificates for conducting trading
                             activities.
-                        </span>
-                        <span className="faq__main--text-span-txt">
+                       
+                        {/* <span className="faq__main--text-span-txt"> */}
                             We work with the top-notch data protection professionals, all data is securely encrypted.
-                        </span>
-                        Cjgrandexchange.com is a property of CJ Grand Exchange, a company duly registered with CAC with RC number:
+                        {/* </span> */} <br/>
+                        Cjgrandexchange.com is a property of CJ Grand Exchange, a company duly registered with CAC with RC number: 1701853
+
                     </span>
+
 
                     {/* <span className="faq__main--text-span">
                         <img className="faq__main--text-span-img" src={licenceImg} alt="logo" />

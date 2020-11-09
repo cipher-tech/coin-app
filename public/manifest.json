@@ -3,17 +3,17 @@
   "name": "Cj Grand Exchange",
   "icons": [
     {
-      "src": "favicon.jpg",
+      "src": "logo100.png",
       "sizes": "100x100",
       "type": "image/x-icon"
     },
     {
-      "src": "logo100.jpg",
+      "src": "logo100.png",
       "type": "image/jpg",
       "sizes": "100x100"
     },
     {
-      "src": "logo144.jpg",
+      "src": "logo144.png",
       "type": "image/jpg",
       "sizes": "144x144"
     },

@@ -324,7 +324,7 @@ export default class SignUp extends Component {
                                 <br /> <br />
                                 <span className="login__side-right-isSugnedIn-action-red"> * </span>
                                 By clicking the "Submit" button I confirm the agreement with the  &nbsp;
-                                <Link to={routes.public.policies}>
+                                <Link to={routes.public.policies} onClick={() => this.context.auth.toggleLoginSignUp("close")}>
                                     terms and conditions.
                                 </Link>
                             </p>

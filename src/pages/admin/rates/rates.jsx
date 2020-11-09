@@ -69,6 +69,8 @@ const Container = styled.div`
         align-items: flex-start;
         place-items: center;
         /* height: 78vh; */
+		overflow: scroll;
+
         @media only screen and (max-width: ${props => props.theme.breakPoints.bpSmall2}) {
            padding: 3rem 0;
         }
@@ -94,7 +96,8 @@ const Container = styled.div`
 		&-card{
 			grid-column: 1/-1;
 			color: ${props => props.theme.colorDark};
-			width: 96%;
+			width: 100%;
+			/* padding: 1rem; */
 			display: grid;
 			justify-items: space-around;
 			background: transparent;
@@ -139,6 +142,8 @@ const Container = styled.div`
 					text-transform: capitalize;
 					text-align: center;
 					justify-content: space-around;
+					align-self: center;
+					padding: 0 .5rem;
 				}
 	  		}
 		}	
@@ -351,7 +356,6 @@ function MasterAdminRates({ gridPos, fetchAllRates, rates, coinOnlyRates, cardOn
 
 				<h2 className="rate-attrHeader">Gift Cards</h2>
 				<div className="rate-card">
-
 
 					{
 						cardOnlyRates.map((item, index) => (

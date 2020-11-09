@@ -65,7 +65,7 @@ const Container = styled.div`
                 font-size: ${props => props.theme.font.xlarge};
                 color: ${props => props.theme.colorPrimary};
                 font-weight: bold;
-                padding: 3rem 2.5rem;
+                padding: 2.4rem 2.5rem;
                 display: flex;
             }
             .textSpacing{
@@ -94,7 +94,7 @@ const Container = styled.div`
    
 `
 function Policies() {
-    
+
     return (
         <Container>
 
@@ -159,10 +159,8 @@ function Policies() {
 
 
                     </div>
-                    <br />
-
                     <span className="faq__main--text-header">
-                        Personal Account Opening <br />
+                        Personal Account Opening
                     </span>
 
                     •  Opening a personal account on the site CJ GRAND EXCHANGE is the voluntary and independent decision of each User individually.<br />
@@ -216,7 +214,6 @@ function Policies() {
                     <span className="faq__main--text-header">
                         Limitation of liability
                     </span>
-                    <br/>
                     The Company cannot ensure right satisfaction of commitments in instances of power majeure just as in situations when
                     this disappointment of fulfillment is brought about by conditions outside the Company's control. During this time, the
                     parties have no mutual claims, and each party assumes its own risk of the consequences of force majeure.

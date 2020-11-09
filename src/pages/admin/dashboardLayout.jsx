@@ -190,7 +190,6 @@ background: ${props => props.theme.colorPrimary};
                 z-index: 600;
             }
         }
-
 }
 
 .dashboard__container{
@@ -401,7 +400,7 @@ function DashboardLayout(props) {
             <div className="dashboard__container">
                 <div className="title_nav">
                     <span className="title_nav--name">
-                        {props.match.params.path ? props.match.params.path.replace("_", " ") : "admin"}
+                        {props.match.params.path ? props.match.params.path.replace("_", " ") : ""}
                     </span>
                     <p className="title_nav--icons">
                         <Link to={routes.admin.updateInfo} className="">
