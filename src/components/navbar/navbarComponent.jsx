@@ -200,7 +200,8 @@ const NavbarComponent = (props) => {
                 <Link to={routes.public.rates} className="navbar-mobile__list--item">Rates</Link>
                 <Link to={routes.public.faq} className="navbar-mobile__list--item">faq</Link>
                 <Link to={routes.public.about} className="navbar-mobile__list--item">AboutUs</Link>
-                <span onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-mobile__list--item">Login</span>
+                <a href="https://m.cjgrandexchange.com" className="navbar-mobile__list--item">Login</a>
+                {/* <span onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-mobile__list--item">Login</span> */}
             </animated.ul>
             <div className="navbar"
                 data-aos="fade-right"

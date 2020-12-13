@@ -98,7 +98,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> Contac Us</button>
+                <button className="contactCard__button"> Contact Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={whatsapp} alt="logo"/>
@@ -107,7 +107,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> Contac Us</button>
+                <button className="contactCard__button"> Contact Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={callIcon} alt="logo"/>
@@ -116,7 +116,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> Contac Us</button>
+                <button className="contactCard__button"> Contact Us</button>
             </div>
             <div className="contactCard">
                 <img className="contactCard__logo" src={ticketIcon} alt="logo"/>
@@ -125,7 +125,7 @@ export const ContactUs = () => {
                 Contact our amazing support team on live chat and get responses quickly
                 </p>
 
-                <button className="contactCard__button"> Contac Us</button>
+                <button className="contactCard__button"> Contact Us</button>
             </div>
            
         </Container>
