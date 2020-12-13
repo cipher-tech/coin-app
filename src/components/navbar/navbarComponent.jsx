@@ -219,11 +219,15 @@ const NavbarComponent = (props) => {
                     <Link to={routes.public.rates} className="navbar-list-item">Rates</Link>
                     <Link to={routes.public.faq} className="navbar-list-item">FAQs</Link>
                     <Link to={routes.public.about} className="navbar-list-item">AboutUs</Link>
-                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">Login</span>
+                    <a href="https://m.cjgrandexchange.com" className="navbar-list-item">Login</a>
+                    {/* <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">Login</span> */}
                 </ul>
                 <ul className="navbar-list">
-                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">LOGIN</span>
-                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} className="navbar-list-item divider">SIGN UP</span>
+                    <a href="https://m.cjgrandexchange.com" className="navbar-list-item">Login</a>
+                    <a href="https://m.cjgrandexchange.com" className="navbar-list-item divider">SIGN UP</a>
+
+                    {/* <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("login")} className="navbar-list-item">LOGIN</span>
+                    <span  onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} className="navbar-list-item divider">SIGN UP</span> */}
                 </ul>
 
             </div>
