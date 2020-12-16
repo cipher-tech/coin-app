@@ -129,6 +129,7 @@ const Container = styled.div`
                 font-size: ${props => props.theme.font.large};
                 text-transform: capitalize;
                 color: ${props => props.theme.colorWhite};
+                text-decoration: none;
                 &:focus{
                     outline: none;
                 }
@@ -187,9 +188,10 @@ const Header = (props) => {
                     <h4 className="info-text__text">
                         trade your assets from your comfort zone
                     </h4>
-                    <button onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} className="info-text__button">
+                    <a href="https://m.cjgrandexchange.com/signup.php" className="info-text__button"> 
+                    {/* onClick={() => loginSignUpContext.auth.toggleLoginSignUp("signUp")} */}
                         get started
-                    </button>
+                    </a>
                 </hgroup>
                 {/* <Carusel /> */}
             </div>

@@ -120,6 +120,7 @@ function App() {
 												<Foot />
 											</Route>
 									}
+									<Route exact path={"login"}  render={() => (<>  window.location.href = "https://m.cjgrandexchange.com/" </>)} />
 									<Route exact path={routes.public.login} component={withRouter(Login)} />
 									<Route exact path={routes.public.signUp} component={withRouter(SignUp)} />
 									<Route path="/admin/:path?" exact>

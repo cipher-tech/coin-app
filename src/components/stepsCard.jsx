@@ -36,7 +36,7 @@ const Container = styled.div`
             font-size: ${props => props.theme.font.medium};
             padding: 1rem 2rem;
         }
-        button{
+        .btn{
             margin: 1rem 2rem;
             justify-self: start;
             padding: 1rem 4rem;
@@ -48,6 +48,7 @@ const Container = styled.div`
             border: none;
             font-size: ${props => props.theme.font.large};
             text-transform: capitalize;
+            text-decoration: none;
             color: ${props => props.theme.colorWhite};
             &:focus{
                 outline: none;
@@ -67,8 +68,9 @@ const StepsCard = (props) => {
                 {props.text}
             </p>
             { 
-                props.number === "3" && <button onClick={ () => loginSignUpContext.auth.toggleLoginSignUp("signUp")}> Get Started</button>
+                props.number === "3" && <a href="https://m.cjgrandexchange.com/signup.php" className="btn"> Get Started</a>
             }
+                {/* onClick={ () => loginSignUpContext.auth.toggleLoginSignUp("signUp")} */}
         </Container>
     )
 }

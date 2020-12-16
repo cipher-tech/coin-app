@@ -21,8 +21,8 @@ const routes = {
         policies: "/policies",
         buy_sell: "/buySell",
         rates: "/rates",
-        login: "/login",
-        signUp: "/sign-up",
+        login: "/adminLogin",
+        signUp: "/adminSign-up",
     },
     api: {
 
