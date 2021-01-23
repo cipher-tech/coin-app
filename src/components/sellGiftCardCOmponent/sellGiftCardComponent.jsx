@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import fx from "money";
 // import CoinWidget from "../../../components/widget/wigjet"
 import Axios from "axios";
-import qrcode from "../../images/qrcode.png";
+import amazonCard from "../../images/optimazedImage/amazon-card.png";
 
 
 import ETH_thumbnail from "../../images/ETH_thumbnail.png";
@@ -391,7 +391,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     //     ? ""
     //     : Storage.get("userInfo")?.user?.status || "";
 
-    
+
     // const current = 4099999
 
     const icons = [
@@ -428,7 +428,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
     const [filteredCardClass, setFilteredCardClass] = useState({})
     // const [SelectedCardRange, setSelectedCardRange] = useState('')
     const [giftCardImage, setGiftCardImage] = useState(null)
-    const [cards, setCards] = useState(rates?.allRates?.filter(item => item.type === "card").slice(0,4))
+    const [cards, setCards] = useState(rates?.allRates?.filter(item => item.type === "card").slice(0, 4))
     const [showMoreCards, setShowMoreCards] = useState(false)
 
     // const coins = showMoreCards
@@ -607,7 +607,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
 
     let toggleShowMoreCards = async () => {
         await setShowMoreCards(!showMoreCards)
-        showMoreCards && await setCards(rates?.allRates.slice(0,4))
+        showMoreCards && await setCards(rates?.allRates.slice(0, 4))
         showMoreCards || await setCards(rates?.allRates)
     }
     return (
@@ -631,20 +631,23 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                         >
                             ❌
                     </span>
-                        <img src={qrcode} alt="" />
+                        <img src={amazonCard} alt="" />
 
                         <p className="modal__container--text">
-                            please pay exactly  ${giftCardAmount} into this {isSelling ? "bitcoin address" : "account"}
+                            {/* please pay exactly  ${giftCardAmount} into this {isSelling ? "bitcoin address" : "account"} */}
+                            Transaction 
                         </p>
 
                         <p className="modal__container-address">
-                            {bitcoinAddress}
-                            <button onClick={() => copy()}> copy</button>
+                            {/* {bitcoinAddress}
+                            <button onClick={() => copy()}> copy</button> */}
+                            Successful
                         </p>
 
                         <p className="modal__container--text">
-                            After successful payment contact customer care with the unique
-                        refrence_id below,and proof of payment. <br />
+                            Contact customer care with the unique
+                            refrence_id below via the  live chat icon on the lower right hand corner of for the screen 
+                            for confirmation and payment.<br />
                             <span className="modal__container-address">
                                 {refrenceId}
                                 <button onClick={() => copy("refId")}> copy</button>
@@ -664,7 +667,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                             }`}
                                         onClick={() => updateSelectedCard(coin)}
                                     >
-                                        <img src={icons[index] || icons[4] } alt="bitcoin" />
+                                        <img src={icons[index] || icons[4]} alt="bitcoin" />
                                         <p className="coin-options__types--container--item--text">
                                             {coin.name}
                                         </p>
@@ -674,7 +677,7 @@ function SellGiftCardComponent({ gridPos, fetchAllRates, rates, hidden, }) {
                                     className={`coin-options__types--container--item`}
                                     onClick={() => toggleShowMoreCards()}>
                                     <p className="coin-options__types--container--item--text-more">
-                                       { showMoreCards? `<` : ">"}
+                                        {showMoreCards ? `<` : ">"}
                                     </p>
                                 </div>
                             </div>
